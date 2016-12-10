@@ -1,0 +1,1 @@
+				<table width='100%' style=';margin-top:50px;'> 					<tr> 						<td valign='middle'> 							<br /> 							<div> 								<div></div> 							</div> 						</td> 					</tr> 				</table>				</div>			</div>		</div>			<a href="http://gm-community.net/" style="margin-left:50px;" target="_blank">Gm# Staff</a>			</body></html>
