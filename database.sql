@@ -219,7 +219,73 @@ CREATE TABLE IF NOT EXISTS `unr_players_var` (
   PRIMARY KEY (`playerId`,`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
 --
--- Дамп данных таблицы `unr_players_var`
+-- Структура таблицы `kz_map_comm`
 --
 
+CREATE TABLE `kz_map_comm` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `mapname` varchar(64) DEFAULT NULL,
+  `mappath` varchar(16) DEFAULT NULL,
+  `time` decimal(10,2) DEFAULT NULL,
+  `player` varchar(32) DEFAULT NULL,
+  `country` varchar(8) DEFAULT NULL,
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `kz_map_rec`
+--
+
+CREATE TABLE `kz_map_rec` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `mapname` varchar(64) DEFAULT NULL,
+  `mappath` varchar(16) DEFAULT NULL,
+  `time` decimal(10,2) DEFAULT NULL,
+  `player` varchar(32) DEFAULT NULL,
+  `country` varchar(8) DEFAULT NULL,
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `kz_map_list`
+--
+
+CREATE TABLE `kz_map_list` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `mapname` varchar(64) DEFAULT NULL,
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура представления `kz_norec`
+--
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `kz_norec` AS (
+select  `lonis`.`kz_map_list`.`mid` AS `mid`,  `lonis`.`kz_map_list`.`mapname` AS `mapname`,  `tmp`.`id` AS `id`,  `tmp`.`map` AS `map`,  `tmp`.`player` AS `player`,  `tmp`.`time` AS `time`,  `tmp`.`cp` AS `cp`,  `tmp`.`go_cp` AS `go_cp`,  `tmp`.`weapon` AS `weapon` from (`lonis`.`kz_map_list`  left join (select  `lonis`.`kz_map_top`.`id` AS `id`,  `lonis`.`kz_map_top`.`map` AS `map`,  `lonis`.`kz_map_top`.`player` AS `player`,  `lonis`.`kz_map_top`.`time` AS `time`,  `lonis`.`kz_map_top`.`cp` AS `cp`,  `lonis`.`kz_map_top`.`go_cp` AS `go_cp`,  `lonis`.`kz_map_top`.`weapon` AS `weapon`  from `lonis`.`kz_map_top`  group by `lonis`.`kz_map_top`.`map`,`lonis`.`kz_map_top`.`player`) `tmp`  on ((`lonis`.`kz_map_list`.`mapname` = `tmp`.`map`))) order by `lonis`.`kz_map_list`.`mapname`)
+
+-- --------------------------------------------------------
+
+--
+-- Структура представления `kz_top1`
+--
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `kz_top1` AS (
+select  `kz_map_top`.`map` AS `map`,  min(`kz_map_top`.`time`) AS `time` from `kz_map_top` group by `kz_map_top`.`map`)
+
+-- --------------------------------------------------------
+
+--
+-- Структура представления `kz_tops`
+--
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `kz_tops` AS 
+select `tmp`.`id` AS `id`,`tmp`.`map` AS `map`,`tmp`.`player` AS `player`,`tmp`.`time` AS `time`,`tmp`.`cp` AS `cp`,`tmp`.`go_cp` AS `go_cp`,`tmp`.`weapon` AS `weapon`,`lonis`.`unr_players`.`name` AS `name` from (((select `lonis`.`kz_map_top`.`id` AS `id`,`lonis`.`kz_map_top`.`map` AS `map`,`lonis`.`kz_map_top`.`player` AS `player`,`lonis`.`kz_map_top`.`time` AS `time`,`lonis`.`kz_map_top`.`cp` AS `cp`,`lonis`.`kz_map_top`.`go_cp` AS `go_cp`,`lonis`.`kz_map_top`.`weapon` AS `weapon` from (`lonis`.`kz_map_top` join `lonis`.`kz_top1`) where ((`lonis`.`kz_map_top`.`map` = `kz_top1`.`map`) and (`lonis`.`kz_map_top`.`time` = `kz_top1`.`time`)) order by `lonis`.`kz_map_top`.`time`)) `tmp` join `lonis`.`unr_players`) where (`lonis`.`unr_players`.`id` = `tmp`.`player`) group by `tmp`.`map` order by `tmp`.`map`

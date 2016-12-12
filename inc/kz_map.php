@@ -31,11 +31,9 @@ else
 	
 	$smarty->assign('type', $type);
 	$smarty->assign('langType', $smarty->get_config_vars($typesLang[$type]));
-
-	$q = "SELECT COUNT(DISTINCT `player`) FROM `kz_map_top` WHERE `map` = '$map' {$types[$type]}";
 	
+	$q = "SELECT COUNT(DISTINCT `player`) FROM `kz_map_top` WHERE `map` = '$map' {$types[$type]}";	
 	$r = mysql_query($q);
-
 	$total = mysql_result($r, 0);
 
 	if (isset($_GET['page']))
@@ -52,7 +50,37 @@ else
 	$start = ($page - 1) * $playersPerPage;
 	
 	$players = array();
+	$mapcomm = array();
+	$maprec = array();
 	$smarty->assign('mapname', stripslashes($map));
+	
+	$q = "SELECT * FROM `kz_map_rec` WHERE `mapname` LIKE '$map%' ORDER BY `mappath`";	
+	$r = mysql_query($q);
+	while($row = mysql_fetch_array($r)) {		
+		$min = floor($row['time']/60);
+		$sec = $row['time'] % 60;
+		$ms = substr($row['time'], -2);
+		if ($min < 10) $min = '0'.$min;
+		if ($sec < 10) $sec = '0'.$sec;	
+		$row['time'] = $min.':'.$sec.'.'.$ms;
+		
+		$maprec[] = $row;		
+	}
+	$smarty->assign('maprec', $maprec);
+
+	$q = "SELECT * FROM `kz_map_comm` WHERE `mapname` LIKE '$map%' ORDER BY `mappath`";	
+	$r = mysql_query($q);
+	while($row = mysql_fetch_array($r)) {		
+		$min = floor($row['time']/60);
+		$sec = $row['time'] % 60;
+		$ms = substr($row['time'], -2);
+		if ($min < 10) $min = '0'.$min;
+		if ($sec < 10) $sec = '0'.$sec;	
+		$row['time'] = $min.':'.$sec.'.'.$ms;
+		
+		$mapcomm[] = $row;		
+	}
+	$smarty->assign('mapcomm', $mapcomm);
 	
 	$q = "SELECT `tmp`.*, `unr_players`.`name` FROM (SELECT * FROM `kz_map_top` WHERE `map` = '$map' ORDER BY `time` ) AS `tmp`, `unr_players` WHERE `unr_players`.`id` = `player` {$types[$type]} GROUP BY `player` ORDER BY `time` LIMIT $start, $playersPerPage";
 	$r = mysql_query($q);
@@ -64,13 +92,12 @@ else
 		$ms = floor(($row['time'] - floor($row['time']))*10000);
 		$ms = str_pad($ms, 5, '0');
 		
-		if ($min < 10)
-			$min = '0'.$min;
-		if ($sec < 10)
-			$sec = '0'.$sec;	
+		if ($min < 10) $min = '0'.$min;
+		if ($sec < 10) $sec = '0'.$sec;	
 		$row['time'] = $min.':'.$sec.'.'.$ms;
 		$row['weapon_name'] = $weaponNames[$row['weapon']];
 		$row['number'] = $i++;
+		
 		$players[] = $row;
 	}
 	

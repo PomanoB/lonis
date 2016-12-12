@@ -3,7 +3,7 @@
 //print_r($_GET);
 
 //die();
-
+//$_GET['cs'] = 1;
 
 error_reporting(E_ALL | E_STRICT);
 
@@ -18,19 +18,18 @@ include "inc/smarty_unr.php";
 //include "inc/geoip/geoip.inc";
 include "inc/geoip/geoipcity.inc";
 
-
 $gi = geoip_open("inc/geoip/GeoIPCity.dat", GEOIP_STANDARD);
 
 if (!@mysql_connect($mysql_host, $mysql_user, $mysql_password))
 	die (mysql_error());
+
 if (!mysql_select_db($mysql_db))
 	die (mysql_error());
 mysql_query("SET NAMES utf8");
 
-
 $smarty = new Smarty_unr();
 
-if (isset($_GET['cs']))
+if (isset($_GET['cs']) || isset($_POST['cs']))
 {
 	$smarty->assign('cs', 1);
 	$isCS = true;
@@ -58,6 +57,7 @@ if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
 else
 	$lang = 'ru';
 
+$smarty->assign('lang', $lang);
 $smarty->config_load("$lang.ini");	
 
 if (isset($_SESSION['user']['id']))
@@ -128,24 +128,17 @@ else
 $smarty->assign('action', $action);
 $smarty->assign('baseUrl', $baseUrl);
 
-
-
 if (isset($template))
 {
-	if ($isCS)
-	{
-		$smarty->display('cs_header.tpl');
-		$smarty->display($template);
-		$smarty->display('cs_footer.tpl');
-	}
-	else
-	{
-		$smarty->display('header.tpl');
-		$smarty->display($template);
-		$smarty->display('footer.tpl');
-	}
+	$tcs = ''; //$isCS ? "cs_" : "";
+	$smarty->display($tcs.'header.tpl');
+	$smarty->display($template);
+	$smarty->display($tcs.'footer.tpl');
+
 }
 
+
+		
 geoip_close($gi);
 
 ?>

@@ -2,7 +2,6 @@
 			<div class="settingsPanel">
 				<h2>{#langRegisterTitle#}</h2>
 				
-				
 				<form action="reg" method="post">
 					<table border="0">
 						<tr>
@@ -45,7 +44,10 @@
 								<input type="text" class="ucp" name="email" id="email" />
 							</td>
 						</tr>
+						<tr>
+							<td></td>
+							<td align="left"><br><input type="submit" value="{#langRegister#}" /></td>
+						</tr>
 					</table>
-					<div align="right"><input type="submit" value="{#langRegister#}" /></div>
 				</form>
 			</div>

@@ -28,6 +28,9 @@
 								<input type="password" class="bigform" name="reg_password" id="reg_password" />
 							</td>
 						</tr>
+						<tr>
+							<td></td>
+							<td><br><input type="submit" value="{#langLogin#}" /></td> 
 					</table>
-					<div align="right"><input type="submit" value="{#langLogin#}" /></div> 
+					
 				</form>

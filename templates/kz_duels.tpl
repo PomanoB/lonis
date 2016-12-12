@@ -1,8 +1,8 @@
-			<h2>{#langMaps#}</h2>
+			<h2>{#langKzDuel#}</h2>
 			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
 			<div style="padding:10px;">
 				<table>
-					<tr>
+					<tr class="title">
 						<th>{#langMap#}</th>
 						<th>{#langWinner#}</th>
 						<th>{#langLooser#}</th>
@@ -10,9 +10,9 @@
 						<th>{#langLooserPoint#}</th>
 					</tr>
 {foreach from=$duels item=duel}
-					<tr>
+					<tr class="list">
 						<td>
-							<a href="kz_map-{$duel.map}">{$duel.map}</a>
+							<a href="{$baseUrl}/kreedz/{$duel.map}">{$duel.map}</a>
 						</td>
 						<td>
 							<a href="{$baseUrl}/{$duel.winnerName|replace:' ':'_'}">{$duel.winnerName|escape}</a>

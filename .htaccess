@@ -4,7 +4,7 @@ RewriteRule ^(index|players|kz_maps|achiev|reg|login|kz_duels|kz_players|ucp|ach
 RewriteRule ^reg/(.*)$ index.php?action=reg&key=$1 [L]
 
 RewriteRule ^players/(.*)/page.([0-9]+)$ index.php?action=players&search=$1&page=$2 [L]
-RewriteRule ^kreedz(/(pro|noob|all))?(/page([0-9]+))?$ index.php?action=kz_maps&page=$4&type=$2 [L]
+RewriteRule ^kreedz(/(pro|noob|all))?(/page([0-9]+))?(/(norec|rec))?$ index.php?action=kz_maps&page=$4&type=$2&rec=$6 [L]
 
 RewriteRule ^logout$ index.php?action=login&logout [L]
 
@@ -14,9 +14,11 @@ RewriteRule ^achiev/(.*) index.php?action=achiev&aname=$1 [L]
 
 RewriteRule ^(.*)/achiev$ index.php?action=achiev&name=$1 [L]
 
-RewriteRule ^kreedz/players(/(pro|noob|all))?(/page([0-9]+))? index.php?action=kz_players&type=$2&page=$4 [L]
+RewriteRule ^kreedz/players(/(pro|noob|all))?(/page([0-9]+))?(/(num|top1))? index.php?action=kz_players&type=$2&page=$4&sort=$6 [L]
 RewriteRule ^kreedz/([0-9a-zA-Z$_]+)(/(pro|noob|all))?(/page([0-9]+))?$ index.php?action=kz_map&map=$1&type=$3&page=$5 [L]
-RewriteRule ^(.*)/kreedz(/(pro|noob|all))?(/page([0-9]+))?$ index.php?action=kz_players&name=$1&type=$3&page=$5 [L]
+RewriteRule ^unrid([0-9]+)?(/kreedz)?(/(pro|noob|all))?(/page([0-9]+))?(/(norec|rec))?$ index.php?action=kz_players&id=$1&type=$4&page=$6&rec=$8 [L]
+RewriteRule ^(.*)/kreedz(/(pro|noob|all))?(/page([0-9]+))?(/(norec|rec))?$ index.php?action=kz_players&name=$1&type=$3&page=$5&rec=$7 [L]
+
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

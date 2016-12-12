@@ -1,9 +1,20 @@
 <?php
 
-if (isset($_POST['map']))
-{
-	header('Location: kreedz/'.$_POST['map']);
-	exit();
+if (isset($_POST['map']) && $_POST['map'] !='') {
+	//header('Location: kreedz/'.$_POST['map']); exit();
+	if (get_magic_quotes_gpc()) {
+		$map = $_POST['map'];
+	}
+	else {
+		$map = addslashes($_POST['map']);
+	}
+	
+	$smarty->assign('map', stripslashes($map));
+	
+	$where = "AND `map` LIKE '%$map%'";
+}
+else {
+	$where = '';
 }
 
 $types = array(
@@ -13,8 +24,7 @@ $types = array(
 );	
 
 $type = 'all';
-if (isset($_GET['type']) && isset($types[$_GET['type']]))
-	$type = $_GET['type'];
+if (isset($_GET['type']) && isset($types[$_GET['type']])) $type = $_GET['type'];
 
 $typesLang = array(
 	'pro' => 'langKzPro',
@@ -25,7 +35,22 @@ $typesLang = array(
 $smarty->assign('type', $type);
 $smarty->assign('langType', $smarty->get_config_vars($typesLang[$type]));
 
-$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE 1 {$types[$type]}";
+$recs = array(
+	'norec' => 'AND',
+	'rec' => ''
+);
+
+$rec = 'rec';
+if (isset($_GET['rec'])) $rec = $_GET['rec'];
+$smarty->assign('rec', $rec);
+
+if($rec=="norec") {		
+	$q = "SELECT COUNT(DISTINCT `mapname`) FROM `kz_norec` WHERE 1 {$where}";	
+}
+else {
+	$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_tops` WHERE 1 {$types[$type]} {$where}";	
+}
+	 
 $r = mysql_query($q);
 
 $total = mysql_result($r, 0);
@@ -46,28 +71,50 @@ $maps = array();
 if ($total)
 {	
 	$start = ($page - 1) * $mapsPerPage;
+		
+	if($rec=="norec") {
+		$q = "SELECT * FROM kz_norec WHERE 1 {$where} LIMIT $start, $mapsPerPage";
+		
+		$r = mysql_query($q);
+		while($row = mysql_fetch_array($r)) {
+			$maps[] = $row;
+		}
+	}
+	else {
+		$q = "SELECT `kz_tops`.*, `unr_players`.`name`, MIN(`wrs`.`time`) AS timerec, `wrs`.`mapname`, `wrs`.`player` AS plrrec, `wrs`.`country` FROM 
+		`kz_tops`, `unr_players`, 
+		(SELECT * FROM `kz_map_rec` ORDER BY `time`) AS `wrs`
+		WHERE `unr_players`.`id` = `kz_tops`.`player` AND `wrs`.`mapname` = `kz_tops`.`map` {$where}
+		GROUP BY `map` ORDER BY `map` LIMIT $start, $mapsPerPage";
 
-	$q = "SELECT `tmp`.*, `unr_players`.`name` FROM (SELECT * FROM `kz_map_top` ORDER BY `time`) AS `tmp`, `unr_players` WHERE `unr_players`.`id` = `player` {$types[$type]} GROUP BY `map` ORDER BY `map` LIMIT $start, $mapsPerPage";
-
-	$r = mysql_query($q);
-	while($row = mysql_fetch_array($r))
-	{
-		$min = floor($row['time']/60);
-		$sec = $row['time'] % 60;
-		if ($min < 10)
-			$min = '0'.$min;
-		if ($sec < 10)
-			$sec = '0'.$sec;	
-		$row['time'] = $min.':'.$sec;
-		$row['weapon_name'] = $weaponNames[$row['weapon']];
-		$maps[] = $row;
+		$r = mysql_query($q);
+		while($row = mysql_fetch_array($r))
+		{
+			$min = floor($row['time']/60);
+			$sec = $row['time'] % 60;
+			$ms = floor(($row['time'] - floor($row['time']))*100);
+			if ($min < 10) $min = '0'.$min;
+			if ($sec < 10) $sec = '0'.$sec;	
+			$row['time'] = $min.':'.$sec.'.'.$ms;
+			
+			$min = floor($row['timerec']/60);
+			$sec = $row['timerec'] % 60;
+			$ms = substr($row['timerec'], -2);
+			if ($min < 10) $min = '0'.$min;
+			if ($sec < 10) $sec = '0'.$sec;	
+			$row['timerec'] = $min.':'.$sec.'.'.$ms;
+			
+			$row['weapon_name'] = $weaponNames[$row['weapon']];
+			$maps[] = $row;
+		}
 	}
 }
 $smarty->assign('maps', $maps);
 
 $smarty->assign('page', $page);
 $smarty->assign('totalPages', $totalPages);
-$smarty->assign('pageUrl', "$baseUrl/kreedz/$type/page%page%");
+
+$smarty->assign('pageUrl', "$baseUrl/kreedz/$type/page%page%/$rec");
 	
 $template = 'kz_maps.tpl';	
 	
