@@ -12,8 +12,8 @@
 						<td>{#langPlayer#}</td>
 						<td>{#langCountry#}</td>
 						<td>{#langAchievsPlayer#}</td>
-						<!--
 						<td>{#langKzStats#}</td>
+						<!--
 						<td>{#langDRStats#}</td>-->
 					</tr>
 				{foreach from=$players item=player}
@@ -30,10 +30,10 @@
 						<td>
 							<a href="{$baseUrl}/{$player.name|replace:' ':'_'}/achiev">{#langView#}</a>
 						</td>
-						<!--
 						<td>
 							<a href="{$baseUrl}/{$player.name|replace:' ':'_'}/kreedz">{#langView#}</a>
 						</td>
+						<!--
 						<td>
 							<a href="{$baseUrl}/{$player.name|replace:' ':'_'}/deatdrun">{#langView#}</a>
 						</td>
