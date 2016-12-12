@@ -117,23 +117,8 @@ if ((isset($_GET['id']) && ($id = abs((int)$_GET['id']))) || (isset($playerId) &
 			$maps = array();
 			while($row = mysql_fetch_array($r))
 			{
-				$min = floor($row['time']/60);
-				$sec = $row['time'] % 60;
-				$ms = floor(($row['time'] - floor($row['time']))*100);
-				if ($min < 10)
-					$min = '0'.$min;
-				if ($sec < 10)
-					$sec = '0'.$sec;	
-				$row['time'] = $min.':'.$sec.'.'.$ms;
-				
-				$min = floor($row['timerec']/60);
-				$sec = $row['timerec'] % 60;
-				$ms = substr($row['timerec'], -2);
-				if ($min < 10)
-					$min = '0'.$min;
-				if ($sec < 10)
-					$sec = '0'.$sec;	
-				$row['timerec'] = $min.':'.$sec.'.'.$ms;
+				$row['time'] = timed($row['time'], 5);
+				$row['timerec'] = timed($row['timerec'], 2);
 			
 				$row['weapon_name'] = $weaponNames[$row['weapon']];
 				$maps[] = $row;

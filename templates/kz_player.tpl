@@ -1,11 +1,10 @@
-{if !isset($cs)}
 			<h2>{#langPlayer#} {$name|escape}</h2><br>
 			<div>
 				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/pro/{$rec}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{#langKzPro#}</a>
 				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/noob/{$rec}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{#langKzNoob#}</a>
 				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/all/{$rec}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{#langKzAll#}</a>
 			</div>
-{/if}
+
 			{*<div>
 				<span>{#langStats#} {$langType}</span>
 			</div>*}

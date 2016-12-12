@@ -57,12 +57,7 @@ else
 	$q = "SELECT * FROM `kz_map_rec` WHERE `mapname` LIKE '$map%' ORDER BY `mappath`";	
 	$r = mysql_query($q);
 	while($row = mysql_fetch_array($r)) {		
-		$min = floor($row['time']/60);
-		$sec = $row['time'] % 60;
-		$ms = substr($row['time'], -2);
-		if ($min < 10) $min = '0'.$min;
-		if ($sec < 10) $sec = '0'.$sec;	
-		$row['time'] = $min.':'.$sec.'.'.$ms;
+		$row['time'] = timed($row['time'], 2);
 		
 		$maprec[] = $row;		
 	}
@@ -71,12 +66,7 @@ else
 	$q = "SELECT * FROM `kz_map_comm` WHERE `mapname` LIKE '$map%' ORDER BY `mappath`";	
 	$r = mysql_query($q);
 	while($row = mysql_fetch_array($r)) {		
-		$min = floor($row['time']/60);
-		$sec = $row['time'] % 60;
-		$ms = substr($row['time'], -2);
-		if ($min < 10) $min = '0'.$min;
-		if ($sec < 10) $sec = '0'.$sec;	
-		$row['time'] = $min.':'.$sec.'.'.$ms;
+		$row['time'] = timed($row['time'], 2);
 		
 		$mapcomm[] = $row;		
 	}
@@ -87,14 +77,8 @@ else
 	$i = ($page - 1)*$playersPerPage + 1;
 	while($row = mysql_fetch_array($r))
 	{
-		$min = floor($row['time']/60);
-		$sec = ($row['time'] % 60);
-		$ms = floor(($row['time'] - floor($row['time']))*10000);
-		$ms = str_pad($ms, 5, '0');
+		$row['time'] = timed($row['time'], 5);
 		
-		if ($min < 10) $min = '0'.$min;
-		if ($sec < 10) $sec = '0'.$sec;	
-		$row['time'] = $min.':'.$sec.'.'.$ms;
 		$row['weapon_name'] = $weaponNames[$row['weapon']];
 		$row['number'] = $i++;
 		

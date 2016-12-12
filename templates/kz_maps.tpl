@@ -9,7 +9,7 @@
 					&nbsp;
 				</form>
 			</div>
-			
+{/if}			
 			<div>
 	{if $rec == "norec"}
 				<a href="{$baseUrl}/kreedz/{$type}">{#langKzRec#}</a>
@@ -22,7 +22,7 @@
 				</div>
 	{/if}
 			</div><br>
-{/if}
+
 			{*<div>
 				<span>{#langStats#} {$langType}</span>
 			</div>*}

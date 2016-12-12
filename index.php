@@ -3,7 +3,7 @@
 //print_r($_GET);
 
 //die();
-//$_GET['cs'] = 1;
+$_GET['cs'] = 1;
 
 error_reporting(E_ALL | E_STRICT);
 
@@ -137,6 +137,19 @@ if (isset($template))
 
 }
 
+// Args: float: time, int: pad
+function timed($ftime, $pad=0) {
+	$min = floor($ftime/60);
+	$sec = $ftime%60;
+	$ms = $ftime * pow(10,$pad) % pow(10,$pad);
+	if ($min < 10) $min = '0'.$min;
+	if ($sec < 10) $sec = '0'.$sec;
+	$ms = str_pad($ms, $pad, '0');
+	if ($ms < pow(10,$pad-1) && $ms!=0) $ms = '0'.$ms;
+	
+
+	return $min.':'.$sec.'.'.$ms;
+}
 
 		
 geoip_close($gi);

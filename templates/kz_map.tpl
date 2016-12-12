@@ -1,11 +1,9 @@
-{if !isset($cs)}
 			<h2>{#langMap#} {$mapname|escape:html}</h2><br>
 			<div>
 				<a href="{$baseUrl}/kreedz/{$mapname}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{#langKzPro#}</a>
 				<a href="{$baseUrl}/kreedz/{$mapname}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{#langKzNoob#}</a>
 				<a href="{$baseUrl}/kreedz/{$mapname}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{#langKzAll#}</a>
 			</div>
-{/if}
 			{*<div>
 				<span>{#langStats#} {$langType}</span>
 			</div>*}	

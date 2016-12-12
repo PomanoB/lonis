@@ -1,5 +1,5 @@
-{if !isset($cs)}
 			<p><h2>{#langKzPlayers#}</h2>
+{if !isset($cs)}
 			<div align="right">
 				<form action="" method="post" id="search_map_form">
 					{*<label for="player">{#langSearch#}</label>*}
