@@ -1,33 +1,44 @@
-<?php
+﻿<?php
+$config_file = "config.ini";
+$cs = 0;
+
+$conf_type = array(
+	'password' => array('mysql_password'),
+	'number' => array('activateTime', 'gravatarSize', 'playerPerPage', 'mapsPerPage', 'playersPerPage')
+);
+
+$conf = array (
+	'timezone' => 'Europe/Moscow',
+	'charset' => 'utf-8',
+
+	'mysql_user' => 'lonis',
+	'mysql_password' => '',
+	'mysql_host' => 'localhost',
+	'mysql_db' => 'lonis',
+	'mysql_prefix' => 'lonis_',
+
+	'baseUrl' => "http://localhost/lonis",
+
+	'activateTime' => 60 * 60 * 24 * 3,
+		
+	'gravatarSize' => 150,
+	'playerPerPage' => 20,
+
+	'mapsPerPage' => 20,
+	'playersPerPage' => 20,
+
+	'langlist' => "en ru",
+	'lang' => "en",
 	
-date_default_timezone_set('Europe/Moscow');
-setlocale(LC_ALL, 'ru_RU.utf-8');
+	'themelist' => "main white image null",
+	'theme' => "main",
 
-$mysql_user = 'lonis';
-$mysql_password = '';
-$mysql_host = 'localhost';
-$mysql_db = 'lonis';
-$mysql_prefix = 'lonis_';
-
-$activateTime = 60 * 60 * 24 * 3; // Трое суток
-
-$baseUrl = "http://cs.klan-hub.ru/lonis";
-
-$gravatarSize = 150;
-$playerPerPage = 20;
+	'cstheme' => "main"
+);
 
 $additional_flags = array(
 	'green_chat' => 't'
 );
-
-$mapsPerPage = 20;
-$playersPerPage = 20;
-
-$typeDescription = array(
-		'pro' => 'Про',
-		'noob' => 'Новички',
-		'all' => 'Все'
-	);	
 
 $weaponNames = array(
 	'',

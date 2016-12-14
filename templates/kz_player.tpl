@@ -53,9 +53,9 @@
 						</td>
 						<td class="th_numeric">{$map.timerec} {$map.plrrec} <i>{$map.country}</i></td>
 						<td class="th_numeric">{$map.time}</td>
-						<td class="th_numeric" style="color:{if $map.go_cp}#ff0000{else}#006400{/if}">{$map.cp}</td>
-						<td class="th_numeric" style="color:{if $map.go_cp}#ff0000{else}#006400{/if}">{$map.go_cp}</td>
-						<td style="color:{if $map.weapon != 16 && $map.weapon != 29}#ff0000{else}#006400{/if}">{$map.weapon_name}</td>
+						<td class="th_numeric color{if !$map.go_cp}-nogc{/if}">{$map.cp}</td>
+						<td class="th_numeric color{if !$map.go_cp}-nogc{/if}">{$map.go_cp}</td>
+						<td class="color{if $map.weapon == 16 && $map.weapon == 29}-wpn{/if}">{$map.weapon_name}</td>
 					<tr>
 {/foreach}
 				</table>

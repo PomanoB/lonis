@@ -1,4 +1,4 @@
-			<h2>{#langPlayers#}</h2>
+			<p><h2>{#langPlayers#}</h2>
 			<div align="right">
 				<form action="players" method="post">
 					<input type="text" name="search" id="search" class="form" {if isset($search)}value="{$search}"{/if} placeholder="{#langSearch#}" /> {*<input type="submit" value="{#langSearch#}" />*}

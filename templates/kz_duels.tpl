@@ -1,4 +1,4 @@
-			<h2>{#langKzDuel#}</h2>
+			<p><h2>{#langKzDuel#}</h2>
 			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
 			<div style="padding:10px;">
 				<table>

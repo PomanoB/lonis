@@ -1,4 +1,4 @@
-			<div class="settingsPanel">
+			<p><div class="settingsPanel">
 				<h2>{#langRegisterTitle#}</h2>
 {if isset($error)}
 				<div>{#langAlreadyUsed#}</div>

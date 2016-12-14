@@ -202,9 +202,8 @@ tr.title {
 /* INPUTS */
 .bigform {
 	font-size: 180%;
-	padding: 2px;
+	text-align: center;
 	height: 30px;
-	width: 400px;
 	border: 1px solid #DCDCDC;
 }
 
@@ -325,10 +324,11 @@ h2 {
 }
 #network .text-separator, #network span {color: #999;}
 .center-wrapper {
-	margin-left: 45px;	
+	margin-left: 45px;
+	
 }
 
-#network img {display: none}
+#network text {display: none;}
 
 /* Floats */   
 
@@ -368,6 +368,7 @@ ul.nice-list li .right {color: #999;}
 li div.left {
 	font-weight: bold;
 }
+
 
 select {
 	background: transparent;

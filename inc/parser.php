@@ -1,16 +1,5 @@
 <?php
 
-$mysql_user = 'lonis';
-$mysql_password = 'lonis';
-$mysql_host = 'localhost';
-$mysql_db = 'lonis';
-
-if (!mysql_connect($mysql_host, $mysql_user, $mysql_password))
-	die (mysql_error());
-if (!mysql_select_db($mysql_db))
-	die (mysql_error());
-mysql_query("SET NAMES utf8");
-
 // Community record (RU)
 mysql_query("
 DROP TABLE IF EXISTS `kz_map_comm`; 

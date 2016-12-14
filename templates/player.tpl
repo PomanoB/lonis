@@ -1,4 +1,4 @@
-<div class="leftside">
+<p><div class="leftside">
 	<img src="{$info.gravatar}" alt="Аватар {$info.name|escape}" />
 	<table>
 		<tr class="playerinfo">

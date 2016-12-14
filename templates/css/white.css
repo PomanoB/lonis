@@ -1,7 +1,7 @@
 body {
 	width: 100%;
-	background: #171717;
-	color: #000000;
+	background: #ffffff;
+	color: #ffffff;
 	font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
 	margin: 0px;
 	padding: 0px;
@@ -43,8 +43,8 @@ a:link, a:visited {
 	padding-bottom:15px;
 	margin-top: 20px;
 	padding-top: 5px;
-	background: #FFFFFF;
-	color: #000000;
+	background: #171717;
+	color: #ffffff;
 }
 
 #sideBar {
@@ -109,18 +109,18 @@ table {
 }
 
 tr.list {
-	background:none repeat scroll 0 0 #ffffff;
+	background:none repeat scroll 0 0 #171717;
 	border-bottom:1px #D5DDE5 dashed;
 	height: 25px;
 }
 
 tr.list:hover  {
-	background:#e3f1ff;
+	background:#23212f;
 }
 
 tr.title {
-	background: #191919;
-	color: white;
+	background: #ffffff;
+	color: #171717;
 	font-weight: bold;
 	font-family: Verdana, Tahoma;
 	vertical-align: middle;
@@ -202,9 +202,8 @@ tr.title {
 /* INPUTS */
 .bigform {
 	font-size: 180%;
-	padding: 2px;
+	text-align: center;
 	height: 30px;
-	width: 400px;
 	border: 1px solid #DCDCDC;
 }
 
@@ -290,7 +289,7 @@ h2 {
 /* Header */
 /* Network */
 
-#network {background: #000 url(../../img/gradient_header.gif) repeat-x 0% 0%;}
+#network {background: #ffffff /*url(../../img/gradient_header.gif) repeat-x 0% 0%;*/}
 #network .left {
 	color: #333;
 	vertical-align: text-bottom;
@@ -305,7 +304,7 @@ h2 {
 	display: block;
 	padding: 6px 10px 7px;
 	text-decoration: none;
-	color: #FFFFFF;
+	color: #171717;
 }
 
 #network .install span {
@@ -316,11 +315,11 @@ h2 {
 }
 
 #network li a:hover {
-	background: #F6F6F6;
+	background: #eeeeee;
 	color: #000;
 }
 #network li.current-tab a {
-	background: #FFF;
+	background: #171717;
 	font-weight: bold;
 }
 #network .text-separator, #network span {color: #999;}
@@ -367,18 +366,6 @@ ul.nice-list li .right {color: #999;}
 
 li div.left {
 	font-weight: bold;
-}
-
-select {
-	background: transparent;
-	border: 0px;
-	color: #ffffff;
-}
-
-option {
-	background: #171717;
-	border: 0px;
-	color: #ffffff;
 }
 
 .color-nogc {color: #006400}

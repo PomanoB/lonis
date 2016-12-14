@@ -1,4 +1,4 @@
-			<h2>{#langAchievs#}</h2>
+			<p><h2>{#langAchievs#}</h2>
 				<span>{#langAchievs#}</span><br />
 				<table>
 {foreach from=$achievs item=achiev}

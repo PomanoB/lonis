@@ -1,4 +1,4 @@
-			<h2>{#langAchievs#}</h2>
+			<p><h2>{#langAchievs#}</h2>
 			<div style="padding:10px;">
 				<span>{#langAchievsPlayer#} {$playerName|escape}</span>
 {foreach from=$achievs item=achiev}
