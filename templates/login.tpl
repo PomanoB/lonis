@@ -52,7 +52,7 @@
 						</td>
 						<td>
 							<input type="password" class="bigform" name="reg_password" id="reg_password" />
-							<input type="checkbox" id="showPassword"/><label for="showPassword" class="info">Показать пароль</label>
+							<input type="checkbox" id="showPassword"/><label for="showPassword" class="info">РџРѕРєР°Р·Р°С‚СЊ РїР°СЂРѕР»СЊ</label>
 						</td>
 					</tr>
 					<tr>

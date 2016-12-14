@@ -53,7 +53,7 @@
 	</div>
 <!--	{if $user.webadmin == 1}
 		<div id="adminmenu">
-			Админцентр:
+			РђРґРјРёРЅС†РµРЅС‚СЂ:
 			<a href="achiev_admin">{#langAchievAdmin#}</a>
 		</div>
 	{/if} -->

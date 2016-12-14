@@ -2,7 +2,7 @@
 			<div align="right">
 				<form action="players" method="post">
 					<input type="text" name="search" id="search" class="form" {if isset($search)}value="{$search}"{/if} placeholder="{#langSearch#}" /> {*<input type="submit" value="{#langSearch#}" />*}
-					<input type="image" name=”picture” src="{$baseUrl}/img/find.png" />
+					<input type="image" name=â€pictureâ€ src="{$baseUrl}/img/find.png" />
 					&nbsp;
 				</form>
 			</div>

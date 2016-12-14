@@ -1,5 +1,5 @@
 <p><div class="leftside">
-	<img src="{$info.gravatar}" alt="Аватар {$info.name|escape}" />
+	<img src="{$info.gravatar}" alt="РђРІР°С‚Р°СЂ {$info.name|escape}" />
 	<table>
 		<tr class="playerinfo">
 			<td class="infoid">{#langAchievCompleted#}</td> <td><a href="{$baseUrl}/{$info.name|replace:' ':'_'}/achiev" title="{#langView#}">{$info.achievCompleted}</a></td>
@@ -33,10 +33,10 @@
 			</tr>
 		{/if}
 			<tr class="playerinfo">
-				<td class="infoid">Последний заход:</td> <td>{$info.lastTime}</td>
+				<td class="infoid">РџРѕСЃР»РµРґРЅРёР№ Р·Р°С…РѕРґ:</td> <td>{$info.lastTime}</td>
 			</tr>
 			<tr class="playerinfo">
-				<td class="infoid">Общий онлайн:</td> <td>{$info.onlineTime}</td>
+				<td class="infoid">РћР±С‰РёР№ РѕРЅР»Р°Р№РЅ:</td> <td>{$info.onlineTime}</td>
 			</tr>
 	</table>
 </div>

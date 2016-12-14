@@ -5,7 +5,7 @@
 					{*<label for="player">{#langSearch#}</label>*}
 					<input type="text" name="player" id="player" value="{$player}"/>
 					{*<input type="submit" value="{#langSearch#}" />*}
-					<input type="image" name=”picture” src="{$baseUrl}/img/find.png" />
+					<input type="image" name=â€pictureâ€ src="{$baseUrl}/img/find.png" />
 					&nbsp;
 				</form>
 			</div>
@@ -28,7 +28,7 @@
 			<div style="padding:10px;">
 				<table>
 					<tr class="title">
-						<td>¹</td>
+						<td>â„–</td>
 						<td>{#langPlayer#}</td>
 						<td>{#langRecords#}</td>
 					</tr>

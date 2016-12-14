@@ -21,7 +21,7 @@
 				
 				<p><table>
 					<tr class="title" >
-						<td>¹</td>
+						<td>â„–</td>
 						<td>{#langPlayer#}</td>
 						<td>{#langTime#}</td>
 						<td>{#langCp#}</td>

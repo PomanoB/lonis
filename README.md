@@ -1,2 +1,2 @@
-# lonis
+﻿# lonis
 Web registartion and statistic for Counter Strike 1.6 

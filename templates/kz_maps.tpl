@@ -4,7 +4,7 @@
 				<form action="" method="post" id="search_map_form">
 					{*<label for="map">{#langSearch#}</label>*}
 					<input type="text" name="map" id="map" value="{$map}"/>
-					<input type="image" name=”picture” src="{$baseUrl}/img/find.png" />
+					<input type="image" name=â€pictureâ€ src="{$baseUrl}/img/find.png" />
 					{*<input type="submit" value="{#langSearch#}" />*}
 					&nbsp;
 				</form>
