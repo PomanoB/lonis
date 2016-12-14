@@ -1,8 +1,7 @@
 <?php
 
-//print_r($_GET);
+//echo "GET: "; print_r($_GET); echo "<br> POST: "; print_r($_POST);
 //die();
-//$_GET['cs'] = 1;
 
 error_reporting(E_ALL | E_STRICT);
 
@@ -20,6 +19,16 @@ $gi = geoip_open("inc/geoip/GeoIPCity.dat", GEOIP_STANDARD);
 // Read setting from config.php
 foreach($conf as $key=>$value) {
 	$$key = $value;
+}
+
+// quotes $_POST and $_GET
+if (!get_magic_quotes_gpc()) {
+	foreach($_POST as $key=>$value) { 
+		$_POST[$key]=addslashes($value);
+	}
+	foreach($_GET as $key=>$value) { 
+		$_POST[$key]=addslashes($value);
+	}
 }
 
 // Smarty
@@ -83,19 +92,6 @@ $smarty->assign('langselect', $langselect);
 setlocale(LC_ALL, $lang.'_'.$lang.'.'.$charset);
 
 // Read themes
-if (isset($_POST['theme']))
-{
-	if (file_exists('templates/css/'.$_POST['theme'].'.css')) {
-		$theme = $_POST['theme'];
-		$_SESSION['unr_theme'] = $_POST['theme'];
-	}
-}
-
-if (isset($_SESSION['unr_theme']))
-	$theme = $_SESSION['unr_theme'];
-
-$smarty->assign('theme', $theme);
-
 $themelist = explode(" ", $themelist);
 foreach($themelist as $key=>$value) {
 	$themeselect[$key]['name'] = $value;
@@ -103,14 +99,36 @@ foreach($themelist as $key=>$value) {
 }
 $smarty->assign('themeselect', $themeselect);
 
+if (isset($_POST['theme']))
+{
+	if (file_exists('templates/css/theme_'.$_POST['theme'].'.css')) {
+		$theme = $_POST['theme'];
+		$_SESSION['unr_theme'] = $_POST['theme'];
+	}
+	else {
+		$langTheme = $smarty->get_config_vars('langTheme_'.$theme);
+		echo "<script>alert('Theme $langTheme not found')</script>";
+	}
+}
+
 // CS Style
-$cs = isset($_GET['cs'])  ? $_GET['cs'] : (isset($_POST['cs']) ? $_POST['cs'] : 0);
+$cs = isset($_SESSION['cs']) ? $_SESSION['cs'] : $cs;
+if(isset($_GET['cs'])) { $cs = $_GET['cs']; $_SESSION['cs'] = $cs; }
+if(isset($_POST['cs'])) { $cs = $_POST['cs']; $_SESSION['cs'] = $cs; }
 
 if($cs) {
 	$smarty->assign('cs', $cs);
-	$theme = $cstheme;
+	$_SESSION['unr_theme'] = $cstheme;
 }
+else
+	$_SESSION['unr_theme'] = $theme;
 
+if (isset($_SESSION['unr_theme']))
+	$theme = $_SESSION['unr_theme'];
+
+$smarty->assign('theme', $theme);
+
+// Select Player
 if (isset($_SESSION['user']['id']))
 {
 	$r = mysql_query("SELECT * FROM `unr_players` WHERE `id`= {$_SESSION['user']['id']}");
@@ -203,6 +221,11 @@ if (isset($template))
 geoip_close($gi);
 
 /*---------------------------------------------------------------------------------------------*/
+
+// check $_GET, $_POST, $_SESSION
+function get_request($var) {
+	return $act = isset($_GET['act']) ? (isset($_POST['act']) ? $_POST['act'] : $_GET['act']) : "";
+}
 
 // Connect to db
 function db_connect($host, $user, $password, $db, $charset) {

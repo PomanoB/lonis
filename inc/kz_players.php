@@ -131,7 +131,7 @@ if ((isset($_GET['id']) && ($id = abs((int)$_GET['id']))) || (isset($playerId) &
 	else
 	{
 		$template = 'message.tpl';
-		$smarty->assign('message', 'Игрок не найден!');
+		$smarty->assign('message', '»грок не найден!');
 	}
 }
 else

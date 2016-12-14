@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $config_file = "config.ini";
 $cs = 0;
 

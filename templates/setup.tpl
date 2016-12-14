@@ -3,31 +3,23 @@
 				<p><div style="color: red;">{$message}</div>
 {if !isset($act)}
 				<form action="{$baseUrl}/setup" method="post">
-					<p><table border="0" style="width: 400px;" cellpadding=2 >
+					<p><table border="0" style="width: 40%;" cellpadding=2 >
 						<tr>
-							<td class="info">
-								<label for="setting_user">{#langName#}</label>
-							</td>
-							<td>
-								<input type="text" class="bigform" name="setting_user" id="setting_user" />
-							</td>
+							<td class="info"><label for="setting_user">{#langName#}</label></td>
+							<td><input type="text" class="bigform" name="setting_user" id="setting_user" /></td>
 						</tr>
 						<tr>
-							<td class="info">
-								<label for="setting_password">{#langPassword#}</label>
-							</td>
-							<td>
-								<input type="password" class="bigform" name="setting_password" id="setting_password" />
-							</td>
+							<td class="info"><label for="setting_password">{#langPassword#}</label></td>
+							<td><input type="password" class="bigform" name="setting_password" id="setting_password" /></td>
 						</tr>
 						<tr>
 							<td colspan="2" align="center"><br><button>{#langLogin#}</button></td> 
 					</table>
 				</form>
 {else}
-				<p><table border="0" style="width: 400px;" cellpadding=2>
+				<p><table border="0" style="width: 50%;" cellpadding=2>
 				<tbody>
-					<form action="{$baseUrl}/setup/save" method="post">
+					<form action="{$baseUrl}/setup" method="post">
 	{foreach from=$conflist item=conf}
 					<tr>
 						<td class="info"><label for="{$conf.name}">{$conf.desc}</label></td>
@@ -36,14 +28,14 @@
 	{/foreach}
 
 					<tr>
-						<td colspan="2" align="center" style="padding: 20px;"><button onclick="javascript: ">{#langSave#}</button></td> 
+						<td colspan="2" align="center" style="padding: 20px;"><button name="act" value="save">{#langSave#}</button></td> 
 					</tr>
 					</form>
 					<tr>
 						<td colspan="2" align="center" style="padding: 20px;">
-							<form action="{$baseUrl}/setup/reset" method="post">
+							<form action="{$baseUrl}/setup" method="post">
 							<input type="hidden" name="comfirm" value="0">
-							<input type="checkbox" name="comfirm" value="1"><button>{#langReset#}</button></td>
+							<input type="checkbox" name="comfirm" value="1"><button name="act" value="reset">{#langReset#}</button></td>
 							</form>
 						</td>
 					</tr>
@@ -52,34 +44,50 @@
 				
 				<p><h2>{#langDbTitle#}</h2>
 	{if !$comm}
-					<p><div style="color: red;">{#langDbNotConnect#}</div>
+				<p><div style="color: red;">{#langDbNotConnect#}</div>
 	{else}
+		{if !$check_confirm && $act}
+				<p><div style="color: red;">{#langConfirm#}</div>
+		{/if}
+				<form name="confirmed" action="{$baseUrl}/setup#db" method="post">
+		{if $db}		
+				<div id="confirmed" 	align="center">
+					<p><table border="0" style="width: 30%;" cellpadding=2 >
+						<tr>
+							<td><label for="confirm_password">{#langPassword#}</label></td>
+							<td><input type="password" class="form" name="confirm_password" id="confirm_password" /></td>
+					</tr>
+					</table>
+				</div>
+		{/if}
+		
 				<div id="db">
-					<p>:: {#langBase#} : {$mysql_db} ::
+					<p>:: {#langBase#} : <i>{$mysql_db}</i> ::
 		{if !$db}
-						<a href="{$baseUrl}/setup/db/add">{#langCreate#}</a>
+						<button class="dbbut" name="act" value="dbadd">{#langCreate#}</button>
 		{else}
-						<a href="{$baseUrl}/setup/db/delete">{#langDelete#}</a>
+						<button class="dbbut" name="act" value="dbdelete">{#langDelete#}</button>
 					<p>:: {#langTables#} ::
 			{if !$file_table}
 						<div style="color: red;">{#langDbNotTablesFile#}</div>
 			{else}
 				{if !$tbl}
-						<a href="{$baseUrl}/setup/db/tbl/add">{#langAdd#}</a>
+						<button class="dbbut" name="act" value="tbladd">{#langAdd#}</button>
 				{else}
 						{$tables}
-						{*<a href="{$baseUrl}/setup/db/tbl/save">{#langSave#}</a>*}
+						{*<button class="dbbut" name="act" value="tblsave">{#langSave#}</button>*}
 					<p>:: {#langData#} ::
 					{if !$file_table}
 						<div style="color: red;">{#langDbNotDataFile#}</div>
 					{else}
-						<a href="{$baseUrl}/setup/db/data/add">{#langUpdate#}</a>
-						{*<a href="{$baseUrl}/setup/db/data/save">{#langSave#}</a>*}
+						<button class="dbbut" name="act" value="dataadd">{#langUpdate#}</a>
+						{*<button class="dbbut" name="act" value="datasave">{#langSave#}</a>*}
 					{/if}
 				{/if}
 			{/if}
 		{/if}
 				</div>
 	{/if}
-				</center>
+				</center>				
 {/if}
+

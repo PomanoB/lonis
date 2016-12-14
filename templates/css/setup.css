@@ -1,0 +1,36 @@
+.dbbut {
+    background-color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    
+    font-size: 12px;
+}
+
+.dbbut:hover {
+    background-color: white;
+    border: none;
+	color: blue;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;	
+}
+
+.but {
+    background-color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none; 
+    font-size: 12px;
+}
+
+.but:hover {
+    background-color: white;
+    border: none;
+	color: blue;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;	
+}

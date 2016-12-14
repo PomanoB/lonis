@@ -10,7 +10,7 @@
 				</form>
 			</div>
 {/if}			
-			<div>
+			<p><div>
 	{if $rec == "norec"}
 				<a href="{$baseUrl}/kreedz/{$type}">{#langKzRec#}</a>
 	{else}

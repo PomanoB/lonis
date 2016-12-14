@@ -1,4 +1,4 @@
-п»ї			<center>
+			<center>
 			<p><h2>{#langTitleGameAcc#}</h2>
 			<p><div style="color: red;">{$message}</div>
 			<p><a href="{$baseUrl}/?action=steam_login">{#imgSteamLogin#}</a>
@@ -33,8 +33,7 @@
 			<p><h3><a href="{$baseUrl}/reg">{#langRegister#}</a></h3>
 {/if}
 
-{if $action=="reg"}			
-			<script type="text/javascript" src="templates/js/reg.js"></script>
+{if $action=="reg"}
 			<p><h2>{#langRegisterTitle#}</h2>
 			
 			<form action="{$baseUrl}/reg" method="post">
@@ -53,7 +52,7 @@
 						</td>
 						<td>
 							<input type="password" class="bigform" name="reg_password" id="reg_password" />
-							<input type="checkbox" id="showPassword"/><label for="showPassword" class="info">РџРѕРєР°Р·Р°С‚СЊ РїР°СЂРѕР»СЊ</label>
+							<input type="checkbox" id="showPassword"/><label for="showPassword" class="info">Показать пароль</label>
 						</td>
 					</tr>
 					<tr>

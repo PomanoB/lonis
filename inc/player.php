@@ -65,7 +65,7 @@ if ($id)
 	else
 	{
 		$template = 'message.tpl';
-		$smarty->assign('message', 'Игрок не найден!');
+		$smarty->assign('message', '»грок не найден!');
 	}
 }
 else

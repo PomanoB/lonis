@@ -1,1 +1,3 @@
-window.onload=function() {	Nifty("div#page","big");}
+window.onload=function() {
+	Nifty("div#page","big");
+}

@@ -19,10 +19,8 @@ RewriteRule ^kreedz/([0-9a-zA-Z$_]+)(/(pro|noob|all))?(/page([0-9]+))?$ index.ph
 RewriteRule ^unrid([0-9]+)?(/kreedz)?(/(pro|noob|all))?(/page([0-9]+))?(/(norec|rec))?$ index.php?action=kz_players&id=$1&type=$4&page=$6&rec=$8 [L]
 RewriteRule ^(.*)/kreedz(/(pro|noob|all))?(/page([0-9]+))?(/(norec|rec))?$ index.php?action=kz_players&name=$1&type=$3&page=$5&rec=$7 [L]
 
-RewriteRule ^setup(/(login|edit|logout|save|reset))?$ index.php?action=setup&act=$2 [L]
-RewriteRule ^setup/db(/(add|delete))?$ index.php?action=setup&act=db$2 [L]
-RewriteRule ^setup/db/tbl(/(add|save))?$ index.php?action=setup&act=tbl$2 [L]
-RewriteRule ^setup/db/data(/(add|save))?$ index.php?action=setup&act=data$2 [L]
+RewriteRule ^setup?$ index.php?action=setup [L]
+RewriteRule ^setup/logout?$ index.php?action=setup&logout=1 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

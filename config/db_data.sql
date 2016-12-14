@@ -1,4 +1,4 @@
-﻿TRUNCATE * FROM `unr_achiev`;
+TRUNCATE * FROM `unr_achiev`;
 INSERT INTO `unr_achiev` (`id`, `name`, `description`, `count`, `type`) VALUES
 (1, 'War Bonds', 'Заработать $125,000', 125000, 'money_t'),
 (2, 'Repeat Offender', 'Доминировать над вражеским игроком', 1, 'dominate_o'),
