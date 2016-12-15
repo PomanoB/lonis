@@ -1,4 +1,4 @@
-			<p><h2>{#langKzPlayers#}</h2>
+			<p><h2>{#lang_kz_players#}</h2>
 {if !isset($cs)}
 			<div align="right">
 				<form action="" method="post" id="search_map_form">
@@ -26,10 +26,10 @@
 			</div>*}
 			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
 			<div style="padding:10px;">
-				<table>
+				<table class="table-list">
 					<tr class="title">
 						<td>№</td>
-						<td>{#langPlayer#}</td>
+						<td>{#lang_player#}</td>
 						<td>{#langRecords#}</td>
 					</tr>
 {foreach from=$players item=player}

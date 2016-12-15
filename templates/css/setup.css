@@ -1,22 +1,126 @@
+/* Menu pages */
+
+.tabs {
+	text-align: center;
+}
+
+.tabs > div, .tabs > input {
+	display: none; 
+}
+
+.tabs label { 
+	padding: 5px; 
+	border: 0px solid #aaa; 
+	line-height: 28px; 
+	cursor: pointer; 
+	position: relative; 
+	bottom: 1px; 
+
+}
+
+.tabs label:hover { 
+	color: #0074CE;
+}
+
+.tabs input[type="radio"]:checked + label { border-bottom: 0px solid #fff; color: #0074CE;}
+
+.tabs > input:nth-of-type(1):checked ~ div:nth-of-type(1),
+.tabs > input:nth-of-type(2):checked ~ div:nth-of-type(2),
+.tabs > input:nth-of-type(3):checked ~ div:nth-of-type(3) { 
+	display: block; 
+	padding: 5px; 
+	border: 0px solid #aaa; 
+}
+
+/* Language pages up */
+
+.tabs_lang {
+	text-align: center;
+}
+
+.tabs_lang > div, .tabs_lang > input {
+	display: none; 
+}
+
+.tabs_lang label { 
+	padding: 5px; 
+	border: 0px solid #aaa; 
+	line-height: 28px; 
+	cursor: pointer; 
+	position: relative; 
+	bottom: 1px; 
+}
+.tabs_lang input[type="radio"]:checked + label { border-bottom: 0px solid #fff; }
+
+.tabs_lang > input:nth-of-type(1):checked ~ div:nth-of-type(1),
+.tabs_lang > input:nth-of-type(2):checked ~ div:nth-of-type(2), 
+.tabs_lang > input:nth-of-type(3):checked ~ div:nth-of-type(3) { 
+	display: block; 
+	padding: 5px; 
+	border: 0px solid #aaa; 
+}
+
+/* Language pages left */
+
+.ltabs { position: relative; }
+
+.ltabs > div, .ltabs > input {
+  display: none;
+  #min-height: 150px; 
+}
+
+.ltabs label { 
+	position: absolute; 
+	right: 0; 
+	top: 0; 
+	width: 50px; 
+	height: 50px; 
+	border: 0px solid #aaa; 
+	line-height: 50px; 
+	text-align: center; 
+	cursor: pointer; 
+}
+
+.ltabs label:nth-of-type(2) {
+	top: 51px;
+}
+
+.ltabs label:nth-of-type(3) {
+	top: 102px;
+}
+
+.ltabs input[type="radio"]:checked + label { 
+	border-left: 0px solid #fff;
+}
+
+.ltabs > input:nth-of-type(1):checked ~ div:nth-of-type(1),
+.ltabs > input:nth-of-type(2):checked ~ div:nth-of-type(2),
+.ltabs > input:nth-of-type(3):checked ~ div:nth-of-type(3) { 
+	display: block; 
+	padding: 0px 55px 1px 5px; 
+	border: 0px solid #aaa; 
+}
+
+/* Button db act*/
 .dbbut {
     background-color: white;
     border: none;
     text-align: center;
     text-decoration: none;
-    
     font-size: 12px;
 }
 
 .dbbut:hover {
     background-color: white;
     border: none;
-	color: blue;
+	color: #0074CE;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 12px;	
 }
 
+/* Other button */
 .but {
     background-color: white;
     border: none;
@@ -28,9 +132,77 @@
 .but:hover {
     background-color: white;
     border: none;
-	color: blue;
+	color: #0074CE;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 12px;	
+}
+
+/* General style */
+.title { 
+	font-size: 20px; 
+	font-weight: bold;
+	padding: 10px;
+}
+
+.message {
+	text-align: center;
+	color: red;
+	display: inline;
+}
+
+.title {
+	text-align: center;
+}
+
+#setup {
+	text-align: center;
+}
+
+#setup table {
+	margin-left:auto; 
+	margin-right:auto;
+}
+
+#setup table td {
+	padding: 0px;
+	text-align: left;
+}
+
+#setup .form_login {
+	padding: 4px;
+}
+
+#setup .form_login .info {
+	text-align: right;
+	padding-right: 20px;
+}
+
+#setup .form_login .col {
+	font-weight: bold;
+	text-align: center;	
+	padding: 90px
+}
+
+#setup button {
+	margin: 10px;	
+}
+
+#setup .login {
+	text-align: center;
+}
+
+#confirmed table {
+	margin-left:auto; 
+	margin-right:auto;
+	padding: 5px;
+}
+
+#db {
+	text-align: center;
+} 
+
+.info label {
+	background: transparent;
 }

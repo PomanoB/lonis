@@ -1,6 +1,6 @@
-			<h2>{#langAchievs#}</h2>
+			<h2>{#lang_achievs#}</h2>
 			<div style="padding:10px;">
-				<span>{#langAchievsPlayer#} {$playerName}</span>
+				<span>{#lang_achievsPlayer#} {$playerName}</span>
 				{foreach from=$achievs item=achiev}
 					<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
 						<a href="{$baseUrl}/achiev/{$achiev.name|replace:' ':'_'}">{$achiev.name}</a>

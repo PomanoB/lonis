@@ -1,7 +1,7 @@
-			<p><h2>{#langKzDuel#}</h2>
+			<p><h2>{#lang_kz_duels#}</h2>
 			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
 			<div style="padding:10px;">
-				<table>
+				<table class="table-list">
 					<tr class="title">
 						<th>{#langMap#}</th>
 						<th>{#langWinner#}</th>

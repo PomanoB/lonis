@@ -30,13 +30,21 @@ else {
 	if (isset($_SESSION['setting_user'])) {
 		$smarty->assign('act', $act);
 		
+		/* General setting */
 		if($act=="save") {
 			$user = $_POST["fld_mysql_user"];
 			$password = $_POST["fld_mysql_password"];
 			
 			if (!$user) $errors[] = $smarty->get_config_vars('langNotInputNick');	
 			if (!$password) $errors[] = $smarty->get_config_vars('langNotInputPassword');
-	
+			
+			foreach($_POST as $key=>$value) {
+				if($_POST[$key]=="") {
+					$key = str_replace("fld_", "", $key);
+					$fld_err[$key] = 1;
+				}
+			}
+			
 			if ($user && $password) {
 				$fp = fopen($config_dir.'/'.$config_file, 'w');
 				$text = "";
@@ -54,31 +62,28 @@ else {
 				$smarty->assign('message', $smarty->get_config_vars('langSaved'));
 			}
 			else {
-				$smarty->assign('message', $smarty->get_config_vars('langRegErrors') . implode('<br />', $errors));
+				$smarty->assign('message', $smarty->get_config_vars('langNotInput'));
 			}
 		}
 		else
 		if($act=="reset") {
-			if(isset($_POST['comfirm']) && $_POST['comfirm']==1) {
+			//if(isset($_POST['comfirm']) && $_POST['comfirm']==1) {
+			if($check_confirm = check_comfirm($mysql_password)) {
 				unset($_SESSION['setting_user']);
 				unlink($config_dir.'/'.$config_file);
 				header("Location: $baseUrl/setup");
 			}
 			else {
-				$smarty->assign('message', $smarty->get_config_vars('langConfirm'));
+				$smarty->assign('resetmessage', $smarty->get_config_vars('langConfirm'));
 			}
 		}
 		
-		foreach($conf_type as $type=>$value) {
-			foreach($value as $name) {
-				$input_type[$name] = $type;
-			}
-		}
-
+		$input_type = row2col($conf_type);
+		
 		foreach($conf as $name=>$value) {
 			if(!isset($input_type[$name])) $input_type[$name] = "text";
 			$conflist[$name]['type'] = $input_type[$name];
-	
+			$conflist[$name]['err'] = isset($fld_err[$name]) ? 1 : 0;
 			$conflist[$name]['name'] = "fld_".$name;
 			$conflist[$name]['desc'] = $smarty->get_config_vars('lang_'.$name);
 			if($input_type[$name]!="password")
@@ -87,7 +92,8 @@ else {
 		}
 		$smarty->assign('conflist', $conflist);
 		
-		$check_confirm = check_comfirm();
+		/* Database */
+		$check_confirm = check_comfirm($mysql_password);
 		$smarty->assign('check_confirm', $check_confirm);
 		$smarty->assign('act', $act);
 		
@@ -143,19 +149,68 @@ else {
 						$smarty->assign('tables', $tables);
 						$smarty->assign('file_data', $file_data);						
 						$smarty->assign('tbl', 1);
-					}
-				}
+					} // End
+				} // End tables
 				$smarty->assign('file_table', $file_table);
-			}
+			} //End db
 			$smarty->assign('db', $db);
+		} // End conn
+		
+		/* Languge */
+		$cvars = $smarty->get_config_vars();
+		
+		// Get language list
+		foreach($cvars as $key=>$value) {
+			if(stristr($key, "langLang_")) {
+				$l = str_replace("langLang_", "", $key);
+				$langs[] = $l;
+				$langName[$l] = array();
+			}
 		}
-	}
-}
+		unset($cvars);
 
-$template = 'setup.tpl';
+		//Get all languages name per language list
+		if(isset($lang_custom)) {
+			$langdata['lang.ini'] = parse_ini_file($config_dir."/lang.ini", true);
 
-function check_comfirm() {
-	global $conf;
-	return (isset($_POST['confirm_password']) && $_POST['confirm_password']==$conf['mysql_password']) ? 1 : 0;
+			foreach($allowedActions as $key=>$value) {
+				if(file_exists($config_dir."/lang_$key.ini")) {
+					$langfilename = "lang_$key.ini";
+					$langdata[$langfilename] = parse_ini_file($config_dir."/".$langfilename, true);
+				}
+			}
+		}
+		else {
+			$langdata = parse_ini_file($config_dir."/lang.ini", true);
+		}
+		
+		foreach ($langdata as $key => $value) {
+			if (!is_array($value)) {
+				$lang_global[$key] = $value;
+			}
+			else {
+				$lang_local[$key] = $langdata[$key];
+			}
+		}
+
+		foreach ($lang_local as $l => $arr) {
+			$lang_lang[$l] = $lang_global['langLang_'.$l];
+			foreach ($arr as $name => $value) {
+				$row[$name][$l] = $value;
+			}
+		}
+		
+		$smarty->assign('lang_lang', $lang_lang); 
+		$smarty->assign('lang_local', $row);		
+		$smarty->assign('lang_global', $lang_global);
+		
+		
+		
+	} // End setting
+} // End login, logout
+
+/* ----- Function ----- */
+function check_comfirm($mysql_password) {
+	return (isset($_POST['confirm_password']) && $_POST['confirm_password']==$mysql_password) ? 1 : 0;
 }
 ?>

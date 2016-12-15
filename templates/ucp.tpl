@@ -5,6 +5,7 @@
 		{elseif $user.active == 1}
 			<div class="settingsPanel_off">
 				<p><h2>{#langTitleGameAcc#}</h2>
+				<div class="message">{$message}</div>
 				<table border="0">
 					<form action="{$baseUrl}/ucp" method="post">
 					<tr>

@@ -1,6 +1,6 @@
-			<p><h2>{#langAchievs#}</h2>
+			<p><h2>{#lang_achievs#}</h2>
 			<div style="padding:10px;">
-				<span>{#langAchievsPlayer#} {$playerName|escape}</span>
+				<span>{#lang_achievsPlayer#} {$playerName|escape}</span>
 {foreach from=$achievs item=achiev}
 				<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
 					<b><a href="{$baseUrl}/achiev/{$achiev.name|replace:' ':'_'}">{$achiev.name}</a></b>
@@ -16,7 +16,7 @@
 					</div>
 {elseif $achiev.unlocked}
 					<div class="unlocekd_time">
-						{#langAchievsUnlocked#}{$achiev.unlocked|date_format:"%d.%m.%Y %H:%M"}
+						{#lang_achievsUnlocked#}{$achiev.unlocked|date_format:"%d.%m.%Y %H:%M"}
 					</div>
 {/if}
 				</div>

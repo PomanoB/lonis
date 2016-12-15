@@ -19,10 +19,10 @@
 				{$ru.mappath} {$ru.time} {$ru.player};
 {/foreach}
 				
-				<p><table>
+				<p><table class="table-list">
 					<tr class="title" >
 						<td>№</td>
-						<td>{#langPlayer#}</td>
+						<td>{#lang_player#}</td>
 						<td>{#langTime#}</td>
 						<td>{#langCp#}</td>
 						<td>{#langGoCp#}</td>

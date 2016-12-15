@@ -1,4 +1,4 @@
-			<h2>{#langPlayer#} {$name|escape}</h2><br>
+			<h2>{#lang_player#} {$name|escape}</h2><br>
 			<div>
 				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/pro/{$rec}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{#langKzPro#}</a>
 				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/noob/{$rec}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{#langKzNoob#}</a>
@@ -24,7 +24,7 @@
 			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
 			<div style="padding:10px;">
 {if $rec == "norec"}
-				<table>
+				<table class="table-list">
 					<tr class="title">
 						<td>{#langMap#}</td>
 					</tr>

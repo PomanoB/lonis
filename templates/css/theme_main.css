@@ -100,12 +100,16 @@ legend {
 }
 
 /* PLAYERS LIST */
-table {
+.table-list  {
 	font-size: 95%;
 	line-height: 1.7em;
 	empty-cells: show; 
 	border-collapse: collapse;
 	width: 100%;
+}
+
+.table-list .list td {
+	padding-left: 4px;
 }
 
 tr.list {
@@ -204,7 +208,7 @@ tr.title {
 	font-size: 180%;
 	padding: 2px;
 	height: 30px;
-	width: 400px;
+	width: 300px;
 	border: 1px solid #DCDCDC;
 }
 
@@ -229,9 +233,7 @@ button {
 }
 
 .info {
-	color: gray;
 	font-size: 11px;
-	width: 200px;
 }
 
 .infoid {

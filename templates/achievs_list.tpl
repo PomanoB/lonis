@@ -1,5 +1,5 @@
-			<p><h2>{#langAchievs#}</h2>
-				<span>{#langAchievs#}</span><br />
+			<p><h2>{#lang_achievs#}</h2>
+				<span>{#lang_achievs#}</span><br />
 				<table>
 {foreach from=$achievs item=achiev}
 					<tr>

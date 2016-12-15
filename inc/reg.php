@@ -33,9 +33,9 @@ if (isset($_POST['reg_nick']) && isset($_POST['reg_password']))
 			$player = mysql_insert_id();
 			mysql_query("INSERT INTO `unr_activate` SET `player`= '$player', `key` = '$key', `time` = '$time'");
 			
-			mail($_POST['email'], '[K.lan]', "?ë¤ àêòèâàöèè ïðîéäèòå ïî ñëåä. ññûëêå:\nhttp://www.klan-hub.ru/lonis/reg/$key", 'From: admin@klan-hub.ru');
+			mail($_POST['email'], '[K.lan]', "?Ð”Ð»Ñ Ð°ÐºÑ‚Ð¸Ð²Ð°Ñ†Ð¸Ð¸ Ð¿Ñ€Ð¾Ð¹Ð´Ð¸Ñ‚Ðµ Ð¿Ð¾ ÑÐ»ÐµÐ´. ÑÑÑ‹Ð»ÐºÐµ:\nhttp://www.klan-hub.ru/lonis/reg/$key", 'From: admin@klan-hub.ru');
 			
-			$smarty->assign('message', $smarty->get_config_vars('langRegisterSuccess'));
+			$smarty->assign('message', $smarty->get_config_vars('lang_regSuccess'));
 		}
 		else
 		{
@@ -70,8 +70,4 @@ if (isset($_GET['key']) && $_GET['key'] != '')
 		$smarty->assign('message', $smarty->get_config_vars('langActiveError'));
 	}
 }
-
-//$template = 'reg.tpl';
-$template = 'login.tpl';
-
 ?>

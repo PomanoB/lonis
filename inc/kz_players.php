@@ -120,7 +120,7 @@ if ((isset($_GET['id']) && ($id = abs((int)$_GET['id']))) || (isset($playerId) &
 				$row['time'] = timed($row['time'], 5);
 				$row['timerec'] = timed($row['timerec'], 2);
 			
-				$row['weapon_name'] = $weaponNames[$row['weapon']];
+				$row['weapon_name'] = $smarty->get_config_vars("lang_wpn_".$row['weapon']);
 				$maps[] = $row;
 			}
 		}

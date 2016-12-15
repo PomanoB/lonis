@@ -1,4 +1,4 @@
-			<p><h2>{#langKzMaps#}</h2>
+			<p><h2>{#lang_kz_maps#}</h2>
 {if !isset($cs)}
 			<div align="right">
 				<form action="" method="post" id="search_map_form">
@@ -44,11 +44,11 @@
 			</div>
 {else}		
 			<div style="padding:10px;">
-				<table>
+				<table class="table-list">
 					<tr class="title">
 						<td>{#langMap#}</td>
 						<td>{#langWorldRecord#}</td>
-						<td>{#langPlayer#}</td>
+						<td>{#lang_player#}</td>
 						<td>{#langTime#}</td>
 						<td>{#langCp#}</td>
 						<td>{#langGoCp#}</td>

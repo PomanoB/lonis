@@ -1,7 +1,9 @@
 <?php
 $config_file = "config.ini";
+$config_lang = "lang.ini";
 $cs = 0;
 
+// Default config
 $conf_type = array(
 	'password' => array('mysql_password'),
 	'number' => array('activateTime', 'gravatarSize', 'playerPerPage', 'mapsPerPage', 'playersPerPage')
@@ -17,22 +19,16 @@ $conf = array (
 	'mysql_db' => 'lonis',
 	'mysql_prefix' => 'lonis_',
 
-	'baseUrl' => "http://localhost/lonis",
-
-	'activateTime' => 60 * 60 * 24 * 3,
-		
+	'activateTime' => 60 * 60 * 24 * 3,		
 	'gravatarSize' => 150,
 	'playerPerPage' => 20,
-
 	'mapsPerPage' => 20,
 	'playersPerPage' => 20,
 
 	'langlist' => "en ru",
-	'lang' => "en",
-	
+	'lang' => "en",	
 	'themelist' => "main white image null",
 	'theme' => "main",
-
 	'cstheme' => "main"
 );
 
@@ -40,40 +36,49 @@ $additional_flags = array(
 	'green_chat' => 't'
 );
 
-$weaponNames = array(
-	'',
-	'P228',
-	'',
-	'SCOUT',
-	'HEGRENADE',
-	'XM1014',
-	'C4',
-	'MAC10',
-	'AUG',
-	'SMOKEGRENADE',
-	'ELITE',
-	'FIVESEVEN',
-	'UMP45',
-	'SG550',
-	'GALI',
-	'FAMAS',
-	'USP',
-	'GLOCK18',
-	'AWP',
-	'MP5NAVY',
-	'M249',
-	'M3',
-	'M4A1',
-	'TMP',
-	'G3SG1',
-	'FLASHBANG',
-	'DEAGLE',
-	'SG552',
-	'AK47',
-	'KNIFE',
-	'P90',
-	'VEST',
-	'VESTHELM'
+// Menu action
+$menuAction = array(
+	'home' => '/',
+	'players' => '/players',
+	'achiev_players' => '/achiev/players',
+	'achiev' => '/achiev',
+	'kz_players' => '/kreedz/players',
+	'kz_maps' => '/kreedz',
+	'kz_duels' => '/kz_duels',
+	'reg' => '/reg',
+	'login' => '/login',
+	'ucp' => '/ucp',
+	'logout' => '/logout',
+	'setup' => '/setup'
+);
+
+// Menu List
+$menu = array(
+	'home',
+	'players',
+	'achiev_players',
+	'achiev',
+	'kz_players',
+	'kz_maps',
+	'kz_duels',
+	'reg',
+	'login',
+);
+
+$menuLogged = array(
+	'ucp',
+	'logout'
+);
+
+$menuUnLogged = array(
+	'reg',
+	'login'
+);
+	
+$menuCS = array(
+	'kz_players',
+	'kz_maps',
+	'kz_duels',
 );
 
 ?>

@@ -1,8 +1,4 @@
 <?php
-
-//echo "GET: "; print_r($_GET); echo "<br> POST: "; print_r($_POST);
-//die();
-
 error_reporting(E_ALL | E_STRICT);
 
 session_start();
@@ -10,16 +6,23 @@ session_start();
 define('IN_KZ_TOP', 1);
 
 include "inc/config.php";
+include "inc/function.php";
 include "inc/smarty_unr.php";
 //include "inc/geoip/geoip.inc";
 include "inc/geoip/geoipcity.inc";
 
+// Geo IP
 $gi = geoip_open("inc/geoip/GeoIPCity.dat", GEOIP_STANDARD);
+
+
 
 // Read setting from config.php
 foreach($conf as $key=>$value) {
 	$$key = $value;
 }
+
+// Timezone
+date_default_timezone_set($timezone);
 
 // quotes $_POST and $_GET
 if (!get_magic_quotes_gpc()) {
@@ -31,28 +34,24 @@ if (!get_magic_quotes_gpc()) {
 	}
 }
 
+// Global vars
+$action = isset($_GET['action']) ? $_GET['action'] : 'home';
+$baseUrl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "";
+
 // Smarty
 $smarty = new Smarty_unr();
 $config_dir = $smarty->config_dir;
 
-// Read setting from config file
-// Create new config file from config.php (default)
-if (!file_exists($config_dir.'/'.$config_file)) {
-	$fp = fopen($config_dir.'/'.$config_file, 'w');
-	$text = "";
+// Read setting from config file or create default
+$config_path = $config_dir.'/'.$config_file;
+if(file_exists($config_path)) {
+	$conf = parse_ini_file($config_path);
 	foreach($conf as $key=>$value) {
-		$text .= $key." = '".$value."'\n";
+		$$key = $value;
 	}
-	fwrite($fp, $text);
-	fclose($fp);
 }
 else {
-	$smarty->config_load($config_file);
-	$config_vars = $smarty->get_config_vars();
-	foreach($config_vars as $key=>$value) {
-		$$key = $value;
-		$conf[$key] = $value;
-	}
+	save_config_file($config_path);
 }
 
 // Connect to mysql
@@ -61,9 +60,6 @@ if(isset($_GET['action']) && $_GET['action']!="setup") {
 		header("Location: $baseUrl/setup");
 	}
 }
-
-// Timezone
-date_default_timezone_set($timezone);
 
 // Read language 
 if (isset($_POST['lang'])) {
@@ -76,15 +72,26 @@ if (isset($_SESSION['unr_lang']))
 else	
 	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
 		$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-
+	
 $smarty->assign('lang', $lang);
-$smarty->config_load("lang.ini");
-$smarty->config_load("lang.ini", $lang);	
+
+if(!file_exists($config_dir."/".$config_lang)) {
+	die('Default Languge file: $config_lang - not found');
+}
+
+$smarty->config_load($config_lang);
+$smarty->config_load($config_lang, $lang);
+	
+if(isset($lang_custom)) {
+	if(file_exists($config_dir."/lang_$action.ini")) {
+		$smarty->config_load("lang_$action.ini");
+		$smarty->config_load("lang_$action.ini", $lang);
+	}	
+}
 
 $langlist = explode(" ", $langlist);
 foreach($langlist as $key=>$value) {
-	$langselect[$key]['name'] = $value;
-	$langselect[$key]['desc'] = $smarty->get_config_vars('langLang_'.$value);
+	$langselect[$value] = $smarty->get_config_vars('langLang_'.$value);
 }
 $smarty->assign('langselect', $langselect);
 
@@ -94,8 +101,7 @@ setlocale(LC_ALL, $lang.'_'.$lang.'.'.$charset);
 // Read themes
 $themelist = explode(" ", $themelist);
 foreach($themelist as $key=>$value) {
-	$themeselect[$key]['name'] = $value;
-	$themeselect[$key]['desc'] = $smarty->get_config_vars('langTheme_'.$value);
+	$themeselect[$value] = $smarty->get_config_vars('langTheme_'.$value);
 }
 $smarty->assign('themeselect', $themeselect);
 
@@ -119,9 +125,8 @@ if(isset($_POST['cs'])) { $cs = $_POST['cs']; $_SESSION['cs'] = $cs; }
 if($cs) {
 	$smarty->assign('cs', $cs);
 	$_SESSION['unr_theme'] = $cstheme;
+	$menu = $menuCS;
 }
-else
-	$_SESSION['unr_theme'] = $theme;
 
 if (isset($_SESSION['unr_theme']))
 	$theme = $_SESSION['unr_theme'];
@@ -143,125 +148,36 @@ if (isset($_SESSION['user']['id']))
 	}
 	else
 		unset($_SESSION['user']);
+	
+	array_replace($menu, $menuNotLogged, $menuLogged);
 }
 
-$action = isset($_GET['action']) ? $_GET['action'] : 'index';
-
+// Get name from DB
 if (isset($_GET['name'])) {
-	$name = get_magic_quotes_gpc() ? $_GET['name'] : addslashes($_GET['name']);
-	
-	$q = "SELECT * FROM `unr_players` WHERE `name` = '$name' OR `name` = REPLACE('$name', '_', ' ') LIMIT 1";
-	
-	$r = mysql_query($q);
-	
+	$q = "SELECT * FROM `unr_players` WHERE `name` = '$name' OR `name` = REPLACE('$name', '_', ' ') LIMIT 1";	
+	$r = mysql_query($q);	
 	if($info = mysql_fetch_assoc($r))
 		$playerId = $info['id'];
 }
 
-$allowedActions = array(
-	'reg' => 'inc/reg.php',
-	'login' => 'inc/login.php',
-	'achiev' => 'inc/achiev.php',
-	'ucp' => 'inc/ucp.php',
-	'achiev_admin' => 'inc/achiev_admin.php',
-	'achiev_players' => 'inc/achiev_players.php',
-	'kz_players' => 'inc/kz_players.php',
-	'kz_map' => 'inc/kz_map.php',
-	'kz_maps' => 'inc/kz_maps.php',
-	'players' => 'inc/players.php',
-	'player' => 'inc/player.php',
-	'kz_duels' => 'inc/kz_duels.php',
-	'steam_login' => 'inc/steam_login.php',
-	'setup' => 'inc/setup.php'
-);	
+// Menu
+foreach($menu as $value) {
+	$menulist[$value]['name'] = $smarty->get_config_vars("lang_".$value);
+	$menulist[$value]['url'] = $menuAction[$value];
+}
+$smarty->assign('menulist', $menulist);
+	
+// Include action
+if(file_exists("inc/$action.php"))
+	include "inc/$action.php";
 
-if (isset($allowedActions[$action]))
-	include $allowedActions[$action];
-else
-	$template = 'index.tpl';
-
+// Global temlate vars
 $smarty->assign('action', $action);
 $smarty->assign('baseUrl', $baseUrl);
+$smarty->assign('langAction', $smarty->get_config_vars("lang_".$action));
 
-$langActions = array(
-	'index' => 'langStart',
-	'reg' => 'langRegister',
-	'login' => 'langLogin',
-	'achiev' => 'langAchiev',
-	'ucp' => 'langUcp',
-	'achiev_admin' => 'langAchievAdmin',
-	'achiev_players' => 'langAchievPlayers',
-	'kz_players' => 'langKzPlayers',
-	'kz_map' => 'langKzMap',
-	'kz_maps' => 'langKzMaps',
-	'players' => 'langPlayers',
-	'player' => 'langPlayer',
-	'kz_duels' => 'langKzDuel',
-	'steam_login' => 'langSteamLogin',
-	'logout' => 'langLogOut',
-	'setup' => 'langSetup'
-);
-
-$typeDescription = array(
-		'pro' => 'langKzPro',
-		'noob' => 'langKzNoob',
-		'all' => 'langKzAll'
-	);	
-	
-$smarty->assign('langAction', $smarty->get_config_vars($langActions[$action]));
-
-if (isset($template))
-{
-	$smarty->display('header.tpl');
-	$smarty->display($template);
-	$smarty->display('footer.tpl');
-
-}
+// Template
+$smarty->display("index.tpl");
 		
 geoip_close($gi);
-
-/*---------------------------------------------------------------------------------------------*/
-
-// check $_GET, $_POST, $_SESSION
-function get_request($var) {
-	return $act = isset($_GET['act']) ? (isset($_POST['act']) ? $_POST['act'] : $_GET['act']) : "";
-}
-
-// Connect to db
-function db_connect($host, $user, $password, $db, $charset) {
-	if (!mysql_connect($host, $user, $password)) return 0;
-	if (!mysql_select_db($db)) return 0;
-	if (!mysql_fetch_assoc(mysql_query("show tables"))) return 0;
-	
-	mysql_query("SET NAMES ".$charset);
-	return 1;
-}
-
-// Time format ##:##.##
-function timed($ftime, $pad=0) {
-	$min = floor($ftime/60);
-	$sec = $ftime%60;
-	$ms = $ftime * pow(10,$pad) % pow(10,$pad);
-	if ($min < 10) $min = '0'.$min;
-	if ($sec < 10) $sec = '0'.$sec;
-	$ms = str_pad($ms, $pad, '0');
-	if ($ms < pow(10,$pad-1) && $ms!=0) $ms = '0'.$ms;
-	
-
-	return $min.':'.$sec.'.'.$ms;
-}
-
-// Name of variable
-function vname( &$var, $scope=false, $prefix="unique", $suffix="value") {
-	$vals = $scope ? $scope : $GLOBALS;
-	$old = $var;
-	$var = $new = $prefix.rand().$suffix;
-	$vname = FALSE;
-	foreach($vals as $key => $val) {
-		if($val === $new) $vname = $key;
-	}
-	$var = $old;
-	return $vname;
-}
-
 ?>

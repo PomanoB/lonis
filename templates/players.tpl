@@ -1,4 +1,4 @@
-			<p><h2>{#langPlayers#}</h2>
+			<p><h2>{#lang_players#}</h2>
 			<div align="right">
 				<form action="players" method="post">
 					<input type="text" name="search" id="search" class="form" {if isset($search)}value="{$search}"{/if} placeholder="{#langSearch#}" /> {*<input type="submit" value="{#langSearch#}" />*}
@@ -7,11 +7,11 @@
 				</form>
 			</div>
 			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
-				<table>
+				<table class="table-list">
 					<tr class="title">
-						<td>{#langPlayer#}</td>
+						<td>{#lang_player#}</td>
 						<td>{#langCountry#}</td>
-						<td>{#langAchievsPlayer#}</td>
+						<td>{#lang_achievsPlayer#}</td>
 						<td>{#langKzStats#}</td>
 						<!--
 						<td>{#langDRStats#}</td>-->

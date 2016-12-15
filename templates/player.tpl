@@ -2,7 +2,7 @@
 	<img src="{$info.gravatar}" alt="Аватар {$info.name|escape}" />
 	<table>
 		<tr class="playerinfo">
-			<td class="infoid">{#langAchievCompleted#}</td> <td><a href="{$baseUrl}/{$info.name|replace:' ':'_'}/achiev" title="{#langView#}">{$info.achievCompleted}</a></td>
+			<td class="infoid">{#lang_achievCompleted#}</td> <td><a href="{$baseUrl}/{$info.name|replace:' ':'_'}/achiev" title="{#langView#}">{$info.achievCompleted}</a></td>
 		</tr>
 		<!--
 		<tr class="playerinfo">

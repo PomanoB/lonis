@@ -79,7 +79,7 @@ else
 	{
 		$row['time'] = timed($row['time'], 5);
 		
-		$row['weapon_name'] = $weaponNames[$row['weapon']];
+		$row['weapon_name'] = $smarty->get_config_vars("lang_wpn_".$row['weapon']);
 		$row['number'] = $i++;
 		
 		$players[] = $row;

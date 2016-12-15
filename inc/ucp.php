@@ -74,8 +74,7 @@ if (isset($_SESSION['user']))
 		if (mysql_query($update_sql))
 			$smarty->assign('message', $smarty->get_config_vars('langDataUpdated'));
 		else
-			$smarty->assign('message', $smarty->get_config_vars('langAlreadyUsed'));
-		$template = 'message.tpl';     
+			$smarty->assign('message', $smarty->get_config_vars('langAlreadyUsed'));     
     }
     else
     {   
@@ -90,13 +89,11 @@ if (isset($_SESSION['user']))
 			$i++;
 		}
 		$smarty->assign('addFlags', $addFlags);
-        $template = 'ucp.tpl';
 	}
 }
 else
 {
     $smarty->assign('message', $smarty->get_config_vars('langMustLogin'));
-    $template = 'message.tpl';
 }
 
 

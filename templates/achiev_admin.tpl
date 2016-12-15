@@ -1,4 +1,4 @@
-			<p><h2>{#langAchievs#}</h2>
+			<p><h2>{#lang_achievs#}</h2>
 			<div style="padding:10px;">
 				<form action="achiev_admin" method="post">
 					<table>
