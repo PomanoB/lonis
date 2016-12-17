@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL | E_STRICT);
 
 session_start();
@@ -14,8 +15,6 @@ include "inc/geoip/geoipcity.inc";
 // Geo IP
 $gi = geoip_open("inc/geoip/GeoIPCity.dat", GEOIP_STANDARD);
 
-
-
 // Read setting from config.php
 foreach($conf as $key=>$value) {
 	$$key = $value;
@@ -23,6 +22,17 @@ foreach($conf as $key=>$value) {
 
 // Timezone
 date_default_timezone_set($timezone);
+
+// Base URL
+$baseUrl = str_replace("/index.php", "", $_SERVER['PHP_SELF']);
+
+//print_p($_SERVER);
+// Parse URI
+$uri = str_replace($baseUrl."/", "", $_SERVER['REQUEST_URI']);
+if($uri!="") {
+	$url = parse_uri($uri, $parseRules);
+	$_GET = $url['uri'];
+}
 
 // quotes $_POST and $_GET
 if (!get_magic_quotes_gpc()) {
@@ -34,9 +44,13 @@ if (!get_magic_quotes_gpc()) {
 	}
 }
 
-// Global vars
-$action = isset($_GET['action']) ? $_GET['action'] : 'home';
-$baseUrl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "";
+// Debug trace
+//print_p();
+//print_p($_SESSION);
+//print_p($_SERVER);
+
+// Action
+$action = isset($_GET['action']) && $_GET['action']!="" ? $_GET['action'] : 'home';
 
 // Smarty
 $smarty = new Smarty_unr();
@@ -112,8 +126,9 @@ if (isset($_POST['theme']))
 		$_SESSION['unr_theme'] = $_POST['theme'];
 	}
 	else {
-		$langTheme = $smarty->get_config_vars('langTheme_'.$theme);
-		echo "<script>alert('Theme $langTheme not found')</script>";
+		$langTheme1 = $smarty->get_config_vars('langTheme_'.$_POST['theme']);
+		$langTheme2 = $smarty->get_config_vars('langThemeNotFound');
+	echo "<script>alert('$langTheme1 $langTheme2')</script>";
 	}
 }
 
@@ -134,8 +149,7 @@ if (isset($_SESSION['unr_theme']))
 $smarty->assign('theme', $theme);
 
 // Select Player
-if (isset($_SESSION['user']['id']))
-{
+if (isset($_SESSION['user']['id'])) {
 	$r = mysql_query("SELECT * FROM `unr_players` WHERE `id`= {$_SESSION['user']['id']}");
 	if ($row = mysql_fetch_assoc($r))
 	{
@@ -149,30 +163,51 @@ if (isset($_SESSION['user']['id']))
 	else
 		unset($_SESSION['user']);
 	
-	array_replace($menu, $menuNotLogged, $menuLogged);
+	$menu = array_replace($menu, $menuUnLogged);
+	//unset($menu['reg']);
 }
 
 // Get name from DB
 if (isset($_GET['name'])) {
+	$name = $_GET['name'];
 	$q = "SELECT * FROM `unr_players` WHERE `name` = '$name' OR `name` = REPLACE('$name', '_', ' ') LIMIT 1";	
-	$r = mysql_query($q);	
+	$r = mysql_query($q);
 	if($info = mysql_fetch_assoc($r))
 		$playerId = $info['id'];
 }
 
 // Menu
-foreach($menu as $value) {
-	$menulist[$value]['name'] = $smarty->get_config_vars("lang_".$value);
-	$menulist[$value]['url'] = $menuAction[$value];
+foreach($menu as $key=>$item) {
+	$val = explode("|", $item);
+	if($item!="-") {
+		$menulist[$key]['name'] = $smarty->get_config_vars("lang_".$val[0]);
+		$menulist[$key]['url'] = "/".$val[0];
+		if(isset($val[1])) {
+			foreach($val as $k=>$subitem) {
+				$submenulist[$k]['name'] = $smarty->get_config_vars("lang_".$subitem);
+				$submenulist[$k]['url'] = "/".$subitem;	
+			}	
+		}
+	}
 }
+
 $smarty->assign('menulist', $menulist);
+//$smarty->assign('submenulist', $submenulist);
+
+// Menu Footer
+$smarty->assign('menu_footer', $menu_footer);
 	
 // Include action
 if(file_exists("inc/$action.php"))
 	include "inc/$action.php";
 
+if(file_exists("templates/$action.tpl")) {
+	$smarty->assign('action', $action);
+}
+else
+	$action = "home";
+
 // Global temlate vars
-$smarty->assign('action', $action);
 $smarty->assign('baseUrl', $baseUrl);
 $smarty->assign('langAction', $smarty->get_config_vars("lang_".$action));
 

@@ -1,31 +1,32 @@
 			<div class="title">{#lang_setup#} :: {if isset($act)}
 				<a href="{$baseUrl}/setup/logout">{#lang_logout#}</a>{else}{#lang_login#}{/if}
 			</div>
-
+			<div class="setup_message">{$message}</div>
+			
 {* -------------------------------------------------------------------------------------------------------------------- *)
-(*    General Setting																									*)		
-(* -------------------------------------------------------------------------------------------------------------------- *}
-		<div id="setup">
-			<div class="message">{$message}</div>
-	{if !isset($act)}
+(*    Login form																										*)		
+(* -------------------------------------------------------------------------------------------------------------------- *}			
+{capture name=act_login}
 			<div class="login">
 			  <form action="{$baseUrl}/setup" method="post">
 				<table class="form_login">
 					<tr>
 						<td class="info"><label for="setting_user">{#langName#}</label></td>
-						<td><input type="text" class="bigform_login" name="setting_user" id="setting_user" /></td>
+						<td><input type="text" class="bigform" name="setting_user" id="setting_user" /></td>
 					</tr>
 					<tr>
 						<td class="info"><label for="setting_password">{#langPassword#}</label></td>
-						<td><input type="password" class="bigform_login" name="setting_password" id="setting_password" /></td>
+						<td><input type="password" class="bigform" name="setting_password" id="setting_password" /></td>
 					</tr>
 				</table>
 				<div class="login">
 					<button>{#lang_login#}</button>
-				<div>
+				</div>
 			  </form>
 			</div>
-	{else}
+{/capture}
+
+{capture name=act_setting}
 			<div class="tabs">
 			   <input type="radio" id="tab-1" name="tab-group-1" checked>
 				<label for="tab-1"><strong>{#lang_setupGeneral#}</strong></label>
@@ -36,6 +37,9 @@
 			   <input type="radio" id="tab-3" name="tab-group-1">
 				<label for="tab-3"><strong>{#lang_setupLang#}</strong></label>
 				
+{* -------------------------------------------------------------------------------------------------------------------- *)
+(*    General Setting																									*)		
+(* -------------------------------------------------------------------------------------------------------------------- *}
 				<div id="setup">
 					<table class="form_login">
 						<form action="{$baseUrl}/setup" method="post">
@@ -72,7 +76,7 @@
 				</div>
 
 {* -------------------------------------------------------------------------------------------------------------------- *)
-(*    Database																									*)		
+(*    Database																											*)		
 (* -------------------------------------------------------------------------------------------------------------------- *}
 				<div id="db">				
 					<div class="title">{#langDbTitle#}</div>
@@ -187,8 +191,15 @@
 					</div>
 					</form>
 				</div>
-{* -------------------------------------------------------------------------------------------------------------------- *}	
-	
-	{/if}	
 			</div>
-		</div>
+{* -------------------------------------------------------------------------------------------------------------------- *}	
+{/capture}
+
+{if !isset($act)}
+	{$smarty.capture.act_login}
+{else}
+	{$smarty.capture.act_setting}
+{/if}
+
+
+

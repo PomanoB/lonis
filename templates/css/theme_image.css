@@ -292,6 +292,9 @@ h2 {
 /* Header */
 /* Network */
 
+/* Header */
+/* Network */
+
 #network {background: #000 url(../../img/gradient_header.gif) repeat-x 0% 0%;}
 #network .left {
 	color: #333;
@@ -317,21 +320,20 @@ h2 {
 	color: #666;
 }
 
-#network li a:hover {
+#network .item a:hover {
 	background: #F6F6F6;
 	color: #000;
 }
-#network li.current-tab a {
+#network .item.current-tab a {
 	background: #FFF;
 	font-weight: bold;
 }
 #network .text-separator, #network span {color: #999;}
 .center-wrapper {
-	margin-left: 45px;
-	
+	margin-left: 45px;	
 }
 
-#network text {display: none;}
+#network img {display: none}
 
 /* Floats */   
 
@@ -348,13 +350,13 @@ h2 {
 
 /* Special lists */
 
-ul.plain-list li, ul.nice-list li, ul.tabbed li {list-style: none;}
+ul.plain-list li, ul.nice-list li, div.tabbed .item {list-style: none;}
 
-ul.tabbed {
+div.tabbed {
 	display: inline;
 	margin: 0;
 }
-ul.tabbed li {float: left;}
+div.tabbed .item {float: left;}
 
 ul.plain-list {margin: 0;}
 
@@ -371,7 +373,6 @@ ul.nice-list li .right {color: #999;}
 li div.left {
 	font-weight: bold;
 }
-
 
 select {
 	background: transparent;

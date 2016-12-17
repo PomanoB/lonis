@@ -17,7 +17,7 @@ if (isset($_SESSION['user']))
 		else
 		{
 				$nick =  str_replace(array('"', "'"), array('', ''), addslashes(trim($_POST['name'])));
-				if (!$_SESSION['user']['steam_id_64'])
+				if (!isset($_SESSION['user']['steam_id_64']))
 				{
 					$password =  str_replace(array('"', "'"), array('', ''), addslashes(trim($_POST['password'])));
 					$ip =  str_replace(array('"', "'"), array('', ''), addslashes(trim($_POST['ip'])));
@@ -25,7 +25,7 @@ if (isset($_SESSION['user']))
 				}
 		}
 		
-		if (!$_SESSION['user']['steam_id_64'])
+		if (!isset($_SESSION['user']['steam_id_64']))
 		{
 			$flag = 0;
 			
@@ -55,7 +55,7 @@ if (isset($_SESSION['user']))
 		$icq = abs((int)$_POST['icq']);
 		
 		$update_sql = "";
-		if (!$_SESSION['user']['steam_id_64'])
+		if (!isset($_SESSION['user']['steam_id_64']))
 		{
 			$update_sql = "UPDATE `unr_players` SET `name` = '$nick'".
 			($password ?  ", `password` = '$password'" : '').

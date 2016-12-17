@@ -5,8 +5,9 @@
 					<input type="image" name=”picture” src="{$baseUrl}/img/find.png" />
 					&nbsp;
 				</form>
-			</div>
+			
 			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
+
 				<table class="table-list">
 					<tr class="title">
 						<td>{#lang_player#}</td>
@@ -38,7 +39,7 @@
 							<a href="{$baseUrl}/{$player.name|replace:' ':'_'}/deatdrun">{#langView#}</a>
 						</td>
 						-->
-					<tr>
+					</tr>
 				{/foreach}
 				</table>
 			</div>

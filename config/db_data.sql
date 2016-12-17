@@ -1,3 +1,6 @@
+﻿TRUNCATE * FROM `unr_players` ;
+INSERT INTO `unr_players` SET `name`= 'admin', `password` = '21232f297a57a5a743894a0e4a801fc3', `email` = 'admin@site.com', `webadmin` = 1;
+
 TRUNCATE * FROM `unr_achiev`;
 INSERT INTO `unr_achiev` (`id`, `name`, `description`, `count`, `type`) VALUES
 (1, 'War Bonds', 'Заработать $125,000', 125000, 'money_t'),

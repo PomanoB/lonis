@@ -292,7 +292,7 @@ h2 {
 /* Header */
 /* Network */
 
-#network {background: #ffffff /*url(../../img/gradient_header.gif) repeat-x 0% 0%;*/}
+#network {background: #000 url(../../img/gradient_header.gif) repeat-x 0% 0%;}
 #network .left {
 	color: #333;
 	vertical-align: text-bottom;
@@ -307,7 +307,7 @@ h2 {
 	display: block;
 	padding: 6px 10px 7px;
 	text-decoration: none;
-	color: #171717;
+	color: #FFFFFF;
 }
 
 #network .install span {
@@ -317,12 +317,12 @@ h2 {
 	color: #666;
 }
 
-#network li a:hover {
-	background: #eeeeee;
+#network .item a:hover {
+	background: #F6F6F6;
 	color: #000;
 }
-#network li.current-tab a {
-	background: #171717;
+#network .item.current-tab a {
+	background: #FFF;
 	font-weight: bold;
 }
 #network .text-separator, #network span {color: #999;}
@@ -347,13 +347,13 @@ h2 {
 
 /* Special lists */
 
-ul.plain-list li, ul.nice-list li, ul.tabbed li {list-style: none;}
+ul.plain-list li, ul.nice-list li, div.tabbed .item {list-style: none;}
 
-ul.tabbed {
+div.tabbed {
 	display: inline;
 	margin: 0;
 }
-ul.tabbed li {float: left;}
+div.tabbed .item {float: left;}
 
 ul.plain-list {margin: 0;}
 
@@ -369,6 +369,18 @@ ul.nice-list li .right {color: #999;}
 
 li div.left {
 	font-weight: bold;
+}
+
+select {
+	background: transparent;
+	border: 0px;
+	color: #ffffff;
+}
+
+option {
+	background: #171717;
+	border: 0px;
+	color: #ffffff;
 }
 
 .color-nogc {color: #006400}

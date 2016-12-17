@@ -1,27 +1,45 @@
+<Files config.ini> 
+  deny from all 
+</Files>
+
 RewriteEngine On
+AddDefaultCharset utf-8
 
-RewriteRule ^(index|players|kz_maps|achiev|reg|login|kz_duels|kz_players|ucp|achiev_admin|steam_login)(/)?(/page([0-9]+))?$ index.php?action=$1&page=$4 [L]
-RewriteRule ^reg/(.*)$ index.php?action=reg&key=$1 [L]
+#Оключаем отслеживание сим-ссылок
+Options +FollowSymLinks
+#Блокируем плохих ботов и роботов
+SetEnvIfNoCase user-Agent ^FrontPage [NC,OR]
+SetEnvIfNoCase user-Agent ^Java.* [NC,OR]
+SetEnvIfNoCase user-Agent ^Microsoft.URL [NC,OR]
+SetEnvIfNoCase user-Agent ^MSFrontPage [NC,OR]
+SetEnvIfNoCase user-Agent ^Offline.Explorer [NC,OR]
+SetEnvIfNoCase user-Agent ^[Ww]eb[Bb]andit [NC,OR]
+SetEnvIfNoCase user-Agent ^Zeus [NC]
+<limit get="" post="" head="">
+Order Allow,Deny
+Allow from all
+Deny from env=bad_bot
+</limit>
 
-RewriteRule ^players/(.*)/page.([0-9]+)$ index.php?action=players&search=$1&page=$2 [L]
-RewriteRule ^kreedz(/(pro|noob|all))?(/page([0-9]+))?(/(norec|rec))?$ index.php?action=kz_maps&page=$4&type=$2&rec=$6 [L]
+#Блокируем все ссылки, содержащие <script>
+RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+#Блокируем все скрипты, которые пытаютс¤ изменить переменные PHP Globals:
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+#Блокируем все скрипты, которые пытаютс¤ изменить переменную _REQUEST:
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2}) [OR]
+#Блокируем все скрипты, которые пытаютс¤ изменить переменную _SERVER:
+RewriteCond %{QUERY_STRING} _SERVER(=|\[|\%[0-9A-Z]{0,2})
+#Перенаправляем все подобные на страницу с ошибкой 403 запрещено
+RewriteRule ^(.*)$ index.php [F,L]
 
-RewriteRule ^logout$ index.php?action=login&logout [L]
-
-RewriteRule ^achiev/players(/page.([0-9]+))?$ index.php?action=achiev_players&page=$2 [L]
-
-RewriteRule ^achiev/(.*)$ index.php?action=achiev&aname=$1 [L]
-
-RewriteRule ^(.*)/achiev$ index.php?action=achiev&name=$1 [L]
-
-RewriteRule ^kreedz/players(/(pro|noob|all))?(/page([0-9]+))?(/(num|top1))?$ index.php?action=kz_players&type=$2&page=$4&sort=$6 [L]
-RewriteRule ^kreedz/([0-9a-zA-Z$_]+)(/(pro|noob|all))?(/page([0-9]+))?$ index.php?action=kz_map&map=$1&type=$3&page=$5 [L]
-RewriteRule ^unrid([0-9]+)?(/kreedz)?(/(pro|noob|all))?(/page([0-9]+))?(/(norec|rec))?$ index.php?action=kz_players&id=$1&type=$4&page=$6&rec=$8 [L]
-RewriteRule ^(.*)/kreedz(/(pro|noob|all))?(/page([0-9]+))?(/(norec|rec))?$ index.php?action=kz_players&name=$1&type=$3&page=$5&rec=$7 [L]
-
-RewriteRule ^setup?$ index.php?action=setup [L]
-RewriteRule ^setup/logout?$ index.php?action=setup&logout=1 [L]
+#Проверка на ошибки
+ErrorDocument 401 /lonis/error/401
+ErrorDocument 403 /lonis/error/403
+ErrorDocument 404 /lonis/error/404
+ErrorDocument 500 /lonis/error/500
+RewriteRule ^error(/([0-9]+))?$ index.php?action=error&err=$2 [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule .* index.php?action=player&name=$0 
+
+RewriteRule ^(.*)? index.php [L]

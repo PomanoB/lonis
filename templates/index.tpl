@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="{$baseUrl}/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/default.css">
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/{$action}.css">
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/theme_{$theme}.css">
@@ -15,8 +16,8 @@
 	<div id="network">
 		<div class="center-wrapper">
 			<div class="left">
-				<ul class="tabbed" id="menu-tabs">
-					<li>
+				<div class="tabbed" id="menu-tabs">
+					<text class="item">
 						<form method="post" id="customForm" style="padding:7px 8px 0 0;margin:0;" action="">
 							<img src="{$baseUrl}/img/country/{$lang}.png">
 							<select id="lang" name="lang" onchange="document.getElementById('customForm').submit();">
@@ -25,15 +26,19 @@
 							{/foreach}
 							</select>
 						</form>
-					</li>
+					</text>
 					
 				{foreach from=$menulist key=key item=i}
-					<li><a title="{$i.name}" href="{$baseUrl}{$i.url}"><img src="img/menu/{$key}.png"><text>{$i.name}</text></a></li>
+					<text class="item">
+						<a title="{$i.name}" href="{$baseUrl}{$i.url}"><img src="{$baseUrl}/img/menu/{$key}.png"><text>{$i.name}</text></a>
+					</text>
 				{/foreach}
 				{if isset($user)}
-					<li><span>{$user.name|escape}</span></li>
+					<text class="item">
+						<a title="{$i.name}" href="{$baseUrl}/ucp"><text>{$user.name|escape}</text></a>
+					</text>					
 				{/if}
-				</ul>
+				</div>
 			</div>
 			<div class="clearer">&nbsp;</div>
 		</div>
@@ -61,11 +66,10 @@
 		</div>
 		<form method="post" id="themeForm" style="padding:2px 8px 0 0;margin:0;" action="">				
 			<div align="right" style="margin-right: 60px;">
-
 			{if !isset($cs)}
-				<a href="#" style="margin-left:50px;" target="_blank">Gm# Staff</a>
-				<a href="http://klan-hub.ru/index.php?page=feedback" style="margin-left:50px;" target="_blank">PomanoB</a>
-				<a href="http://leopold-soft.narod.ru" style="margin-left:50px;" target="_blank">Jeronimo.</a>
+				{foreach from=$menu_footer key=name item=href}
+					<a href="{$href}" style="margin-left:50px;" target="_blank">{$name}</a>
+				{/foreach}
 				
 				<select style="margin-left:50px;" id="theme" name="theme" onchange="document.getElementById('themeForm').submit();">
 				{foreach from=$themeselect key=name item=desc}
@@ -73,9 +77,9 @@
 				{/foreach}
 				</select>
 			{else}
-				<a href="#" style="margin-left:50px;" target="_blank">Gm# Staff</a>
-				<a href="#" style="margin-left:50px;" target="_blank">PomanoB</a>
-				<a href="#" style="margin-left:50px;" target="_blank">Jeronimo.</a>	
+				{foreach from=$menu_footer key=name item=href}
+					<a href="#" style="margin-left:50px;" target="_blank">{$name}</a>
+				{/foreach}
 			{/if}	
 			</div>
 			<br>

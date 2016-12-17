@@ -1,8 +1,9 @@
 			<center>
 			<p><h2>{#lang_regTitle#}</h2>
+			<p><div style="color: red;">{$message}</div>
 			
 			<form action="{$baseUrl}/reg" method="post">
-				<p><table border="0" style="width: 60%;" align="center" cellpadding=2>
+				<p><table border="0" align="center" cellpadding=2>
 					<tr>
 						<td class="info">
 							<label for="reg_nick">{#langName#}</label>

@@ -146,50 +146,49 @@
 	padding: 10px;
 }
 
-.message {
+.setup_message {
 	text-align: center;
 	color: red;
-	display: inline;
 }
 
 .title {
 	text-align: center;
 }
 
-#setup {
+{
 	text-align: center;
 }
 
-#setup table {
+table {
 	margin-left:auto; 
 	margin-right:auto;
 }
 
-#setup table td {
+table td {
 	padding: 0px;
 	text-align: left;
 }
 
-#setup .form_login {
+.form_login {
 	padding: 4px;
 }
 
-#setup .form_login .info {
+.form_login .info {
 	text-align: right;
 	padding-right: 20px;
 }
 
-#setup .form_login .col {
+.form_login .col {
 	font-weight: bold;
 	text-align: center;	
 	padding: 90px
 }
 
-#setup button {
+button {
 	margin: 10px;	
 }
 
-#setup .login {
+.login {
 	text-align: center;
 }
 

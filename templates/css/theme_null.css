@@ -293,7 +293,10 @@ h2 {
 /* Header */
 /* Network */
 
-#network {background: #ffffff}
+/* Header */
+/* Network */
+
+#network {background: #000}
 #network .left {
 	color: #333;
 	vertical-align: text-bottom;
@@ -308,7 +311,7 @@ h2 {
 	display: block;
 	padding: 6px 10px 7px;
 	text-decoration: none;
-	color: #0000ff;
+	color: #FFFFFF;
 }
 
 #network .install span {
@@ -318,23 +321,22 @@ h2 {
 	color: #666;
 }
 
-#network li a:hover {
-	background: #ffffff;
-	color: #000ff;
+#network .item a:hover {
+	background: #F6F6F6;
+	color: #000;
 }
-#network li.current-tab a {
-	background: #0000ff;
+#network .item.current-tab a {
+	background: #FFF;
 	font-weight: bold;
 }
 #network .text-separator, #network span {color: #999;}
 .center-wrapper {
-	margin-left: 45px;
-	
+	margin-left: 45px;	
 }
 
 #network img {display: none}
 
-/* Floats */ 
+/* Floats */   
 
 .left,.alignleft {float: left;}
 .right,.alignright {float: right;}
@@ -349,13 +351,13 @@ h2 {
 
 /* Special lists */
 
-ul.plain-list li, ul.nice-list li, ul.tabbed li {list-style: none;}
+ul.plain-list li, ul.nice-list li, div.tabbed .item {list-style: none;}
 
-ul.tabbed {
+div.tabbed {
 	display: inline;
 	margin: 0;
 }
-ul.tabbed li {float: left;}
+div.tabbed .item {float: left;}
 
 ul.plain-list {margin: 0;}
 
@@ -376,6 +378,13 @@ li div.left {
 select {
 	background: transparent;
 	border: 0px;
+	color: #ffffff;
+}
+
+option {
+	background: #171717;
+	border: 0px;
+	color: #ffffff;
 }
 
 .color-nogc {color: #006400}

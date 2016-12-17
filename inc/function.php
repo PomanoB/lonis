@@ -8,6 +8,49 @@ function get_request($var) {
 	return $act = isset($_GET['act']) ? (isset($_POST['act']) ? $_POST['act'] : $_GET['act']) : "";
 }
 
+// Parse URL. Exp: ##/##/## from array($rule, $url)
+function parse_uri($uri, $rules) {
+	$uris = parse_url($uri);
+	if(strpos($uri, "?")===false) {
+		$i=0;
+		foreach($rules as $str=>$value) {
+			preg_match_all($str, $uri, $matches);
+			if(isset($matches[0][0])) {			
+				$i++;
+				foreach($matches as $key=>$v) {
+					$rep = $v[0] ? $v[0] : "";
+					$value = str_replace("%$key%", $rep, $value);
+				}
+				$ret_uri[$i] = $value;
+			}
+		}
+		$ret = $ret_uri[1];
+	}
+	else 
+		$ret = $uri;
+	
+	return parse_urls($ret);
+}
+
+//Parse URI. Exp: key1=value1&key2=value2
+function parse_urls($url) {
+	$urls = parse_url($url);
+	$q = isset($urls['query']) ? $urls['query'] : "";
+	if($q) {
+		$ret_vars = explode("&", $q);
+		foreach($ret_vars as $value) {
+			$ret_delim = explode("=", $value);
+			$rets[$ret_delim[0]] = $ret_delim[1];
+		}
+
+		$urls['uri'] = $rets;
+	}
+	else
+		$urls['uri'] = array();
+		
+	return $urls;
+}
+
 // Connect to db
 function db_connect($host, $user, $password, $db, $charset) {
 	if (!mysql_connect($host, $user, $password)) return 0;
@@ -46,14 +89,14 @@ function vname( &$var, $scope=false, $prefix="unique", $suffix="value") {
 }
 
 // Print PRE
+// Type: 0 - GET, POST; 1 - SERVER
 function print_p($var="") {
-	if(isset($var)) {
+	if($var!="") {
 		echo "<p><pre>"; print_r($var); echo "</pre>";
 	} 
 	else {
-		echo "<p><pre>"; print_r($_GET); echo "</pre>";
-		echo "<p><pre>"; print_r($_POST); echo "</pre>";
-		echo "<p><pre>"; print_r($_SERVER); echo "</pre>";
+		echo "<p><pre>_GET: "; print_r($_GET); echo "</pre>";
+		echo "<p><pre>_POST: "; print_r($_POST); echo "</pre>";
 	}
 }
 // Row to col massive

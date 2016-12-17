@@ -1,6 +1,6 @@
 			<p><h2>{#lang_achievs#}</h2>
 			<div style="padding:10px;">
-				<form action="achiev_admin" method="post">
+				<form action="{$baseUrl}/achiev_admin/" method="post">
 					<table>
 						<tr>
 							<th>{#langName#}</th>

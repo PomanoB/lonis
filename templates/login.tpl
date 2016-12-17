@@ -1,9 +1,9 @@
 			<center>
 			<p><h2>{#langTitleGameAcc#}</h2>
 			<p><div style="color: red;">{$message}</div>
-			<p><a href="{$baseUrl}/?action=steam_login">{#imgSteamLogin#}</a>
+			<p><a href="{$baseUrl}/steam/"><img src='{$baseUrl}/img/sits_small_{$lang}.png'></a>
 			
-			<form action="index.php?action=login" method="post">
+			<form action="{$baseUrl}/login" method="post">
 				<table border="0" style="width: 50%;" align="center" cellpadding=2>
 					<tr>
 						<td colspan="2" align="center"><h2>{#lang_login#}</h2></td>
@@ -29,5 +29,5 @@
 					</tr>
 				</table>	
 			</form><br>
-			<p><h3><a href="{$baseUrl}/reg">{#lang_reg#}</a></h3>
+			<p><h3><a href="{$baseUrl}/reg/">{#lang_reg#}</a></h3>
 			</center>

@@ -55,7 +55,7 @@ if (isset($_GET['plid']) || isset($playerId))
 	{
 		$smarty->assign('playerName', $row['name']);
 		
-		$q = "SELECT `id`, `name`, `description`, `count`, IF(`progress` IS NULL, 0, `progress`) AS `progress`, `unlocked` FROM `unr_achiev` LEFT JOIN `unr_players_achiev` ON `achievId` = `id` AND `playerId` = $plId ORDER BY `progress` = `count` DESC, `progress`/`count` DESC";
+		$q = "SELECT `id`, `name`, `description`, `count`, IF(`progress` IS NULL, 0, `progress`) AS `progress` FROM `unr_achiev` LEFT JOIN `unr_players_achiev` ON `achievId` = `id` AND `playerId` = $plId ORDER BY `progress` = `count` DESC, `progress`/`count` DESC";
 	
 		$r = mysql_query($q);
 	

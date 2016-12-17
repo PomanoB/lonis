@@ -1,3 +1,4 @@
+			<center>
 			<p><h2>{#lang_achievs#}</h2>
 			<div style="padding:10px;">
 				<span>{#lang_achievsPlayers#}</span>
@@ -13,3 +14,4 @@
 					<span>{#lang_achievPlayerTotal#} {$player.achiev_total}</span>
 				</div>
 {/foreach}</div>
+			</center>

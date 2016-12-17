@@ -205,9 +205,9 @@ tr.title {
 
 /* INPUTS */
 .bigform {
-	font-size: 180%;
+	color: #171717;
+	font-size: 160%;
 	padding: 2px;
-	height: 30px;
 	width: 300px;
 	border: 1px solid #DCDCDC;
 }
@@ -234,6 +234,8 @@ button {
 
 .info {
 	font-size: 11px;
+	text-align: right;
+	padding-right: 10px;
 }
 
 .infoid {
@@ -317,11 +319,11 @@ h2 {
 	color: #666;
 }
 
-#network li a:hover {
+#network .item a:hover {
 	background: #F6F6F6;
 	color: #000;
 }
-#network li.current-tab a {
+#network .item.current-tab a {
 	background: #FFF;
 	font-weight: bold;
 }
@@ -347,13 +349,13 @@ h2 {
 
 /* Special lists */
 
-ul.plain-list li, ul.nice-list li, ul.tabbed li {list-style: none;}
+ul.plain-list li, ul.nice-list li, div.tabbed .item {list-style: none;}
 
-ul.tabbed {
+div.tabbed {
 	display: inline;
 	margin: 0;
 }
-ul.tabbed li {float: left;}
+div.tabbed .item {float: left;}
 
 ul.plain-list {margin: 0;}
 

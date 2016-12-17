@@ -1,0 +1,7 @@
+.err_message {
+	padding: 20px;
+	font-size: 20pt;
+	text-align: center;
+	color: red;
+	display: inline;
+}

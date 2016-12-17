@@ -14,18 +14,13 @@
 	{if $rec == "norec"}
 				<a href="{$baseUrl}/kreedz/{$type}">{#langKzRec#}</a>
 	{else}
-				<a href="{$baseUrl}/kreedz/{$type}/norec">{#langKzNoRec#}</a>
-				<div><br>
 				<a href="{$baseUrl}/kreedz/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{#langKzPro#}</a>
 				<a href="{$baseUrl}/kreedz/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{#langKzNoob#}</a>
 				<a href="{$baseUrl}/kreedz/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{#langKzAll#}</a>
-				</div>
+				:: <a href="{$baseUrl}/kreedz/{$type}/norec">{#langKzNoRec#}</a>
 	{/if}
 			</div><br>
 
-			{*<div>
-				<span>{#langStats#} {$langType}</span>
-			</div>*}
 			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
 {if $rec == "norec"}
 			<div style="padding:10px;">
@@ -34,13 +29,13 @@
 						<td>{#langMap#}</td>
 						{*<td>{#langWorldRecord#}</td>*}
 					</tr>
-{foreach from=$maps item=map}
+	{foreach from=$maps item=map}
 					<tr class="list">
 						<td><a href="{$baseUrl}/kreedz/{$map.mapname}">{$map.mapname}</a></td>
 						{*<td class="th_numeric">{$map.timerec} {$map.plrrec} {$map.country}</td>*}
 					</tr>
-
-{/foreach}				
+	{/foreach}
+				</table>
 			</div>
 {else}		
 			<div style="padding:10px;">
@@ -54,7 +49,7 @@
 						<td>{#langGoCp#}</td>
 						<td>{#langWeapon#}</td>
 					</tr>
-{foreach from=$maps item=map}
+	{foreach from=$maps item=map}
 					<tr class="list">
 						<td><a href="{$baseUrl}/kreedz/{$map.map}">{$map.map}</a></td>
 						<td class="th_numeric">{$map.timerec} {$map.plrrec} <i>{$map.country}</i></td>
@@ -63,8 +58,8 @@
 						<td class="th_numeric color{if !$map.go_cp}-nogc{/if}">{$map.cp}</td>
 						<td class="th_numeric color{if !$map.go_cp}-nogc{/if}">{$map.go_cp}</td>
 						<td class="color{if $map.weapon == 16 && $map.weapon == 29}-wpn{/if}">{$map.weapon_name}</td>
-					<tr>
-{/foreach}
+					</tr>
+	{/foreach}
 				</table>
 			</div>
 {/if}
