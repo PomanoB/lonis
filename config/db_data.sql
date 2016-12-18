@@ -1,4 +1,4 @@
-﻿DELETE FROM `unr_players` ;
+DELETE FROM `unr_players` ;
 INSERT INTO `unr_players` (`id`, `name`, `password`, `email`, `active`, `webadmin`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@site.com', 1, 1),
 (2, 'test', '21232f297a57a5a743894a0e4a801fc3', 'test@mail.com', 1, 0);

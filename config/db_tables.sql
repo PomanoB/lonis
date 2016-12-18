@@ -1,11 +1,11 @@
-DROP TABLE `lang`;
+DROP TABLE IF EXISTS `lang`;
 CREATE TABLE `lang` (
   `lang` varchar(2) NOT NULL,
   `var` varchar(64) NOT NULL,
   `value` varchar(256) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-DROP TABLE `kz_duel`;
+DROP TABLE IF EXISTS `kz_duel`;
 CREATE TABLE `kz_duel` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `map` varchar(64) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE `kz_duel` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-DROP TABLE `kz_map_top`;
+DROP TABLE IF EXISTS `kz_map_top`;
 CREATE TABLE `kz_map_top` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `map` varchar(64) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE `kz_map_top` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
-DROP TABLE `kz_save`;
+DROP TABLE IF EXISTS `kz_save`;
 CREATE TABLE `kz_save` (
   `map` varchar(50) NOT NULL,
   `player` int(11) NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE `kz_save` (
   PRIMARY KEY (`map`,`player`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE `unr_achiev`;
+DROP TABLE IF EXISTS `unr_achiev`;
 CREATE TABLE `unr_achiev` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE `unr_achiev` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-DROP TABLE `unr_activate`;
+DROP TABLE IF EXISTS `unr_activate`;
 CREATE TABLE `unr_activate` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `player` int(11) NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE `unr_activate` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
-DROP TABLE `unr_dr_stats`;
+DROP TABLE IF EXISTS `unr_dr_stats`;
 CREATE TABLE `unr_dr_stats` (
   `map` varchar(32) NOT NULL,
   `player` int(10) unsigned NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE `unr_dr_stats` (
   KEY `map` (`map`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-DROP TABLE `unr_players`;
+DROP TABLE IF EXISTS `unr_players`;
 CREATE TABLE `unr_players` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
@@ -91,11 +91,12 @@ CREATE TABLE `unr_players` (
   `icq` int(9) DEFAULT NULL,
   `active` int(11) DEFAULT '0',
   `auth` int(10) unsigned DEFAULT NULL DEFAULT '0',
+  `steam_id_64` varchar(30) DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT ;
 
-DROP TABLE `unr_players_achiev`;
+DROP TABLE IF EXISTS `unr_players_achiev`;
 CREATE TABLE `unr_players_achiev` (
   `playerId` int(11) NOT NULL,
   `achievId` int(11) NOT NULL,
@@ -103,7 +104,7 @@ CREATE TABLE `unr_players_achiev` (
   PRIMARY KEY (`playerId`,`achievId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
-DROP TABLE `unr_players_var`;
+DROP TABLE IF EXISTS `unr_players_var`;
 CREATE TABLE `unr_players_var` (
   `playerId` int(11) NOT NULL,
   `key` varchar(50) NOT NULL,
@@ -111,7 +112,7 @@ CREATE TABLE `unr_players_var` (
   PRIMARY KEY (`playerId`,`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE `kz_map_comm`;
+DROP TABLE IF EXISTS `kz_map_comm`;
 CREATE TABLE `kz_map_comm` (
   `mapname` varchar(64) NOT NULL,
   `mappath` varchar(16) DEFAULT NULL,
@@ -120,7 +121,7 @@ CREATE TABLE `kz_map_comm` (
   `country` varchar(8) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE `kz_map_rec`;
+DROP TABLE IF EXISTS `kz_map_rec`;
 CREATE TABLE `kz_map_rec` (
   `mapname` varchar(64) NOT NULL,
   `mappath` varchar(16) DEFAULT NULL,
@@ -130,7 +131,7 @@ CREATE TABLE `kz_map_rec` (
   `comm` varchar(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE `kz_map_list`;
+DROP TABLE IF EXISTS `kz_map_list`;
 CREATE TABLE `kz_map_list` (
   `mapname` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

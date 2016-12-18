@@ -2,16 +2,14 @@
 
 // achive
 if (isset($_GET['aname'])) {
-	if (get_magic_quotes_gpc()) {
-		$aname = $_GET['aname'];
-	}
-	else {
-		$aname = addslashes($_GET['aname']);
-	}
-
-//	$id = abs((int)$_GET['id']);
+	$aname = urldecode($_GET['aname']);
+	$aname = get_magic_quotes_gpc() ? $aname : addslashes($aname);
 	
-	$q = "SELECT `id`, `name`, `description` FROM achiev WHERE `lname`='$lang' AND `ldesc`='$lang' AND (`name` = '$aname' OR `name` = REPLACE('$aname', '_', ' ') LIMIT 1)";
+	$q = "SELECT `id`, `name`, `description` 
+		FROM achiev 
+		WHERE `lname`='$lang' AND `ldesc`='$lang' 
+			AND (`name` = '$aname' OR `name` = REPLACE('$aname', '_', ' '))
+			LIMIT 1";
 	$r = mysql_query($q);
 	if ($row = mysql_fetch_array($r))  {
 		$id = $row['id'];
@@ -22,7 +20,6 @@ if (isset($_GET['aname'])) {
 					WHERE `unr_players_achiev`.`achievId` = `achiev`.`id` 
 						AND `achiev`.`count` = `unr_players_achiev`.`progress` 
 						AND `unr_players_achiev`.`playerId` = `plid`) AS `achiev_total`
-						AND `lname`='$lang' AND `ldesc`='$lang'
 					FROM `unr_players` AS `p`, 
 						`unr_players_achiev` AS `pa`, 
 						`achiev` AS `a` 
@@ -37,8 +34,9 @@ if (isset($_GET['aname'])) {
 		$smarty->assign('players', $players);
 		$smarty->assign('aname', $aname);
 	}
-	else
-		header('Location: $baseUrl/error/404');
+	else {
+		//header("Location: $baseUrl/error/404");
+	}
 }
 else // player_achive
 if (isset($_GET['plid']) || isset($playerId)) { 
