@@ -86,7 +86,7 @@
 			{if !$check_confirm && $act}
 					<div class="message">{#langConfirm#}</div>
 			{/if}
-					<form_login name="confirmed" action="{$baseUrl}/setup#db" method="post">
+					<form name="confirmed" action="{$baseUrl}/setup" method="post">
 			{if $db}		
 					<p><div id="confirmed">
 						<label for="confirm_password">{#langPassword#}</label>

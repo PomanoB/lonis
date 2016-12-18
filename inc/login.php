@@ -23,6 +23,7 @@ if (isset($_POST['reg_nick']) && isset($_POST['reg_password'])) {
 	$r = mysql_query("SELECT * FROM `unr_players` WHERE `name`= '$nick' AND `password` = '$password' AND `active`=1");
 	if ($row = mysql_fetch_assoc($r)) {
 		$_SESSION['user'] = $row;
+		//$loc = isset($_SESSION['last_url']) ? $_SESSION['last_url'] : $baseUrl;
 		header("Location: $baseUrl/ucp");
 	}
 	else {

@@ -292,7 +292,7 @@ h2 {
 /* Header */
 /* Network */
 
-#network {background: #000 url(../../img/gradient_header.gif) repeat-x 0% 0%;}
+#network {background: #3B3B37}
 #network .left {
 	color: #333;
 	vertical-align: text-bottom;
@@ -331,6 +331,23 @@ h2 {
 }
 
 #network img {display: none}
+
+#network select {
+	background: transparent;
+	border: 0px;
+	color: #ffffff;
+}
+
+#network option {
+	background: #171717;
+	border: 0px;
+	color: #ffffff;
+}
+
+#network .username { 
+	font-style: italic;
+	padding: 10px;
+}
 
 /* Floats */   
 
@@ -374,13 +391,13 @@ li div.left {
 select {
 	background: transparent;
 	border: 0px;
-	color: #ffffff;
+	color: #000000;
 }
 
 option {
-	background: #171717;
+	background: #ffffff;
 	border: 0px;
-	color: #ffffff;
+	color: #000000;
 }
 
 .color-nogc {color: #006400}

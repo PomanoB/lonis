@@ -48,6 +48,7 @@ if (!get_magic_quotes_gpc()) {
 //print_p();
 //print_p($_SESSION);
 //print_p($_SERVER);
+	
 
 // Action
 $action = isset($_GET['action']) && $_GET['action']!="" ? $_GET['action'] : 'home';
@@ -59,7 +60,7 @@ $config_dir = $smarty->config_dir;
 // Read setting from config file or create default
 $config_path = $config_dir.'/'.$config_file;
 if(file_exists($config_path)) {
-	$conf = parse_ini_file($config_path);
+	$conf = array_replace($conf, parse_ini_file($config_path));
 	foreach($conf as $key=>$value) {
 		$$key = $value;
 	}
@@ -151,20 +152,20 @@ $smarty->assign('theme', $theme);
 // Select Player
 if (isset($_SESSION['user']['id'])) {
 	$r = mysql_query("SELECT * FROM `unr_players` WHERE `id`= {$_SESSION['user']['id']}");
-	if ($row = mysql_fetch_assoc($r))
-	{
-		foreach($row as $key => $value)
-		{
+	if ($row = mysql_fetch_assoc($r)) {
+		foreach($row as $key => $value) {
 			$_SESSION['user'][$key] = $value;
 		}
 		
+		if($row['webadmin']==1) $smarty->assign('webadmin', 1);
+		
 		$smarty->assign('user', $_SESSION['user']);
+		
 	}
 	else
 		unset($_SESSION['user']);
 	
 	$menu = array_replace($menu, $menuUnLogged);
-	//unset($menu['reg']);
 }
 
 // Get name from DB
@@ -177,21 +178,29 @@ if (isset($_GET['name'])) {
 }
 
 // Menu
-foreach($menu as $key=>$item) {
-	$val = explode("|", $item);
-	if($item!="-") {
-		$menulist[$key]['name'] = $smarty->get_config_vars("lang_".$val[0]);
-		$menulist[$key]['url'] = "/".$val[0];
-		if(isset($val[1])) {
-			foreach($val as $k=>$subitem) {
-				$submenulist[$k]['name'] = $smarty->get_config_vars("lang_".$subitem);
-				$submenulist[$k]['url'] = "/".$subitem;	
-			}	
+function create_menu($menu) {
+	global $smarty;
+	
+	foreach($menu as $key=>$item) {
+		$val = explode("|", $item);
+		if($item!="-") {
+			$menulist[$key]['item'] = $item;
+			$menulist[$key]['name'] = $smarty->get_config_vars("lang_".$val[0]);
+			$menulist[$key]['url'] = "/".$val[0];
+			if(isset($val[1])) {
+				foreach($val as $k=>$subitem) {
+					$menulist[$key][$k]['name'] = $smarty->get_config_vars("lang_".$subitem);
+					$menulist[$key][$k]['url'] = "/".$subitem;	
+				}	
+			}
 		}
 	}
+	
+	return $menulist;
 }
 
-$smarty->assign('menulist', $menulist);
+$smarty->assign('menulist', create_menu($menu));
+$smarty->assign('menuadminlist', create_menu($menuadmin));
 //$smarty->assign('submenulist', $submenulist);
 
 // Menu Footer
@@ -205,7 +214,7 @@ if(file_exists("templates/$action.tpl")) {
 	$smarty->assign('action', $action);
 }
 else
-	$action = "home";
+	$action = "home"; 
 
 // Global temlate vars
 $smarty->assign('baseUrl', $baseUrl);
@@ -213,6 +222,9 @@ $smarty->assign('langAction', $smarty->get_config_vars("lang_".$action));
 
 // Template
 $smarty->display("index.tpl");
+
+// Last URL
+$_SESSION['last_url'] = $baseUrl;
 		
 geoip_close($gi);
 ?>

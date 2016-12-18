@@ -15,8 +15,8 @@
 	<body>
 	<div id="network">
 		<div class="center-wrapper">
-			<div class="left">
-				<div class="tabbed" id="menu-tabs">
+			<div class="tabbed" id="menu-tabs">
+				<div class="menu">
 					<text class="item">
 						<form method="post" id="customForm" style="padding:7px 8px 0 0;margin:0;" action="">
 							<img src="{$baseUrl}/img/country/{$lang}.png">
@@ -30,18 +30,34 @@
 					
 				{foreach from=$menulist key=key item=i}
 					<text class="item">
-						<a title="{$i.name}" href="{$baseUrl}{$i.url}"><img src="{$baseUrl}/img/menu/{$key}.png"><text>{$i.name}</text></a>
+						<a title="{$i.name}" href="{$baseUrl}{$i.url}">
+							<img src="{$baseUrl}/img/menu/{$i.item}.png"><text class="name">{$i.name}</text>
+						</a>
 					</text>
 				{/foreach}
 				{if isset($user)}
 					<text class="item">
-						<a title="{$i.name}" href="{$baseUrl}/ucp"><text>{$user.name|escape}</text></a>
-					</text>					
+						<a title="{$i.name}" href="{$baseUrl}/ucp"><text class="username">{$user.name|escape}</text></a>
+					</text>				
 				{/if}
 				</div>
+				
+				<div class="br"><div class="clearer">&nbsp;</div></div>	
+				
+		{if $webadmin}
+				<div class="adminmenu">
+				{foreach from=$menuadminlist key=key item=i}
+					<text class="item">
+						<a title="{$i.name}" href="{$baseUrl}{$i.url}">
+							<img src="{$baseUrl}/img/menu/{$i.item}.png"><text class="name">{$i.name}</text>
+						</a>
+					</text>
+				{/foreach}
+				</div>
+		{/if}
 			</div>
-			<div class="clearer">&nbsp;</div>
 		</div>
+		<div class="clearer">&nbsp;</div>
 	</div>
 <!--	{if $user.webadmin == 1}
 		<div id="adminmenu">

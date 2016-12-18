@@ -1,49 +1,47 @@
 <?php
 
-if (isset($_GET['aname']))
-{
-
-	if (get_magic_quotes_gpc())
-	{
+// achive
+if (isset($_GET['aname'])) {
+	if (get_magic_quotes_gpc()) {
 		$aname = $_GET['aname'];
 	}
-	else
-	{
+	else {
 		$aname = addslashes($_GET['aname']);
 	}
 
 //	$id = abs((int)$_GET['id']);
 	
-	$q = "SELECT `id`, `name`, `description` FROM `unr_achiev` WHERE `name` = '$aname' OR `name` = REPLACE('$aname', '_', ' ') LIMIT 1";
-	
-//	die($q);
-	
+	$q = "SELECT `id`, `name`, `description` FROM achiev WHERE `lname`='$lang' AND `ldesc`='$lang' AND (`name` = '$aname' OR `name` = REPLACE('$aname', '_', ' ') LIMIT 1)";
 	$r = mysql_query($q);
-	if ($row = mysql_fetch_array($r))
-	{
+	if ($row = mysql_fetch_array($r))  {
 		$id = $row['id'];
 		$smarty->assign('achiev', $row);
 		
-		$q = "SELECT `p`.`id` AS `plid`, `p`.`name` AS `plname`, (SELECT COUNT(*) FROM `unr_players_achiev`, `unr_achiev` WHERE `unr_players_achiev`.`achievId` = `unr_achiev`.`id` AND `unr_achiev`.`count` = `unr_players_achiev`.`progress` AND `unr_players_achiev`.`playerId` = `plid`) AS `achiev_total` FROM `unr_players` AS `p`, `unr_players_achiev` AS `pa`, 
-		`unr_achiev` AS `a` WHERE `a`.`count` = `pa`.`progress` AND `p`.`id` = `pa`.`playerId` AND `pa`.`achievId` = `a`.`id` AND `a`.`id` = $id";
+		$q = "SELECT `p`.`id` AS `plid`, `p`.`name` AS `plname`, 
+				(SELECT COUNT(*) FROM `unr_players_achiev`, `achiev`
+					WHERE `unr_players_achiev`.`achievId` = `achiev`.`id` 
+						AND `achiev`.`count` = `unr_players_achiev`.`progress` 
+						AND `unr_players_achiev`.`playerId` = `plid`) AS `achiev_total`
+						AND `lname`='$lang' AND `ldesc`='$lang'
+					FROM `unr_players` AS `p`, 
+						`unr_players_achiev` AS `pa`, 
+						`achiev` AS `a` 
+				WHERE `a`.`count` = `pa`.`progress` AND `p`.`id` = `pa`.`playerId` AND `pa`.`achievId` = `a`.`id` AND `a`.`id` = $id";
 		$r = mysql_query($q);
 		$players = array();
 		
-		while($row = mysql_fetch_array($r))
-		{
+		while($row = mysql_fetch_array($r)) {
 			$players[] = $row;
 		}
 		
 		$smarty->assign('players', $players);
-		
-		$template = 'achiev_player.tpl';
+		$smarty->assign('aname', $aname);
 	}
 	else
-		header('HTTP/1.1 404 Not Found');
+		header('Location: $baseUrl/error/404');
 }
-else
-if (isset($_GET['plid']) || isset($playerId))
-{
+else // player_achive
+if (isset($_GET['plid']) || isset($playerId)) { 
 	if (isset($playerId))
 		$plId = $playerId;
 	else
@@ -55,7 +53,13 @@ if (isset($_GET['plid']) || isset($playerId))
 	{
 		$smarty->assign('playerName', $row['name']);
 		
-		$q = "SELECT `id`, `name`, `description`, `count`, IF(`progress` IS NULL, 0, `progress`) AS `progress` FROM `unr_achiev` LEFT JOIN `unr_players_achiev` ON `achievId` = `id` AND `playerId` = $plId ORDER BY `progress` = `count` DESC, `progress`/`count` DESC";
+		$q = "SELECT `id`, `name`, `description`, `count`, 
+			IF(`progress` IS NULL, 0, `progress`) AS `progress` 
+		FROM `achiev` 
+		LEFT JOIN `unr_players_achiev` ON `achievId` = `id` AND `playerId` = $plId 
+		WHERE `lname`='$lang' AND `ldesc`='$lang' 
+		ORDER BY `progress` = `count` 
+		DESC, `progress`/`count` DESC";
 	
 		$r = mysql_query($q);
 	
@@ -68,27 +72,30 @@ if (isset($_GET['plid']) || isset($playerId))
 			$achievs[] = $row;
 		}
 		$smarty->assign('achievs', $achievs);
-		$template = 'player_achiev.tpl';
+		$smarty->assign('plrs', 1);
 	}
 	else
 		header("Location: $baseUrl/achiev");
 }
-else
-{
+else {// achive_list
 	$q = 'SET @playerCount := (SELECT COUNT(*) FROM `unr_players`)';
 	mysql_query($q);
-	$q = "SELECT `id` AS `aId`, `name`, `description`, (SELECT COUNT(*) FROM `unr_achiev`, `unr_players_achiev` WHERE `unr_players_achiev`.`achievId` = `unr_achiev`.`id` AND `unr_achiev`.`count` = `unr_players_achiev`.`progress` AND `unr_players_achiev`.`achievId` = `aId`)/@playerCount*100 AS `completed` FROM `unr_achiev` ORDER BY `completed` DESC";
+	$q = "SELECT `id` AS `aId`, `name`, `description`, 
+		(SELECT COUNT(*) FROM `achiev`, `unr_players_achiev` 
+		WHERE `unr_players_achiev`.`achievId` = `achiev`.`id` 
+			AND `achiev`.`count` = `unr_players_achiev`.`progress` 
+			AND `unr_players_achiev`.`achievId` = `aId`)/@playerCount*100 AS `completed` 
+		FROM `achiev` 
+		WHERE `lname`='$lang' AND `ldesc`='$lang' 		
+		ORDER BY `completed` DESC";
 	$r = mysql_query($q);
 	
 	$achievs = array();
 		
-	while($row = mysql_fetch_array($r))
-	{
+	while($row = mysql_fetch_array($r)) {
 		$row['completed'] = floor($row['completed']*100)/100;
 		$achievs[] = $row;
 	}
 	$smarty->assign('achievs', $achievs);
-	$template = 'achievs_list.tpl';
 }
-
 ?>
