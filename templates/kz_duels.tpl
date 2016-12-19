@@ -1,13 +1,13 @@
-			<p><h2>{#lang_kz_duels#}</h2>
+			<p><h2>{$lang_kz_duels}</h2>
 			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
 			<div style="padding:10px;">
 				<table class="table-list">
 					<tr class="title">
-						<th>{#langMap#}</th>
-						<th>{#langWinner#}</th>
-						<th>{#langLooser#}</th>
-						<th>{#langWinnerPoint#}</th>
-						<th>{#langLooserPoint#}</th>
+						<th>{$langMap}</th>
+						<th>{$langWinner}</th>
+						<th>{$langLooser}</th>
+						<th>{$langWinnerPoint}</th>
+						<th>{$langLooserPoint}</th>
 					</tr>
 {foreach from=$duels item=duel}
 					<tr class="list">

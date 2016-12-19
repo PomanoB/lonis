@@ -1,6 +1,6 @@
-			<p><h2>{#lang_achievs#}</h2>
+			<p><h2>{$lang_achievs}</h2>
 			<div style="padding:10px;">
-				<span>{#lang_achievsPlayers#}</span>
+				<span>{$lang_achievsPlayers}</span>
 				<div class="achiev achiev_completed">
 					<b>{$achiev.name}</b>
 					<br />
@@ -10,6 +10,6 @@
 				<div class="achiev">
 					<b><a href="{$baseUrl}/{$player.plname|replace:' ':'_'}/achiev">{$player.plname}</a></b>
 					<br />
-					<span>{#lang_achievPlayerTotal#} {$player.achiev_total}</span>
+					<span>{$lang_achievPlayerTotal} {$player.achiev_total}</span>
 				</div>
 {/foreach}</div>

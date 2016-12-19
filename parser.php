@@ -1,9 +1,9 @@
 <?php
 
-$demos_ru = comm(file("demos_ru.txt"));
-$demos_xj = demos_wr(file("demos_xj.txt"), "xj");
-$demos_cc = demos_wr(file("demos_cc.txt"), "cc");
-$maplist = maplist(file("maplist.txt"));
+$demos_ru = comm(file("demos/demos_ru.txt"));
+$demos_xj = demos_wr(file("demos/demos_xj.txt"), "xj");
+$demos_cc = demos_wr(file("demos/demos_cc.txt"), "cc");
+$maplist = maplist(file("demos/maplist.txt"));
 
 echo "<pre>";
 echo "<p>$demos_ru<br>";
@@ -60,6 +60,17 @@ function maplist($file) {
 	foreach ($file as $key=>$value) {
 		$delim = $key==(count($file)-1) ? "" : ",\n";
 		$sql .= "('".trim($value)."')".$delim;
+	}
+	return $sql .= ";";
+}
+
+function langlist($langs, $lang) {
+	$sql = "DELETE FROM `lang`;\n";
+	$sql .= "INSERT INTO `lang` (`lang`, `var`, `value`) VALUES\n";
+	$i = 0;
+	foreach ($langs as $key=>$value) {
+		$delim = $i++==(count($langs)-1) ? "" : ",\n";
+		$sql .= "('$lang','$key','$value')".$delim;
 	}
 	return $sql .= ";";
 }

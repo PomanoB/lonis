@@ -1,8 +1,8 @@
 <?php
 
 // achive
-if (isset($_GET['aname'])) {
-	$aname = urldecode($_GET['aname']);
+if (isset($_GET["aname"])) {
+	$aname = urldecode($_GET["aname"]);
 	$aname = get_magic_quotes_gpc() ? $aname : addslashes($aname);
 	
 	$q = "SELECT `id`, `name`, `description` 
@@ -12,7 +12,7 @@ if (isset($_GET['aname'])) {
 			LIMIT 1";
 	$r = mysql_query($q);
 	if ($row = mysql_fetch_array($r))  {
-		$id = $row['id'];
+		$id = $row["id"];
 		$smarty->assign('achiev', $row);
 		
 		$q = "SELECT `p`.`id` AS `plid`, `p`.`name` AS `plname`, 
@@ -39,17 +39,17 @@ if (isset($_GET['aname'])) {
 	}
 }
 else // player_achive
-if (isset($_GET['plid']) || isset($playerId)) { 
+if (isset($_GET["plid"]) || isset($playerId)) { 
 	if (isset($playerId))
 		$plId = $playerId;
 	else
-		$plId = abs((int)$_GET['plid']);
+		$plId = abs((int)$_GET["plid"]);
 	
 	$q = "SELECT `name` FROM `unr_players` WHERE `id` = $plId";
 	$r = mysql_query($q);
 	if ($row = mysql_fetch_array($r))
 	{
-		$smarty->assign('playerName', $row['name']);
+		$smarty->assign('playerName', $row["name"]);
 		
 		$q = "SELECT `id`, `name`, `description`, `count`, 
 			IF(`progress` IS NULL, 0, `progress`) AS `progress` 
@@ -65,8 +65,8 @@ if (isset($_GET['plid']) || isset($playerId)) {
 		
 		while($row = mysql_fetch_array($r))
 		{
-			if ($row['count'] != 1 && $row['count'] != $row['progress'])
-				$row['width'] = $row['progress'] * 100 / $row['count'];
+			if ($row["count"] != 1 && $row["count"] != $row["progress"])
+				$row["width"] = $row["progress"] * 100 / $row["count"];
 			$achievs[] = $row;
 		}
 		$smarty->assign('achievs', $achievs);
@@ -91,7 +91,7 @@ else {// achive_list
 	$achievs = array();
 		
 	while($row = mysql_fetch_array($r)) {
-		$row['completed'] = floor($row['completed']*100)/100;
+		$row["completed"] = floor($row["completed"]*100)/100;
 		$achievs[] = $row;
 	}
 	$smarty->assign('achievs', $achievs);

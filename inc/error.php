@@ -8,32 +8,32 @@ ErrorDocument 500 /error/500
 RewriteRule ^error(/([0-9]+))?$ index.php?action=error&err=$2 [L]
 */
 
-$error_msg['ru'] = array(
+$error_msg["ru"] = array(
 	"401" => "Пользователь не авторизован",
 	"403" => "Доспуп запещен",
 	"404" => "Страница не существует",
 	"500" => "Внутренняя ошибка сервера"	
 );
 
-$error_msg['en'] = array(
+$error_msg["en"] = array(
 	"401" => "Not autorised",
 	"403" => "Access denied",
 	"404" => "Pages Not Found",
 	"500" => "Internal Server Error",	
 );
 
-if(isset($_GET['lang'])) {
-	$lang = $_GET['lang'];
+if(isset($_GET["lang"])) {
+	$lang = $_GET["lang"];
 }
 
 if(!isset($lang)) {
-	if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE']))
-		$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+	if(isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]))
+		$lang = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
 	else
 		$lang = "en";
 }
 
-$err = isset($_GET['err']) ? $_GET['err'] : "";
+$err = isset($_GET["err"]) ? $_GET["err"] : "";
 
 $message = isset($error_msg[$lang][$err]) ? $error_msg[$lang][$err] : "";
 

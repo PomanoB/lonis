@@ -5,3 +5,43 @@
 	color: red;
 	display: inline;
 }
+
+/* Button db act*/
+.dbbut {
+    background-color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.dbbut:hover {
+    background-color: white;
+    border: none;
+	color: #0074CE;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;	
+}
+
+/* Other button */
+.but {
+	padding: 0px;
+    background-color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none; 
+    font-size: 12px;
+}
+
+.but:hover {
+	padding: 0px;
+    background-color: white;
+    border: none;
+	color: #0074CE;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;	
+}

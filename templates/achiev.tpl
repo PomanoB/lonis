@@ -1,7 +1,7 @@
 {capture name=player_achive}
-			<h2>{#langAchievs#}</h2>
+			<h2>{$langAchievs}</h2>
 			<div style="padding:10px;">
-				<p><h1>{#langAchievsPlayer#} {$playerName|escape}</h1><br>
+				<p><h1>{$langAchievsPlayer} {$playerName|escape}</h1><br>
 	{foreach from=$achievs item=achiev}
 				<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
 					<b><a href="{$baseUrl}/achiev/{$achiev.name|replace:' ':'_'}">{$achiev.name}</a></b>
@@ -17,7 +17,7 @@
 					</div>
 		{elseif $achiev.unlocked}
 					<div class="unlocekd_time">
-						{#langAchievsUnlocked#}{$achiev.unlocked|date_format:"%d.%m.%Y %H:%M"}
+						{$langAchievsUnlocked}{$achiev.unlocked|date_format:"%d.%m.%Y %H:%M"}
 					</div>
 	{/if}
 				</div>
@@ -27,9 +27,9 @@
 {/capture}
 
 {capture name=achive}
-			<h2>{#lang_achievs#}</h2>
+			<h2>{$lang_achievs}</h2>
 			<div style="padding:10px;">
-				<span>{#lang_achievsPlayer#} {$playerName}</span>
+				<span>{$lang_achievsPlayer} {$playerName}</span>
 				{foreach from=$achievs item=achiev}
 					<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
 						<a href="{$baseUrl}/achiev/{$achiev.name|replace:' ':'_'}">{$achiev.name}</a>
@@ -50,8 +50,8 @@
 {/capture}
 
 {capture name=achive_list}			
-			<p><h2>{#lang_achievs#}</h2>
-				<span>{#lang_achievs#}</span><br />
+			<p><h2>{$lang_achievs}</h2>
+				<span>{$lang_achievs}</span><br />
 				<table>
 	{foreach from=$achievs item=achiev}
 					<tr>

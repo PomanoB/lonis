@@ -1,20 +1,20 @@
-			<p><h2>{#langMap#} {$mapname|escape:html}</h2><br>
+			<p><h2>{$langMap} {$mapname|escape:html}</h2><br>
 			<div>
-				<a href="{$baseUrl}/kreedz/{$mapname}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{#langKzPro#}</a>
-				<a href="{$baseUrl}/kreedz/{$mapname}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{#langKzNoob#}</a>
-				<a href="{$baseUrl}/kreedz/{$mapname}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{#langKzAll#}</a>
+				<a href="{$baseUrl}/kreedz/{$mapname}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
+				<a href="{$baseUrl}/kreedz/{$mapname}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
+				<a href="{$baseUrl}/kreedz/{$mapname}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langKzAll}</a>
 			</div>
 			{*<div>
-				<span>{#langStats#} {$langType}</span>
+				<span>{$langStats} {$langType}</span>
 			</div>*}	
 			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}			
 			<div style="padding:10px;">
-				<p><b>{#langWorldRecord#}:</b>
+				<p><b>{$langWorldRecord}:</b>
 {foreach from=$maprec item=wr}
 				{$wr.mappath} {$wr.time} {$wr.player} <i>{$wr.country}</i>;
 {/foreach}				
 
-				<p><b>{#langRuRecord#}:&nbsp;</b>
+				<p><b>{$langRuRecord}:&nbsp;</b>
 {foreach from=$mapcomm item=ru}
 				{$ru.mappath} {$ru.time} {$ru.player};
 {/foreach}
@@ -22,11 +22,11 @@
 				<p><table class="table-list">
 					<tr class="title" >
 						<td>№</td>
-						<td>{#lang_player#}</td>
-						<td>{#langTime#}</td>
-						<td>{#langCp#}</td>
-						<td>{#langGoCp#}</td>
-						<td>{#langWeapon#}</td>
+						<td>{$lang_player}</td>
+						<td>{$langTime}</td>
+						<td>{$langCp}</td>
+						<td>{$langGoCp}</td>
+						<td>{$langWeapon}</td>
 					</tr>
 {foreach from=$players item=player}
 					<tr class="list">

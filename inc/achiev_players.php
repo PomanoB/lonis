@@ -7,8 +7,8 @@ $r = mysql_query($q);
 
 $total = mysql_result($r, 0);
 
-if (isset($_GET['page']))
-	$page = abs((int)$_GET['page']);
+if (isset($_GET["page"]))
+	$page = abs((int)$_GET["page"]);
 else
 	$page = 1;
 if (!$page)

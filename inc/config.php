@@ -9,7 +9,7 @@ $conf_type = array(
 	'number' => array('activateTime', 'gravatarSize', 'playerPerPage', 'mapsPerPage', 'playersPerPage')
 );
 
-$conf = array (
+$dconf = array (
 	'timezone' => 'Europe/Moscow',
 	'charset' => 'utf-8',
 
@@ -31,7 +31,9 @@ $conf = array (
 	'lang' => "en",	
 	'themelist' => "main white image null",
 	'theme' => "main",
-	'cstheme' => "main"
+	'cstheme' => "main",
+	
+	'cookieKey' => "cc1f891423db1ee24498e76f3b107bbe"
 );
 
 $additional_flags = array(
@@ -75,7 +77,7 @@ $menuadmin = array(
 );
 
 // The sequence is important
-$ActionList  = "setup|admin_lang|admin_achiev|";
+$ActionList = "setup|admin_lang|admin_achiev|";
 $ActionList .= "home|players|kz_maps|achiev_players|achiev|reg|kz_duels|kz_players|ucp|steam_login|login|logout";
 
 // The sequence is important
@@ -86,9 +88,9 @@ $parseRules = array(
 	"/^setup\/logout?/" => "index.php?action=setup&logout=1",
 	"/^achiev\/players(\/page.([0-9]+))/" => "index.php?action=achiev_players&page=%2%",
 	"/^achiev\/(.*)/" => "index.php?action=achiev&aname=%1%",
-	"/^($ActionList)(\/)?(\/page([0-9]+))?/" => "index.php?action=%1%&page=%4%",
 	"/^players\/(.*)\/page.([0-9]+)/" => "index.php?action=players&search=%1%&page=%2%",
 	"/^steam?/" => "index.php?action=steam_login",	
+	"/^($ActionList)(\/)?(\/page([0-9]+))?/" => "index.php?action=%1%&page=%4%",
 	"/^(.*)\/achiev/" => "index.php?action=achiev&name=%1%",
 	"/^kreedz\/players(\/(pro|noob|all))?(\/(num|top1))?(\/page([0-9]+))?/" => "index.php?action=kz_players&type=%2%&sort=%4%&page=%6%",
 	"/^kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_maps&page=%4%&type=%2%&rec=%6%",
@@ -98,4 +100,83 @@ $parseRules = array(
 	"/^(.*)/" => "index.php?action=player&name=%1%",
 );
 
+$langs = array(
+	"langTitle" => "Lonis",
+
+	"langLang_en" => "English",
+
+	"langTheme_main" => "Standart",
+	"langTheme_white" => "Invert",
+	"langTheme_image" => "Images",
+	"langTheme_null" => "Empty",
+	"langThemeNotFound" => "Theme not found",
+
+	"lang_home" => "Home",
+	"lang_ucp" => "Profile",
+	"lang_logout" => "Logout",
+	"lang_player" => "Player",
+	"lang_login" => "Login",
+	"lang_reg" => "Register",
+	"lang_players" => "Players",
+	"lang_achiev" => "Achievs",
+	"lang_achiev_players" => "Achievs players",
+	"lang_kz_duels" => "KZ Duels",
+	"lang_kz_maps" => "KZ Maps",
+	"lang_kz_players" => "KZ Players",
+	"lang_admin_achiev" => "Setup achiev",
+	"lang_admin_lang" => "Dictonaries",
+
+	"langError" => "Error",
+	"langUserNotFound" => "Not found user entered data!",
+	
+	"langName" => "Name",
+	"langPassword" => "Password",
+	"langUpdate" => "Update",
+	"langCurrent" => "Current",
+
+	"lang_setup" => "Setup config",
+	"langSave" => "Save",
+	"langSaved" => "Saved",
+	"langReset" => "Reset",
+	"langResetDef" => "Reset to default",
+	"langConfirm" => "Confirmed action",
+	"lang_timezone" => "Time zone",
+	"lang_charset" => "Charset",
+	"lang_mysql_user" => "User db",
+	"lang_mysql_password" => "Password db",
+	"lang_mysql_host" => "Host db",
+	"lang_mysql_db" => "Database",
+	"lang_mysql_prefix" => "Prefix db",
+	"lang_activateTime" => "Activation time e-mail",
+	"lang_baseUrl" => "Url site",
+	"lang_gravatarSize" => "Avatar size",
+	"lang_playerPerPage" => "Players per page",
+	"lang_mapsPerPage" => "Maps per page",
+	"lang_playersPerPage" => "Players per page KZ",
+	"lang_langlist" => "Language list (space specarate)",
+	"lang_lang" => "Language default" ,
+	"lang_themelist" => "Theme list (space specarate)",
+	"lang_theme" => "Theme default",
+	"lang_cstheme" => "Theme default in CS",
+	"lang_email" => "E-mail",
+	"lang_cookieKey" => "Cookie Key",
+
+	"lang_setupGeneral" => "General setting",
+	"lang_setupDb" => "Database",
+	"langGenerate" => "Generate",
+	"lang_setupLang" => "Languages",
+	"langDbTitle" => "Working with database",
+	"langBase" => "DB",
+	"langTables" => "Tables",
+	"langData" => "Data",
+	"langCreate" => "Create",
+	"langDelete" => "Delete",
+	"langSave" => "Save",
+	"langAdd" => "Add",
+	"langClear" => "Clear",
+	"langEdit" => "Edit",
+	"langDbNotConnect" => "Not connection to database",
+	"langDbNotTablesFile" => "File with tables not found",
+	"langDbNotDataFile" => "File with data not found",
+);
 ?>

@@ -1,15 +1,15 @@
 <?php
-if (isset($_POST['player']) && $_POST['player'] !='') {
+if (isset($_POST["player"]) && $_POST["player"] !='') {
 	if (get_magic_quotes_gpc()) {
-		$player = $_POST['player'];
+		$player = $_POST["player"];
 	}
 	else {
-		$player = addslashes($_POST['player']);
+		$player = addslashes($_POST["player"]);
 	}
 	
 	$smarty->assign('player', stripslashes($player));
 	
-	//header('Location: '.$baseUrl.'/'.$_POST['player'].'/kreedz'); exit();
+	//header('Location: '.$baseUrl.'/'.$_POST["player"].'/kreedz'); exit();
 	header('Location: '.$baseUrl.'/'.$player.'/kreedz'); exit();
 }
 
@@ -26,29 +26,29 @@ $typesLang = array(
 );
 
 $type = 'all';
-if (isset($_GET['type']) && isset($types[$_GET['type']])) $type = $_GET['type'];
+if (isset($_GET["type"]) && isset($types[$_GET["type"]])) $type = $_GET["type"];
 
 $smarty->assign('type', $type);
 $smarty->assign('langType', $smarty->get_config_vars($typesLang[$type]));
 
 $sort = 'num';
-if (isset($_GET['sort'])) $sort = $_GET['sort'];
+if (isset($_GET["sort"])) $sort = $_GET["sort"];
 if(!$sort) $sort = 'num';
 $smarty->assign('sort', $sort);
 
 $rec = 'rec';
-if (isset($_GET['rec'])) $rec = $_GET['rec'];
+if (isset($_GET["rec"])) $rec = $_GET["rec"];
 if(!$rec) $rec = 'rec';
 $smarty->assign('rec', $rec);
 
-if ((isset($_GET['id']) && ($id = abs((int)$_GET['id']))) || (isset($playerId) && $id = $playerId))
+if ((isset($_GET["id"]) && ($id = abs((int)$_GET["id"]))) || (isset($playerId) && $id = $playerId))
 {
 	$map_num = 0;
 	$q = "SELECT COUNT(DISTINCT `map`) AS `records` FROM `kz_map_top` WHERE `player`=$id {$types[$type]} GROUP BY `player`";	
 	$r = mysql_query($q);
 	while($row = mysql_fetch_array($r))
 	{
-		$map_num = $row['records'];
+		$map_num = $row["records"];
 	}
 	$smarty->assign('map_num', $map_num);
 	
@@ -57,7 +57,7 @@ if ((isset($_GET['id']) && ($id = abs((int)$_GET['id']))) || (isset($playerId) &
 	$r = mysql_query($q);
 	while($row = mysql_fetch_array($r))
 	{
-		$map_top1 = $row['records'];
+		$map_top1 = $row["records"];
 	}
 	$smarty->assign('map_top1', $map_top1);	
 	
@@ -79,8 +79,8 @@ if ((isset($_GET['id']) && ($id = abs((int)$_GET['id']))) || (isset($playerId) &
 
 		$total = mysql_result($r, 0);
 
-		if (isset($_GET['page']))
-			$page = abs((int)$_GET['page']);
+		if (isset($_GET["page"]))
+			$page = abs((int)$_GET["page"]);
 		else
 			$page = 1;
 		if (!$page)
@@ -117,10 +117,10 @@ if ((isset($_GET['id']) && ($id = abs((int)$_GET['id']))) || (isset($playerId) &
 			$maps = array();
 			while($row = mysql_fetch_array($r))
 			{
-				$row['time'] = timed($row['time'], 5);
-				$row['timerec'] = timed($row['timerec'], 2);
+				$row["time"] = timed($row["time"], 5);
+				$row["timerec"] = timed($row["timerec"], 2);
 			
-				$row['weapon_name'] = $smarty->get_config_vars("lang_wpn_".$row['weapon']);
+				$row["weapon_name"] = $langs["lang_wpn_".$row["weapon"]];
 				$maps[] = $row;
 			}
 		}
@@ -142,8 +142,8 @@ else
 
 	$total = mysql_result($r, 0);
 
-	if (isset($_GET['page']))
-		$page = abs((int)$_GET['page']);
+	if (isset($_GET["page"]))
+		$page = abs((int)$_GET["page"]);
 	else
 		$page = 1;
 	if (!$page)
@@ -176,8 +176,8 @@ else
 	$i = ($page - 1)*$playersPerPage + 1;
 	while($row = mysql_fetch_array($r))
 	{
-		$row['byid'] = strpos(addslashes($row['name']), "\#")!=false ? 1 : 0;
-		$row['number'] = $i++;
+		$row["byid"] = strpos(addslashes($row["name"]), "\#")!=false ? 1 : 0;
+		$row["number"] = $i++;
 		$players[] = $row;
 	}	
 	

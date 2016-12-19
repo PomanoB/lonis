@@ -1,16 +1,16 @@
 <?php
 
-if (!isset($_REQUEST['map']))
+if (!isset($_REQUEST["map"]))
 		header("Location: $baseUrl/kreedz");
 else
 {	
 	if (get_magic_quotes_gpc())
 	{
-		$map = $_REQUEST['map'];
+		$map = $_REQUEST["map"];
 	}
 	else
 	{
-		$map = addslashes($_REQUEST['map']);
+		$map = addslashes($_REQUEST["map"]);
 	}
 	
 	$types = array(
@@ -26,8 +26,8 @@ else
 	);
 	
 	$type = 'all';
-	if (isset($_GET['type']) && isset($types[$_GET['type']]))
-		$type = $_GET['type'];
+	if (isset($_GET["type"]) && isset($types[$_GET["type"]]))
+		$type = $_GET["type"];
 	
 	$smarty->assign('type', $type);
 	$smarty->assign('langType', $smarty->get_config_vars($typesLang[$type]));
@@ -36,8 +36,8 @@ else
 	$r = mysql_query($q);
 	$total = mysql_result($r, 0);
 
-	if (isset($_GET['page']))
-		$page = abs((int)$_GET['page']);
+	if (isset($_GET["page"]))
+		$page = abs((int)$_GET["page"]);
 	else
 		$page = 1;
 	if (!$page)
@@ -57,7 +57,7 @@ else
 	$q = "SELECT * FROM `kz_map_rec` WHERE `mapname` LIKE '$map%' ORDER BY `mappath`";	
 	$r = mysql_query($q);
 	while($row = mysql_fetch_array($r)) {		
-		$row['time'] = timed($row['time'], 2);
+		$row["time"] = timed($row["time"], 2);
 		
 		$maprec[] = $row;		
 	}
@@ -66,7 +66,7 @@ else
 	$q = "SELECT * FROM `kz_map_comm` WHERE `mapname` LIKE '$map%' ORDER BY `mappath`";	
 	$r = mysql_query($q);
 	while($row = mysql_fetch_array($r)) {		
-		$row['time'] = timed($row['time'], 2);
+		$row["time"] = timed($row["time"], 2);
 		
 		$mapcomm[] = $row;		
 	}
@@ -77,10 +77,10 @@ else
 	$i = ($page - 1)*$playersPerPage + 1;
 	while($row = mysql_fetch_array($r))
 	{
-		$row['time'] = timed($row['time'], 5);
+		$row["time"] = timed($row["time"], 5);
 		
-		$row['weapon_name'] = $smarty->get_config_vars("lang_wpn_".$row['weapon']);
-		$row['number'] = $i++;
+		$row["weapon_name"] = $langs["lang_wpn_".$row["weapon"]];
+		$row["number"] = $i++;
 		
 		$players[] = $row;
 	}

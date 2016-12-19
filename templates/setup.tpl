@@ -1,5 +1,5 @@
-			<div class="title">{#lang_setup#} :: {if isset($act)}
-				<a href="{$baseUrl}/setup/logout">{#lang_logout#}</a>{else}{#lang_login#}{/if}
+			<div class="title">{$lang_setup} :: {if isset($act)}
+				<a href="{$baseUrl}/setup/logout">{$lang_logout}</a>{else}{$lang_login}{/if}
 			</div>
 			<div class="setup_message">{$message}</div>
 			
@@ -11,16 +11,16 @@
 			  <form action="{$baseUrl}/setup" method="post">
 				<table class="form_login">
 					<tr>
-						<td class="info"><label for="setting_user">{#langName#}</label></td>
+						<td class="info"><label for="setting_user">{$langName}</label></td>
 						<td><input type="text" class="bigform" name="setting_user" id="setting_user" /></td>
 					</tr>
 					<tr>
-						<td class="info"><label for="setting_password">{#langPassword#}</label></td>
+						<td class="info"><label for="setting_password">{$langPassword}</label></td>
 						<td><input type="password" class="bigform" name="setting_password" id="setting_password" /></td>
 					</tr>
 				</table>
 				<div class="login">
-					<button>{#lang_login#}</button>
+					<button>{$lang_login}</button>
 				</div>
 			  </form>
 			</div>
@@ -29,13 +29,13 @@
 {capture name=act_setting}
 			<div class="tabs">
 			   <input type="radio" id="tab-1" name="tab-group-1" checked>
-				<label for="tab-1"><strong>{#lang_setupGeneral#}</strong></label>
+				<label for="tab-1"><strong>{$lang_setupGeneral}</strong></label>
 				::
 			   <input type="radio" id="tab-2" name="tab-group-1">
-				<label for="tab-2"><strong>{#lang_setupDb#}</strong></label>
+				<label for="tab-2"><strong>{$lang_setupDb}</strong></label>
 				::
 			   <input type="radio" id="tab-3" name="tab-group-1">
-				<label for="tab-3"><strong>{#lang_setupLang#}</strong></label>
+				<label for="tab-3"><strong>{$lang_setupLang}</strong></label>
 				
 {* -------------------------------------------------------------------------------------------------------------------- *)
 (*    General Setting																									*)		
@@ -54,22 +54,25 @@
 					</table>
 					
 					{* Save general setting *}
-					<div class="save">
-						<button name="act" value="save">{#langSave#}</button>
-					</div>
+					<button name="act" value="save">{$langSave}</button>
 					</form>
 					
+					<form action="{$baseUrl}/setup" method="post" style="display: inline;">
+						<button name="act" value="genkey">{$langGenerate} {$lang_cookieKey}</button>
+					</form>
+
 					{* Reset to default *}					
 					<div id="reset">
 						<div class="message">{$resetmessage}</div>
 						
 					  <form name="confirmed" action="{$baseUrl}/setup#reset" method="post">
-						<label for="confirm_password">{#langPassword#}</label>
+						<label for="confirm_password">{$langPassword}</label>
 						<input type="password" class="form_login" name="confirm_password" id="confirm_password" />
 					
 						{*<input type="hidden" name="comfirm" value="0">
 						<input type="checkbox" name="comfirm" value="1">*}
-						<button name="act" value="reset">{#langResetDef#}</button>
+						<button name="act" value="reset">{$langResetDef}</button>
+
 					  </form>
 					</div>
 				
@@ -79,41 +82,41 @@
 (*    Database																											*)		
 (* -------------------------------------------------------------------------------------------------------------------- *}
 				<div id="db">				
-					<div class="title">{#langDbTitle#}</div>
+					<div class="title">{$langDbTitle}</div>
 		{if !$comm}
-					<div class="message">{#langDbNotConnect#}</div>
+					<div class="message">{$langDbNotConnect}</div>
 		{else}
 			{if !$check_confirm && $act}
-					<div class="message">{#langConfirm#}</div>
+					<div class="message">{$langConfirm}</div>
 			{/if}
 					<form name="confirmed" action="{$baseUrl}/setup" method="post">
 			{if $db}		
 					<p><div id="confirmed">
-						<label for="confirm_password">{#langPassword#}</label>
+						<label for="confirm_password">{$langPassword}</label>
 						<input type="password" class="form_login" name="confirm_password" id="confirm_password" />
 					</div>
 			{/if}
 				
-					<p>{#langBase#} : <i>{$mysql_db}</i> ::
+					<p>{$langBase} : <i>{$mysql_db}</i> ::
 			{if !$db}
-					<p><button class="dbbut" name="act" value="dbadd">{#langCreate#}</button>
+					<p><button class="dbbut" name="act" value="dbadd">{$langCreate}</button>
 			{else}
-					<button class="dbbut" name="act" value="dbdelete">{#langDelete#}</button>
-					<p>{#langTables#} ::
+					<button class="dbbut" name="act" value="dbdelete">{$langDelete}</button>
+					<p>{$langTables} ::
 				{if !$file_table}
-					<div style="color: red;">{#langDbNotTablesFile#}</div>
+					<div style="color: red;">{$langDbNotTablesFile}</div>
 				{else}
 					{if !$tbl}
-					<button class="dbbut" name="act" value="tbladd">{#langAdd#}</button>
+					<button class="dbbut" name="act" value="tbladd">{$langAdd}</button>
 					{else}
 							{$tables}
-					<button class="dbbut" name="act" value="tblsave">{#langSave#}</button>
-					<p>{#langData#} ::
+					<button class="dbbut" name="act" value="tblsave">{$langSave}</button>
+					<p>{$langData} ::
 						{if !$file_table}
-					<div style="color: red;">{#langDbNotDataFile#}</div>
+					<div style="color: red;">{$langDbNotDataFile}</div>
 						{else}
-					<button class="dbbut" name="act" value="dataadd">{#langUpdate#}</a>
-					<button class="dbbut" name="act" value="datasave">{#langSave#}</a>
+					<button class="dbbut" name="act" value="dataadd">{$langUpdate}</a>
+					<button class="dbbut" name="act" value="datasave">{$langSave}</a>
 						{/if}
 					{/if}
 				{/if}
@@ -126,48 +129,13 @@
 (* -------------------------------------------------------------------------------------------------------------------- *}
    
 				<div id="lang">
-					<form action="{$baseUrl}/setup" method="post">	
-					<div class="tabs_lang">
-					   <input type="radio" id="tab_lang-1" name="tab-group-2" checked>
-						<label for="tab_lang-1"><strong>{#langGlobal#}</strong></label>
-						::
-					   <input type="radio" id="tab_lang-2" name="tab-group-2">
-						<label for="tab_lang-2"><strong>{#langLocal#}</strong></label>
-						
-						{* --- Global --- *}
-						<div>
-							<table class="form_login">					
-				{foreach from=$lang_global key=k item=i}
-								<tr>
-									<td class="info">
-										<label for="{$k}">{$k}</label>
-									</td>
-									<td>
-										<input size="40" type="text" class="form_login" name="{$k}" id="{$k}" value="{$i|escape}"/>
-									</td>
-								</tr>
-				{/foreach}
-							</table>
-						
-							{* --- Save general setting --- *}
-							<p>
-								<button name="act" value="lang_save">{#langEdit#}</button>
-								<button name="act" value="lang_reset">{#langReset#}</button>
-							</p>
-						</div>
-						
-						{* --- Local --- *}						
+					<form action="{$baseUrl}/setup" method="post">										
 						<div>
 							<table class="form_login">	
 								<tr>
 									<td></td>
-									<td>
-				{foreach name=lang from=$lang_lang key=l item=i}
-										<span class="col">{$i}</span>
-				{/foreach}
-									</td>
 								</tr>
-				{foreach name=lang from=$lang_local key=l item=i}
+				{foreach name=lang from=$lang_row key=l item=i}
 								<tr>
 									<td class="info">
 										<label>{$l}</label>
@@ -182,16 +150,15 @@
 							</table>
 							
 							{* --- Save local setting --- *}
-							<p>
-								<button name="act" value="lang_save">{#langEdit#}</button>
-								<button name="act" value="lang_reset">{#langReset#}</button>
-							</p>							
+							<div>
+								<button name="act" value="lang_save">{$langEdit}</button>
+								<button name="act" value="lang_reset">{$langReset}</button>
+							</div>							
 						</div>
 						
 					</div>
 					</form>
 				</div>
-			</div>
 {* -------------------------------------------------------------------------------------------------------------------- *}	
 {/capture}
 

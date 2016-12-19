@@ -1,23 +1,23 @@
-			<h2>{#lang_player#} {$name|escape}</h2><br>
+			<h2>{$lang_player} {$name|escape}</h2><br>
 			<div>
-				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/pro/{$rec}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{#langKzPro#}</a>
-				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/noob/{$rec}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{#langKzNoob#}</a>
-				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/all/{$rec}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{#langKzAll#}</a>
+				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/pro/{$rec}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
+				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/noob/{$rec}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
+				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/all/{$rec}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langKzAll}</a>
 			</div>
 
 			{*<div>
-				<span>{#langStats#} {$langType}</span>
+				<span>{$langStats} {$langType}</span>
 			</div>*}
 			<div>
-				<p><b>{#langKzNum#}:</b> {$map_num}
-				<br><b>{#langKzTop1#}:</b> {$map_top1}
+				<p><b>{$langKzNum}:</b> {$map_num}
+				<br><b>{$langKzTop1}:</b> {$map_top1}
 			</div>
 			
 			<div>
 {if $rec == "norec"}
-				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/{$type}">{#langKzRec#}</a>
+				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/{$type}">{$langKzRec}</a>
 {else}
-				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/{$type}/norec">{#langKzNoRec#}</a>				
+				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/{$type}/norec">{$langKzNoRec}</a>				
 {/if}
 			</div>
 			
@@ -26,7 +26,7 @@
 {if $rec == "norec"}
 				<table class="table-list">
 					<tr class="title">
-						<td>{#langMap#}</td>
+						<td>{$langMap}</td>
 					</tr>
 {foreach from=$maps item=map}
 					<tr class="list">
@@ -39,12 +39,12 @@
 {else}
 				<table>
 					<tr class="title">
-						<td>{#langMap#}</td>
-						<td>{#langWorldRecord#}</td>
-						<td>{#langTime#}</td>
-						<td>{#langCp#}</td>
-						<td>{#langGoCp#}</td>
-						<td>{#langWeapon#}</td>
+						<td>{$langMap}</td>
+						<td>{$langWorldRecord}</td>
+						<td>{$langTime}</td>
+						<td>{$langCp}</td>
+						<td>{$langGoCp}</td>
+						<td>{$langWeapon}</td>
 					</tr>
 {foreach from=$maps item=map}
 					<tr class="list">

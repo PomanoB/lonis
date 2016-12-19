@@ -1,12 +1,12 @@
 <?php
 
-if (isset($_POST['map']) && $_POST['map'] !='') {
-	//header('Location: kreedz/'.$_POST['map']); exit();
+if (isset($_POST["map"]) && $_POST["map"] !='') {
+	//header('Location: kreedz/'.$_POST["map"]); exit();
 	if (get_magic_quotes_gpc()) {
-		$map = $_POST['map'];
+		$map = $_POST["map"];
 	}
 	else {
-		$map = addslashes($_POST['map']);
+		$map = addslashes($_POST["map"]);
 	}
 	
 	$smarty->assign('map', stripslashes($map));
@@ -24,7 +24,7 @@ $types = array(
 );	
 
 $type = 'all';
-if (isset($_GET['type']) && isset($types[$_GET['type']])) $type = $_GET['type'];
+if (isset($_GET["type"]) && isset($types[$_GET["type"]])) $type = $_GET["type"];
 
 $typesLang = array(
 	'pro' => 'langKzPro',
@@ -41,7 +41,7 @@ $recs = array(
 );
 
 $rec = 'rec';
-if (isset($_GET['rec'])) $rec = $_GET['rec'];
+if (isset($_GET["rec"])) $rec = $_GET["rec"];
 $smarty->assign('rec', $rec);
 
 if($rec=="norec") {		
@@ -55,8 +55,8 @@ $r = mysql_query($q);
 
 $total = mysql_result($r, 0);
 
-if (isset($_GET['page']))
-	$page = abs((int)$_GET['page']);
+if (isset($_GET["page"]))
+	$page = abs((int)$_GET["page"]);
 else
 	$page = 1;
 if (!$page)
@@ -90,10 +90,10 @@ if ($total)
 		$r = mysql_query($q);
 		while($row = mysql_fetch_array($r))
 		{
-			$row['time'] = timed($row['time'], 2);
-			$row['timerec'] = timed($row['timerec'], 2);
+			$row["time"] = timed($row["time"], 2);
+			$row["timerec"] = timed($row["timerec"], 2);
 			
-			$row['weapon_name'] = $smarty->get_config_vars("lang_wpn_".$row['weapon']);
+			$row["weapon_name"] = $langs["lang_wpn_".$row["weapon"]];
 			$maps[] = $row;
 		}
 	}

@@ -1,12 +1,12 @@
 <?php
 
-if (isset($_REQUEST['search']) && $_REQUEST['search'] != '')
+if (isset($_REQUEST["search"]) && $_REQUEST["search"] != '')
 {
 	if (get_magic_quotes_gpc()) {
-		$search = $_REQUEST['search'];
+		$search = $_REQUEST["search"];
 	}
 	else {
-		$search = addslashes($_REQUEST['search']);
+		$search = addslashes($_REQUEST["search"]);
 	}
 	$smarty->assign('pageUrl', "$baseUrl/players/$search/page%page%");
 		
@@ -25,8 +25,8 @@ $r = mysql_query($q);
 
 $total = mysql_result($r, 0);
 
-if (isset($_GET['page']))
-	$page = abs((int)$_GET['page']);
+if (isset($_GET["page"]))
+	$page = abs((int)$_GET["page"]);
 else
 	$page = 1;
 if (!$page)
@@ -52,9 +52,9 @@ if ($total)
 	{
 		$countryName = '';
 		$countryCode = '';
-		if ($row['lastIp'])
+		if ($row["lastIp"])
 		{
-			$record = geoip_record_by_addr($gi, $row['lastIp']);
+			$record = geoip_record_by_addr($gi, $row["lastIp"]);
 			if(!is_null($record))
 			{
 				$countryCode = strtolower($record->country_code);
@@ -62,13 +62,13 @@ if ($total)
 			}
 		}
 		
-		$row['countryCode'] = $countryCode;
-		$row['countryName'] = $countryName;
+		$row["countryCode"] = $countryCode;
+		$row["countryName"] = $countryName;
 		
 		if (file_exists('img/country/'.$countryCode.'.png'))
-			$row['countryImg'] = 'img/country/'.$countryCode.'.png';
+			$row["countryImg"] = 'img/country/'.$countryCode.'.png';
 		else
-			$row['countryImg'] = '';
+			$row["countryImg"] = '';
 			
 		$players[] = $row;
 	}

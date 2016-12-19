@@ -5,8 +5,8 @@ $r = mysql_query($q);
 
 $total = mysql_result($r, 0);
 
-if (isset($_GET['page']))
-	$page = abs((int)$_GET['page']);
+if (isset($_GET["page"]))
+	$page = abs((int)$_GET["page"]);
 else
 	$page = 1;
 if (!$page)
@@ -29,23 +29,23 @@ $duels = array();
 
 while($row = mysql_fetch_array($r))
 {
-	if ($row['result1'] < $row['result2'])
+	if ($row["result1"] < $row["result2"])
 	{
-		$row['winnerId'] = $row['player1'];
-		$row['winnerName'] = $row['name1'];
-		$row['winnerPoints'] = $row['result1'];
-		$row['looserId'] = $row['player2'];
-		$row['looserName'] = $row['name2'];
-		$row['looserPoints'] = $row['result2'];
+		$row["winnerId"] = $row["player1"];
+		$row["winnerName"] = $row["name1"];
+		$row["winnerPoints"] = $row["result1"];
+		$row["looserId"] = $row["player2"];
+		$row["looserName"] = $row["name2"];
+		$row["looserPoints"] = $row["result2"];
 	}
 	else
 	{
-		$row['winnerId'] = $row['player2'];
-		$row['winnerName'] = $row['name2'];
-		$row['winnerPoints'] = $row['result2'];
-		$row['looserId'] = $row['player1'];
-		$row['looserName'] = $row['name1'];
-		$row['looserPoints'] = $row['result1'];
+		$row["winnerId"] = $row["player2"];
+		$row["winnerName"] = $row["name2"];
+		$row["winnerPoints"] = $row["result2"];
+		$row["looserId"] = $row["player1"];
+		$row["looserName"] = $row["name1"];
+		$row["looserPoints"] = $row["result1"];
 	}
 	$duels[] = $row;
 }

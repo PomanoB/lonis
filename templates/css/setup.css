@@ -101,44 +101,6 @@
 	border: 0px solid #aaa; 
 }
 
-/* Button db act*/
-.dbbut {
-    background-color: white;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    font-size: 12px;
-}
-
-.dbbut:hover {
-    background-color: white;
-    border: none;
-	color: #0074CE;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;	
-}
-
-/* Other button */
-.but {
-    background-color: white;
-    border: none;
-    text-align: center;
-    text-decoration: none; 
-    font-size: 12px;
-}
-
-.but:hover {
-    background-color: white;
-    border: none;
-	color: #0074CE;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;	
-}
-
 /* General style */
 .title { 
 	font-size: 20px; 

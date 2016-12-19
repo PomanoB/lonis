@@ -1,0 +1,43 @@
+.title {
+	text-align: center;
+	font-size: 20px; 
+	font-weight: bold;
+	padding: 10px;
+}
+
+tr.title {
+	background: #191919;
+	color: white;
+	font-weight: bold;
+	font-family: Verdana, Tahoma;
+	font-size: 12px;
+	vertical-align: middle;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	height: 25px;
+}
+
+.error_message {
+	text-align: center;
+	color: red;
+	padding: 5px;
+}
+
+table {
+	margin-left:auto; 
+	margin-right:auto;
+}
+
+.other select {
+	background: transparent;
+	border: 1px;
+	color: #000000;
+}
+
+.other option {
+	background: #ffffff;
+	border: 1px;
+	color: #000000;
+}

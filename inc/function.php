@@ -5,49 +5,54 @@
 
 // check $_GET, $_POST, $_SESSION
 function get_request($var) {
-	return $act = isset($_GET['act']) ? (isset($_POST['act']) ? $_POST['act'] : $_GET['act']) : "";
+	return $act = isset($_GET["act"]) ? (isset($_POST["act"]) ? $_POST["act"] : $_GET["act"]) : "";
 }
 
 // Parse URL. Exp: ##/##/## from array($rule, $url)
 function parse_uri($uri, $rules) {
 	$uris = parse_url($uri);
-	if(strpos($uri, "?")===false) {
-		$i=0;
+	
+	$ret = "";
+	if(isset($uris["path"])) {
 		foreach($rules as $str=>$value) {
-			preg_match_all($str, $uri, $matches);
+			preg_match_all($str, $uris["path"], $matches);
 			if(isset($matches[0][0])) {			
-				$i++;
 				foreach($matches as $key=>$v) {
 					$rep = $v[0] ? $v[0] : "";
 					$value = str_replace("%$key%", $rep, $value);
 				}
-				$ret_uri[$i] = $value;
+				$ret_uri[] = $value;
 			}
 		}
-		$ret = $ret_uri[1];
+		$ret = $ret_uri[0];
 	}
-	else 
-		$ret = $uri;
 	
-	return parse_urls($ret);
+	if(isset($uris["query"]))
+		$ret .= "&".$uris["query"];
+		
+	return $ret;
 }
 
 //Parse URI. Exp: key1=value1&key2=value2
 function parse_urls($url) {
 	$urls = parse_url($url);
-	$q = isset($urls['query']) ? $urls['query'] : "";
+	$urls["url"] = $url;
+	
+	$q = isset($urls["query"]) ? $urls["query"] : (isset($urls["path"]) ? $urls["path"] : "");
 	if($q) {
 		$ret_vars = explode("&", $q);
-		foreach($ret_vars as $value) {
-			$ret_delim = explode("=", $value);
-			$rets[$ret_delim[0]] = $ret_delim[1];
+		foreach($ret_vars as $key=>$value) {
+			if(isset($key)) {
+				$ret_delim = explode("=", $value);
+				$rets[$ret_delim[0]] = isset($ret_delim[1]) ? $ret_delim[1] : "";
+			}
 		}
 
-		$urls['uri'] = $rets;
+		$urls["uri"] = $rets;
 	}
 	else
-		$urls['uri'] = array();
-		
+		$urls["uri"] = array();
+	
 	return $urls;
 }
 
@@ -99,6 +104,11 @@ function print_p($var="") {
 		echo "<p><pre>_POST: "; print_r($_POST); echo "</pre>";
 	}
 }
+
+function br() {
+	echo "<br>";
+}
+
 // Row to col massive
 function row2col($var) {
 	foreach($var as $key=>$value) {
@@ -114,7 +124,7 @@ function save_ini_file(array $var, array $parent = array()) {
     foreach ($var as $key => $value) {
         if (is_array($value)) {
             $sec = array_merge((array) $parent, (array) $key);
-            $ret .= '['.join('.',$sec).']'.PHP_EOL;
+            $ret .= '[".join('.',$sec)."]'.PHP_EOL;
             $ret .= save_ini_file($value, $sec);
         }
         else {
@@ -132,5 +142,17 @@ function save_config_file($file) {
 	}
 	fwrite($fp, $text);
 	fclose($fp);
+}
+
+function mysql_query_file($file) {
+	if(!$file = file($file)) return 1;
+	
+	$q_data = explode(";", implode("",$file));
+	foreach($q_data as $value) {
+		$r = mysql_query($value);
+		if($r===false) return 2;
+	}
+	
+	return $r;
 }
 ?>

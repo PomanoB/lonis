@@ -9,7 +9,7 @@
 		<script type="text/javascript" src="{$baseUrl}/templates/js/jquery.min.js"></script>
 		<script type="text/javascript" src="{$baseUrl}/templates/js/main.js"></script>
 		<script type="text/javascript" src="{$baseUrl}/templates/js/{$action}.js"></script>
-		<title>{#langTitle#} :: {$langAction}</title>
+		<title>{$langTitle} :: {$langAction}</title>
 	</head>
 	
 	<body>
@@ -62,7 +62,7 @@
 <!--	{if $user.webadmin == 1}
 		<div id="adminmenu">
 			Админцентр:
-			<a href="achiev_admin">{#lang_achiev_admin#}</a>
+			<a href="achiev_admin">{$lang_achiev_admin}</a>
 		</div>
 	{/if} -->
 	<div class="head_bg">
