@@ -1,5 +1,20 @@
 <?php
 
+if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1) {
+	$act = isset($_POST["act"]) ? $_POST["act"] : "";
+	
+	if ($act == "delete") {
+		if(isset($_POST["confirm"]) && $_POST["confirm"]==1) {
+			$delmap = $_POST["delmap"];
+			
+			$q = "DELETE FROM `kz_map_top` WHERE `map`= '$delmap'";
+			mysql_query($q);
+		}
+		else
+			$smarty->assign('message', $langs["langConfirm"]);
+	}
+}
+
 $where = '';
 if (isset($_POST["map"]) && $_POST["map"] !='') {
 	//header('Location: kreedz/'.$_POST["map"]); exit();

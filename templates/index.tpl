@@ -22,7 +22,7 @@
 							<img src="{$baseUrl}/img/country/{$lang}.png">
 							<select id="lang" name="lang" onchange="document.getElementById('customForm').submit();">
 							{foreach from=$langselect key=key item=desc}
-								<option value="{$key}" {if $lang==$k}selected{/if}>{$desc}</option>
+								<option value="{$key}" {if $lang==$key}selected{/if}>{$desc}</option>
 							{/foreach}
 							</select>
 						</form>
@@ -89,7 +89,7 @@
 				
 				<select style="margin-left:50px;" id="theme" name="theme" onchange="document.getElementById('themeForm').submit();">
 				{foreach from=$themeselect key=key item=desc}
-					<option value="{$key}" {if $theme==$k}selected{/if}>{$desc}</option>
+					<option value="{$key}" {if $theme==$key}selected{/if}>{$desc}</option>
 				{/foreach}
 				</select>
 			{else}

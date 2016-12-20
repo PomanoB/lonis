@@ -136,27 +136,16 @@ CREATE TABLE `kz_map_list` (
   `mapname` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE OR REPLACE VIEW `kz_norecx` AS (
-select  
-	`kz_map_top`.`map` AS `map`,  
-	`kz_map_top`.`player` AS `player`,  
-	`kz_map_top`.`time` AS `time`,  
-	`kz_map_top`.`cp` AS `cp`,  
-	`kz_map_top`.`go_cp` AS `go_cp`,  
-	`kz_map_top`.`weapon` AS `weapon` 
-from `kz_map_top`  
-group by `kz_map_top`.`map`,`kz_map_top`.`player`);
-
 CREATE OR REPLACE VIEW `kz_norec` AS (
 SELECT  
 	`kz_map_list`.`mapname` AS `mapname`,  
 	`tmp`.`map` AS `map`,  
-	`tmp`.`player` AS `player`,  
-	`tmp`.`time` AS `time`,  
+	IF(ISNULL(`tmp`.`player`),0,`tmp`.`player`) AS `player`,  
+	`tmp`.`time` AS `time`, 
 	`tmp`.`cp` AS `cp`,  
 	`tmp`.`go_cp` AS `go_cp`,  
 	`tmp`.`weapon` AS `weapon` 
-FROM (`kz_map_list`  LEFT JOIN `kz_norecx` AS `tmp`  
+FROM (`kz_map_list`  LEFT JOIN `kz_map_top` AS `tmp`  
 	ON ((`kz_map_list`.`mapname` = `tmp`.`map`))) 
 ORDER BY `kz_map_list`.`mapname`);
 
@@ -197,7 +186,17 @@ SELECT
 	`ldesc`.value AS `description`, 
 	`count` AS `count`, 
 	`type` AS `type`, 
-	`lname`.lang AS `lname`, 
-	`ldesc`.lang AS `ldesc`
+    CONCAT(`lname`.`lang`, '_', `ldesc`.`lang`) AS `lang`
 FROM (unr_achiev LEFT JOIN lang AS `lname` ON unr_achiev.name = lname.var) 
 	LEFT JOIN lang AS `ldesc` ON unr_achiev.description = ldesc.var;
+	
+CREATE VIEW `achiev_progress` AS 
+SELECT `p`.`id` AS `plid`, `p`.`name` AS `plname`, 
+	(SELECT COUNT(*) FROM `unr_players_achiev`, `achiev`
+		WHERE `unr_players_achiev`.`achievId` = `achiev`.`id` 
+			AND `achiev`.`count` = `unr_players_achiev`.`progress` 
+			AND `unr_players_achiev`.`playerId` = `plid`) AS `achiev_total`
+		FROM `unr_players` AS `p`, 
+			`unr_players_achiev` AS `pa`, 
+			`achiev` AS `a` 
+	WHERE `a`.`count` = `pa`.`progress` AND `p`.`id` = `pa`.`playerId` AND `pa`.`achievId` = `a`.`id`

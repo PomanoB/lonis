@@ -45,7 +45,7 @@
 					<a href="{$baseUrl}/kreedz/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langKzAll}</a>
 					:: <a href="{$baseUrl}/kreedz/{$type}/norec">{$langKzNoRec}</a>
 				</div>
-				
+				<p><div class="err_message">{$message}</div>
 				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
 				
 				<div style="padding:10px;">
@@ -58,6 +58,9 @@
 						<td>{$langCp}</td>
 						<td>{$langGoCp}</td>
 						<td>{$langWeapon}</td>
+				{if $webadmin==1}
+						<td>#</td>
+				{/if}
 					</tr>
 		{foreach from=$maps item=map}
 					<tr class="list">
@@ -68,6 +71,18 @@
 						<td class="th_numeric color{if !$map.go_cp}-nogc{/if}">{$map.cp}</td>
 						<td class="th_numeric color{if !$map.go_cp}-nogc{/if}">{$map.go_cp}</td>
 						<td class="color{if $map.weapon == 16 && $map.weapon == 29}-wpn{/if}">{$map.weapon_name}</td>
+			{if $webadmin==1}
+						<form action="{$baseUrl}/kreedz" method="post">			
+						<td>
+							<input type="hidden" name="confirm" value="0">
+							<input type="checkbox" name="confirm" value="1">
+							<button class="but" name="act" value="delete">
+								<img src="{$baseUrl}/img/delete.png" border=0 alt="{$langDelete}">
+							</button>
+							<input name="delmap" type="hidden" value="{$map.map}" />
+						</td>
+						</form>
+			{/if}			
 					</tr>
 		{/foreach}
 				</table>

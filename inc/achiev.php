@@ -5,25 +5,22 @@ if (isset($_GET["aname"])) {
 	$aname = urldecode($_GET["aname"]);
 	$aname = get_magic_quotes_gpc() ? $aname : addslashes($aname);
 	
-	$q = "SELECT `id`, `name`, `description` 
-		FROM achiev 
+	$q = "SELECT `id`, `name`, `description` FROM achiev 
 		WHERE `lname`='$lang' AND `ldesc`='$lang' 
 			AND (`name` = '$aname' OR `name` = REPLACE('$aname', '_', ' '))
-			LIMIT 1";
+		LIMIT 1";
 	$r = mysql_query($q);
 	if ($row = mysql_fetch_array($r))  {
 		$id = $row["id"];
 		$smarty->assign('achiev', $row);
 		
-		$q = "SELECT `p`.`id` AS `plid`, `p`.`name` AS `plname`, 
-				(SELECT COUNT(*) FROM `unr_players_achiev`, `achiev`
-					WHERE `unr_players_achiev`.`achievId` = `achiev`.`id` 
-						AND `achiev`.`count` = `unr_players_achiev`.`progress` 
-						AND `unr_players_achiev`.`playerId` = `plid`) AS `achiev_total`
-					FROM `unr_players` AS `p`, 
-						`unr_players_achiev` AS `pa`, 
-						`achiev` AS `a` 
-				WHERE `a`.`count` = `pa`.`progress` AND `p`.`id` = `pa`.`playerId` AND `pa`.`achievId` = `a`.`id` AND `a`.`id` = $id";
+		$q = "SELECT `p`.`id`   AS `plid`, `p`.`name` AS `plname`,
+				  (SELECT COUNT(0) FROM (`unr_players_achiev` JOIN `achiev`)
+				   WHERE ((`unr_players_achiev`.`achievId` = `achiev`.`id`)
+						  AND (`achiev`.`count` = `unr_players_achiev`.`progress`)
+						  AND (`unr_players_achiev`.`playerId` = `plid`))) AS `achiev_total`
+			FROM ((`unr_players` `p` JOIN `unr_players_achiev` `pa`) JOIN `achiev` `a`)
+			WHERE `a`.`count` = `pa`.`progress` AND `p`.`id` = `pa`.`playerId` AND `pa`.`achievId` = `a`.`id` AND `a`.`id` = $id";
 		$r = mysql_query($q);
 		$players = array();
 		
@@ -55,7 +52,7 @@ if (isset($_GET["plid"]) || isset($playerId)) {
 			IF(`progress` IS NULL, 0, `progress`) AS `progress` 
 		FROM `achiev` 
 		LEFT JOIN `unr_players_achiev` ON `achievId` = `id` AND `playerId` = $plId 
-		WHERE `lname`='$lang' AND `ldesc`='$lang' 
+		WHERE `lang`='{$lang}_{$lang}' 
 		ORDER BY `progress` = `count` 
 		DESC, `progress`/`count` DESC";
 	
@@ -84,7 +81,7 @@ else {// achive_list
 			AND `achiev`.`count` = `unr_players_achiev`.`progress` 
 			AND `unr_players_achiev`.`achievId` = `aId`)/@playerCount*100 AS `completed` 
 		FROM `achiev` 
-		WHERE `lname`='$lang' AND `ldesc`='$lang' 		
+		WHERE `lang`='{$lang}_{$lang}'		
 		ORDER BY `completed` DESC";
 	$r = mysql_query($q);
 	

@@ -1,4 +1,19 @@
 <?php
+if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1) {
+	$act = isset($_POST["act"]) ? $_POST["act"] : "";
+	
+	if ($act == "delete") {
+		if(isset($_POST["confirm"]) && $_POST["confirm"]==1) {
+			$id = $_POST["id"];
+			
+			$q = "DELETE FROM `kz_map_top` WHERE `id`= $id";
+			mysql_query($q);
+		}
+		else
+			$smarty->assign('message', $langs["langConfirm"]);
+	}
+}
+
 if (!isset($_GET["map"]))
 		header("Location: $baseUrl/kreedz");
 else
@@ -74,11 +89,15 @@ else
 		$smarty->assign('mapcomm', $mapcomm);
 	}
 	
-	$q = "SELECT `tmp`.*, `unr_players`.`name` FROM (SELECT * FROM `kz_map_top` WHERE `map` = '$map' ORDER BY `time` ) AS `tmp`, `unr_players` WHERE `unr_players`.`id` = `player` {$types[$type]} GROUP BY `player` ORDER BY `time` LIMIT $start, $playersPerPage";
+	$q = "SELECT `tmp`.*, `unr_players`.`name` FROM 
+			(SELECT * FROM `kz_map_top` 
+				WHERE `map` = '$map' ORDER BY `time` ) AS `tmp`, 
+			`unr_players` 
+		WHERE `unr_players`.`id` = `player` {$types[$type]} 
+		GROUP BY `player` ORDER BY `time` LIMIT $start, $playersPerPage";
 	$r = mysql_query($q);
 	$i = ($page - 1)*$playersPerPage + 1;
-	while($row = mysql_fetch_array($r))
-	{
+	while($row = mysql_fetch_array($r)) {
 		$row["time"] = timed($row["time"], 5);
 		
 		$row["weapon_name"] = $langs["lang_wpn_".$row["weapon"]];
