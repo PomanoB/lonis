@@ -1,16 +1,15 @@
 <?php
-
-if (!isset($_REQUEST["map"]))
+if (!isset($_GET["map"]))
 		header("Location: $baseUrl/kreedz");
 else
 {	
 	if (get_magic_quotes_gpc())
 	{
-		$map = $_REQUEST["map"];
+		$map = $_GET["map"];
 	}
 	else
 	{
-		$map = addslashes($_REQUEST["map"]);
+		$map = addslashes($_GET["map"]);
 	}
 	
 	$types = array(
@@ -35,7 +34,8 @@ else
 	$q = "SELECT COUNT(DISTINCT `player`) FROM `kz_map_top` WHERE `map` = '$map' {$types[$type]}";	
 	$r = mysql_query($q);
 	$total = mysql_result($r, 0);
-
+	$smarty->assign('total', $total);
+	
 	if (isset($_GET["page"]))
 		$page = abs((int)$_GET["page"]);
 	else
@@ -54,23 +54,25 @@ else
 	$maprec = array();
 	$smarty->assign('mapname', stripslashes($map));
 	
-	$q = "SELECT * FROM `kz_map_rec` WHERE `mapname` LIKE '$map%' ORDER BY `mappath`";	
-	$r = mysql_query($q);
-	while($row = mysql_fetch_array($r)) {		
-		$row["time"] = timed($row["time"], 2);
-		
-		$maprec[] = $row;		
-	}
-	$smarty->assign('maprec', $maprec);
+	if($map) {
+		$q = "SELECT * FROM `kz_map_rec` WHERE `mapname` LIKE '$map%' ORDER BY `mappath`";	
+		$r = mysql_query($q);
+		while($row = mysql_fetch_array($r)) {		
+			$row["time"] = timed($row["time"], 2);
+			
+			$maprec[] = $row;		
+		}
+		$smarty->assign('maprec', $maprec);
 
-	$q = "SELECT * FROM `kz_map_comm` WHERE `mapname` LIKE '$map%' ORDER BY `mappath`";	
-	$r = mysql_query($q);
-	while($row = mysql_fetch_array($r)) {		
-		$row["time"] = timed($row["time"], 2);
-		
-		$mapcomm[] = $row;		
+		$q = "SELECT * FROM `kz_map_comm` WHERE `mapname` LIKE '$map%' ORDER BY `mappath`";	
+		$r = mysql_query($q);
+		while($row = mysql_fetch_array($r)) {		
+			$row["time"] = timed($row["time"], 2);
+			
+			$mapcomm[] = $row;		
+		}
+		$smarty->assign('mapcomm', $mapcomm);
 	}
-	$smarty->assign('mapcomm', $mapcomm);
 	
 	$q = "SELECT `tmp`.*, `unr_players`.`name` FROM (SELECT * FROM `kz_map_top` WHERE `map` = '$map' ORDER BY `time` ) AS `tmp`, `unr_players` WHERE `unr_players`.`id` = `player` {$types[$type]} GROUP BY `player` ORDER BY `time` LIMIT $start, $playersPerPage";
 	$r = mysql_query($q);

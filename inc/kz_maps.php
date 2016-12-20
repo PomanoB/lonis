@@ -1,5 +1,6 @@
 <?php
 
+$where = '';
 if (isset($_POST["map"]) && $_POST["map"] !='') {
 	//header('Location: kreedz/'.$_POST["map"]); exit();
 	if (get_magic_quotes_gpc()) {
@@ -12,9 +13,6 @@ if (isset($_POST["map"]) && $_POST["map"] !='') {
 	$smarty->assign('map', stripslashes($map));
 	
 	$where = "AND `map` LIKE '%$map%'";
-}
-else {
-	$where = '';
 }
 
 $types = array(
@@ -45,7 +43,7 @@ if (isset($_GET["rec"])) $rec = $_GET["rec"];
 $smarty->assign('rec', $rec);
 
 if($rec=="norec") {		
-	$q = "SELECT COUNT(DISTINCT `mapname`) FROM `kz_norec` WHERE 1 {$where}";	
+	$q = "SELECT COUNT(*) FROM (SELECT * FROM `kz_norec` WHERE `player` = 0) AS tmp";	
 }
 else {
 	$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_tops` WHERE 1 {$types[$type]} {$where}";	
@@ -54,6 +52,7 @@ else {
 $r = mysql_query($q);
 
 $total = mysql_result($r, 0);
+$smarty->assign('total', $total);
 
 if (isset($_GET["page"]))
 	$page = abs((int)$_GET["page"]);
@@ -73,7 +72,7 @@ if ($total)
 	$start = ($page - 1) * $mapsPerPage;
 		
 	if($rec=="norec") {
-		$q = "SELECT * FROM kz_norec WHERE 1 {$where} LIMIT $start, $mapsPerPage";
+		$q = "SELECT * FROM (SELECT * FROM `kz_norec` WHERE `player` = 0) AS tmp LIMIT $start, $mapsPerPage";
 		
 		$r = mysql_query($q);
 		while($row = mysql_fetch_array($r)) {

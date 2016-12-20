@@ -1,18 +1,24 @@
-			<p><h2>{$lang_players}</h2>
-			<div align="right">
-				<form action="players" method="post">
-					<input type="text" name="search" id="search" class="form" {if isset($search)}value="{$search}"{/if} placeholder="{$langSearch}" /> {*<input type="submit" value="{$langSearch}" />*}
-					<input type="image" name=”picture” src="{$baseUrl}/img/find.png" />
-					&nbsp;
-				</form>
+			<div class="wrapper">		
+				<div class="titles left_block">{$lang_players}</div>
+		{if !isset($cs)}
+				<div class=" right_block">
+					<form action="players" method="post">
+						<input type="text" name="search" id="search" class="form" {if isset($search)}value="{$search}"{/if} placeholder="{$langSearch}" /> {*<input type="submit" value="{$langSearch}" />*}
+						<input type="image" name=”picture” src="{$baseUrl}/img/find.png" />
+						&nbsp;
+					</form>
+				</div>
+		{/if}
+			</div>
 			
-			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
-
+			<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
+			
+			<div>
 				<table class="table-list">
 					<tr class="title">
 						<td>{$lang_player}</td>
 						<td>{$langCountry}</td>
-						<td>{$lang_achievsPlayer}</td>
+						<td>{$lang_achiev}</td>
 						<td>{$langKzStats}</td>
 						<!--
 						<td>{$langDRStats}</td>-->

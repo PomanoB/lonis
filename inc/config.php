@@ -77,7 +77,8 @@ $menuadmin = array(
 );
 
 // The sequence is important
-$ActionList = "setup|admin_lang|admin_achiev|";
+$ActionList  = "setup|admin_lang|admin_achiev";
+$ActionList .= "|";
 $ActionList .= "home|players|kz_maps|achiev_players|achiev|reg|kz_duels|kz_players|ucp|steam_login|login|logout";
 
 // The sequence is important
@@ -92,10 +93,13 @@ $parseRules = array(
 	"/^steam?/" => "index.php?action=steam_login",	
 	"/^($ActionList)(\/)?(\/page([0-9]+))?/" => "index.php?action=%1%&page=%4%",
 	"/^(.*)\/achiev/" => "index.php?action=achiev&name=%1%",
+	
 	"/^kreedz\/players(\/(pro|noob|all))?(\/(num|top1))?(\/page([0-9]+))?/" => "index.php?action=kz_players&type=%2%&sort=%4%&page=%6%",
+	"/^kreedz\/map\/([0-9a-zA-Z_\s!]+)?(\/(pro|noob|all))?(\/page([0-9]+)?)?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
 	"/^kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_maps&page=%4%&type=%2%&rec=%6%",
-	"/^kreedz\/([0-9a-zA-Z_]+)?(\/(pro|noob|all))?(\/page([0-9]+)?)?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
+	
 	"/^unrid([0-9]+)?(\/kreedz)?(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_player&id=%1%&type=%4%&page=%6%&rec=%8%",
+	
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%",
 	"/^(.*)/" => "index.php?action=player&name=%1%",
 );

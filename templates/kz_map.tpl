@@ -1,8 +1,9 @@
-			<p><h2>{$langMap} {$mapname|escape:html}</h2><br>
+			<p><div class="titles">{$langMap} {$mapname|escape:html}</div><br>
+			
 			<div>
-				<a href="{$baseUrl}/kreedz/{$mapname}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
-				<a href="{$baseUrl}/kreedz/{$mapname}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
-				<a href="{$baseUrl}/kreedz/{$mapname}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langKzAll}</a>
+				<a href="{$baseUrl}/kreedz/map/{$mapname}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
+				<a href="{$baseUrl}/kreedz/map/{$mapname}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
+				<a href="{$baseUrl}/kreedz/map/{$mapname}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langKzAll}</a>
 			</div>
 			{*<div>
 				<span>{$langStats} {$langType}</span>

@@ -45,3 +45,21 @@
     display: inline-block;
     font-size: 12px;	
 }
+
+.titles { 
+	font-size: 24px; 
+	font-weight: bold;
+}
+
+div.wrapper {
+	width:auto;
+	padding: 10px;
+}
+
+div.left_block {
+	float:left;
+}
+
+div.right_block {
+	float:right;
+}

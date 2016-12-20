@@ -10,13 +10,14 @@ function get_request($var) {
 
 // Parse URL. Exp: ##/##/## from array($rule, $url)
 function parse_uri($uri, $rules) {
+	$uri = urldecode($uri);
 	$uris = parse_url($uri);
 	
 	$ret = "";
 	if(isset($uris["path"])) {
 		foreach($rules as $str=>$value) {
 			preg_match_all($str, $uris["path"], $matches);
-			if(isset($matches[0][0])) {			
+			if(isset($matches[0][0])) {		
 				foreach($matches as $key=>$v) {
 					$rep = $v[0] ? $v[0] : "";
 					$value = str_replace("%$key%", $rep, $value);
@@ -29,7 +30,7 @@ function parse_uri($uri, $rules) {
 	
 	if(isset($uris["query"]))
 		$ret .= "&".$uris["query"];
-		
+	
 	return $ret;
 }
 

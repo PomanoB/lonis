@@ -1,5 +1,4 @@
 <?php
-
 error_reporting(E_ALL | E_STRICT);
 
 session_start();
@@ -26,7 +25,6 @@ date_default_timezone_set($timezone);
 // Base URL
 $baseUrl = str_replace("/index.php", "", $_SERVER["PHP_SELF"]);
 
-//print_p($_SERVER);
 // Parse URI
 $uri = str_replace($baseUrl."/", "", $_SERVER["REQUEST_URI"]);
 if($uri!="") {
@@ -48,6 +46,7 @@ if (!get_magic_quotes_gpc()) {
 }
 
 // Debug trace
+
 //print_p();
 //print_p($_SESSION);
 //print_p($_SERVER);

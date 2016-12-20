@@ -21,14 +21,14 @@
 						<form method="post" id="customForm" style="padding:7px 8px 0 0;margin:0;" action="">
 							<img src="{$baseUrl}/img/country/{$lang}.png">
 							<select id="lang" name="lang" onchange="document.getElementById('customForm').submit();">
-							{foreach from=$langselect key=name item=desc}
-								<option value="{$name}" {if $lang==$name}selected{/if}>{$desc}</option>
+							{foreach from=$langselect key=key item=desc}
+								<option value="{$key}" {if $lang==$k}selected{/if}>{$desc}</option>
 							{/foreach}
 							</select>
 						</form>
 					</text>
 					
-				{foreach from=$menulist key=key item=i}
+				{foreach from=$menulist key=keyey item=i}
 					<text class="item">
 						<a title="{$i.name}" href="{$baseUrl}{$i.url}">
 							<img src="{$baseUrl}/img/menu/{$i.item}.png"><text class="name">{$i.name}</text>
@@ -46,7 +46,7 @@
 				
 		{if $webadmin}
 				<div class="adminmenu">
-				{foreach from=$menuadminlist key=key item=i}
+				{foreach from=$menuadminlist key=keyey item=i}
 					<text class="item">
 						<a title="{$i.name}" href="{$baseUrl}{$i.url}">
 							<img src="{$baseUrl}/img/menu/{$i.item}.png"><text class="name">{$i.name}</text>
@@ -83,18 +83,18 @@
 		<form method="post" id="themeForm" style="padding:2px 8px 0 0;margin:0;" action="">				
 			<div align="right" style="margin-right: 60px;">
 			{if !isset($cs)}
-				{foreach from=$menu_footer key=name item=href}
-					<a href="{$href}" style="margin-left:50px;" target="_blank">{$name}</a>
+				{foreach from=$menu_footer key=key item=href}
+					<a href="{$href}" style="margin-left:50px;" target="_blank">{$key}</a>
 				{/foreach}
 				
 				<select style="margin-left:50px;" id="theme" name="theme" onchange="document.getElementById('themeForm').submit();">
-				{foreach from=$themeselect key=name item=desc}
-					<option value="{$name}" {if $theme==$name}selected{/if}>{$desc}</option>
+				{foreach from=$themeselect key=key item=desc}
+					<option value="{$key}" {if $theme==$k}selected{/if}>{$desc}</option>
 				{/foreach}
 				</select>
 			{else}
-				{foreach from=$menu_footer key=name item=href}
-					<a href="#" style="margin-left:50px;" target="_blank">{$name}</a>
+				{foreach from=$menu_footer key=key item=href}
+					<a href="#" style="margin-left:50px;" target="_blank">{$key}</a>
 				{/foreach}
 			{/if}	
 			</div>
