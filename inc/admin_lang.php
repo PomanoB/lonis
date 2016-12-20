@@ -12,14 +12,11 @@ while($row = mysql_fetch_array($r)) {
 
 $smarty->assign('lang_list', $lang_list);
 
-
 if ($act == "add") {
-	//$langa = get_magic_quotes_gpc() ? $_POST["langa"] : addslashes($_POST["langa"]);
 	$langkey = get_magic_quotes_gpc() ? $_POST["langx"] : addslashes($_POST["langx"]);
 	$var = get_magic_quotes_gpc() ? $_POST["var"] : addslashes($_POST["var"]);
 	$value = get_magic_quotes_gpc() ? $_POST["value"] : addslashes($_POST["value"]);
 	
-	//$langkey = $langa ? $langa : $langx;
 	if($langkey && $var && $value) {
 		$q = "INSERT INTO `lang` (`lang`, `var`, `value`) VALUES ";
 		foreach($lang_list as $key=>$v) {
@@ -73,7 +70,5 @@ foreach ($dblangs as $l => $arr) {
 	}
 }
 
-$smarty->assign('lang_row', $row);
-		
-		
+$smarty->assign('lang_row', $row);	
 ?>

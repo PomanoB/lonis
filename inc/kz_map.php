@@ -16,14 +16,11 @@ if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmi
 
 if (!isset($_GET["map"]))
 		header("Location: $baseUrl/kreedz");
-else
-{	
-	if (get_magic_quotes_gpc())
-	{
+else {	
+	if (get_magic_quotes_gpc()) {
 		$map = $_GET["map"];
 	}
-	else
-	{
+	else {
 		$map = addslashes($_GET["map"]);
 	}
 	
@@ -70,7 +67,7 @@ else
 	$smarty->assign('mapname', stripslashes($map));
 	
 	if($map) {
-		$q = "SELECT * FROM `kz_map_rec` WHERE `mapname` LIKE '$map%' ORDER BY `mappath`";	
+		$q = "SELECT * FROM `kz_map_rec` WHERE `mapname` = '$map' ORDER BY `mappath`";	
 		$r = mysql_query($q);
 		while($row = mysql_fetch_array($r)) {		
 			$row["time"] = timed($row["time"], 2);
@@ -78,8 +75,16 @@ else
 			$maprec[] = $row;		
 		}
 		$smarty->assign('maprec', $maprec);
+		
+		if(isset($conf["image_".$maprec[0]["comm"]]))
+			$imgmap = str_replace("%map%", $map, $conf["image_".$maprec[0]['comm']]);
+		else
+			$imgmap = "";
+		
+		$smarty->assign('imgmap', $imgmap);
+		
 
-		$q = "SELECT * FROM `kz_map_comm` WHERE `mapname` LIKE '$map%' ORDER BY `mappath`";	
+		$q = "SELECT * FROM `kz_map_comm` WHERE `mapname` = '$map' ORDER BY `mappath`";	
 		$r = mysql_query($q);
 		while($row = mysql_fetch_array($r)) {		
 			$row["time"] = timed($row["time"], 2);
@@ -111,7 +116,5 @@ else
 	$smarty->assign('page', $page);
 	$smarty->assign('totalPages', $totalPages);
 	$smarty->assign('pageUrl', "$baseUrl/kreedz/$map/$type/page%page%");
-		
-	$template = 'kz_map.tpl';
 }
 ?>

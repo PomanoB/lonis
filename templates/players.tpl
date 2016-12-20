@@ -2,7 +2,7 @@
 				<div class="titles left_block">{$lang_players}</div>
 		{if !isset($cs)}
 				<div class=" right_block">
-					<form action="players" method="post">
+					<form action="{$baseUrl}/action/players" method="post">
 						<input type="text" name="search" id="search" class="form" {if isset($search)}value="{$search}"{/if} placeholder="{$langSearch}" /> {*<input type="submit" value="{$langSearch}" />*}
 						<input type="image" name=”picture” src="{$baseUrl}/img/find.png" />
 						&nbsp;

@@ -1,5 +1,5 @@
 			<div class="title">{$lang_setup} :: {if isset($act)}
-				<a href="{$baseUrl}/setup/logout">{$lang_logout}</a>{else}{$lang_login}{/if}
+				<a href="{$baseUrl}/action/setup/logout">{$lang_logout}</a>{else}{$lang_login}{/if}
 			</div>
 			<div class="setup_message">{$message}</div>
 			
@@ -8,7 +8,7 @@
 (* -------------------------------------------------------------------------------------------------------------------- *}			
 {capture name=act_login}
 			<div class="login">
-			  <form action="{$baseUrl}/setup" method="post">
+			  <form action="{$baseUrl}/action/setup" method="post">
 				<table class="form_login">
 					<tr>
 						<td class="info"><label for="setting_user">{$langName}</label></td>
@@ -42,13 +42,13 @@
 (* -------------------------------------------------------------------------------------------------------------------- *}
 				<div id="setup">
 					<table class="form_login">
-						<form action="{$baseUrl}/setup" method="post">
+						<form action="{$baseUrl}/action/setup" method="post">
 		{foreach from=$conflist item=conf}
 						<tr>
 							<td class="info">
 								<label {if $conf.err}style="color: red;"{/if} for="{$conf.name}">{$conf.desc}</label>
 							</td>
-							<td><input size=25 type="{$conf.type}" class="form_login" name="{$conf.name}" id="{$conf.name}" value="{$conf.text}"/></td>
+							<td><input size=40 type="{$conf.type}" class="form_login" name="{$conf.name}" id="{$conf.name}" value="{$conf.text}"/></td>
 						</tr>
 		{/foreach}
 					</table>
@@ -57,7 +57,7 @@
 					<button name="act" value="save">{$langSave}</button>
 					</form>
 					
-					<form action="{$baseUrl}/setup" method="post" style="display: inline;">
+					<form action="{$baseUrl}/action/setup" method="post" style="display: inline;">
 						<button name="act" value="genkey">{$langGenerate} {$lang_cookieKey}</button>
 					</form>
 
@@ -129,7 +129,7 @@
 (* -------------------------------------------------------------------------------------------------------------------- *}
    
 				<div id="lang">
-					<form action="{$baseUrl}/setup" method="post">										
+					<form action="{$baseUrl}/action/setup" method="post">										
 						<div>
 							<table class="form_login">	
 								<tr>

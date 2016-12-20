@@ -72,10 +72,8 @@
 		<div id="page" style="border-radius: 20px;">
 		
 			{* PAGE *}
-			{if $action!="index"}
+			{if isset($action)}
 				{include file="$action.tpl"}
-			{else}
-				{include file="home.tpl"}
 			{/if}
 			{* PAGE OFF *}
 		

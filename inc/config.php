@@ -33,6 +33,15 @@ $dconf = array (
 	'theme' => "main",
 	'cstheme' => "main",
 	
+	'image_cc' => "https://cosy-climbing.net/img/maps/%map%.png",
+	'image_xj' => "http://xtreme-jumps.eu/e107_plugins/lgsl_menu/images/mapz/halflife2/cstrike/%map%.jpg",
+
+	'download_cc' => "https://cosy-climbing.net/files/maps/%map%.rar",
+	'download_xj' => "http://files.xtreme-jumps.eu/maps/%map%.rar",
+	
+	'demos_cc' => "https://cosy-climbing.net/files/maps/%demo%.rar",
+	'demos_xj' => "http://files.xtreme-jumps.eu/maps/%demo%.rar",	
+	
 	'cookieKey' => "cc1f891423db1ee24498e76f3b107bbe"
 );
 
@@ -47,59 +56,35 @@ $menu_footer = array(
 );
 
 // Menu List
-$menu = array(
-	'home',
-	'players',
-	'achiev_players',
-	'achiev',
-	'kz_players',
-	'kz_maps',
-	'kz_duels',
-	'auth' => 'login',
-	'reg' => 'reg',
-);
+$menu = 'home|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|reg|login';
+$menuLogged = 'home|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|logout';
+$menuCS = 'kz_players|kz_maps|kz_duels';
+$menuAdmin = 'admin_achiev|admin_lang|admin_players';
 
-$menuUnLogged = array(
-	'auth' => 'logout',
-	'reg' => '-'
-);
-	
-$menuCS = array(
-	1 => 'kz_players',
-	2 => 'kz_maps',
-	3 => 'kz_duels',
-);
-
-// Menu List
-$menuadmin = array(
-	'admin_achiev',
-	'admin_lang',
-);
+$menu = parse_menu($menu);
+$menuLogged = parse_menu($menuLogged);
+$menuCS = parse_menu($menuCS);
+$menuAdmin = parse_menu($menuAdmin);
 
 // The sequence is important
-$ActionList  = "setup|admin_lang|admin_achiev";
-$ActionList .= "|";
-$ActionList .= "home|players|kz_maps|achiev_players|achiev|reg|kz_duels|kz_players|ucp|steam_login|login|logout";
+$ActionList  = "setup|admin_lang|admin_achiev|admin_players|home|players|kz_maps|achiev_players|achiev|reg|kz_duels|kz_players|ucp|steam_login|login|logout";
+$ActionList = action_sort($ActionList);
 
 // The sequence is important
 $parseRules = array(
+	"/^action\/($ActionList)?(\/page([0-9]+))?/" => "index.php?action=%1%&page=%3%",
 	"/^error(\/([0-9]+))?/" => "index.php?action=error&err=%2%",
 	"/^reg\/(.*)/" => "index.php?action=reg&key=%1%",
 	"/^logout/" => "index.php?action=login&logout=1",
 	"/^setup\/logout?/" => "index.php?action=setup&logout=1",
-	"/^achiev\/players(\/page.([0-9]+))/" => "index.php?action=achiev_players&page=%2%",
+	"/^achiev\/players(\/page([0-9]+))/" => "index.php?action=achiev_players&page=%2%",
 	"/^achiev\/(.*)/" => "index.php?action=achiev&aname=%1%",
-	"/^players\/(.*)\/page.([0-9]+)/" => "index.php?action=players&search=%1%&page=%2%",
-	"/^steam?/" => "index.php?action=steam_login",	
-	"/^($ActionList)(\/)?(\/page([0-9]+))?/" => "index.php?action=%1%&page=%4%",
+	"/^players\/(.*)\/page([0-9]+)/" => "index.php?action=players&search=%1%&page=%2%",	
 	"/^(.*)\/achiev/" => "index.php?action=achiev&name=%1%",
-	
 	"/^kreedz\/players(\/(pro|noob|all))?(\/(num|top1))?(\/page([0-9]+))?/" => "index.php?action=kz_players&type=%2%&sort=%4%&page=%6%",
 	"/^kreedz\/map\/([0-9a-zA-Z_\s!]+)?(\/(pro|noob|all))?(\/page([0-9]+)?)?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
 	"/^kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_maps&page=%4%&type=%2%&rec=%6%",
-	
 	"/^unrid([0-9]+)?(\/kreedz)?(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_player&id=%1%&type=%4%&page=%6%&rec=%8%",
-	
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%",
 	"/^(.*)/" => "index.php?action=player&name=%1%",
 );
@@ -182,5 +167,14 @@ $langs = array(
 	"langDbNotConnect" => "Not connection to database",
 	"langDbNotTablesFile" => "File with tables not found",
 	"langDbNotDataFile" => "File with data not found",
+	
+	'lang_image_cc' => "Image from CC",
+	'lang_image_xj' => "Image from XJ",
+
+	'lang_download_cc' => "Download map CC",
+	'lang_download_xj' => "Download map XJ",
+	
+	'lang_demos_cc' => "Download demos CC",
+	'lang_demos_xj' => "Download demos XJ",	
 );
 ?>

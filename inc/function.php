@@ -17,7 +17,8 @@ function parse_uri($uri, $rules) {
 	if(isset($uris["path"])) {
 		foreach($rules as $str=>$value) {
 			preg_match_all($str, $uris["path"], $matches);
-			if(isset($matches[0][0])) {		
+			//print_p($matches);
+			if(isset($matches[0][0])) {				
 				foreach($matches as $key=>$v) {
 					$rep = $v[0] ? $v[0] : "";
 					$value = str_replace("%$key%", $rep, $value);
@@ -156,4 +157,31 @@ function mysql_query_file($file) {
 	
 	return $r;
 }
+
+function action_sort($action) {
+	$mass = explode("|", $action);
+	rsort($mass);
+	return implode("|", $mass);
+}
+
+function parse_menu($menu) {
+	$menu = explode("|", $menu);
+	$i=-1;
+	$ret = array();
+	foreach($menu as $value) {
+		if(isset($value))	 {
+			$i++;
+			$menux = explode("=", $value);
+			if(isset($menux[1])) {
+				$ret[$menux[0]] = $menux[1];
+			}
+			else {
+				$ret[$i] = $menux[0];
+			}
+		}
+	}
+	
+	return $ret;
+}
+
 ?>

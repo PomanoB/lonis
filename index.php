@@ -5,8 +5,8 @@ session_start();
 
 define('IN_KZ_TOP', 1);
 
-include "inc/config.php";
 include "inc/function.php";
+include "inc/config.php";
 include "inc/smarty_unr.php";
 //include "inc/geoip/geoip.inc";
 include "inc/geoip/geoipcity.inc";
@@ -189,7 +189,7 @@ if (isset($_SESSION["user_$cookieKey"]["id"]) && $action!="setup") {
 	else
 		unset($_SESSION["user_$cookieKey"]);
 	
-	$menu = array_replace($menu, $menuUnLogged);
+	$menu = $menuLogged;
 }
 
 // Get name from DB
@@ -210,11 +210,11 @@ function create_menu($menu) {
 		if($item!="-") {
 			$menulist[$key]["item"] = $item;
 			$menulist[$key]["name"] = $langs["lang_".$val[0]];
-			$menulist[$key]["url"] = "/".$val[0];
+			$menulist[$key]["url"] = "/action/".$val[0];
 			if(isset($val[1])) {
 				foreach($val as $k=>$subitem) {
 					$menulist[$key][$k]["name"] = $langs["lang_$subitem"];
-					$menulist[$key][$k]["url"] = "/".$subitem;	
+					$menulist[$key][$k]["url"] = "/action/".$subitem;	
 				}	
 			}
 		}
@@ -224,8 +224,7 @@ function create_menu($menu) {
 }
 
 $smarty->assign('menulist', create_menu($menu));
-$smarty->assign('menuadminlist', create_menu($menuadmin));
-//$smarty->assign('submenulist', $submenulist);
+$smarty->assign('menuadminlist', create_menu($menuAdmin));
 
 // Menu Footer
 $smarty->assign('menu_footer', $menu_footer);
@@ -234,15 +233,16 @@ $smarty->assign('menu_footer', $menu_footer);
 if(file_exists("inc/$action.php"))
 	include "inc/$action.php";
 
-if(file_exists("templates/$action.tpl")) {
+if(file_exists("templates/$action.tpl"))
 	$smarty->assign('action', $action);
-}
 else
-	$action = "home"; 
+	header("Location: $baseUrl/error/404");
 
 // Global temlate vars
 $smarty->assign('baseUrl', $baseUrl);
-$smarty->assign('langAction', $langs["lang_$action"]);
+
+if(isset($langs["lang_$action"]))
+	$smarty->assign('langAction', $langs["lang_$action"]);
 
 // Template
 $smarty->display("index.tpl");

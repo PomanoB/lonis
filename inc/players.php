@@ -41,8 +41,7 @@ $smarty->assign('totalPages', $totalPages);
 	
 $players = array();
 
-if ($total)
-{	
+if ($total) {	
 	$start = ($page - 1) * $playerPerPage;
 
 	$q = "SELECT * FROM `unr_players` $where ORDER BY `name` LIMIT $start, $playerPerPage";

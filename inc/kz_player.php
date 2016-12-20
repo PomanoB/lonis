@@ -39,7 +39,7 @@ if($plr) {
 	$smarty->assign('map_num', $map_num);
 
 	$map_top1 = 0;
-	$q = "SELECT COUNT(DISTINCT `map`) AS `records` FROM `kz_tops` WHERE `player`=$id {$types[$type]} GROUP BY `player`";
+	$q = "SELECT COUNT(DISTINCT `map`) AS `records` FROM `kz_map_top1` WHERE `player`=$id {$types[$type]} GROUP BY `player`";
 	$r = mysql_query($q);
 	while($row = mysql_fetch_array($r))
 	{
@@ -93,10 +93,9 @@ if($plr) {
 			}
 		}
 		else {
-			$q = "SELECT `tmp`.*, MIN(`wrs`.`time`) AS timerec, `wrs`.`player` AS plrrec, `wrs`.`country` FROM 
-			(SELECT * FROM `kz_norec` WHERE `player` = $id ORDER BY `time`) AS `tmp`,
-			(SELECT * FROM `kz_map_rec` ORDER BY `time`) AS `wrs`
-			WHERE `wrs`.`mapname` = `tmp`.`map` {$types[$type]} 
+			$q = "SELECT `tmp`.*, `kz_map_rec_wrs`.* FROM 
+			(SELECT * FROM `kz_norec` WHERE `player` = {$id}) AS `tmp`, `kz_map_rec_wrs`
+			WHERE `kz_map_rec_wrs`.`mapname` = `tmp`.`map` {$types[$type]} 
 			GROUP BY `map` ORDER BY `map` LIMIT $start, $mapsPerPage";
 
 			$r = mysql_query($q);

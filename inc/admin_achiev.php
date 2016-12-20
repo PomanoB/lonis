@@ -6,9 +6,16 @@ if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webad
 $act = isset($_POST["act"]) ? $_POST["act"] : "";	
 
 if ($act == "edit") {
-	$name = get_magic_quotes_gpc() ? $_POST["name"] : addslashes($_POST["name"]);
-	$descr = get_magic_quotes_gpc() ? $_POST["descr"] : addslashes($_POST["descr"]);
-	$type = get_magic_quotes_gpc() ? $_POST["type"] : addslashes($_POST["type"]);
+	if(get_magic_quotes_gpc()) {
+		$name =  $_POST["name"];
+		$descr = $_POST["descr"];
+		$type = $_POST["type"];
+	}
+	else {
+		$name = addslashes($_POST["name"]);
+		$descr = addslashes($_POST["descr"]);
+		$type = addslashes($_POST["type"]);		
+	}
 	
 	$count = abs((int)$_POST["count"]);
 	if (!$count)
@@ -32,9 +39,16 @@ if ($act == "edit") {
 }
 else
 if ($act == "add") {
-	$name = get_magic_quotes_gpc() ? $_POST["name"] : addslashes($_POST["name"]);
-	$descr = get_magic_quotes_gpc() ? $_POST["descr"] : addslashes($_POST["descr"]);
-	$type = get_magic_quotes_gpc() ? $_POST["type"] : addslashes($_POST["type"]);
+	if(get_magic_quotes_gpc()) {
+		$name =  $_POST["name"];
+		$descr = $_POST["descr"];
+		$type = $_POST["type"];
+	}
+	else {
+		$name = addslashes($_POST["name"]);
+		$descr = addslashes($_POST["descr"]);
+		$type = addslashes($_POST["type"]);		
+	}
 	
 	$count = abs((int)$_POST["count"]);
 	if (!$count)

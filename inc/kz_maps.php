@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1) {
 	$act = isset($_POST["act"]) ? $_POST["act"] : "";
 	
@@ -61,7 +60,7 @@ if($rec=="norec") {
 	$q = "SELECT COUNT(*) FROM (SELECT * FROM `kz_norec` WHERE `player` = 0) AS tmp";	
 }
 else {
-	$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_tops` WHERE 1 {$types[$type]} {$where}";	
+	$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top1` WHERE 1 {$types[$type]} {$where}";	
 }
 	 
 $r = mysql_query($q);
@@ -88,24 +87,20 @@ if ($total)
 		
 	if($rec=="norec") {
 		$q = "SELECT * FROM (SELECT * FROM `kz_norec` WHERE `player` = 0) AS tmp LIMIT $start, $mapsPerPage";
-		
 		$r = mysql_query($q);
 		while($row = mysql_fetch_array($r)) {
 			$maps[] = $row;
 		}
 	}
 	else {
-		$q = "SELECT `kz_tops`.*, `unr_players`.`name`, MIN(`wrs`.`time`) AS timerec, `wrs`.`mapname`, `wrs`.`player` AS plrrec, `wrs`.`country` FROM 
-		`kz_tops`, `unr_players`, 
-		(SELECT * FROM `kz_map_rec` ORDER BY `time`) AS `wrs`
-		WHERE `unr_players`.`id` = `kz_tops`.`player` AND `wrs`.`mapname` = `kz_tops`.`map` {$where}
-		GROUP BY `map` ORDER BY `map` LIMIT $start, $mapsPerPage";
-
+		$q = "SELECT * FROM `kz_map_wrs` WHERE 1 {$where} ORDER BY `map` LIMIT $start, $mapsPerPage ";
 		$r = mysql_query($q);
 		while($row = mysql_fetch_array($r))
 		{
 			$row["time"] = timed($row["time"], 2);
-			$row["timerec"] = timed($row["timerec"], 2);
+			
+			if(isset($row["timerec"]))
+				$row["timerec"] = timed($row["timerec"], 2);
 			
 			$row["weapon_name"] = $langs["lang_wpn_".$row["weapon"]];
 			$maps[] = $row;

@@ -24,7 +24,7 @@ if (isset($_POST["reg_nick"]) && isset($_POST["reg_password"])) {
 	if ($row = mysql_fetch_assoc($r)) {
 		$_SESSION["user_$cookieKey"] = $row;
 		//$loc = isset($_SESSION["last_url_$cookieKey"]) ? $_SESSION["last_url"] : $baseUrl;
-		header("Location: $baseUrl/ucp");
+		header("Location: $baseUrl/action/ucp");
 	}
 	else {
 		echo $player = $row["player"];

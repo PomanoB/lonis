@@ -65,7 +65,7 @@
 		{foreach from=$maps item=map}
 					<tr class="list">
 						<td><a href="{$baseUrl}/kreedz/map/{$map.map}">{$map.map}</a></td>
-						<td class="th_numeric">{$map.timerec} {$map.plrrec} <i>{$map.country}</i></td>
+						<td class="th_numeric">{$map.timerec} {$map.playerrec} <i>{$map.country}</i></td>
 						<td><a href="{$baseUrl}/{$map.name|replace:' ':'_'}/kreedz">{$map.name|escape}</a></td>
 						<td class="th_numeric">{$map.time}</td>
 						<td class="th_numeric color{if !$map.go_cp}-nogc{/if}">{$map.cp}</td>

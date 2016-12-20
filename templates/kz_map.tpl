@@ -1,5 +1,12 @@
-			<p><div class="titles">{$langMap} {$mapname|escape:html}</div><br>
+			<div class="wrapper">		
+				<div class="titles left_block">{$langMap} {$mapname|escape:html}</div>
+
+				<div class=" right_block">
+					<img src="{$imgmap}" onerror="this.src='{$baseUrl}/img/maps/noimage.png'" />
+				</div>
+			</div>
 			
+			<br><br>
 			<div>
 				<a href="{$baseUrl}/kreedz/map/{$mapname}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
 				<a href="{$baseUrl}/kreedz/map/{$mapname}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
