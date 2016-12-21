@@ -26,7 +26,7 @@
 				{foreach from=$players item=player}
 					<tr class="list">
 						<td>
-							<a href="{$baseUrl}/{$player.name|replace:' ':'_'}">{$player.name|escape}</a>
+							<a href="{$baseUrl}/{$player.name|replace:' ':'_'|replace:'#':'%23'}">{$player.name|escape}</a>
 						</td>
 						<td style="width: 20%;">
 							{if $player.countryImg}
@@ -35,14 +35,14 @@
 							{$player.countryName}
 						</td>
 						<td>
-							<a href="{$baseUrl}/{$player.name|replace:' ':'_'}/achiev">{$langView}</a>
+							<a href="{$baseUrl}/{$player.name|replace:' ':'_'|replace:'#':'%23'}/achiev">{$langView}</a>
 						</td>
 						<td>
-							<a href="{$baseUrl}/{$player.name|replace:' ':'_'}/kreedz">{$langView}</a>
+							<a href="{$baseUrl}/{$player.name|replace:' ':'_'|replace:'#':'%23'}/kreedz">{$langView}</a>
 						</td>
 						<!--
 						<td>
-							<a href="{$baseUrl}/{$player.name|replace:' ':'_'}/deatdrun">{$langView}</a>
+							<a href="{$baseUrl}/{$player.name|replace:' ':'_'|replace:'#':'%23'}/deatdrun">{$langView}</a>
 						</td>
 						-->
 					</tr>

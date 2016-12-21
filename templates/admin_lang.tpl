@@ -20,10 +20,10 @@
 								</select>
 							</td>
 							<td>
-								<input name="var" type="text" class="col2"/>
+								<input size="25" name="var" type="text" />
 							</td>
 							<td>
-								<input name="value" type="text" class="col3"/>
+								<input size="40" name="value" type="text" />
 							</td>
 							<td colspan="4" style="text-align:left;">
 								<button class="but" name="act" value="add">

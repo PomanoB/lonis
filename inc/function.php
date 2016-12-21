@@ -10,15 +10,17 @@ function get_request($var) {
 
 // Parse URL. Exp: ##/##/## from array($rule, $url)
 function parse_uri($uri, $rules) {
-	$uri = urldecode($uri);
 	$uris = parse_url($uri);
 	
 	$ret = "";
-	if(isset($uris["path"]))
+	if(isset($uris["path"])) {
 		$ret =  parse_match($uris["path"], $rules);
+	}
 	
-	if(isset($uris["query"]))
-		$ret .= "&".$uris["query"];
+	if(isset($uris["query"])) {
+		$delim = $ret=="" ? "?" : "&";
+		$ret .= $delim.$uris["query"];
+	}
 	
 	return $ret;
 }

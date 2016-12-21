@@ -1,7 +1,7 @@
 			<center>
 			<p><h2>{$lang_login}</h2>
 			<p><div style="color: red;">{$message}</div>
-			<p><a href="{$baseUrl}/steam_login/"><img src='{$baseUrl}/img/sits_small_{$lang}.png'></a>
+			<p><a href="{$baseUrl}/?action=steam_login"><img src='{$baseUrl}/img/sits_small_{$lang}.png'></a>
 			
 			<form action="{$baseUrl}/login" method="post">
 				<table border="0" align="center" cellpadding=2>

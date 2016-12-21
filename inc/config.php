@@ -19,6 +19,7 @@ $dconf = array (
 	'mysql_db' => 'lonis',
 	'mysql_prefix' => 'lonis_',
 	
+	'server_name' => 'Server Name',
 	'email' => 'admin@site.ru',
 	
 	'activateTime' => 60 * 60 * 24 * 3,		
@@ -56,8 +57,9 @@ $menu_footer = array(
 );
 
 // Menu List
-$menu = 'home|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|reg|login';
-$menuLogged = 'home|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|logout';
+$menuStart = "servers";
+$menu = 'servers|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|reg|login';
+$menuLogged = 'servers|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|logout';
 $menuCS = 'kz_players|kz_maps|kz_duels';
 $menuAdmin = 'admin_achiev|admin_lang|admin_players';
 
@@ -67,7 +69,7 @@ $menuCS = parse_menu($menuCS);
 $menuAdmin = parse_menu($menuAdmin);
 
 // The sequence is important
-$ActionList  = "setup|admin_lang|admin_achiev|admin_players|home|players|kz_maps|achiev_players|achiev|reg|kz_duels|kz_players|ucp|steam_login|login|logout";
+$ActionList  = "setup|admin_lang|admin_achiev|admin_players|servers|players|kz_maps|achiev_players|achiev|reg|kz_duels|kz_players|ucp|steam_login|login|logout";
 $ActionList = action_sort($ActionList);
 
 // The sequence is important
@@ -137,6 +139,7 @@ $langs = array(
 	"lang_mysql_host" => "Host db",
 	"lang_mysql_db" => "Database",
 	"lang_mysql_prefix" => "Prefix db",
+	'lang_server_name' => 'Server Name',
 	"lang_activateTime" => "Activation time e-mail",
 	"lang_baseUrl" => "Url site",
 	"lang_gravatarSize" => "Avatar size",

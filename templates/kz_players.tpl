@@ -35,9 +35,7 @@
 					<tr class="list">
 						<td>{$player.number}</td>
 						<td>
-							<a title="unrid{$player.id}" href="{$baseUrl}/
-							{if $byid==1}unrid{$player.id}{else}{$player.name|replace:' ':'_'}{/if}
-							/kreedz">{$player.name|escape}</a>
+							<a title="unrid{$player.id}" href="{$baseUrl}/{$player.name|replace:' ':'_'|replace:'#':'%23'}/kreedz">{$player.name|escape}</a>
 						</td>
 						<td class="th_numeric">{$player.records}</td>
 					<tr>

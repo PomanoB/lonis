@@ -611,4 +611,8 @@ insert  into `lang`(`lang`,`var`,`value`) values
 ('en','langError500','Internal Server Error'),
 ('ru','langError500','Внутренняя ошибка сервера'),
 ('en','langDownload','Download'),
-('ru','langDownload','Скачать');
+('ru','langDownload','Скачать'),
+('en','lang_servers','Servers'),
+('ru','lang_servers','Сервера'),
+('en','langWelcome','Welcome to game server'),
+('ru','langWelcome','Добро пожаловать на игровые сервера');

@@ -35,13 +35,17 @@ if($uri!="") {
 	$_GET = $url["uri"];
 }
 
-// quotes $_POST and $_GET
+$baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseUrl}";
+
+// quotes $_POST, $_GET and URLDECODE
 if (!get_magic_quotes_gpc()) {
 	foreach($_POST as $key=>$value) { 
+		$value = urldecode($value);
 		$_POST[$key]=addslashes($value);
 	}
 	foreach($_GET as $key=>$value) { 
-		$_POST[$key]=addslashes($value);
+		$value = urldecode($value);
+		$_GET[$key]=addslashes($value);
 	}
 }
 
@@ -53,7 +57,7 @@ if (!get_magic_quotes_gpc()) {
 //die();
 
 // Action
-$action = isset($_GET["action"]) && $_GET["action"]!="" ? $_GET["action"] : 'home';
+$action = isset($_GET["action"]) && $_GET["action"]!="" ? $_GET["action"] : $menuStart;
 
 // Smarty
 $smarty = new Smarty_unr();
@@ -248,7 +252,7 @@ if(isset($langs["lang_$action"]))
 $smarty->display("index.tpl");
 
 // Last URL
-$_SESSION["last_url_$cookieKey"] = $baseUrl;
+$_SESSION["lastUrl_$cookieKey"] = $baseUrl;
 
 $smarty->clear_all_cache();
 $smarty->clear_all_assign();
