@@ -8,7 +8,7 @@
 			<div class="settingsPanel_off">
 				<p><div class="message">{$message}</div><br>
 				<table border="0">
-					<form action="{$baseUrl}/action/ucp" method="post">
+					<form action="{$baseUrl}/ucp" method="post">
 					<tr>
 						<td class="info"><label for="name">{$langName}</label></td>
 						<td><input type="text" class="bigform" name="name" id="name" value="{$user.name|escape}" title="Required to proceed" /></td>

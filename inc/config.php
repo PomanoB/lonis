@@ -72,7 +72,6 @@ $ActionList = action_sort($ActionList);
 
 // The sequence is important
 $parseRules = array(
-	"/^action\/($ActionList)?(\/page([0-9]+))?/" => "index.php?action=%1%&page=%3%",
 	"/^error(\/([0-9]+))?/" => "index.php?action=error&err=%2%",
 	"/^reg\/(.*)/" => "index.php?action=reg&key=%1%",
 	"/^logout/" => "index.php?action=login&logout=1",
@@ -82,10 +81,12 @@ $parseRules = array(
 	"/^players\/(.*)\/page([0-9]+)/" => "index.php?action=players&search=%1%&page=%2%",	
 	"/^(.*)\/achiev/" => "index.php?action=achiev&name=%1%",
 	"/^kreedz\/players(\/(pro|noob|all))?(\/(num|top1))?(\/page([0-9]+))?/" => "index.php?action=kz_players&type=%2%&sort=%4%&page=%6%",
-	"/^kreedz\/map\/([0-9a-zA-Z_\s!]+)?(\/(pro|noob|all))?(\/page([0-9]+)?)?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
-	"/^kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_maps&page=%4%&type=%2%&rec=%6%",
+	"/^kreedz\/^(pro|noob|all)?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_maps&page=%3%&type=%1%&rec=%5%",
+	"/^kreedz\/([0-9a-zA-Z_!]+)?(\/(pro|noob|all))?(\/page([0-9]+)?)?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
+
 	"/^unrid([0-9]+)?(\/kreedz)?(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_player&id=%1%&type=%4%&page=%6%&rec=%8%",
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%",
+	"/^($ActionList)?(\/page([0-9]+))?/" => "index.php?action=%1%&page=%3%",
 	"/^(.*)/" => "index.php?action=player&name=%1%",
 );
 

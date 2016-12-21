@@ -14,25 +14,33 @@ function parse_uri($uri, $rules) {
 	$uris = parse_url($uri);
 	
 	$ret = "";
-	if(isset($uris["path"])) {
-		foreach($rules as $str=>$value) {
-			preg_match_all($str, $uris["path"], $matches);
-			//print_p($matches);
-			if(isset($matches[0][0])) {				
-				foreach($matches as $key=>$v) {
-					$rep = $v[0] ? $v[0] : "";
-					$value = str_replace("%$key%", $rep, $value);
-				}
-				$ret_uri[] = $value;
-			}
-		}
-		$ret = $ret_uri[0];
-	}
+	if(isset($uris["path"]))
+		$ret =  parse_match($uris["path"], $rules);
 	
 	if(isset($uris["query"]))
 		$ret .= "&".$uris["query"];
 	
 	return $ret;
+}
+
+// Parse current matches
+function parse_match($uri, $rules) {
+	foreach($rules as $str=>$value) {
+		preg_match_all($str, $uri, $matches);
+		if(isset($matches[0][0][0])) {
+			$match[] = $matches;
+			$href[] = $value;
+		}
+	}
+	
+	foreach($match[0] as $key=>$v) {
+		foreach($v as $value) {
+			$rep = $value ? $value : "";
+			$href[0] = str_replace("%$key%", $rep, $href[0]);
+		}
+	}
+	
+	return $href[0];
 }
 
 //Parse URI. Exp: key1=value1&key2=value2

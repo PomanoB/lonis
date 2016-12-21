@@ -47,10 +47,10 @@ if (!get_magic_quotes_gpc()) {
 
 // Debug trace
 
-//print_p();
+//print_p(); 
 //print_p($_SESSION);
 //print_p($_SERVER);
-	
+//die();
 
 // Action
 $action = isset($_GET["action"]) && $_GET["action"]!="" ? $_GET["action"] : 'home';
@@ -75,7 +75,7 @@ else {
 // Connect to mysql
 $conn = db_connect($mysql_host, $mysql_user, $mysql_password, $mysql_db, $charset);
 if($action!="setup" && !$conn) {	
-	header("Location: $baseUrl/setup");
+	header("Location: $baseUrl/action/setup");
 }
 
 // Read language 
@@ -210,11 +210,11 @@ function create_menu($menu) {
 		if($item!="-") {
 			$menulist[$key]["item"] = $item;
 			$menulist[$key]["name"] = $langs["lang_".$val[0]];
-			$menulist[$key]["url"] = "/action/".$val[0];
+			$menulist[$key]["url"] = "/".$val[0];
 			if(isset($val[1])) {
 				foreach($val as $k=>$subitem) {
 					$menulist[$key][$k]["name"] = $langs["lang_$subitem"];
-					$menulist[$key][$k]["url"] = "/action/".$subitem;	
+					$menulist[$key][$k]["url"] = "/".$subitem;	
 				}	
 			}
 		}

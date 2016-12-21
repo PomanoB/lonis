@@ -4,7 +4,7 @@
 				<div>{$langAlreadyUsed}</div>
 {/if}
 				<table border="0">
-					<form action="{$baseUrl}/action/steam_login" method="post">
+					<form action="{$baseUrl}/steam_login" method="post">
 					<tr>
 						<td class="info">
 							<label for="reg_nick">{$langName}</label>

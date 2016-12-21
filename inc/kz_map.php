@@ -43,78 +43,83 @@ else {
 	$smarty->assign('type', $type);
 	$smarty->assign('langType', $smarty->get_config_vars($typesLang[$type]));
 	
+	$players = array();
+	$mapcomm = array();
+	$maprec = array();
+
+	$q = "SELECT * FROM `kz_map_rec` WHERE `mapname` = '$map' ORDER BY `mappath`";	
+	$r = mysql_query($q);
+	while($row = mysql_fetch_array($r)) {		
+		$row["time"] = timed($row["time"], 2);
+		
+		$maprec[] = $row;		
+	}
+	$smarty->assign('maprec', $maprec);
+	
+	
+	if(isset($maprec[0]["comm"])) {
+		if(isset($conf["image_".$maprec[0]["comm"]])) {
+			$imgmap = str_replace("%map%", $map, $conf["image_".$maprec[0]['comm']]);
+			$smarty->assign('imgmap', $imgmap);
+		}	
+
+		if(isset($conf["image_".$maprec[0]["comm"]])) {
+			$downmap = str_replace("%map%", $map, $conf["download_".$maprec[0]['comm']]);
+			$smarty->assign('downmap', $downmap);
+		}
+	}
+	
+	$q = "SELECT * FROM `kz_map_comm` WHERE `mapname` = '$map' ORDER BY `mappath`";	
+	$r = mysql_query($q);
+	while($row = mysql_fetch_array($r)) {		
+		$row["time"] = timed($row["time"], 2);
+		
+		$mapcomm[] = $row;		
+	}
+	$smarty->assign('mapcomm', $mapcomm);
+
 	$q = "SELECT COUNT(DISTINCT `player`) FROM `kz_map_top` WHERE `map` = '$map' {$types[$type]}";	
 	$r = mysql_query($q);
 	$total = mysql_result($r, 0);
 	$smarty->assign('total', $total);
-	
-	if (isset($_GET["page"]))
-		$page = abs((int)$_GET["page"]);
-	else
-		$page = 1;
-	if (!$page)
-		$page = 1;
-
-	$totalPages = ceil($total/$playersPerPage);	
-	if ($page > $totalPages)
-		$page = 1;
-
-	$start = ($page - 1) * $playersPerPage;
-	
-	$players = array();
-	$mapcomm = array();
-	$maprec = array();
 	$smarty->assign('mapname', stripslashes($map));
 	
-	if($map) {
-		$q = "SELECT * FROM `kz_map_rec` WHERE `mapname` = '$map' ORDER BY `mappath`";	
-		$r = mysql_query($q);
-		while($row = mysql_fetch_array($r)) {		
-			$row["time"] = timed($row["time"], 2);
-			
-			$maprec[] = $row;		
-		}
-		$smarty->assign('maprec', $maprec);
-		
-		if(isset($conf["image_".$maprec[0]["comm"]]))
-			$imgmap = str_replace("%map%", $map, $conf["image_".$maprec[0]['comm']]);
+	if($total) {	
+		if (isset($_GET["page"]))
+			$page = abs((int)$_GET["page"]);
 		else
-			$imgmap = "";
-		
-		$smarty->assign('imgmap', $imgmap);
-		
+			$page = 1;
+		if (!$page)
+			$page = 1;
 
-		$q = "SELECT * FROM `kz_map_comm` WHERE `mapname` = '$map' ORDER BY `mappath`";	
+		$totalPages = ceil($total/$playersPerPage);	
+		if ($page > $totalPages)
+			$page = 1;
+
+		$start = ($page - 1) * $playersPerPage;
+
+	
+		$q = "SELECT `kz_map_top`.*, `unr_players`.`name` FROM 
+					(`kz_map_top` LEFT JOIN `unr_players` ON `unr_players`.`id` = `player`)
+					WHERE `map` = '1324_darkhop' {$types[$type]} 
+					GROUP BY `player` ORDER BY `time` LIMIT $start, $playersPerPage";
 		$r = mysql_query($q);
-		while($row = mysql_fetch_array($r)) {		
-			$row["time"] = timed($row["time"], 2);
+		$i = ($page - 1)*$playersPerPage + 1;
+		while($row = mysql_fetch_array($r)) {
+			$row["time"] = timed($row["time"], 5);
 			
-			$mapcomm[] = $row;		
+			$row["weapon_name"] = $langs["lang_wpn_".$row["weapon"]];
+			$row["number"] = $i++;
+			
+			$players[] = $row;
 		}
-		$smarty->assign('mapcomm', $mapcomm);
-	}
-	
-	$q = "SELECT `tmp`.*, `unr_players`.`name` FROM 
-			(SELECT * FROM `kz_map_top` 
-				WHERE `map` = '$map' ORDER BY `time` ) AS `tmp`, 
-			`unr_players` 
-		WHERE `unr_players`.`id` = `player` {$types[$type]} 
-		GROUP BY `player` ORDER BY `time` LIMIT $start, $playersPerPage";
-	$r = mysql_query($q);
-	$i = ($page - 1)*$playersPerPage + 1;
-	while($row = mysql_fetch_array($r)) {
-		$row["time"] = timed($row["time"], 5);
 		
-		$row["weapon_name"] = $langs["lang_wpn_".$row["weapon"]];
-		$row["number"] = $i++;
+		$smarty->assign('players', $players);
 		
-		$players[] = $row;
+		$smarty->assign('page', $page);
+		$smarty->assign('totalPages', $totalPages);
+		$smarty->assign('pageUrl', "$baseUrl/kreedz/$map/$type/page%page%");
+	
 	}
-	
-	$smarty->assign('players', $players);
-	
-	$smarty->assign('page', $page);
-	$smarty->assign('totalPages', $totalPages);
-	$smarty->assign('pageUrl', "$baseUrl/kreedz/$map/$type/page%page%");
 }
 ?>

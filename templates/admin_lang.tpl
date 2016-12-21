@@ -2,7 +2,7 @@
 			<div class="error_message">{$message}</div>
 			
 			<div id="lang">				
-					<form action="{$baseUrl}/action/admin_lang#{$langvar}" method="post">	
+					<form action="{$baseUrl}/admin_lang#{$langvar}" method="post">	
 					<table class="form_login">
 						<tr class="title">
 							<td>{$lang_setupLang}</td>
@@ -36,7 +36,7 @@
 					<br>
 					<table class="form_login">
 		{foreach name=lang from=$lang_row key=l item=i}
-						<form action="{$baseUrl}/action/admin_lang#{$l}" method="post">
+						<form action="{$baseUrl}/admin_lang#{$l}" method="post">
 						<tr id="{$l}">
 							<td class="info">
 								<label>{$l}:</label>

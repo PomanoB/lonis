@@ -1,5 +1,5 @@
 			<div class="title">{$lang_setup} :: {if isset($act)}
-				<a href="{$baseUrl}/action/setup/logout">{$lang_logout}</a>{else}{$lang_login}{/if}
+				<a href="{$baseUrl}/setup/logout">{$lang_logout}</a>{else}{$lang_login}{/if}
 			</div>
 			<div class="setup_message">{$message}</div>
 			
@@ -8,7 +8,7 @@
 (* -------------------------------------------------------------------------------------------------------------------- *}			
 {capture name=act_login}
 			<div class="login">
-			  <form action="{$baseUrl}/action/setup" method="post">
+			  <form action="{$baseUrl}/setup" method="post">
 				<table class="form_login">
 					<tr>
 						<td class="info"><label for="setting_user">{$langName}</label></td>
@@ -42,7 +42,7 @@
 (* -------------------------------------------------------------------------------------------------------------------- *}
 				<div id="setup">
 					<table class="form_login">
-						<form action="{$baseUrl}/action/setup" method="post">
+						<form action="{$baseUrl}/setup" method="post">
 		{foreach from=$conflist item=conf}
 						<tr>
 							<td class="info">
@@ -57,7 +57,7 @@
 					<button name="act" value="save">{$langSave}</button>
 					</form>
 					
-					<form action="{$baseUrl}/action/setup" method="post" style="display: inline;">
+					<form action="{$baseUrl}/setup" method="post" style="display: inline;">
 						<button name="act" value="genkey">{$langGenerate} {$lang_cookieKey}</button>
 					</form>
 
@@ -129,7 +129,7 @@
 (* -------------------------------------------------------------------------------------------------------------------- *}
    
 				<div id="lang">
-					<form action="{$baseUrl}/action/setup" method="post">										
+					<form action="{$baseUrl}/setup" method="post">										
 						<div>
 							<table class="form_login">	
 								<tr>

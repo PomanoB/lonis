@@ -601,4 +601,14 @@ insert  into `lang`(`lang`,`var`,`value`) values
 ('en','langYes','Yes'),
 ('ru','langYes','Да'),
 ('en','langNo','No'),
-('ru','langNo','Нет');
+('ru','langNo','Нет'),
+('en','langError401','Not autorised'),
+('ru','langError401','Пользователь не авторизован'),
+('en','langError403','Access denied'),
+('ru','langError403','Доспуп запещен'),
+('en','langError404','Pages Not Found'),
+('ru','langError404','Страница не существует'),
+('en','langError500','Internal Server Error'),
+('ru','langError500','Внутренняя ошибка сервера'),
+('en','langDownload','Download'),
+('ru','langDownload','Скачать');

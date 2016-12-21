@@ -1,16 +1,18 @@
 			<div class="wrapper">		
 				<div class="titles left_block">{$langMap} {$mapname|escape:html}</div>
 
-				<div class=" right_block">
-					<img src="{$imgmap}" onerror="this.src='{$baseUrl}/img/maps/noimage.png'" />
+				<div class="right_block" align="center">
+					<img src="{$imgmap}" onerror="this.src='{$baseUrl}/img/maps/noimage.png'" /><br>
+					<a href="{$downmap}" alt="{$langDownload} {$mapname}">{$langDownload}</a>
+					<p>
 				</div>
 			</div>
 			
 			<br><br>
 			<div>
-				<a href="{$baseUrl}/kreedz/map/{$mapname}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
-				<a href="{$baseUrl}/kreedz/map/{$mapname}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
-				<a href="{$baseUrl}/kreedz/map/{$mapname}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langKzAll}</a>
+				<a href="{$baseUrl}/kreedz/{$mapname}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
+				<a href="{$baseUrl}/kreedz/{$mapname}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
+				<a href="{$baseUrl}/kreedz/{$mapname}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langKzAll}</a>
 			</div>
 			
 			<div style="padding:10px;">
@@ -50,7 +52,7 @@
 						<td class="th_numeric color{if !$player.go_cp}-nogc{/if}">{$player.go_cp}</td>
 						<td class="color{if $player.weapon == 16 && $player.weapon == 29}-wpn{/if}">{$player.weapon_name}</td>
 			{if $webadmin==1}
-						<form action="{$baseUrl}/kreedz/map/{$mapname}" method="post">			
+						<form action="{$baseUrl}/kreedz/{$mapname}" method="post">			
 						<td>
 							<input type="hidden" name="confirm" value="0">
 							<input type="checkbox" name="confirm" value="1">

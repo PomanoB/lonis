@@ -2,7 +2,7 @@
 			<div class="error_message">{$message}</div>
 			
 			<div class="">
-				<form action="{$baseUrl}/action/admin_achiev/" method="post" name="achiev_admin">
+				<form action="{$baseUrl}/admin_achiev/" method="post" name="achiev_admin">
 					<table id="achiev_admin">
 						<tr>
 							<td>
@@ -31,7 +31,7 @@
 						</tr>
 				</form>
 {foreach from=$achievs item=achiev}
-				<form action="{$baseUrl}/action/admin_achiev/" method="post">
+				<form action="{$baseUrl}/admin_achiev/" method="post">
 						<tr>
 							<td>
 								<input value="{$achiev.name}" name="name" type="text" class="col1" />

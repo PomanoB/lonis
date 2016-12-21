@@ -6,7 +6,7 @@ if (isset($_GET["aname"])) {
 	$aname = get_magic_quotes_gpc() ? $aname : addslashes($aname);
 	
 	$q = "SELECT `id`, `name`, `description` FROM achiev 
-		WHERE `lname`='$lang' AND `ldesc`='$lang' 
+		WHERE `lang`='{$lang}_{$lang}' 
 			AND (`name` = '$aname' OR `name` = REPLACE('$aname', '_', ' '))
 		LIMIT 1";
 	$r = mysql_query($q);
