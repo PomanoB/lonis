@@ -33,7 +33,7 @@ $types = array(
 	'pro' => 'AND `go_cp` = 0 AND (`weapon` = 16 OR `weapon` = 29)',
 	'noob' => 'AND (`go_cp` != 0 OR (`weapon` != 16 AND `weapon` != 29))',
 	'all' => ''
-);	
+);
 
 $type = 'all';
 if (isset($_GET["type"]) && isset($types[$_GET["type"]])) $type = $_GET["type"];
@@ -93,7 +93,7 @@ if ($total)
 		}
 	}
 	else {
-		$q = "SELECT * FROM `kz_map_wrs` WHERE 1 {$where} ORDER BY `map` LIMIT $start, $mapsPerPage ";
+		$q = "SELECT * FROM `kz_map_tops` WHERE 1 {$types[$type]} GROUP BY `map` ORDER BY `map` LIMIT $start, $mapsPerPage ";
 		$r = mysql_query($q);
 		while($row = mysql_fetch_array($r))
 		{
@@ -102,7 +102,6 @@ if ($total)
 			if(isset($row["timerec"]))
 				$row["timerec"] = timed($row["timerec"], 2);
 			
-			$row["weapon_name"] = $langs["lang_wpn_".$row["weapon"]];
 			$maps[] = $row;
 		}
 	}

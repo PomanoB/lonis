@@ -101,14 +101,13 @@ else {
 	
 		$q = "SELECT `kz_map_top`.*, `unr_players`.`name` FROM 
 					(`kz_map_top` LEFT JOIN `unr_players` ON `unr_players`.`id` = `player`)
-					WHERE `map` = '1324_darkhop' {$types[$type]} 
+					WHERE `map` = '$map' {$types[$type]} 
 					GROUP BY `player` ORDER BY `time` LIMIT $start, $playersPerPage";
 		$r = mysql_query($q);
 		$i = ($page - 1)*$playersPerPage + 1;
 		while($row = mysql_fetch_array($r)) {
 			$row["time"] = timed($row["time"], 5);
 			
-			$row["weapon_name"] = $langs["lang_wpn_".$row["weapon"]];
 			$row["number"] = $i++;
 			
 			$players[] = $row;

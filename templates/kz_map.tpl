@@ -50,7 +50,7 @@
 						<td class="th_numeric">{$player.time}</td>
 						<td class="th_numeric color{if !$player.go_cp}-nogc{/if}">{$player.cp}</td>
 						<td class="th_numeric color{if !$player.go_cp}-nogc{/if}">{$player.go_cp}</td>
-						<td class="color{if $player.weapon == 16 && $player.weapon == 29}-wpn{/if}">{$player.weapon_name}</td>
+						<td class="color{if $map.wname == "USP" && $map.wname == "KNIFE"}-wpn{/if}">{$map.wname}</td>
 			{if $webadmin==1}
 						<form action="{$baseUrl}/kreedz/{$mapname}" method="post">			
 						<td>

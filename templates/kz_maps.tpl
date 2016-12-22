@@ -20,7 +20,7 @@
 				<div><b>{$langTotal}: {$total}</b></div>
 
 	{if $rec == "norec"}
-				<p><div><a href="{$baseUrl}/kreedz/{$type}">{$langKzRec}</a></div>
+				<p><div><a href="{$baseUrl}/kreedz//{$type}">{$langKzRec}</a></div>
 				
 				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
 				
@@ -32,7 +32,7 @@
 					</tr>
 		{foreach from=$maps item=map}
 					<tr class="list">
-						<td><a href="{$baseUrl}/kreedz/{$map.mapname}">{$map.mapname}</a></td>
+						<td><a href="{$baseUrl}/kreedz/{$map.mapname}">{$map.map}</a></td>
 						{*<td class="th_numeric">{$map.timerec} {$map.plrrec} {$map.country}</td>*}
 					</tr>
 		{/foreach}
@@ -40,10 +40,10 @@
 				</div>
 	{else}
 				<p><div>
-					<a href="{$baseUrl}/kreedz/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
-					<a href="{$baseUrl}/kreedz/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
-					<a href="{$baseUrl}/kreedz/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langKzAll}</a>
-					:: <a href="{$baseUrl}/kreedz/{$type}/norec">{$langKzNoRec}</a>
+					<a href="{$baseUrl}/kreedz//pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
+					<a href="{$baseUrl}/kreedz//noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
+					<a href="{$baseUrl}/kreedz//all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langKzAll}</a>
+					:: <a href="{$baseUrl}/kreedz//{$type}/norec">{$langKzNoRec}</a>
 				</div>
 				<p><div class="err_message">{$message}</div>
 				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
@@ -59,7 +59,7 @@
 						<td>{$langGoCp}</td>
 						<td>{$langWeapon}</td>
 				{if $webadmin==1}
-						<td>#</td>
+						<td	>#</td>
 				{/if}
 					</tr>
 		{foreach from=$maps item=map}
@@ -70,7 +70,7 @@
 						<td class="th_numeric">{$map.time}</td>
 						<td class="th_numeric color{if !$map.go_cp}-nogc{/if}">{$map.cp}</td>
 						<td class="th_numeric color{if !$map.go_cp}-nogc{/if}">{$map.go_cp}</td>
-						<td class="color{if $map.weapon == 16 && $map.weapon == 29}-wpn{/if}">{$map.weapon_name}</td>
+						<td class="color{if $map.wname == "USP" && $map.wname == "KNIFE"}-wpn{/if}">{$map.wname}</td>
 			{if $webadmin==1}
 						<form action="{$baseUrl}/kreedz" method="post">			
 						<td>

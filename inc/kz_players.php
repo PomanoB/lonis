@@ -65,14 +65,14 @@ $smarty->assign('pageUrl', "$baseUrl/kreedz/players/$type/page%page%/$sort");
 $start = ($page - 1) * $playersPerPage;
 
 if($sort=="top1") {
-	$q = "SELECT * FROM `unr_players` RIGHT JOIN (
-	SELECT `player`, COUNT(DISTINCT `map`) AS `records` FROM `kz_tops` WHERE 1 {$types[$type]} GROUP BY `player`) AS `tmp` 
-	ON `unr_players`.`id` = `tmp`.`player` ORDER BY `records` DESC LIMIT $start, $playersPerPage";	
+	$q = "SELECT `tmp`.*, `unr_players`.`name` FROM `unr_players` RIGHT JOIN (
+		SELECT *, COUNT(DISTINCT `map`) AS `records` FROM `kz_map_top1` WHERE 1 {$types[$type]} GROUP BY `player`) AS `tmp` 
+		ON `unr_players`.`id` = `tmp`.`player` ORDER BY `records` DESC LIMIT $start, $playersPerPage";	
 }
 else {
-	$q = "SELECT * FROM `unr_players` RIGHT JOIN (SELECT `player`, COUNT(DISTINCT `map`) AS `records` 
-	FROM `kz_map_top` WHERE 1 {$types[$type]} GROUP BY `player`) AS `tmp` ON `unr_players`.`id` = `tmp`.`player` 
-	ORDER BY `records` DESC LIMIT $start, $playersPerPage";
+	$q = "SELECT `tmp`.*, `unr_players`.`name` FROM `unr_players` RIGHT JOIN (
+		SELECT *, COUNT(DISTINCT `map`) AS `records` FROM `kz_map_top` WHERE 1 {$types[$type]} GROUP BY `player`) AS `tmp` 
+		ON `unr_players`.`id` = `tmp`.`player` ORDER BY `records` DESC LIMIT $start, $playersPerPage";
 }
 
 $r = mysql_query($q);
@@ -81,7 +81,6 @@ $players = array();
 $i = ($page - 1)*$playersPerPage + 1;
 while($row = mysql_fetch_array($r))
 {
-	$row["byid"] = strpos(addslashes($row["name"]), "\#")!=false ? 1 : 0;
 	$row["number"] = $i++;
 	$players[] = $row;
 }	

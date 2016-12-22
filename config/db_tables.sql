@@ -1,3 +1,35 @@
+DROP TABLE IF EXISTS `unr_achiev_lang`;
+CREATE TABLE `unr_achiev_lang` (
+  `lang` varchar(2) NOT NULL,
+  `var` varchar(64) NOT NULL,
+  `value` varchar(256) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+CREATE TABLE `servers` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `addres` varchar(32) DEFAULT NULL,
+  `ip` int(10) NOT NULL,
+  `desc` varchar(128) DEFAULT NULL,
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `servers_lang`;
+CREATE TABLE `servers_lang` (
+  `serverid` int(10) NOT NULL,
+  `lang` varchar(2) NOT NULL,
+  `value` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `weapons` (
+  `id` int(10) unsigned DEFAULT NULL,
+  `name` varchar(16) NOT NULL,
+  `fullname` varchar(32) DEFAULT NULL,
+  `desc` varchar(512) DEFAULT NULL,
+  `info` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 DROP TABLE IF EXISTS `lang`;
 CREATE TABLE `lang` (
   `lang` varchar(2) NOT NULL,
@@ -136,30 +168,130 @@ CREATE TABLE `kz_map_list` (
   `mapname` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 CREATE OR REPLACE VIEW `achiev` AS 
-select `unr_achiev`.`id` AS `id`,`lname`.`value` AS `name`,`ldesc`.`value` AS `description`,`unr_achiev`.`count` AS `count`,`unr_achiev`.`type` AS `type`,concat(`lname`.`lang`,'_',`ldesc`.`lang`) AS `lang` from ((`unr_achiev` left join `lang` `lname` on((`unr_achiev`.`name` = `lname`.`var`))) left join `lang` `ldesc` on((`unr_achiev`.`description` = `ldesc`.`var`)));
-
-CREATE OR REPLACE VIEW `achiev_progress` AS 
-select `p`.`id` AS `plid`,`p`.`name` AS `plname`,(select count(0) from (`unr_players_achiev` join `achiev`) where ((`unr_players_achiev`.`achievId` = `achiev`.`id`) and (`achiev`.`count` = `unr_players_achiev`.`progress`) and (`unr_players_achiev`.`playerId` = `plid`))) AS `achiev_total` from ((`unr_players` `p` join `unr_players_achiev` `pa`) join `achiev` `a`) where ((`a`.`count` = `pa`.`progress`) and (`p`.`id` = `pa`.`playerId`) and (`pa`.`achievId` = `a`.`id`));
+SELECT
+  `unr_achiev`.`id`    AS `id`,
+  `lname`.`value`      AS `name`,
+  `ldesc`.`value`      AS `description`,
+  `unr_achiev`.`count` AS `count`,
+  `unr_achiev`.`type`  AS `type`,
+  CONCAT(`lname`.`lang`,'_',`ldesc`.`lang`) AS `lang`
+FROM `unr_achiev`
+    JOIN `unr_achiev_lang` `lname`
+      ON `unr_achiev`.`name` = `lname`.`var`
+   JOIN `unr_achiev_lang` `ldesc`
+     ON `unr_achiev`.`description` = `ldesc`.`var`;
 
 CREATE OR REPLACE VIEW `kz_top1` AS 
-(select `kz_map_top`.`map` AS `map`,min(`kz_map_top`.`time`) AS `time` from `kz_map_top` group by `kz_map_top`.`map`);
+SELECT
+  `kz_map_top`.`map` AS `map`,
+  MIN(`kz_map_top`.`time`) AS `time`
+FROM `kz_map_top`
+GROUP BY `kz_map_top`.`map`;
 
 CREATE OR REPLACE VIEW `kz_wrs` AS 
-select `kz_map_rec`.`mapname` AS `mapname`,min(`kz_map_rec`.`time`) AS `time` from `kz_map_rec` group by `kz_map_rec`.`mapname`;
+SELECT
+  `kz_map_rec`.`mapname` AS `mapname`,
+  MIN(`kz_map_rec`.`time`) AS `time`
+FROM `kz_map_rec`
+GROUP BY `kz_map_rec`.`mapname`;
 
 CREATE OR REPLACE VIEW `kz_map_rec_wrs` AS 
-select `kz_map_rec`.`mapname` AS `mapname`,`kz_map_rec`.`mappath` AS `mappath`,`kz_map_rec`.`time` AS `timerec`,`kz_map_rec`.`player` AS `playerrec`,`kz_map_rec`.`country` AS `country`,`kz_map_rec`.`comm` AS `comm` from (`kz_map_rec` join `kz_wrs`) where ((`kz_map_rec`.`mapname` = `kz_wrs`.`mapname`) and (`kz_map_rec`.`time` = `kz_wrs`.`time`));
+SELECT
+  `kz_map_rec`.`mapname` AS `mapname`,
+  `kz_map_rec`.`mappath` AS `mappath`,
+  `kz_map_rec`.`time`    AS `timerec`,
+  `kz_map_rec`.`player`  AS `playerrec`,
+  `kz_map_rec`.`country` AS `country`,
+  `kz_map_rec`.`comm`    AS `comm`
+FROM (`kz_map_rec`
+   JOIN `kz_wrs`)
+WHERE ((`kz_map_rec`.`mapname` = `kz_wrs`.`mapname`)
+       AND (`kz_map_rec`.`time` = `kz_wrs`.`time`));
 
+CREATE OR REPLACE VIEW `kz_map_all` AS 	   
+SELECT
+  `kz_map_top`.`map`           AS `map`,
+  `kz_map_top`.`player`        AS `player`,
+  `unr_players`.`name`         AS `name`,
+  `kz_map_top`.`time`          AS `time`,
+  `kz_map_top`.`cp`            AS `cp`,
+  `kz_map_top`.`go_cp`         AS `go_cp`,
+  `kz_map_top`.`weapon`        AS `weapon`,
+  `weapons`.`name`             AS `wname`,
+  `kz_map_rec_wrs`.`mapname`   AS `mapname`,
+  `kz_map_rec_wrs`.`mappath`   AS `mappath`,
+  `kz_map_rec_wrs`.`timerec`   AS `timerec`,
+  `kz_map_rec_wrs`.`playerrec` AS `playerrec`,
+  `kz_map_rec_wrs`.`country`   AS `country`,
+  `kz_map_rec_wrs`.`comm`      AS `comm`
+FROM (((`kz_map_top`
+     LEFT JOIN `weapons`
+       ON ((`weapons`.`id` = `kz_map_top`.`weapon`)))
+    LEFT JOIN `kz_map_rec_wrs`
+      ON ((`kz_map_rec_wrs`.`mapname` = `kz_map_top`.`map`)))
+   JOIN `unr_players`
+     ON ((`unr_players`.`id` = `kz_map_top`.`player`)));
+	 
 CREATE OR REPLACE VIEW `kz_map_top1` AS 
-(select `kz_map_top`.`map` AS `map`,`kz_map_top`.`player` AS `player`,`kz_map_top`.`time` AS `time`,`kz_map_top`.`cp` AS `cp`,`kz_map_top`.`go_cp` AS `go_cp`,`kz_map_top`.`weapon` AS `weapon` from (`kz_map_top` join `kz_top1`) where ((`kz_map_top`.`map` = `kz_top1`.`map`) and (`kz_map_top`.`time` = `kz_top1`.`time`)) group by `kz_map_top`.`map`);
+SELECT
+  `kz_map_top`.`map`           AS `map`,
+  `kz_map_top`.`player`        AS `player`,
+  `unr_players`.`name`  	AS `name`,
+  `kz_map_top`.`time`          AS `time`,
+  `kz_map_top`.`cp`            AS `cp`,
+  `kz_map_top`.`go_cp`         AS `go_cp`,
+  `kz_map_top`.`weapon`        AS `weapon`,
+  `weapons`.`name`             AS `wname`,
+  `kz_map_rec_wrs`.`mapname`   AS `mapname`,
+  `kz_map_rec_wrs`.`mappath`   AS `mappath`,
+  `kz_map_rec_wrs`.`timerec`   AS `timerec`,
+  `kz_map_rec_wrs`.`playerrec` AS `playerrec`,
+  `kz_map_rec_wrs`.`country`   AS `country`,
+  `kz_map_rec_wrs`.`comm`      AS `comm`
+FROM (((`kz_map_top`
+   JOIN `kz_top1`
+	ON (((`kz_map_top`.`map` = `kz_top1`.`map`) AND (`kz_map_top`.`time` = `kz_top1`.`time`))))
+   LEFT JOIN `weapons`
+	ON ((`weapons`.`id` = `kz_map_top`.`weapon`)))
+   LEFT JOIN `kz_map_rec_wrs`
+	ON ((`kz_map_rec_wrs`.`mapname` = `kz_map_top`.`map`)))
+   JOIN `unr_players` 
+	ON `unr_players`.`id` = `kz_map_top`.`player`
+GROUP BY `kz_map_top`.`map`;
 
-CREATE OR REPLACE VIEW `kz_map_players` AS 
-(select `kz_map_top1`.`map` AS `map`,`kz_map_top1`.`player` AS `player`,`kz_map_top1`.`time` AS `time`,`kz_map_top1`.`cp` AS `cp`,`kz_map_top1`.`go_cp` AS `go_cp`,`kz_map_top1`.`weapon` AS `weapon`,`unr_players`.`name` AS `name` from (`kz_map_top1` join `unr_players`) where (`unr_players`.`id` = `kz_map_top1`.`player`));
-
-CREATE OR REPLACE VIEW `kz_map_wrs` AS 
-select `kz_map_players`.`map` AS `map`,`kz_map_players`.`player` AS `player`,`kz_map_players`.`time` AS `time`,`kz_map_players`.`cp` AS `cp`,`kz_map_players`.`go_cp` AS `go_cp`,`kz_map_players`.`weapon` AS `weapon`,`kz_map_players`.`name` AS `name`,`kz_map_rec_wrs`.`mapname` AS `mapname`,`kz_map_rec_wrs`.`mappath` AS `mappath`,`kz_map_rec_wrs`.`timerec` AS `timerec`,`kz_map_rec_wrs`.`playerrec` AS `playerrec`,`kz_map_rec_wrs`.`country` AS `country`,`kz_map_rec_wrs`.`comm` AS `comm` from (`kz_map_players` left join `kz_map_rec_wrs` on((`kz_map_rec_wrs`.`mapname` = `kz_map_players`.`map`)));
-
+CREATE OR REPLACE VIEW `kz_map_tops` AS 
+SELECT
+  `kz_map_top`.`map`           AS `map`,
+  `kz_map_top`.`player`        AS `player`,
+  `unr_players`.`name`         AS `name`,
+  `kz_map_top`.`time`          AS `time`,
+  `kz_map_top`.`cp`            AS `cp`,
+  `kz_map_top`.`go_cp`         AS `go_cp`,
+  `kz_map_top`.`weapon`        AS `weapon`,
+  `weapons`.`name`             AS `wname`,
+  `kz_map_rec_wrs`.`mapname`   AS `mapname`,
+  `kz_map_rec_wrs`.`mappath`   AS `mappath`,
+  `kz_map_rec_wrs`.`timerec`   AS `timerec`,
+  `kz_map_rec_wrs`.`playerrec` AS `playerrec`,
+  `kz_map_rec_wrs`.`country`   AS `country`,
+  `kz_map_rec_wrs`.`comm`      AS `comm`
+FROM ((((`kz_map_top`
+      JOIN `kz_top1`
+        ON (((`kz_map_top`.`map` = `kz_top1`.`map`)
+             AND (`kz_map_top`.`time` = `kz_top1`.`time`))))
+     LEFT JOIN `weapons`
+       ON ((`weapons`.`id` = `kz_map_top`.`weapon`)))
+    LEFT JOIN `kz_map_rec_wrs`
+      ON ((`kz_map_rec_wrs`.`mapname` = `kz_map_top`.`map`)))
+   JOIN `unr_players`
+     ON ((`unr_players`.`id` = `kz_map_top`.`player`)));
+	 
 CREATE OR REPLACE VIEW `kz_norec` AS 
-(select `kz_map_list`.`mapname` AS `mapname`,`tmp`.`map` AS `map`,if(isnull(`tmp`.`player`),0,`tmp`.`player`) AS `player`,`tmp`.`time` AS `time`,`tmp`.`cp` AS `cp`,`tmp`.`go_cp` AS `go_cp`,`tmp`.`weapon` AS `weapon` from (`kz_map_list` left join `kz_map_top` `tmp` on((`kz_map_list`.`mapname` = `tmp`.`map`))) order by `kz_map_list`.`mapname`);
+SELECT
+  `kz_map_list`.`mapname` AS `map`,
+  IF(ISNULL(`kz_map_top`.`player`),0,`kz_map_top`.`player`) AS `player`
+FROM (`kz_map_list`
+   LEFT JOIN `kz_map_top`
+     ON ((`kz_map_list`.`mapname` = `kz_map_top`.`map`)))
+ORDER BY `kz_map_list`.`mapname`;

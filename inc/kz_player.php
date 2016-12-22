@@ -84,7 +84,7 @@ if($plr) {
 		$start = ($page - 1) * $mapsPerPage;
 		
 		if($rec=="norec") {
-			$q = "SELECT * FROM (SELECT * FROM `kz_norec` WHERE `player` <> 1 AND `player` = 0) AS tmp LIMIT $start, $mapsPerPage";
+			$q = "SELECT * FROM `kz_norec` WHERE `player` <> 1 AND `player` = 0 LIMIT $start, $mapsPerPage";
 			
 			$maps = array();
 			$r = mysql_query($q);
@@ -93,10 +93,7 @@ if($plr) {
 			}
 		}
 		else {
-			$q = "SELECT `tmp`.*, `kz_map_rec_wrs`.* FROM 
-			(SELECT * FROM `kz_norec` WHERE `player` = {$id}) AS `tmp`, `kz_map_rec_wrs`
-			WHERE `kz_map_rec_wrs`.`mapname` = `tmp`.`map` {$types[$type]} 
-			GROUP BY `map` ORDER BY `map` LIMIT $start, $mapsPerPage";
+			$q = "SELECT * FROM `kz_map_tops` WHERE `player` = {$id} {$types[$type]} ORDER BY `map` LIMIT $start, $mapsPerPage";
 
 			$r = mysql_query($q);
 			
@@ -106,7 +103,6 @@ if($plr) {
 				$row["time"] = timed($row["time"], 5);
 				$row["timerec"] = timed($row["timerec"], 2);
 			
-				$row["weapon_name"] = $langs["lang_wpn_".$row["weapon"]];
 				$maps[] = $row;
 			}
 		}
