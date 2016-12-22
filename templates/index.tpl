@@ -18,14 +18,7 @@
 			<div class="tabbed" id="menu-tabs">
 				<div class="menu">
 					<text class="item">
-						<form method="post" id="customForm" style="padding:7px 8px 0 0;margin:0;" action="">
-							<img src="{$baseUrl}/img/country/{$lang}.png">
-							<select id="lang" name="lang" onchange="document.getElementById('customForm').submit();">
-							{foreach from=$langselect key=key item=desc}
-								<option value="{$key}" {if $lang==$key}selected{/if}>{$desc}</option>
-							{/foreach}
-							</select>
-						</form>
+
 					</text>
 					
 				{foreach from=$menulist key=keyey item=i}
@@ -78,25 +71,37 @@
 			{* PAGE OFF *}
 		
 		</div>
-		<form method="post" id="themeForm" style="padding:2px 8px 0 0;margin:0;" action="">				
-			<div align="right" style="margin-right: 60px;">
-			{if !isset($cs)}
-				{foreach from=$menu_footer key=key item=href}
-					<a href="{$href}" style="margin-left:50px;" target="_blank">{$key}</a>
-				{/foreach}
-				
-				<select style="margin-left:50px;" id="theme" name="theme" onchange="document.getElementById('themeForm').submit();">
-				{foreach from=$themeselect key=key item=desc}
-					<option value="{$key}" {if $theme==$key}selected{/if}>{$desc}</option>
-				{/foreach}
-				</select>
-			{else}
-				{foreach from=$menu_footer key=key item=href}
-					<a href="#" style="margin-left:50px;" target="_blank">{$key}</a>
-				{/foreach}
-			{/if}	
+			<div class="wrapper">
+				<div class="left_block">
+					{foreach from=$menu_footer key=key item=href}
+						<a href="{$href}" style="margin-left:50px;" target="_blank">{$key}</a>
+					{/foreach}				
+				</div>
+				<div class="right_block">
+				{if !isset($cs)}
+					<form method="post" id="customForm" style="padding:7px 8px 0 0; margin:0; display:inline;" action="">
+						<img src="{$baseUrl}/img/country/{$lang}.png">
+						<select id="lang" name="lang" onchange="document.getElementById('customForm').submit();">
+						{foreach from=$langselect key=key item=desc}
+							<option value="{$key}" {if $lang==$key}selected{/if}>{$desc}</option>
+						{/foreach}
+						</select>
+					</form>
+					
+					<form method="post" id="themeForm" style="padding:2px 8px 0 0; margin:0; display:inline;" action="">			
+						<select style="margin-left:50px;" id="theme" name="theme" onchange="document.getElementById('themeForm').submit();">
+						{foreach from=$themeselect key=key item=desc}
+							<option value="{$key}" {if $theme==$key}selected{/if}>{$desc}</option>
+						{/foreach}
+						</select>
+					</form>
+				{else}
+					{foreach from=$menu_footer key=key item=href}
+						<a href="#" style="margin-left:50px;" target="_blank">{$key}</a>
+					{/foreach}
+				{/if}	
+				</div>
 			</div>
 			<br>
-		</form>
 	</body>
 </html>

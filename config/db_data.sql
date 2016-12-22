@@ -7,6 +7,24 @@ INSERT INTO `unr_players` (`id`, `name`, `password`, `email`, `active`, `webadmi
 (5, 'test4', '21232f297a57a5a743894a0e4a801fc3', 'test@mail.com', 1, 0),
 (6, 'test5', '21232f297a57a5a743894a0e4a801fc3', 'test@mail.com', 1, 0);
 
+DELETE FROM `servers`;
+INSERT  INTO `servers`(`id`,`name`,`addres`) VALUES
+(1,'[K.lan] CSDM','cs.klan-hub.ru:27015'),
+(2,'[K.lan] Classic','cs.klan-hub.ru:27016'),
+(3,'[K.lan] Kreedz','cs.klan-hub.ru:27017'),
+(4,'[K.lan] Zombie Plague','cs.klan-hub.ru:27018');
+
+DELETE FROM `servers_lang`;
+INSERT  INTO `servers_lang`(`id`,`serverid`,`lang`,`desc`) VALUES 
+(1,1,'ru','Любите безостановочную стрельбу'),
+(2,2,'ru','Вы сторонник классической игры'),
+(3,3,'ru','Нравится паркур'),
+(4,4,'ru','Окутайтесь в атмосферу страха и ужаса'),
+(5,1,'en','Like non-stop shooting'),
+(6,2,'en','You are a supporter of the classic game'),
+(7,3,'en','Like the parkour'),
+(8,4,'en','Acetates in an atmosphere of fear and terror');
+
 DELETE FROM `unr_achiev`;
 INSERT INTO `unr_achiev` (`id`, `name`, `description`, `count`, `type`) VALUES
 (1, 'WarBond', 'DescWarBond', 125000, 'money_t'),
@@ -224,40 +242,40 @@ insert  into `unr_achiev_lang`(`lang`,`var`,`value`) values
 ('en','DescHalloween','Collect 20 bags of gifts in the period from 29.10 till 3.11');
 
 DELETE FROM `weapons`;
-insert  into `weapons`(`id`,`name`) values
-('0','NONE'),
-('1','P228'),
-('2','WAT'),
-('3','SCOUT'),
-('4','HEGRENADE'),
-('5','XM1014'),
-('6','C4'),
-('7','MAC10'),
-('8','AUG'),
-('9','SMOKEGRENADE'),
-('10','ELITE'),
-('11','FIVESEVEN'),
-('12','UMP45'),
-('13','SG550'),
-('14','GALI'),
-('15','FAMAS'),
-('16','USP'),
-('17','GLOCK18'),
-('18','AWP'),
-('19','MP5NAVY'),
-('20','M249'),
-('21','M3'),
-('22','M4A1'),
-('23','TMP'),
-('24','G3SG1'),
-('25','FLASHBANG'),
-('26','DEAGLE'),
-('27','SG552'),
-('28','AK47'),
-('29','KNIFE'),
-('30','P90'),
-('31','VEST'),
-('32','VESTHELM');
+insert  into `weapons`(`id`,`name`,`fullname`) values 
+(0,'NONE',''),
+(1,'P228','SIG Sauer P228'),
+(2,'WAT',''),
+(3,'SCOUT','Steyr Scout'),
+(4,'HEGRENADE','He Grenade'),
+(5,'XM1014','Benelli M4 Super 90'),
+(6,'C4','C4'),
+(7,'MAC10','Ingram MAC-10'),
+(8,'AUG','Steyr AUG'),
+(9,'SMOKEGRENADE','Smoke Grenade'),
+(10,'ELITE','Elite'),
+(11,'FIVESEVEN','FN Five-seveN'),
+(12,'UMP45','HK UMP'),
+(13,'SG550','SIG SG 550'),
+(14,'GALIL','Galil'),
+(15,'FAMAS','Famas'),
+(16,'USP','HK USP'),
+(17,'GLOCK18','Glock 18'),
+(18,'AWP','Accuracy International L96A1'),
+(19,'MP5NAVY','HK MP5'),
+(20,'M249','M249 SAW'),
+(21,'M3','M3 submachine gun'),
+(22,'M4A1','M4 carbine'),
+(23,'TMP','Steyr TMP'),
+(24,'G3SG1','HK G3'),
+(25,'FLASHBANG','Flash Bang'),
+(26,'DEAGLE','Desert Eagle'),
+(27,'SG552','SIG SG 550'),
+(28,'AK47','AK47'),
+(29,'KNIFE','Knife'),
+(30,'P90','FN P90'),
+(31,'VEST','Vest'),
+(32,'VESTHELM','Vest Helm');
 
 DELETE FROM `lang`;
 insert  into `lang`(`lang`,`var`,`value`) values
@@ -592,4 +610,18 @@ insert  into `lang`(`lang`,`var`,`value`) values
 ('en','lang_servers','Servers'),
 ('ru','lang_servers','Сервера'),
 ('en','langWelcome','Welcome to game server'),
-('ru','langWelcome','Добро пожаловать на игровые сервера');
+('ru','langWelcome','Добро пожаловать на игровые сервера'),
+('en','lang_achievPerPage','Lines in Achiev'),
+('ru','lang_achievPerPage','Строк в Достижениях'),
+('en','langBots','Bots'),
+('ru','langBots','Боты'),
+('en','langOS','OS'),
+('ru','langOS','ОС'),
+('en','langDescriptor','Descriptor'),
+('ru','langDescriptor','Дескриптор'),
+('en','langMod','Mod'),
+('ru','langMod','Мод'),
+('en','langFrags','Frags'),
+('ru','langFrags','Очки'),
+('en','langServerNotFound','Server not found'),
+('ru','langServerNotFound','Сервер не найден');

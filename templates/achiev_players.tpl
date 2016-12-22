@@ -1,5 +1,5 @@
-			<p><h2>{$lang_players}</h2>
-			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
+			<p><h2>{$lang_achiev_players}</h2><br>
+			{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}<br>
 			<div style="padding:10px;">
 	{foreach from=$players item=player}
 				<div class="achiev">

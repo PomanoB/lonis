@@ -52,6 +52,7 @@
 div.wrapper {
 	width:auto;
 	padding: 10px;
+	margin-right: 25px;
 }
 
 div.left_block {
@@ -60,4 +61,14 @@ div.left_block {
 
 div.right_block {
 	float:right;
+}
+
+div .inline {
+	display: inline;
+}
+
+.sinfo .th {
+	font-weight: bold;
+	text-align: right;
+	padding-right: 10px;
 }

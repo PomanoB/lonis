@@ -1,33 +1,59 @@
-	<p><div style="text-align: center">{$langWelcome} <b>{$server_name}</b></div>
-{if $lang=="ru"}
-	<div>
-		<p>Любите безостановочную стрельбу - присоединяйтесь на 
-			<a href="http://klan-hub.ru/csws/?id=0"><b>[K.lan] CSDM</b> (<i>cs.klan-hub.ru:27015</i>)</a>.
-		</p>
-		<p>Вы сторонник классической игры - вас всегда ждут на 
-			<a href="http://klan-hub.ru/csws/?id=1"><b>[K.lan] Classic</b> (<i>cs.klan-hub.ru:27016</i>)</a>.
-		</p>
-		<p>Нравится паркур - вы можете посоревноваться за мировой рекорд на 
-			<a href="http://klan-hub.ru/csws/?id=2"><b>[K.lan] Kreedz</b> (<i>cs.klan-hub.ru:27017</i>)</a>.
-		</p>
-		<p>Окутайтесь в атмосферу страха и ужаса - спасите мир от полчищ зомби на 
-			<a href="http://klan-hub.ru/csws/?id=3"><b>[K.lan] Zombie Plague</b> (<i>cs.klan-hub.ru:27018</i>)</a>.
-		</p>
-	</div>
+	<center>
+{if $addr}
+	{if $message}
+		<p><h2>{$lang_servers}</h2>
+		<p><div class="error_message">{$message}</div>
+	{else}
+	<p><table id="servers">
+		<tr style="vertical-align: top;">
+			<td width="400" align="center">	
+				<img src="{$info.img}" id='mapimg'>
+				<table class="sinfo" align="center">
+					<tr><td></td></td>
+					<tr><td class="th" width="100">{$langIP}</td><td>{$addr}</td></tr>
+					<tr><td class="th">{$langName}</td><td>{$info.name}</td>
+					<tr><td class="th">{$langIP}</td><td>{$info.map}</td>
+					<tr><td class="th">{$langMod}</td><td>{$info.mod}</td>
+					<tr><td class="th">{$langDescriptor}</td><td>{$info.descriptor}</td>
+					<tr><td class="th">{$lang_players}</td><td>{$info.players} / {$info.max_players}</td>
+					<tr><td class="th">{$langType}</td><td>{$info.type}</td>
+					<tr><td class="th">{$langOS}</td><td>{$info.os}</td>
+					<tr><td class="th">{$langBots}</td><td>{$info.bots}</td>
+				</table>
+			</td>
+			<td>
+				<table class="splayers">
+					<tr>
+						<td width=200><b>{$langPlayer}</b></td>
+						<td><b>{$langFrags}</b></td>
+					</tr>	
+				{foreach from=$players item=plr}
+					<tr>
+						<td>{$plr.name}</td>
+						<td>{$plr.frag}</td>
+					</tr>
+				{/foreach}
+				</table>
+			</td>
+		</tr>
+	</table>
+	{/if}
 {else}
-	<div>
-		<p>Like non-stop shooting - join us on 
-			<a href="http://klan-hub.ru/csws/?id=0"><b>[K.lan] CSDM</b> (<i>cs.klan-hub.ru:27015</i>)</a>.
-		</p>
-		<p>You are a supporter of the classic game - you are always welcome to 
-			<a href="http://klan-hub.ru/csws/?id=1"><b>[K.lan] Classic</b> (<i>cs.klan-hub.ru:27016</i>)</a>.
-		</p>
-		<p>Like the parkour - you can compete for world record 
-			<a href="http://klan-hub.ru/csws/?id=2"><b>[K.lan] Kreedz</b> (<i>cs.klan-hub.ru:27017</i>)</a>.
-		</p>
-		<p>Acetates in an atmosphere of fear and terror - save the world from hordes of zombies in 
-			<a href="http://klan-hub.ru/csws/?id=3"><b>[K.lan] Zombie Plague</b> (<i>cs.klan-hub.ru:27018</i>)</a>.
-		</p>
-	</div>
+	<p><div>{$langWelcome} <b>{$server_name}</b></div>
+	
+	<p><table>
+	{foreach from=$servers item=serv}
+		<tr>
+			<td align="right"><p>{$serv.desc}</td>
+			<td>&nbsp;</td>
+		</tr>	
+		<tr>
+			<td>&nbsp;</td>
+			<td><a href='{$baseUrl}/servers/"{$serv.addres}"'><b>{$serv.name}</b> (<i>{$serv.addres}</i>)</a></td>
+		</tr>
+	{/foreach}
+
+	</table>
 {/if}
+	</center>
 

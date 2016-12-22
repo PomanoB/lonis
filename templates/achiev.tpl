@@ -1,7 +1,11 @@
+{* /%name%/achiev/ *}
 {capture name=player_achive}
 			<h2>{$langAchievs}</h2>
 			<div style="padding:10px;">
 				<p><h1>{$langAchievsPlayer} {$playerName|escape}</h1><br>
+				
+				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}<br>
+				
 	{foreach from=$achievs item=achiev}
 				<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
 					<b><a href="{$baseUrl}/achiev/{$achiev.name|replace:' ':'_'}">{$achiev.name}</a></b>
@@ -26,10 +30,14 @@
 			</div>
 {/capture}
 
+{* /achiev/%aname% *}
 {capture name=achive}
-			<h2>{$lang_achievs}</h2>
+			<p><h2>{$lang_achiev} :: {$aname|replace:"_":" "}</h2>
 			<div style="padding:10px;">
 				<span>{$lang_achievsPlayer} {$playerName}</span>
+				
+				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}<br>
+				
 				{foreach from=$achievs item=achiev}
 					<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
 						<a href="{$baseUrl}/achiev/{$achiev.name|replace:' ':'_'}">{$achiev.name}</a>
@@ -49,9 +57,13 @@
 			</div>
 {/capture}
 
+{* /achiev *}
 {capture name=achive_list}			
-			<p><h2>{$lang_achievs}</h2>
-				<span>{$lang_achievs}</span><br />
+			<p><h2>{$lang_achiev}</h2>
+				<span>{$lang_achievs} </span><br />
+				
+				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}<br>
+				
 				<table>
 	{foreach from=$achievs item=achiev}
 					<tr>

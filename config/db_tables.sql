@@ -5,28 +5,29 @@ CREATE TABLE `unr_achiev_lang` (
   `value` varchar(256) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `servers`;
 CREATE TABLE `servers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `addres` varchar(32) DEFAULT NULL,
   `ip` int(10) NOT NULL,
-  `desc` varchar(128) DEFAULT NULL,
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `servers_lang`;
 CREATE TABLE `servers_lang` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `serverid` int(10) NOT NULL,
   `lang` varchar(2) NOT NULL,
-  `value` varchar(256) NOT NULL
+  `desc` varchar(256) NOT NULL,
+  KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `weapons`;
 CREATE TABLE `weapons` (
   `id` int(10) unsigned DEFAULT NULL,
   `name` varchar(16) NOT NULL,
-  `fullname` varchar(32) DEFAULT NULL,
-  `desc` varchar(512) DEFAULT NULL,
-  `info` text
+  `fullname` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -295,3 +296,23 @@ FROM (`kz_map_list`
    LEFT JOIN `kz_map_top`
      ON ((`kz_map_list`.`mapname` = `kz_map_top`.`map`)))
 ORDER BY `kz_map_list`.`mapname`;
+
+CREATE OR REPLACE VIEW `achiev_aname` AS 
+SELECT
+  `p`.`id`   AS `plid`,
+  `p`.`name` AS `plname`,
+  `a`.`id`   AS `aid`,
+  (SELECT
+     COUNT(0),
+   FROM (`unr_players_achiev`
+      JOIN `achiev`)
+   WHERE ((`unr_players_achiev`.`achievId` = `achiev`.`id`)
+          AND (`achiev`.`count` = `unr_players_achiev`.`progress`)
+          AND (`unr_players_achiev`.`playerId` = `plid`))) AS `achiev_total`
+FROM ((`unr_players` `p`
+    JOIN `unr_players_achiev` `pa`)
+   JOIN `achiev` `a`)
+WHERE ((`a`.`count` = `pa`.`progress`)
+       AND (`p`.`id` = `pa`.`playerId`)
+       AND (`pa`.`achievId` = `a`.`id`));
+	   

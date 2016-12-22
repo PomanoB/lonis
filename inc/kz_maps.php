@@ -110,9 +110,6 @@ $smarty->assign('maps', $maps);
 
 $smarty->assign('page', $page);
 $smarty->assign('totalPages', $totalPages);
-
 $smarty->assign('pageUrl', "$baseUrl/kreedz/$type/page%page%/$rec");
-	
-$template = 'kz_maps.tpl';	
 	
 ?>

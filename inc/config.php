@@ -6,7 +6,7 @@ $cs = 0;
 // Default config
 $conf_type = array(
 	'password' => array('mysql_password'),
-	'number' => array('activateTime', 'gravatarSize', 'playerPerPage', 'mapsPerPage', 'playersPerPage')
+	'number' => array('activateTime', 'gravatarSize', 'playerPerPage', 'mapsPerPage', 'playersPerPage', 'achievPerPage')
 );
 
 $dconf = array (
@@ -27,6 +27,7 @@ $dconf = array (
 	'playerPerPage' => 20,
 	'mapsPerPage' => 20,
 	'playersPerPage' => 20,
+	'achievPerPage' => 5,
 
 	'langlist' => "en ru",
 	'lang' => "en",	
@@ -74,18 +75,24 @@ $ActionList = action_sort($ActionList);
 
 // The sequence is important
 $parseRules = array(
-	"/^error(\/([0-9]+))?/" => "index.php?action=error&err=%2%",
+	"/^error(\/([0-9]+))/" => "index.php?action=error&err=%2%",
 	"/^reg\/(.*)/" => "index.php?action=reg&key=%1%",
 	"/^logout/" => "index.php?action=login&logout=1",
 	"/^setup\/logout?/" => "index.php?action=setup&logout=1",
-	"/^achiev\/players(\/page([0-9]+))/" => "index.php?action=achiev_players&page=%2%",
-	"/^achiev\/(.*)/" => "index.php?action=achiev&aname=%1%",
-	"/^players\/(.*)\/page([0-9]+)/" => "index.php?action=players&search=%1%&page=%2%",	
-	"/^(.*)\/achiev/" => "index.php?action=achiev&name=%1%",
-	"/^kreedz\/players(\/(pro|noob|all))?(\/(num|top1))?(\/page([0-9]+))?/" => "index.php?action=kz_players&type=%2%&sort=%4%&page=%6%",
+	
+	"/^servers\/(.*)/" => "index.php?action=servers&addr=%1%",
+	
+	"/^players\/(.*)?(\/page([0-9]+))?/" => "index.php?action=players&search=%1%&page=%3%",	
+	
+	"/^achiev\/players(\/page([0-9]+))?/" => "index.php?action=achiev_players&page=%2%",	
+	"/^achiev?(\/page([0-9]+))?(\/)?(.*)?/" => "index.php?action=achiev&page=%2%&aname=%4%",
+	"/^(.*)\/achiev?(\/page([0-9]+))?/" => "index.php?action=achiev&name=%1%&page=%3%",
+	
+	"/^kreedz\/players?(\/(pro|noob|all))?(\/(num|top1))?(\/page([0-9]+))?/" => "index.php?action=kz_players&type=%2%&sort=%4%&page=%6%",
 	"/^kreedz\/\/(pro|noob|all)?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_maps&page=%3%&type=%1%&rec=%5%",
 	"/^kreedz\/([0-9a-zA-Z_!]+)?(\/(pro|noob|all))?(\/page([0-9]+)?)?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%",
+	
 	"/^($ActionList)?(\/page([0-9]+))?/" => "index.php?action=%1%&page=%3%",
 	"/^(.*)/" => "index.php?action=player&name=%1%",
 );

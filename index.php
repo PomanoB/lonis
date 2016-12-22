@@ -41,11 +41,9 @@ $baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseUrl}";
 if (!get_magic_quotes_gpc()) {
 	foreach($_POST as $key=>$value) { 
 		$value = urldecode($value);
-		$_POST[$key]=addslashes($value);
 	}
 	foreach($_GET as $key=>$value) { 
 		$value = urldecode($value);
-		$_GET[$key]=addslashes($value);
 	}
 }
 
