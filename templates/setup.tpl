@@ -2,10 +2,7 @@
 				<a href="{$baseUrl}/setup/logout">{$lang_logout}</a>{else}{$lang_login}{/if}
 			</div>
 			<div class="setup_message">{$message}</div>
-			
-{* -------------------------------------------------------------------------------------------------------------------- *)
-(*    Login form																										*)		
-(* -------------------------------------------------------------------------------------------------------------------- *}			
+				
 {capture name=act_login}
 			<div class="login">
 			  <form action="{$baseUrl}/setup" method="post">
@@ -37,9 +34,7 @@
 			   <input type="radio" id="tab-3" name="tab-group-1">
 				<label for="tab-3"><strong>{$lang_setupLang}</strong></label>
 				
-{* -------------------------------------------------------------------------------------------------------------------- *)
-(*    General Setting																									*)		
-(* -------------------------------------------------------------------------------------------------------------------- *}
+
 				<div id="setup">
 					<table class="form_login">
 						<form action="{$baseUrl}/setup" method="post">
@@ -78,9 +73,6 @@
 				
 				</div>
 
-{* -------------------------------------------------------------------------------------------------------------------- *)
-(*    Database																											*)		
-(* -------------------------------------------------------------------------------------------------------------------- *}
 				<div id="db">				
 					<div class="title">{$langDbTitle}</div>
 		{if !$comm}
@@ -123,43 +115,9 @@
 			{/if}
 				 </div>
 		{/if}
-								
-{* -------------------------------------------------------------------------------------------------------------------- *)
-(*    Language																											*)		
-(* -------------------------------------------------------------------------------------------------------------------- *}
-   
-				<div id="lang">
-					<form action="{$baseUrl}/setup" method="post">										
-						<div>
-							<table class="form_login">	
-								<tr>
-									<td></td>
-								</tr>
-				{foreach name=lang from=$lang_row key=l item=i}
-								<tr>
-									<td class="info">
-										<label>{$l}</label>
-									</td>
-									<td>
-					{foreach from=$i key=n item=t}
-				<input size="30" type="text" class="form_login" name="{$l}_{$n}" id="{$l}_{$n}" value="{$t|escape}"/>
-					{/foreach}																					
-									</td>
-								</tr>
-				{/foreach}
-							</table>
-							
-							{* --- Save local setting --- *}
-							<div>
-								<button name="act" value="lang_save">{$langEdit}</button>
-								<button name="act" value="lang_reset">{$langReset}</button>
-							</div>							
-						</div>
-						
-					</div>
-					</form>
-				</div>
-{* -------------------------------------------------------------------------------------------------------------------- *}	
+
+
+			</div>
 {/capture}
 
 {if !isset($act)}

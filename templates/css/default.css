@@ -25,7 +25,7 @@
 
 /* Other button */
 .but {
-	padding: 0px;
+	padding-left: 0px;
     background-color: white;
     border: none;
     text-align: center;
@@ -34,7 +34,7 @@
 }
 
 .but:hover {
-	padding: 0px;
+	padding-left: 0px;
     background-color: white;
     border: none;
 	color: #0074CE;
@@ -71,4 +71,40 @@ div .inline {
 	font-weight: bold;
 	text-align: right;
 	padding-right: 10px;
+}
+
+/* Menu pages */
+
+.tabs {
+	text-align: center;
+}
+
+.tabs > div, .tabs > input {
+	display: none; 
+}
+
+.tabs label { 
+	padding: 5px; 
+	border: 0px solid #aaa; 
+	line-height: 28px; 
+	cursor: pointer; 
+	position: relative; 
+	bottom: 1px; 
+
+}
+
+.tabs label:hover { 
+	color: #0074CE;
+}
+
+.tabs input[type="radio"]:checked + label { border-bottom: 0px solid #fff; color: #0074CE;}
+
+.tabs > input:nth-of-type(1):checked ~ div:nth-of-type(1),
+.tabs > input:nth-of-type(2):checked ~ div:nth-of-type(2),
+.tabs > input:nth-of-type(3):checked ~ div:nth-of-type(3),
+.tabs > input:nth-of-type(4):checked ~ div:nth-of-type(4),
+.tabs > input:nth-of-type(5):checked ~ div:nth-of-type(5) { 
+	display: block; 
+	padding: 5px; 
+	border: 0px solid #aaa; 
 }

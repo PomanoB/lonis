@@ -1,7 +1,7 @@
 	<center>
 {if $addr}
+	<p><h2>{$lang_servers}</h2>
 	{if $message}
-		<p><h2>{$lang_servers}</h2>
 		<p><div class="error_message">{$message}</div>
 	{else}
 	<p><table id="servers">
@@ -52,8 +52,12 @@
 			<td><a href='{$baseUrl}/servers/"{$serv.addres}"'><b>{$serv.name}</b> (<i>{$serv.addres}</i>)</a></td>
 		</tr>
 	{/foreach}
-
 	</table>
+	<br>
+	
+	<form action="{$baseUrl}/servers" method="post">
+	<p><div><input type="text" name="addr" /><br><button class="but">{$langCheck} {$langIP}</button></div>
+	</form>
 {/if}
 	</center>
 

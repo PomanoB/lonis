@@ -37,19 +37,9 @@ if($uri!="") {
 
 $baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseUrl}";
 
-// quotes $_POST, $_GET and URLDECODE
-if (!get_magic_quotes_gpc()) {
-	foreach($_POST as $key=>$value) { 
-		$value = urldecode($value);
-	}
-	foreach($_GET as $key=>$value) { 
-		$value = urldecode($value);
-	}
-}
-
 // Debug trace
 
-//print_p(); 
+//print_p();
 //print_p($_SESSION);
 //print_p($_SERVER);
 //die();
@@ -102,15 +92,6 @@ if($conn) {
 		$dblangs[$row["var"]] = $row["value"];
 	}
 }
-
-$flangs = array();
-if(file_exists($config_dir."/".$config_lang)) {
-	$smarty->config_load($config_lang, $lang);
-	$flangs = $smarty->get_config_vars();
-}
-
-$langs = array_replace($langs, $flangs);
-unset($flangs);
 
 $langs = array_replace($langs, $dblangs);
 unset($dblangs);

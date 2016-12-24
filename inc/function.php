@@ -27,6 +27,8 @@ function parse_uri($uri, $rules) {
 
 // Parse current matches
 function parse_match($uri, $rules) {
+	$uri = urldecode($uri);
+	
 	foreach($rules as $str=>$value) {
 		preg_match_all($str, $uri, $matches);
 		if(isset($matches[0][0][0])) {
@@ -55,7 +57,9 @@ function parse_urls($url) {
 		$ret_vars = explode("&", $q);
 		foreach($ret_vars as $key=>$value) {
 			if(isset($key)) {
-				$ret_delim = explode("=", $value);
+				$pos = strpos($value, "=");
+				$ret_delim[0] = substr($value, 0, $pos);
+				$ret_delim[1] = substr($value, $pos+1, strlen($value));
 				$rets[$ret_delim[0]] = isset($ret_delim[1]) ? $ret_delim[1] : "";
 			}
 		}

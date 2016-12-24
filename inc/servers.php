@@ -2,10 +2,17 @@
 
 include 'hlds.php';
 
-$addr = isset($_POST["addr"]) ? $_POST["addr"] : (isset($_GET["addr"]) ? $_GET["addr"] : "");
-
-preg_match("/%22(.*)%22/", $addr, $addr);
-$addr = isset($addr[1]) ? $addr[1] : "" ;
+if(isset($_GET["addr"])) {
+	$addr = $_GET["addr"];
+	preg_match("/%22(.*)%22/", $addr, $addr);
+	$addr = isset($addr[1]) ? $addr[1] : "" ;
+}
+else
+if(isset($_POST["addr"])) {
+	$addr =  $_POST["addr"];
+}
+else
+	$addr = "";
 
 if($addr) {
 	$server=new hlds();

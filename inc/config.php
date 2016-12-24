@@ -1,6 +1,5 @@
 <?php
 $config_file = "config.ini";
-$config_lang = "lang.ini";
 $cs = 0;
 
 // Default config
@@ -62,7 +61,7 @@ $menuStart = "servers";
 $menu = 'servers|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|reg|login';
 $menuLogged = 'servers|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|logout';
 $menuCS = 'kz_players|kz_maps|kz_duels';
-$menuAdmin = 'admin_achiev|admin_lang|admin_players';
+$menuAdmin = 'admin_servers|admin_achiev|admin_lang|admin_players';
 
 $menu = parse_menu($menu);
 $menuLogged = parse_menu($menuLogged);
@@ -70,7 +69,7 @@ $menuCS = parse_menu($menuCS);
 $menuAdmin = parse_menu($menuAdmin);
 
 // The sequence is important
-$ActionList  = "setup|admin_lang|admin_achiev|admin_players|servers|players|kz_maps|achiev_players|achiev|reg|kz_duels|kz_players|ucp|steam_login|login|logout";
+$ActionList  = "setup|admin_servers|admin_lang|admin_achiev|admin_players|servers|players|kz_maps|achiev_players|achiev|reg|kz_duels|kz_players|ucp|steam_login|login|logout";
 $ActionList = action_sort($ActionList);
 
 // The sequence is important

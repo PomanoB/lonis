@@ -25,24 +25,16 @@ tr.title {
 	padding: 5px;
 }
 
-#achiev_admin .col_type {
-	width: 170px;
+#admin_servers .col_name {
+	width: 250px;
 }
 
-#achiev_admin .col_count {
-	width: 100px;
+#admin_servers .col_addres {
+	width: 250px;
 }
 
-#achiev_admin .col_name {
-	width: 200px;
-}
-
-#achiev_admin .col_descr {
-	width: 200px;
-}
-
-#admin_achiev_lang .col_desc {
-	width: 300px;
+#admin_servers .col_desc {
+	width: 400px;
 }
 
 table {

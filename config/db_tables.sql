@@ -1,9 +1,19 @@
-DROP TABLE IF EXISTS `unr_achiev_lang`;
-CREATE TABLE `unr_achiev_lang` (
-  `lang` varchar(2) NOT NULL,
-  `var` varchar(64) NOT NULL,
-  `value` varchar(256) NOT NULL
+DROP TABLE IF EXISTS `unr_achiev`;
+CREATE TABLE `unr_achiev` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(40) NOT NULL,
+  `count` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+CREATE TABLE `unr_achiev_lang` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `achievid` int(10) NOT NULL,
+  `ltype` varchar(4) NOT NULL,
+  `lang` varchar(2) NOT NULL,
+  `value` varchar(256) DEFAULT NULL,
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 DROP TABLE IF EXISTS `servers`;
 CREATE TABLE `servers` (
@@ -77,17 +87,6 @@ CREATE TABLE `kz_save` (
   `weapon` int(10) unsigned NOT NULL,
   PRIMARY KEY (`map`,`player`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `unr_achiev`;
-CREATE TABLE `unr_achiev` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `description` varchar(200) NOT NULL,
-  `count` int(10) unsigned NOT NULL,
-  `type` varchar(40) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `unr_activate`;
 CREATE TABLE `unr_activate` (
@@ -169,19 +168,23 @@ CREATE TABLE `kz_map_list` (
   `mapname` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 CREATE OR REPLACE VIEW `achiev` AS 
 SELECT
   `unr_achiev`.`id`    AS `id`,
-  `lname`.`value`      AS `name`,
-  `ldesc`.`value`      AS `description`,
   `unr_achiev`.`count` AS `count`,
   `unr_achiev`.`type`  AS `type`,
-  CONCAT(`lname`.`lang`,'_',`ldesc`.`lang`) AS `lang`
-FROM `unr_achiev`
+  `lname`.`value`      AS `name`,
+  `ldesc`.`value`      AS `description`,
+  `lname`.`lang`       AS `lang`
+FROM ((`unr_achiev`
     JOIN `unr_achiev_lang` `lname`
-      ON `unr_achiev`.`name` = `lname`.`var`
+      ON (((`unr_achiev`.`id` = `lname`.`achievid`)
+           AND (`lname`.`ltype` = 'name'))))
    JOIN `unr_achiev_lang` `ldesc`
-     ON `unr_achiev`.`description` = `ldesc`.`var`;
+     ON (((`unr_achiev`.`id` = `ldesc`.`achievid`)
+          AND (`ldesc`.`ltype` = 'desc'))))
+WHERE (`lname`.`lang` = `ldesc`.`lang`);
 
 CREATE OR REPLACE VIEW `kz_top1` AS 
 SELECT

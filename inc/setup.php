@@ -162,17 +162,7 @@ else {
 				$smarty->assign('file_table', $file_table);
 			} //End db
 			$smarty->assign('db', $db);
-		} // End conn
-		
-		// Get language list		
-		$all_langs = parse_ini_file("$config_dir/lang.ini", true);
-		foreach ($all_langs as $l => $arr) {
-			foreach ($arr as $name => $value) {
-				$row[$name][$l] = $value;
-			}
-		}
-		
-		$smarty->assign('lang_row', $row);		
+		} // End conn	
 				
 	} // End setting
 } // End login, logout

@@ -25,10 +25,8 @@
 							<td>
 								<input size="40" name="value" type="text" />
 							</td>
-							<td colspan="4" style="text-align:left;">
-								<button class="but" name="act" value="add">
-									<img src="{$baseUrl}/img/add.png" border=0 alt="{$langAdd}">
-								</button>
+							<td colspan="4">
+								<input type="image" src="{$baseUrl}/img/add.png" name="act" value="add" alt="{$langAdd}">
 							</td>
 						</tr>
 					</table>
@@ -47,14 +45,10 @@
 			{/foreach}																					
 							</td>
 							<td>
-								<button class="but" name="act" value="edit">
-									<img src="{$baseUrl}/img/edit.png" border=0 alt="{$langUpdate}">
-								</button>
-								<input type="hidden" name="confirm" value="0">
-								<input type="checkbox" name="confirm" value="1">
-								<button class="but" name="act" value="delete">
-									<img src="{$baseUrl}/img/delete.png" border=0 alt="{$langDelete}">
-								</button>
+								<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="edit" alt="{$langUpdate}">
+								<input type="hidden" name="confirm" value="0" />
+								<input type="checkbox" name="confirm" value="1" />
+								<input type="image" src="{$baseUrl}/img/delete.png" name="act" value="delete" alt="{$langDelete}">
 								<input name="var" type="hidden" value="{$l}" />
 							</td>
 						</tr>

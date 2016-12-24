@@ -294,7 +294,9 @@ h2 {
 /* Header */
 /* Network */
 
-#network {background: #3B3B37}
+#network {	background: #3B3B37
+}
+
 #network .left {
 	color: #333;
 	vertical-align: text-bottom;
@@ -328,8 +330,11 @@ h2 {
 	font-weight: bold;
 }
 #network .text-separator, #network span {color: #999;}
+
 .center-wrapper {
-	margin-left: 45px;	
+	margin-left: 45px;
+	#margin:0 auto;
+	#width:900px;
 }
 
 #network img {display: none}
