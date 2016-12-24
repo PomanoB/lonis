@@ -1,4 +1,6 @@
 <?php
+$message = "";
+
 if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1)) {
 	header('Location: '.$baseUrl);
 }
@@ -29,7 +31,7 @@ if ($act == "add") {
 		mysqli_query($db, $q);	
 	}
 	else
-		$smarty->assign('message', $langs["langError"]);
+		$message = $langs["langError"];
 }
 else
 if ($act == "edit") {
@@ -57,6 +59,8 @@ if ($act == "delete") {
 		$smarty->assign('confirm_msg', $message);
 	}
 }
+
+$smarty->assign('message', $message);
 
 // Get language list
 $r = mysqli_query($db, "SELECT * FROM `langs` ORDER BY `lang`");

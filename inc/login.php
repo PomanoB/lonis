@@ -1,12 +1,13 @@
 <?php
-	
+$message = "";
+
 if (isset($_GET["logout"])) {
 	unset($_SESSION["user_$cookieKey"]);
 	header("Location: $baseUrl");
 }
 else
 if (isset($_SESSION["user_$cookieKey"])) {
-	$smarty->assign('message', $langs["langAlreadyLogin"]);
+	$message = $langs["langAlreadyLogin"];
 }
 else
 if (isset($_POST["reg_nick"]) && isset($_POST["reg_password"])) {
@@ -23,18 +24,19 @@ if (isset($_POST["reg_nick"]) && isset($_POST["reg_password"])) {
 	$r = mysqli_query($db, "SELECT * FROM `unr_players` WHERE `name`= '$nick' AND `password` = '$password' AND `active`=1");
 	if ($row = mysqli_fetch_assoc($r)) {
 		$_SESSION["user_$cookieKey"] = $row;
-		//$loc = isset($_SESSION["last_url_$cookieKey"]) ? $_SESSION["last_url"] : $baseUrl;
 		header("Location: $baseUrl/ucp");
 	}
 	else {
 		echo $player = $row["player"];
 		$r = mysqli_query($db, "SELECT * FROM `unr_activate` WHERE `player`= '$player'");
 		if ($row = mysqli_fetch_array($r)) {
-			$smarty->assign('message', $langs["langInActive"]);
+			$message = $langs["langInActive"];
 		}
 		else {
-			$smarty->assign('message', $langs["langUserNotFound"]);
+			$message = $langs["langUserNotFound"];
 		}	
 	}
 }
+
+$smarty->assign('message', $message); 
 ?>

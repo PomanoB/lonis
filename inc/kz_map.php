@@ -1,4 +1,6 @@
 <?php
+$message = "";
+
 if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1) {
 	$act = isset($_POST["act"]) ? $_POST["act"] : "";
 	
@@ -10,7 +12,8 @@ if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmi
 			mysqli_query($db, $q);
 		}
 		else
-			$smarty->assign('message', $langs["langConfirm"]);
+			$message = $langs["langConfirm"];
+
 	}
 }
 
@@ -121,4 +124,6 @@ else {
 	
 	}
 }
+
+$smarty->assign('message', $message);
 ?>

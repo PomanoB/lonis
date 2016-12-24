@@ -28,7 +28,7 @@
 				<table class="table-list">
 					<tr class="title">
 						<td>№</td>
-						<td>{$lang_player}</td>
+						<td>{$langPlayer}</td>
 						<td>{$langRecords}</td>
 					</tr>
 	{foreach from=$players item=player}

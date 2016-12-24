@@ -1,4 +1,4 @@
-			<p><div class="titles">{$lang_player} {$name|escape}</div><br>
+			<p><div class="titles">{$langPlayer} {$name|escape}</div><br>
 			
 	{if $rec != "norec"}
 				<a href="{$baseUrl}/{$name|replace:' ':'_'}/kreedz/pro/{$rec}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>

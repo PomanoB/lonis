@@ -1,4 +1,6 @@
 <?php
+$message = "";
+
 if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1)) {
 	header('Location: '.$baseUrl);
 }
@@ -53,7 +55,7 @@ if ($act == "add") {
 	$q = "INSERT INTO `unr_achiev` (`count`, `type`) VALUES ($count, '$type')";
 
 	if(mysqli_query($db, $q)) {
-		$insert = mysql_insert_id();
+		$insert = mysqli_insert_id($db);
 		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'name', 'ru')");
 		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'desc', 'ru')");
 		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'name', 'en')");
@@ -72,7 +74,7 @@ if ($act == "delete") {
 		mysqli_query($db, $q);
 	}
 	else
-		$smarty->assign('message', $langs["langConfirm"]);
+		$message = $langs["langConfirm"];
 }
 if ($act == "editlang") {
 	if(get_magic_quotes_gpc()) {
@@ -87,6 +89,8 @@ if ($act == "editlang") {
 	$q = "UPDATE `unr_achiev_lang` SET `value` = '$value' WHERE `lid` = $lid";
 	mysqli_query($db, $q);
 }
+
+$smarty->assign('message', $message); 
 
 // Achiev
 $q = "SELECT * FROM `achiev` WHERE `lang` = '$lang' ORDER BY `type`";
@@ -113,13 +117,13 @@ while($row = mysqli_fetch_array($r))
 {
 	$type = $row['type']."_".$row['count'];
 	
-	if($type!=$pretype) $row['hr'] = 1;
+	$row['hr'] = $type!=$pretype ? 1 : 0;
 	$pretype = $type;
 
-	if($type==$lasttype) $row['part'] = 1;
+	$row['part'] = $type==$lasttype ? 1 : 0;
 	$lasttype = $type;
 
-	if($row['lang']==$lastlang) $row['part2'] = 1;
+	$row['part2'] = $row['lang']==$lastlang ? 1 : 0;
 	$lastlang = $row['lang'];
 	
 	$achievs_lang[] = $row;

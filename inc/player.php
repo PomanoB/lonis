@@ -1,33 +1,12 @@
 <?php
 $id = 0;
-//var_dump($_GET);
-//die();
-/*
-if (isset($_GET["name"]))
-{
-	if (get_magic_quotes_gpc())
-	{
-		$name = $_GET["name"];
-	}
-	else
-	{
-		$name = addslashes($_GET["name"]);
-	}
-	
-	$q = "SELECT * FROM `unr_players` WHERE `name` = '$name'";
-	$r = mysqli_query($db, $q);
-	
-	if($info = mysqli_fetch_assoc($r))
-		$id = $info["id"];
-}
-*/
+
 if (isset($playerId))
 	$id = $playerId;
 elseif (isset($_GET["id"]))
 	$id = abs((int)$_GET["id"]);
 
-if ($id)
-{
+if ($id) {
 	$q = "SELECT * FROM `unr_players` WHERE `id` = $id";
 	$r = mysqli_query($db, $q);
 	
@@ -59,12 +38,10 @@ if ($id)
 		$r = mysqli_query($db, $q);
 		$info["mapCompleted"] = mysqli_result($r, 0);
 	
-		$template = 'player.tpl';
 		$smarty->assign('info', $info);
 	}
 	else
 	{
-		$template = 'message.tpl';
 		$smarty->assign('message', '»грок не найден!');
 	}
 }

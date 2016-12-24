@@ -1,5 +1,6 @@
 <?php
-
+$plrs = 0;
+	
 // achive || /achiev/%aname%
 if (isset($_GET["aname"]) && $_GET["aname"]!="") {
 	$aname = urldecode($_GET["aname"]);
@@ -58,6 +59,7 @@ if (isset($_GET["plid"]) || isset($playerId)) {
 		$plId = $playerId;
 	else
 		$plId = abs((int)$_GET["plid"]);
+
 	
 	$q = "SELECT `name` FROM `unr_players` WHERE `id` = $plId";
 	$r = mysqli_query($db, $q);
@@ -104,8 +106,9 @@ if (isset($_GET["plid"]) || isset($playerId)) {
 				$row["width"] = $row["progress"] * 100 / $row["count"];
 			$achievs[] = $row;
 		}
+		$plrs = 1;
 		$smarty->assign('achievs', $achievs);
-		$smarty->assign('plrs', 1);
+		
 		
 		$smarty->assign('page', $page);
 		$smarty->assign('totalPages', $totalPages);
@@ -115,7 +118,7 @@ if (isset($_GET["plid"]) || isset($playerId)) {
 	}
 	else
 		header("Location: $baseUrl/achiev");
-	
+
 }
 else {// achive_list || /achiev
 	$q = "SELECT COUNT(*) FROM `unr_achiev`"; 
@@ -162,4 +165,5 @@ else {// achive_list || /achiev
 	$smarty->assign('pageUrl', "$baseUrl/achiev/page%page%/");
 }
 
+$smarty->assign('plrs', $plrs);
 ?>

@@ -1,4 +1,6 @@
 <?php
+$message = "";
+
 if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1)) {
 	header('Location: '.$baseUrl);
 }
@@ -22,7 +24,7 @@ if ($act == "edit") {
 		mysqli_query($db, $q);
 	}
 	else
-		$smarty->assign('message', $langs["langError"]);
+		$message = $langs["langError"];
 }
 else
 if ($act == "add") {
@@ -37,13 +39,13 @@ if ($act == "add") {
 
 	if (strlen($name) > 0) {	
 		$r = mysqli_query($db, "INSERT INTO `servers` (`name`, `addres`) VALUES ('$name', '$addres')");
-		$insert = mysql_insert_id();
+		$insert = mysqli_insert_id($db);
 		
 		mysqli_query($db, "INSERT INTO `servers_lang` (`serverid`, `lang`, `desc`) VALUES ($insert, 'ru','')");
 		mysqli_query($db, "INSERT INTO `servers_lang` (`serverid`, `lang`, `desc`) VALUES ($insert, 'en','')");
 	}
 	else
-		$smarty->assign('message', $langs["langError"]);
+		$message = $langs["langError"];
 }
 else
 if ($act == "delete") {
@@ -54,7 +56,7 @@ if ($act == "delete") {
 		mysqli_query($db, "DELETE FROM `servers_lang` WHERE `serverid`= $id");
 	}
 	else
-		$smarty->assign('message', $langs["langConfirm"]);
+		$message = $langs["langConfirm"];
 }
 if ($act == "editlang") {
 	if(get_magic_quotes_gpc()) {
@@ -69,6 +71,7 @@ if ($act == "editlang") {
 	mysqli_query($db, "UPDATE `servers_lang` SET `desc` = '$desc' WHERE `id` = $lid");
 }
 
+$smarty->assign('message', $message);
 
 // Servser
 $r = mysqli_query($db, "SELECT * FROM `servers`");
@@ -87,11 +90,11 @@ $servers_lang = array();
 $lastname = "";
 while($row = mysqli_fetch_array($r))
 {
-	if($row['name']==$lastname) $row['part'] = 1;
+	$row['part'] = $row['name']==$lastname ? 1 : 0;
 	$lastname = $row['name'];
 	
 	$servers_lang[] = $row;
 }
-$smarty->assign('servers_lang', $servers_lang);
 
+$smarty->assign('servers_lang', $servers_lang);
 ?>

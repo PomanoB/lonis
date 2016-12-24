@@ -1,4 +1,5 @@
 ﻿<?php
+$message = "";
 
 include 'hlds.php';
 
@@ -17,7 +18,7 @@ else
 if($addr) {
 	$server=new hlds();
 	if (!$server->connect($addr)) {
-		$smarty->assign('message', $langs['langServerNotFound']);
+		$message = $langs['langServerNotFound'];
 	}
 	else {
 		$info=$server->info();
@@ -41,6 +42,7 @@ else {
 	$smarty->assign('servers', $servers);
 }
 
+$smarty->assign('message', $message); 
 $smarty->assign('addr', $addr);
 $smarty->assign('server_name', $server_name);
 

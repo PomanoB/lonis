@@ -1,8 +1,8 @@
 <?php
-	
+$message = "";
 if (isset($_SESSION["user_$cookieKey"]) && !isset($_GET["key"]))
 {
-	$smarty->assign('message', $langs["langAlreadyRegister"]);
+	$message = $langs["langAlreadyRegister"];
 }
 else
 if (isset($_POST["reg_nick"]) && isset($_POST["reg_password"]))
@@ -29,27 +29,27 @@ if (isset($_POST["reg_nick"]) && isset($_POST["reg_password"]))
 		if (!$row = mysqli_fetch_assoc($r)) {	
 			$time = time();
 			$key = md5($nick.$time.'magic_word');
-			$player = mysql_insert_id();
+			$player = mysqli_insert_id($db);
 			mysqli_query($db, "INSERT INTO `unr_activate` SET `player`= '$player', `key` = '$key', `time` = '$time'");
 			
 			$langActiveMail = $langs["langActiveMail"];
 			
 			if(mail($_POST["email"], '[K.lan]', "$langActiveMail \n $baseUrl/reg/$key", 'From: $email')) {
-				$smarty->assign('message', $langs["lang_sendMailError"]);
+				$message = $langs["lang_sendMailError"];
 			}
 			else {
 				mysqli_query($db, "INSERT INTO `unr_players` SET `name`= '$nick', `password` = '$password', `email` = '$mail'");	
-				$smarty->assign('message', $langs["lang_regSuccess"]);
+				$message = $langs["lang_regSuccess"];
 			}
 		}
 		else
 		{
-			$smarty->assign('message', $langs["langAlreadyUsed"]);
+			$message = $langs["langAlreadyUsed"];
 		}
 	}
 	else
 	{
-		$smarty->assign('message', $langs["langRegErrors"] . implode('<br />', $errors));
+		$message = $langs["langRegErrors"] . implode('<br />', $errors);
 	}
 }
 else
@@ -68,11 +68,13 @@ if (isset($_GET["key"]) && $_GET["key"] != '')
 		mysqli_query($db, "UPDATE `unr_players` SET `active` = 1 WHERE `id` = $player");
 		mysqli_query($db, "DELETE FROM `unr_activate` WHERE `id` = $id");
 		
-		$smarty->assign('message', $langs["langActiveSuccess"]);
+		$message = $langs["langActiveSuccess"];
 	}
 	else
 	{
-		$smarty->assign('message', $langs["langActiveError"]);
+		$message = $langs["langActiveError"];
 	}
 }
+
+$smarty->assign('message', $message); 
 ?>

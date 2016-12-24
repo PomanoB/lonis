@@ -80,6 +80,7 @@ $parseRules = array(
 	
 	"/^players\/(.*)?(\/page([0-9]+))?/" => "index.php?action=players&search=%1%&page=%3%",	
 	
+	"/^achiev_players(\/page([0-9]+))?/" => "index.php?action=achiev_players&page=%2%",
 	"/^achiev\/players(\/page([0-9]+))?/" => "index.php?action=achiev_players&page=%2%",	
 	"/^achiev?(\/page([0-9]+))?(\/)?(.*)?/" => "index.php?action=achiev&page=%2%&aname=%4%",
 	"/^(.*)\/achiev?(\/page([0-9]+))?/" => "index.php?action=achiev&name=%1%&page=%3%",

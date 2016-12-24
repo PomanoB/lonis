@@ -1,4 +1,7 @@
 <?php
+$message = "";
+$addFlags = array();
+		
 if (isset($_SESSION["user_$cookieKey"]))
 {
     if (isset($_POST["name"]) && $_POST["name"] != '')
@@ -34,7 +37,7 @@ if (isset($_SESSION["user_$cookieKey"]))
 			if ($auth > 1) $auth = 0;
 		}
 		
-        $addFlag = '';
+		$addFlag = "";
 		foreach($additional_flags as $key => $value) {
 			if (isset($_POST[$key])) $addFlag .= $value;
 		}
@@ -56,14 +59,13 @@ if (isset($_SESSION["user_$cookieKey"]))
 				WHERE `id` = ". $_SESSION["user_$cookieKey"]["id"];
 		}
 		if (mysqli_query($db, $update_sql))
-			$smarty->assign('message', $langs["langDataUpdated"]);
+			$message = $langs["langDataUpdated"];
 		else
-			$smarty->assign('message', $langs["langAlreadyUsed"]);     
+			$message = $langs["langAlreadyUsed"];     
     }
     else
     {   
 	
-		$addFlags = array();
 		$i = 0;
 		foreach($additional_flags as $key => $value)
 		{
@@ -72,11 +74,15 @@ if (isset($_SESSION["user_$cookieKey"]))
 			$addFlags[$i]["checked"] = (strstr($_SESSION["user_$cookieKey"]["amxx_flags"], $value) == FALSE ? 0 : 1);
 			$i++;
 		}
-		$smarty->assign('addFlags', $addFlags);
+		
+
 	}
 }
 else
 {
-    $smarty->assign('message', $langs["langMustLogin"]);
+    $message = $langs["langMustLogin"];
 }
+
+$smarty->assign('addFlags', $addFlags);
+$smarty->assign('message', $message);
 ?>

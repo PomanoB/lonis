@@ -1,8 +1,8 @@
 {* /%name%/achiev/ *}
 {capture name=player_achive}
-			<h2>{$langAchievs}</h2>
+			<h2>{$lang_achiev}</h2>
 			<div style="padding:10px;">
-				<p><h1>{$langAchievsPlayer} {$playerName|escape}</h1><br>
+				<p><h1>{*{$langAchievsPlayer}*} {$playerName|escape}</h1>
 				
 				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}<br>
 				
@@ -19,7 +19,7 @@
 						</div>
 						<span class="progress_counter">{$achiev.progress}/{$achiev.count}</span>
 					</div>
-		{elseif $achiev.unlocked}
+		{elseif isset($achiev.unlocked)}
 					<div class="unlocekd_time">
 						{$langAchievsUnlocked}{$achiev.unlocked|date_format:"%d.%m.%Y %H:%M"}
 					</div>
@@ -34,8 +34,8 @@
 {capture name=achive}
 			<p><h2>{$lang_achiev} :: {$aname|replace:"_":" "}</h2>
 			<div style="padding:10px;">
-				<span>{$lang_achievsPlayer} {$playerName}</span>
 				
+				{if isset($achievs)}
 				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}<br>
 				
 				{foreach from=$achievs item=achiev}
@@ -54,13 +54,13 @@
 						{/if}
 					</div>
 				{/foreach}
+				{/if}
 			</div>
 {/capture}
 
 {* /achiev *}
 {capture name=achive_list}			
-			<p><h2>{$lang_achiev}</h2>
-				<span>{$lang_achievs} </span><br />
+				<p><h2>{$lang_achiev}</h2>
 				
 				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}<br>
 				

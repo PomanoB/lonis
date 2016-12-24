@@ -31,7 +31,7 @@
 					</tr>
 				</form>
 					<tr class="title">
-						<td>{$lang_player}</td>
+						<td>{$langPlayer}</td>
 						<td>{$langPassword}</td>
 						<td>{$langEmail}</td>
 						<td>{$langActive}</td>
@@ -40,20 +40,6 @@
 					</tr>
 				{foreach from=$players item=player}
 					<form action="{$baseUrl}/admin_players/page{$page}" method="post" name="achiev_admin">
-					{if $player.name=="admin"}
-					<tr class="list">
-						<td><b>{$player.name}</b></td>
-						<td><input name="password" type="text" class="col2" /></td>
-						<td><input name="email" type="text" class="col3" value="{$player.email}"/></td>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-						
-						<td align="center">
-							<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="edit" alt="{$langUpdate}">
-							<input name="id" type="hidden" value="{$player.id}" />
-						</td>
-					</tr>
-					{else}	
 					<tr class="list">
 						<td><input name="name" type="text" class="col1" value="{$player.name}"/></td>
 						<td><input name="password" type="text" class="col2" /></td>
@@ -70,8 +56,7 @@
 
 						</td>
 					</tr>
-					{/if}
-				</form>
+					</form>
 				{/foreach}
 				</table>
 			</div>

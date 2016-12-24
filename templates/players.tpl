@@ -16,7 +16,7 @@
 			<div>
 				<table class="table-list">
 					<tr class="title">
-						<td>{$lang_player}</td>
+						<td>{$langPlayer}</td>
 						<td>{$langCountry}</td>
 						<td>{$lang_achiev}</td>
 						<td>{$langKzStats}</td>

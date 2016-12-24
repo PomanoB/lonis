@@ -50,7 +50,7 @@ $action = isset($_GET["action"]) && $_GET["action"]!="" ? $_GET["action"] : $men
 // Smarty
 $smarty = new Smarty_unr();
 
-$smarty->error_reporting = E_ALL & ~E_NOTICE;
+//$smarty->error_reporting = E_ALL & ~E_NOTICE;
 
 $config_dir = $smarty->getConfigDir();
 
@@ -167,7 +167,6 @@ if(isset($_POST["cs"])) {
 }
 
 if($cs) {
-	$smarty->assign('cs', $cs);
 	$_SESSION["unr_theme_$cookieKey"] = $cstheme;
 	$menu = $menuCS;
 }
@@ -175,9 +174,11 @@ if($cs) {
 if (isset($_SESSION["unr_theme_$cookieKey"]))
 	$theme = $_SESSION["unr_theme_$cookieKey"];
 
+$smarty->assign('cs', $cs);
 $smarty->assign('theme', $theme);
 
 // Select Player
+$webadmin = 0;
 if (isset($_SESSION["user_$cookieKey"]["id"]) && $action!="setup") {
 	"SELECT * FROM `unr_players` WHERE `id`= ".$_SESSION["user_$cookieKey"]["id"];
 	$r = mysqli_query($db, "SELECT * FROM `unr_players` WHERE `id`= ".$_SESSION["user_$cookieKey"]["id"]);
@@ -186,7 +187,7 @@ if (isset($_SESSION["user_$cookieKey"]["id"]) && $action!="setup") {
 			$_SESSION["user_$cookieKey"][$key] = $value;
 		}
 		
-		if($row["webadmin"]==1) $smarty->assign('webadmin', 1);
+		if($row["webadmin"]==1) $webadmin = 1;
 		
 		$smarty->assign('user', $_SESSION["user_$cookieKey"]);
 		
@@ -196,6 +197,8 @@ if (isset($_SESSION["user_$cookieKey"]["id"]) && $action!="setup") {
 	
 	$menu = $menuLogged;
 }
+
+$smarty->assign('webadmin', $webadmin);
 
 // Get name from DB
 if (isset($_GET["name"])) {

@@ -24,8 +24,7 @@ $smarty->assign('totalPages', $totalPages);
 	
 $players = array();
 
-if ($total)
-{	
+if ($total) {	
 	$start = ($page - 1) * $playerPerPage;
 
 	$q = "SELECT * FROM (SELECT `id` AS `plid`, `name`, 
@@ -40,5 +39,6 @@ if ($total)
 		$players[] = $row;
 	}
 }
+
 $smarty->assign('players', $players);
 ?>

@@ -72,8 +72,7 @@ if ($total) {
 		$players[] = $row;
 	}
 }
-$smarty->assign('players', $players);
-$template = 'players.tpl';
 
+$smarty->assign('players', $players);
 
 ?>

@@ -32,7 +32,7 @@
 					</tr>
 		{foreach from=$maps item=map}
 					<tr class="list">
-						<td><a href="{$baseUrl}/kreedz/{$map.mapname}">{$map.map}</a></td>
+						<td><a href="{$baseUrl}/kreedz/{$map.map}">{$map.map}</a></td>
 						{*<td class="th_numeric">{$map.timerec} {$map.plrrec} {$map.country}</td>*}
 					</tr>
 		{/foreach}
@@ -53,7 +53,7 @@
 					<tr class="title">
 						<td>{$langMap}</td>
 						<td>{$langWorldRecord}</td>
-						<td>{$lang_player}</td>
+						<td>{$langPlayer}</td>
 						<td>{$langTime}</td>
 						<td>{$langCp}</td>
 						<td>{$langGoCp}</td>

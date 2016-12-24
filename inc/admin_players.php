@@ -3,6 +3,8 @@ if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webad
 	header('Location: '.$baseUrl);
 }
 
+$message = "";
+
 $act = isset($_POST["act"]) ? $_POST["act"] : "";	
 
 if ($act == "edit") {
@@ -33,10 +35,10 @@ if ($act == "edit") {
 		WHERE `id` = $id";
 		mysqli_query($db, $q);
 		
-		$smarty->assign('message', $langs["langSaved"]);
+		$message = $langs["langSaved"];
 	}
 	else
-		$smarty->assign('message', $langs["langError"]);
+		$message = $langs["langError"];
 }		
 else
 if ($act == "add") {
@@ -64,14 +66,14 @@ if ($act == "add") {
 			$q = "INSERT INTO `unr_players` (`name`, `password`, `email`, `active`, `webadmin`) VALUES ('$name', '$password', '$email', '$active', '$webadmin')";
 			mysqli_query($db, $q);
 			
-			$smarty->assign('message', $langs["langSaved"]);
+			$message = $langs["langSaved"];
 			
 			$search = $name;
 		}
 
 	}
 	else
-		$smarty->assign('message', $langs["langError"]);
+		$message = $langs["langError"];
 }
 else
 if ($act == "delete") {
@@ -82,7 +84,7 @@ if ($act == "delete") {
 		mysqli_query($db, $q);
 	}
 	else
-		$smarty->assign('message', $langs["langConfirm"]);
+		$message = $langs["langConfirm"];
 }
 
 if (isset($_REQUEST["search"]) && $_REQUEST["search"] != '')
@@ -104,6 +106,8 @@ else
 	$where = '';
 	$smarty->assign('pageUrl', "$baseUrl/admin_players/page%page%");
 }
+
+$smarty->assign('message', $message); 
 
 $q = "SELECT COUNT(*) FROM `unr_players` $where";
 $r = mysqli_query($db, $q);

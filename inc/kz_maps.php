@@ -1,4 +1,5 @@
 <?php
+$message = "";
 if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1) {
 	$act = isset($_POST["act"]) ? $_POST["act"] : "";
 	
@@ -10,7 +11,7 @@ if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmi
 			mysqli_query($db, $q);
 		}
 		else
-			$smarty->assign('message', $langs["langConfirm"]);
+			$message = $langs["langConfirm"];;
 	}
 }
 
@@ -106,10 +107,11 @@ if ($total)
 		}
 	}
 }
-$smarty->assign('maps', $maps);
 
+$smarty->assign('message', $message);
+$smarty->assign('maps', $maps);
 $smarty->assign('page', $page);
 $smarty->assign('totalPages', $totalPages);
-$smarty->assign('pageUrl', "$baseUrl/kreedz/$type/page%page%/$rec");
+$smarty->assign('pageUrl', "$baseUrl/kreedz//$type/page%page%/$rec");
 	
 ?>
