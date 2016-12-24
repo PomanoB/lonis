@@ -1,6 +1,6 @@
 <?php
 
-include 'smarty/Smarty.class.php';
+include 'smarty3/Smarty.class.php';
 
 class Smarty_unr extends Smarty
 {
@@ -14,9 +14,9 @@ class Smarty_unr extends Smarty
 		}
 
 		$this->template_dir = 'templates/';
-		$this->compile_dir = 'smarty/templates_c/';
+		$this->compile_dir = 'smarty3/templates_c/';
 		$this->config_dir = 'config';
-		$this->cache_dir = 'smarty/cache/';
+		$this->cache_dir = 'smarty3/cache/';
 	}
 }
 

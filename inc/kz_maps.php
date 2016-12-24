@@ -45,7 +45,7 @@ $typesLang = array(
 );	
 	
 $smarty->assign('type', $type);
-$smarty->assign('langType', $smarty->get_config_vars($typesLang[$type]));
+$smarty->assign('langType', $langs[$typesLang[$type]]);
 
 $recs = array(
 	'norec' => 'AND',

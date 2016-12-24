@@ -52,7 +52,7 @@
 	{/if}
 	
 	<div class="head_bg">
-		<div style="float:right;"><img src="{$baseUrl}/img/cake/{php}echo ''.mt_rand(1, 5).'.';{/php}png" alt="" border="0" /></div>
+		<div style="float:right;"><img src="{$baseUrl}/img/cake/{$cake}.png" alt="" border="0" /></div>
 	</div>
 	<div class="majic">
 		<div id="page" style="border-radius: 20px;">

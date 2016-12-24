@@ -15,7 +15,7 @@ $type = 'all';
 if (isset($_GET["type"]) && isset($types[$_GET["type"]])) $type = $_GET["type"];
 
 $smarty->assign('type', $type);
-$smarty->assign('langType', $smarty->get_config_vars($typesLang[$type]));
+$smarty->assign('langType', $langs[$typesLang[$type]]);
 
 $sort = 'num';
 if (isset($_GET["sort"])) $sort = $_GET["sort"];

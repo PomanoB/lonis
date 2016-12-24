@@ -68,7 +68,7 @@ if (isset($_SESSION["user_$cookieKey"]))
 		foreach($additional_flags as $key => $value)
 		{
 			$addFlags[$i]["flag"] = $key;
-			$addFlags[$i]["lang"] = $smarty->get_config_vars($key);
+			$addFlags[$i]["lang"] = $lang;
 			$addFlags[$i]["checked"] = (strstr($_SESSION["user_$cookieKey"]["amxx_flags"], $value) == FALSE ? 0 : 1);
 			$i++;
 		}

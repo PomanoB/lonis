@@ -49,10 +49,13 @@ $action = isset($_GET["action"]) && $_GET["action"]!="" ? $_GET["action"] : $men
 
 // Smarty
 $smarty = new Smarty_unr();
-$config_dir = $smarty->config_dir;
+
+$smarty->error_reporting = E_ALL & ~E_NOTICE;
+
+$config_dir = $smarty->getConfigDir();
 
 // Read setting from config file or create default
-$config_path = $config_dir.'/'.$config_file;
+$config_path = $config_dir[0].'/'.$config_file;
 if(file_exists($config_path)) {
 	$conf = array_replace($dconf, parse_ini_file($config_path));
 	foreach($conf as $key=>$value) {
@@ -248,14 +251,14 @@ $smarty->assign('baseUrl', $baseUrl);
 if(isset($langs["lang_$action"]))
 	$smarty->assign('langAction', $langs["lang_$action"]);
 
+$smarty->assign('cake', mt_rand(1, 5));
+
 // Template
 $smarty->display("index.tpl");
 
 // Last URL
 $_SESSION["lastUrl_$cookieKey"] = $baseUrl;
 
-$smarty->clear_all_cache();
-$smarty->clear_all_assign();
 unset($_GLOBALS);
 unset($_GET);
 unset($_POST);

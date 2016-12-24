@@ -41,7 +41,7 @@ else {
 		$type = $_GET["type"];
 	
 	$smarty->assign('type', $type);
-	$smarty->assign('langType', $smarty->get_config_vars($typesLang[$type]));
+	$smarty->assign('langType', $langs[$typesLang[$type]]);
 	
 	$players = array();
 	$mapcomm = array();
