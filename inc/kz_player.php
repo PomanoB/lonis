@@ -31,8 +31,8 @@ $plr = (isset($_GET["id"]) && ($id = abs((int)$_GET["id"]))) || (isset($playerId
 if($plr) {
 	$map_num = 0;
 	$q = "SELECT COUNT(DISTINCT `map`) AS `records` FROM `kz_map_top` WHERE `player`=$id {$types[$type]} GROUP BY `player`";	
-	$r = mysql_query($q);
-	while($row = mysql_fetch_array($r))
+	$r = mysqli_query($db, $q);
+	while($row = mysqli_fetch_array($r))
 	{
 		$map_num = $row["records"];
 	}
@@ -40,17 +40,17 @@ if($plr) {
 
 	$map_top1 = 0;
 	$q = "SELECT COUNT(DISTINCT `map`) AS `records` FROM `kz_map_top1` WHERE `player`=$id {$types[$type]} GROUP BY `player`";
-	$r = mysql_query($q);
-	while($row = mysql_fetch_array($r))
+	$r = mysqli_query($db, $q);
+	while($row = mysqli_fetch_array($r))
 	{
 		$map_top1 = $row["records"];
 	}
 	$smarty->assign('map_top1', $map_top1);	
 
 	$q = "SELECT `name` FROM `unr_players` WHERE `id` = $id";
-	$r = mysql_query($q);
+	$r = mysqli_query($db, $q);
 
-	if($name = mysql_result($r, 0))
+	if($name = mysqli_result($r, 0))
 	{
 		$smarty->assign('name', $name);
 		$smarty->assign('id', $id);
@@ -61,9 +61,9 @@ if($plr) {
 		else {
 			$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `player` = $id {$types[$type]}";
 		}
-		$r = mysql_query($q);
+		$r = mysqli_query($db, $q);
 
-		$total = mysql_result($r, 0);
+		$total = mysqli_result($r, 0);
 		$smarty->assign('total', $total);
 		
 		if (isset($_GET["page"]))
@@ -87,18 +87,18 @@ if($plr) {
 			$q = "SELECT * FROM `kz_norec` WHERE `player` <> 1 AND `player` = 0 LIMIT $start, $mapsPerPage";
 			
 			$maps = array();
-			$r = mysql_query($q);
-			while($row = mysql_fetch_array($r)) {
+			$r = mysqli_query($db, $q);
+			while($row = mysqli_fetch_array($r)) {
 				$maps[] = $row;
 			}
 		}
 		else {
 			$q = "SELECT * FROM `kz_map_tops` WHERE `player` = {$id} {$types[$type]} ORDER BY `map` LIMIT $start, $mapsPerPage";
 
-			$r = mysql_query($q);
+			$r = mysqli_query($db, $q);
 			
 			$maps = array();
-			while($row = mysql_fetch_array($r))
+			while($row = mysqli_fetch_array($r))
 			{
 				$row["time"] = timed($row["time"], 5);
 				$row["timerec"] = timed($row["timerec"], 2);

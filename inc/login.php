@@ -20,16 +20,16 @@ if (isset($_POST["reg_nick"]) && isset($_POST["reg_password"])) {
 	}
 	
 	$password = md5($password);
-	$r = mysql_query("SELECT * FROM `unr_players` WHERE `name`= '$nick' AND `password` = '$password' AND `active`=1");
-	if ($row = mysql_fetch_assoc($r)) {
+	$r = mysqli_query($db, "SELECT * FROM `unr_players` WHERE `name`= '$nick' AND `password` = '$password' AND `active`=1");
+	if ($row = mysqli_fetch_assoc($r)) {
 		$_SESSION["user_$cookieKey"] = $row;
 		//$loc = isset($_SESSION["last_url_$cookieKey"]) ? $_SESSION["last_url"] : $baseUrl;
 		header("Location: $baseUrl/ucp");
 	}
 	else {
 		echo $player = $row["player"];
-		$r = mysql_query("SELECT * FROM `unr_activate` WHERE `player`= '$player'");
-		if ($row = mysql_fetch_array($r)) {
+		$r = mysqli_query($db, "SELECT * FROM `unr_activate` WHERE `player`= '$player'");
+		if ($row = mysqli_fetch_array($r)) {
 			$smarty->assign('message', $langs["langInActive"]);
 		}
 		else {

@@ -35,18 +35,41 @@ CREATE TABLE `servers_lang` (
 
 DROP TABLE IF EXISTS `weapons`;
 CREATE TABLE `weapons` (
-  `id` int(10) unsigned DEFAULT NULL,
+  `id` int(10) unsigned DEFAULT NOT NULL,
   `name` varchar(16) NOT NULL,
   `fullname` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-DROP TABLE IF EXISTS `lang`;
 CREATE TABLE `lang` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `lang` varchar(2) NOT NULL,
+  `name` varchar(16) NOT NULL,
+  `default` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+DROP TABLE IF EXISTS `langs`;
+CREATE TABLE `langs` (
   `lang` varchar(2) NOT NULL,
   `var` varchar(64) NOT NULL,
   `value` varchar(256) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+CREATE TABLE `themes` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `theme` VARCHAR(8),
+  `default` TINYINT(1) DEFAULT '0',
+   `cs` TINYINT(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8
+
+CREATE TABLE `themes_lang` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `themesid` int(10) NOT NULL,
+  `lang` varchar(2) NOT NULL,
+  `name` varchar(16) NOT NULL,
+  KEY `id` (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8
 
 DROP TABLE IF EXISTS `kz_duel`;
 CREATE TABLE `kz_duel` (

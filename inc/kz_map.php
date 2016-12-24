@@ -7,7 +7,7 @@ if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmi
 			$id = $_POST["id"];
 			
 			$q = "DELETE FROM `kz_map_top` WHERE `id`= $id";
-			mysql_query($q);
+			mysqli_query($db, $q);
 		}
 		else
 			$smarty->assign('message', $langs["langConfirm"]);
@@ -48,8 +48,8 @@ else {
 	$maprec = array();
 
 	$q = "SELECT * FROM `kz_map_rec` WHERE `mapname` = '$map' ORDER BY `mappath`";	
-	$r = mysql_query($q);
-	while($row = mysql_fetch_array($r)) {		
+	$r = mysqli_query($db, $q);
+	while($row = mysqli_fetch_array($r)) {		
 		$row["time"] = timed($row["time"], 2);
 		
 		$maprec[] = $row;		
@@ -70,8 +70,8 @@ else {
 	}
 	
 	$q = "SELECT * FROM `kz_map_comm` WHERE `mapname` = '$map' ORDER BY `mappath`";	
-	$r = mysql_query($q);
-	while($row = mysql_fetch_array($r)) {		
+	$r = mysqli_query($db, $q);
+	while($row = mysqli_fetch_array($r)) {		
 		$row["time"] = timed($row["time"], 2);
 		
 		$mapcomm[] = $row;		
@@ -79,8 +79,8 @@ else {
 	$smarty->assign('mapcomm', $mapcomm);
 
 	$q = "SELECT COUNT(DISTINCT `player`) FROM `kz_map_top` WHERE `map` = '$map' {$types[$type]}";	
-	$r = mysql_query($q);
-	$total = mysql_result($r, 0);
+	$r = mysqli_query($db, $q);
+	$total = mysqli_result($r, 0);
 	$smarty->assign('total', $total);
 	$smarty->assign('mapname', stripslashes($map));
 	
@@ -103,9 +103,9 @@ else {
 					(`kz_map_top` LEFT JOIN `unr_players` ON `unr_players`.`id` = `player`)
 					WHERE `map` = '$map' {$types[$type]} 
 					GROUP BY `player` ORDER BY `time` LIMIT $start, $playersPerPage";
-		$r = mysql_query($q);
+		$r = mysqli_query($db, $q);
 		$i = ($page - 1)*$playersPerPage + 1;
-		while($row = mysql_fetch_array($r)) {
+		while($row = mysqli_fetch_array($r)) {
 			$row["time"] = timed($row["time"], 5);
 			
 			$row["number"] = $i++;

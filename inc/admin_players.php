@@ -31,7 +31,7 @@ if ($act == "edit") {
 		$q = "UPDATE `unr_players` 
 		SET `name` = '$name',{$setpass} `email` = '$email', `active` = '$active', `webadmin` = '$webadmin'
 		WHERE `id` = $id";
-		mysql_query($q);
+		mysqli_query($db, $q);
 		
 		$smarty->assign('message', $langs["langSaved"]);
 	}
@@ -55,14 +55,14 @@ if ($act == "add") {
 	$webadmin = isset($_POST["webadmin"]) ? 1 : 0;
 		
 	if (strlen($name) > 0 && $password != "") {
-		$r = mysql_query("SELECT * FROM unr_players WHERE `name` = '$name'");
-		if ($row = mysql_fetch_assoc($r)) {
+		$r = mysqli_query($db, "SELECT * FROM unr_players WHERE `name` = '$name'");
+		if ($row = mysqli_fetch_assoc($r)) {
 			$smarty->assign('message', $langs["langAlreadyUsed"]);
 		}
 		else {
 			$password = md5($password);
 			$q = "INSERT INTO `unr_players` (`name`, `password`, `email`, `active`, `webadmin`) VALUES ('$name', '$password', '$email', '$active', '$webadmin')";
-			mysql_query($q);
+			mysqli_query($db, $q);
 			
 			$smarty->assign('message', $langs["langSaved"]);
 			
@@ -79,7 +79,7 @@ if ($act == "delete") {
 		$id = $_POST["id"];
 		
 		$q = "DELETE FROM `unr_players` WHERE `id`= $id";
-		mysql_query($q);
+		mysqli_query($db, $q);
 	}
 	else
 		$smarty->assign('message', $langs["langConfirm"]);
@@ -106,9 +106,9 @@ else
 }
 
 $q = "SELECT COUNT(*) FROM `unr_players` $where";
-$r = mysql_query($q);
+$r = mysqli_query($db, $q);
 
-$total = mysql_result($r, 0);
+$total = mysqli_result($r, 0);
 
 if (isset($_GET["page"]))
 	$page = abs((int)$_GET["page"]);
@@ -132,8 +132,8 @@ if ($total)
 
 	$q = "SELECT * FROM `unr_players` $where ORDER BY `name` LIMIT $start, $playerPerPage";
 
-	$r = mysql_query($q);
-	while($row = mysql_fetch_array($r))
+	$r = mysqli_query($db, $q);
+	while($row = mysqli_fetch_array($r))
 	{
 
 			

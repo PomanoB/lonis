@@ -3,9 +3,9 @@
 $smarty->assign('pageUrl', "$baseUrl/achiev/players/page%page%");
 
 $q = "SELECT COUNT(DISTINCT `playerId`) FROM `unr_achiev`, `unr_players_achiev` WHERE `achievId` = `id` AND `count` = `progress`";
-$r = mysql_query($q);
+$r = mysqli_query($db, $q);
 
-$total = mysql_result($r, 0);
+$total = mysqli_result($r, 0);
 
 if (isset($_GET["page"]))
 	$page = abs((int)$_GET["page"]);
@@ -34,8 +34,8 @@ if ($total)
 		FROM `unr_players`) AS `tmp34` WHERE `achiev_total` > 0 ORDER BY `achiev_total` DESC LIMIT $start, $playerPerPage";
 
 
-	$r = mysql_query($q);
-	while($row = mysql_fetch_array($r))
+	$r = mysqli_query($db, $q);
+	while($row = mysqli_fetch_array($r))
 	{
 		$players[] = $row;
 	}

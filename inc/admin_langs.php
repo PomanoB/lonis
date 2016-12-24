@@ -5,8 +5,8 @@ if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webad
 
 $act = isset($_POST["act"]) ? $_POST["act"] : "";	
 // Get languages
-$r = mysql_query("SELECT `lang` FROM `lang` GROUP BY `lang` ORDER BY `lang`");
-while($row = mysql_fetch_array($r)) {
+$r = mysqli_query($db, "SELECT `lang` FROM `langs` GROUP BY `lang` ORDER BY `lang`");
+while($row = mysqli_fetch_array($r)) {
 	$lang_list[] = $row["lang"];
 }
 
@@ -18,15 +18,15 @@ if ($act == "add") {
 	$value = get_magic_quotes_gpc() ? $_POST["value"] : addslashes($_POST["value"]);
 	
 	if($langkey && $var && $value) {
-		$q = "INSERT INTO `lang` (`lang`, `var`, `value`) VALUES ";
+		$q = "INSERT INTO `langs` (`lang`, `var`, `value`) VALUES ";
 		foreach($lang_list as $key=>$v) {
 			$delim = $key==(count($lang_list)-1) ? "" : ",";
 			$q .= "('$v', '$var', '')".$delim;
 		};
-		mysql_query($q);
+		mysqli_query($db, $q);
 		
-		$q = "UPDATE `lang` SET `value` = '$value' WHERE `lang` = '$langkey' AND `var` = '$var'";
-		mysql_query($q);	
+		$q = "UPDATE `langs` SET `value` = '$value' WHERE `lang` = '$langkey' AND `var` = '$var'";
+		mysqli_query($db, $q);	
 	}
 	else
 		$smarty->assign('message', $langs["langError"]);
@@ -39,8 +39,8 @@ if ($act == "edit") {
 		if(strpos("_$key", $var)) {
 			$langkey = str_replace($var."_", "", $key);
 			$value = get_magic_quotes_gpc() ? $value : addslashes($value);
-				$q = "UPDATE `lang` SET `value` = '$value' WHERE `lang` = '$langkey' AND `var` = '$var'";
-				mysql_query($q);
+				$q = "UPDATE `langs` SET `value` = '$value' WHERE `lang` = '$langkey' AND `var` = '$var'";
+				mysqli_query($db, $q);
 		
 		}
 	}
@@ -49,8 +49,8 @@ else
 if ($act == "delete") {
 	if(isset($_POST["confirm"]) && $_POST["confirm"]==1) {
 		$var = get_magic_quotes_gpc() ? $_POST["var"] : addslashes($_POST["var"]);	
-		$q = "DELETE FROM `lang` WHERE `var` = '$var'";
-		mysql_query($q);
+		$q = "DELETE FROM `langs` WHERE `var` = '$var'";
+		mysqli_query($db, $q);
 	}
 	else {
 		$message = "<script>alert('".$langs["langConfirm"]."');</script>";
@@ -59,8 +59,8 @@ if ($act == "delete") {
 }
 
 // Get language list
-$r = mysql_query("SELECT * FROM `lang` ORDER BY `lang`");
-while($row = mysql_fetch_array($r)) {
+$r = mysqli_query($db, "SELECT * FROM `langs` ORDER BY `lang`");
+while($row = mysqli_fetch_array($r)) {
 	$dblangs[$row["lang"]][$row["var"]] = $row["value"];
 }	
 

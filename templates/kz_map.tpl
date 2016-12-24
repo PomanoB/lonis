@@ -2,7 +2,7 @@
 				<div class="titles left_block">{$langMap} {$mapname|escape:html}</div>
 
 				<div class="right_block" align="center">
-					<img src="{$imgmap}" onerror="this.src='{$baseUrl}/img/maps/noimage.png'" /><br>
+					<img src="{$imgmap}" onerror="this.src='{$baseUrl}/img/noimage.png'" /><br>
 					<a href="{$downmap}" alt="{$langDownload} {$mapname}">{$langDownload}</a>
 					<p>
 				</div>

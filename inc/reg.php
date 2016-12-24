@@ -25,12 +25,12 @@ if (isset($_POST["reg_nick"]) && isset($_POST["reg_password"]))
 		
 	if (count($errors) == 0) {
 		$password = md5($password);
-		$r = mysql_query("SELECT * FROM `unr_players` WHERE `name`= '$nick' AND `password` = '$password' AND `email` = '$mail'");	
-		if (!$row = mysql_fetch_assoc($r)) {	
+		$r = mysqli_query($db, "SELECT * FROM `unr_players` WHERE `name`= '$nick' AND `password` = '$password' AND `email` = '$mail'");	
+		if (!$row = mysqli_fetch_assoc($r)) {	
 			$time = time();
 			$key = md5($nick.$time.'magic_word');
 			$player = mysql_insert_id();
-			mysql_query("INSERT INTO `unr_activate` SET `player`= '$player', `key` = '$key', `time` = '$time'");
+			mysqli_query($db, "INSERT INTO `unr_activate` SET `player`= '$player', `key` = '$key', `time` = '$time'");
 			
 			$langActiveMail = $langs["langActiveMail"];
 			
@@ -38,7 +38,7 @@ if (isset($_POST["reg_nick"]) && isset($_POST["reg_password"]))
 				$smarty->assign('message', $langs["lang_sendMailError"]);
 			}
 			else {
-				mysql_query("INSERT INTO `unr_players` SET `name`= '$nick', `password` = '$password', `email` = '$mail'");	
+				mysqli_query($db, "INSERT INTO `unr_players` SET `name`= '$nick', `password` = '$password', `email` = '$mail'");	
 				$smarty->assign('message', $langs["lang_regSuccess"]);
 			}
 		}
@@ -60,13 +60,13 @@ if (isset($_GET["key"]) && $_GET["key"] != '')
 	else
 		$key =  addslashes($_GET["key"]);
 	
-	$r = mysql_query("SELECT * FROM `unr_activate` WHERE `key`= '$key' AND `time` + $activateTime > UNIX_TIMESTAMP()");
-	if ($row = mysql_fetch_array($r))
+	$r = mysqli_query($db, "SELECT * FROM `unr_activate` WHERE `key`= '$key' AND `time` + $activateTime > UNIX_TIMESTAMP()");
+	if ($row = mysqli_fetch_array($r))
 	{
 		$id = $row["id"];
 		$player = $row["player"];
-		mysql_query("UPDATE `unr_players` SET `active` = 1 WHERE `id` = $player");
-		mysql_query("DELETE FROM `unr_activate` WHERE `id` = $id");
+		mysqli_query($db, "UPDATE `unr_players` SET `active` = 1 WHERE `id` = $player");
+		mysqli_query($db, "DELETE FROM `unr_activate` WHERE `id` = $id");
 		
 		$smarty->assign('message', $langs["langActiveSuccess"]);
 	}

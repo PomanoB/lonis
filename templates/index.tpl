@@ -13,14 +13,11 @@
 	</head>
 	
 	<body>
+	{if $action!="setup"}
 	<div id="network">
 		<div class="center-wrapper">
 			<div class="tabbed" id="menu-tabs">
 				<div class="menu">
-					<text class="item">
-
-					</text>
-					
 				{foreach from=$menulist key=keyey item=i}
 					<text class="item">
 						<a title="{$i.name}" href="{$baseUrl}{$i.url}">
@@ -52,12 +49,8 @@
 		</div>
 		<div class="clearer">&nbsp;</div>
 	</div>
-<!--	{if $user.webadmin == 1}
-		<div id="adminmenu">
-			Админцентр:
-			<a href="achiev_admin">{$lang_achiev_admin}</a>
-		</div>
-	{/if} -->
+	{/if}
+	
 	<div class="head_bg">
 		<div style="float:right;"><img src="{$baseUrl}/img/cake/{php}echo ''.mt_rand(1, 5).'.';{/php}png" alt="" border="0" /></div>
 	</div>
@@ -78,7 +71,8 @@
 					{/foreach}				
 				</div>
 				<div class="right_block">
-				{if !isset($cs)}
+				{if $conn}
+					{if !$cs}
 					<form method="post" id="customForm" style="padding:7px 8px 0 0; margin:0; display:inline;" action="">
 						<img src="{$baseUrl}/img/country/{$lang}.png">
 						<select id="lang" name="lang" onchange="document.getElementById('customForm').submit();">
@@ -95,11 +89,8 @@
 						{/foreach}
 						</select>
 					</form>
-				{else}
-					{foreach from=$menu_footer key=key item=href}
-						<a href="#" style="margin-left:50px;" target="_blank">{$key}</a>
-					{/foreach}
-				{/if}	
+					{/if}
+				{/if}
 				</div>
 			</div>
 			<br><br>

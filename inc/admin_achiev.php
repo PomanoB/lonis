@@ -35,7 +35,7 @@ if ($act == "edit") {
 			FROM `unr_achiev`, `unr_players_achiev` 
 			WHERE `unr_achiev`.`id` = $id AND `unr_players_achiev`.`achievId` = $id";
 	}
-	mysql_query($q);
+	mysqli_query($db, $q);
 }
 else
 if ($act == "add") {
@@ -52,12 +52,12 @@ if ($act == "add") {
 	
 	$q = "INSERT INTO `unr_achiev` (`count`, `type`) VALUES ($count, '$type')";
 
-	if(mysql_query($q)) {
+	if(mysqli_query($db, $q)) {
 		$insert = mysql_insert_id();
-		mysql_query("INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'name', 'ru')");
-		mysql_query("INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'desc', 'ru')");
-		mysql_query("INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'name', 'en')");
-		mysql_query("INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'desc', 'en')");
+		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'name', 'ru')");
+		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'desc', 'ru')");
+		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'name', 'en')");
+		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'desc', 'en')");
 	}
 }
 else
@@ -66,10 +66,10 @@ if ($act == "delete") {
 		$id = $_POST["id"];
 		
 		$q = "DELETE FROM `unr_achiev` WHERE `id`= $id";
-		mysql_query($q);
+		mysqli_query($db, $q);
 		
 		$q = "DELETE FROM `unr_achiev_lang` WHERE `achievid` = $id";
-		mysql_query($q);
+		mysqli_query($db, $q);
 	}
 	else
 		$smarty->assign('message', $langs["langConfirm"]);
@@ -85,15 +85,15 @@ if ($act == "editlang") {
 	$lid = $_POST["lid"];
 	
 	$q = "UPDATE `unr_achiev_lang` SET `value` = '$value' WHERE `lid` = $lid";
-	mysql_query($q);
+	mysqli_query($db, $q);
 }
 
 // Achiev
 $q = "SELECT * FROM `achiev` WHERE `lang` = '$lang' ORDER BY `type`";
-$r = mysql_query($q);
+$r = mysqli_query($db, $q);
 
 $achievs = array();
-while($row = mysql_fetch_array($r))
+while($row = mysqli_fetch_array($r))
 {
 	$achievs[] = $row;
 }
@@ -103,13 +103,13 @@ $smarty->assign('achievs', $achievs);
 $q = "SELECT * FROM `unr_achiev_lang` LEFT JOIN `unr_achiev` 
 	ON `unr_achiev`.`id` = `unr_achiev_lang`.`achievid` 
 	ORDER BY `unr_achiev`.`type`, `count`, `lang`, `ltype` DESC";
-$r = mysql_query($q);
+$r = mysqli_query($db, $q);
 
 $lasttype = "";
 $lastlang = "";
 $pretype = "";
 $achievs_lang = array();
-while($row = mysql_fetch_array($r))
+while($row = mysqli_fetch_array($r))
 {
 	$type = $row['type']."_".$row['count'];
 	

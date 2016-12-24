@@ -4,7 +4,7 @@ include 'hlds.php';
 
 if(isset($_GET["addr"])) {
 	$addr = $_GET["addr"];
-	preg_match("/%22(.*)%22/", $addr, $addr);
+	preg_match('/"(.*)"/', $addr, $addr);
 	$addr = isset($addr[1]) ? $addr[1] : "" ;
 }
 else
@@ -32,9 +32,9 @@ if($addr) {
 }
 else {
 	$q = "SELECT * FROM `servers` LEFT JOIN `servers_lang` ON `servers`.`id` = `serverid` WHERE `lang`='{$lang}'";
-	$r = mysql_query($q);
+	$r = mysqli_query($db, $q);
 	
-	while($row = mysql_fetch_array($r)) {
+	while($row = mysqli_fetch_array($r)) {
 		$servers[] = $row;
 	}
 	

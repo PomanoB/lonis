@@ -9,15 +9,15 @@ if (isset($_GET["aname"]) && $_GET["aname"]!="") {
 			WHERE `lang`='{$lang}' 
 			AND (`name` = '$aname' OR `name` = REPLACE('$aname', '_', ' '))
 		LIMIT 1";
-	$r = mysql_query($q);
-	if ($row = mysql_fetch_array($r))  {
+	$r = mysqli_query($db, $q);
+	if ($row = mysqli_fetch_array($r))  {
 		$id = $row["id"];
 		$smarty->assign('achiev', $row);
 		
 		$q = "SELECT COUNT(*) FROM `achiev_aname`";	 
-		$r = mysql_query($q);
+		$r = mysqli_query($db, $q);
 		
-		$total = mysql_result($r, 0);
+		$total = mysqli_result($r, 0);
 		$smarty->assign('total', $total);
 
 		if (isset($_GET["page"]))
@@ -34,10 +34,10 @@ if (isset($_GET["aname"]) && $_GET["aname"]!="") {
 		$start = ($page - 1) * $achievPerPage;
 		
 		$q = "SELECT * FROM `achiev_aname` WHERE `aid` = $id LIMIT $start, $achievPerPage";
-		$r = mysql_query($q);
+		$r = mysqli_query($db, $q);
 		$players = array();
 		
-		while($row = mysql_fetch_array($r)) {
+		while($row = mysqli_fetch_array($r)) {
 			$players[] = $row;
 		}
 		
@@ -60,14 +60,14 @@ if (isset($_GET["plid"]) || isset($playerId)) {
 		$plId = abs((int)$_GET["plid"]);
 	
 	$q = "SELECT `name` FROM `unr_players` WHERE `id` = $plId";
-	$r = mysql_query($q);
-	if ($row = mysql_fetch_array($r))
+	$r = mysqli_query($db, $q);
+	if ($row = mysqli_fetch_array($r))
 	{
 		
 		$q = "SELECT COUNT(*) FROM `achiev` WHERE `lang`='{$lang}'";	 
-		$r = mysql_query($q);
+		$r = mysqli_query($db, $q);
 		
-		$total = mysql_result($r, 0);
+		$total = mysqli_result($r, 0);
 		$smarty->assign('total', $total);
 
 		if (isset($_GET["page"]))
@@ -94,11 +94,11 @@ if (isset($_GET["plid"]) || isset($playerId)) {
 		DESC, `progress`/`count` DESC
 		LIMIT $start, $achievPerPage";
 	
-		$r = mysql_query($q);
+		$r = mysqli_query($db, $q);
 	
 		$achievs = array();
 		
-		while($row = mysql_fetch_array($r))
+		while($row = mysqli_fetch_array($r))
 		{
 			if ($row["count"] != 1 && $row["count"] != $row["progress"])
 				$row["width"] = $row["progress"] * 100 / $row["count"];
@@ -119,9 +119,9 @@ if (isset($_GET["plid"]) || isset($playerId)) {
 }
 else {// achive_list || /achiev
 	$q = "SELECT COUNT(*) FROM `unr_achiev`"; 
-	$r = mysql_query($q);
+	$r = mysqli_query($db, $q);
 	
-	$total = mysql_result($r, 0);
+	$total = mysqli_result($r, 0);
 	$smarty->assign('total', $total);
 
 	if (isset($_GET["page"]))
@@ -138,7 +138,7 @@ else {// achive_list || /achiev
 	$start = ($page - 1) * $achievPerPage;
 		
 	$q = 'SET @playerCount := (SELECT COUNT(*) FROM `unr_players`)';
-	mysql_query($q);
+	mysqli_query($db, $q);
 	$q = "SELECT `id` AS `aId`, `name`, `description`, 
 		(SELECT COUNT(*) FROM `achiev`, `unr_players_achiev` 
 		WHERE `unr_players_achiev`.`achievId` = `achiev`.`id` 
@@ -147,11 +147,11 @@ else {// achive_list || /achiev
 		FROM `achiev` 
 		WHERE `lang`='{$lang}'		
 		ORDER BY `completed` DESC LIMIT $start, $achievPerPage";
-	$r = mysql_query($q);
+	$r = mysqli_query($db, $q);
 	
 	$achievs = array();
 		
-	while($row = mysql_fetch_array($r)) {
+	while($row = mysqli_fetch_array($r)) {
 		$row["completed"] = floor($row["completed"]*100)/100;
 		$achievs[] = $row;
 	}

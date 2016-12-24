@@ -15,9 +15,9 @@ if (isset($_GET["name"]))
 	}
 	
 	$q = "SELECT * FROM `unr_players` WHERE `name` = '$name'";
-	$r = mysql_query($q);
+	$r = mysqli_query($db, $q);
 	
-	if($info = mysql_fetch_assoc($r))
+	if($info = mysqli_fetch_assoc($r))
 		$id = $info["id"];
 }
 */
@@ -29,9 +29,9 @@ elseif (isset($_GET["id"]))
 if ($id)
 {
 	$q = "SELECT * FROM `unr_players` WHERE `id` = $id";
-	$r = mysql_query($q);
+	$r = mysqli_query($db, $q);
 	
-	if($info = mysql_fetch_assoc($r))
+	if($info = mysqli_fetch_assoc($r))
 	{
 		
 		if($ipInfo = geoip_record_by_addr($gi, $info["lastIp"]) && !is_null($ipInfo))
@@ -52,12 +52,12 @@ if ($id)
 		$info["lastTime"] = date('d.m.Y G:i:s', $info["lastTime"]);
 		
 		$q = "SELECT COUNT(*) FROM `unr_players_achiev`, `unr_achiev` WHERE `achievId` = `id` AND `count` = `progress` AND `playerId` = $id";
-		$r = mysql_query($q);
-		$info["achievCompleted"] = mysql_result($r, 0);
+		$r = mysqli_query($db, $q);
+		$info["achievCompleted"] = mysqli_result($r, 0);
 		
 		$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `player` = $id";
-		$r = mysql_query($q);
-		$info["mapCompleted"] = mysql_result($r, 0);
+		$r = mysqli_query($db, $q);
+		$info["mapCompleted"] = mysqli_result($r, 0);
 	
 		$template = 'player.tpl';
 		$smarty->assign('info', $info);

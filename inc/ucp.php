@@ -55,7 +55,7 @@ if (isset($_SESSION["user_$cookieKey"]))
 				SET `name` = '$nick', `amxx_flags` = '$addFlag', `icq` = $icq
 				WHERE `id` = ". $_SESSION["user_$cookieKey"]["id"];
 		}
-		if (mysql_query($update_sql))
+		if (mysqli_query($db, $update_sql))
 			$smarty->assign('message', $langs["langDataUpdated"]);
 		else
 			$smarty->assign('message', $langs["langAlreadyUsed"]);     

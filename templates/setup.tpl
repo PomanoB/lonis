@@ -1,5 +1,6 @@
-			<div class="title">{$lang_setup} :: {if isset($act)}
-				<a href="{$baseUrl}/setup/logout">{$lang_logout}</a>{else}{$lang_login}{/if}
+			<div class="title">
+				{$lang_setup} :: 
+				{if isset($act)}<a href="{$baseUrl}/setup/logout">{$lang_logout}</a>{else}{$lang_login}{/if}
 			</div>
 			<div class="setup_message">{$message}</div>
 				
@@ -36,8 +37,8 @@
 				
 
 				<div id="setup">
+					<form action="{$baseUrl}/setup" method="post">
 					<table class="form_login">
-						<form action="{$baseUrl}/setup" method="post">
 		{foreach from=$conflist item=conf}
 						<tr>
 							<td class="info">
@@ -118,6 +119,7 @@
 
 
 			</div>
+		</div>
 {/capture}
 
 {if !isset($act)}

@@ -21,9 +21,9 @@ else
 }
 
 $q = "SELECT COUNT(*) FROM `unr_players` $where";
-$r = mysql_query($q);
+$r = mysqli_query($db, $q);
 
-$total = mysql_result($r, 0);
+$total = mysqli_result($r, 0);
 
 if (isset($_GET["page"]))
 	$page = abs((int)$_GET["page"]);
@@ -46,8 +46,8 @@ if ($total) {
 
 	$q = "SELECT * FROM `unr_players` $where ORDER BY `name` LIMIT $start, $playerPerPage";
 
-	$r = mysql_query($q);
-	while($row = mysql_fetch_array($r))
+	$r = mysqli_query($db, $q);
+	while($row = mysqli_fetch_array($r))
 	{
 		$countryName = '';
 		$countryCode = '';

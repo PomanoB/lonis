@@ -1,4 +1,5 @@
-			<div class="title">{$lang_admin_lang}</div>
+			<center>
+			<div class="title">{$lang_admin_langs}</div>
 			<div class="error_message">{$message}</div>
 			
 			<div id="lang">				
@@ -57,8 +58,7 @@
 					</table>						
 				</div>
 			</div>
-			
-			{$confirm_msg}
+			</center>
 
 
 

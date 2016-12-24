@@ -108,24 +108,24 @@ else {
 			$db = mysql_select_db($mysql_db);
 			if(!$db) {
 				if($act=="dbadd") {
-					mysql_query("create database ".$mysql_db);
+					mysqli_query($db, "create database ".$mysql_db);
 					header("Location: $baseUrl/setup#db");
 				}			
 			}
 			else {
 				if($act=="dbdelete") {
 					if($check_confirm) {
-						mysql_query("drop database ".$mysql_db);
+						mysqli_query($db, "drop database ".$mysql_db);
 						header("Location: $baseUrl/setup#db");
 					}
 					
 				}
 				
-				mysql_query("SET NAMES ".$charset);
+				mysqli_query($db, "SET NAMES ".$charset);
 				
 				$file = $config_dir.'/db_tables.sql';
 				if($file_table = file_exists($file)) {
-					if(!($tbl =  mysql_fetch_assoc(mysql_query("show tables")))) {
+					if(!($tbl =  mysqli_fetch_assoc(mysqli_query($db, "show tables")))) {
 						if($act=="tbladd") {
 							$r = mysql_query_file($file);
 							$r = mysql_query_file($file);

@@ -1,6 +1,9 @@
 <?php
 $config_file = "config.ini";
 $cs = 0;
+$lang = "en";
+$theme = "main";
+$cstheme = "main";
 
 // Default config
 $conf_type = array(
@@ -18,8 +21,8 @@ $dconf = array (
 	'mysql_db' => 'lonis',
 	'mysql_prefix' => 'lonis_',
 	
-	'server_name' => 'Server Name',
-	'email' => 'admin@site.ru',
+	'server_name' => '[K.lan] Counter-Strike',
+	'email' => 'admin@klan-hub.ru',
 	
 	'activateTime' => 60 * 60 * 24 * 3,		
 	'gravatarSize' => 150,
@@ -27,12 +30,6 @@ $dconf = array (
 	'mapsPerPage' => 20,
 	'playersPerPage' => 20,
 	'achievPerPage' => 5,
-
-	'langlist' => "en ru",
-	'lang' => "en",	
-	'themelist' => "main white image null",
-	'theme' => "main",
-	'cstheme' => "main",
 	
 	'image_cc' => "https://cosy-climbing.net/img/maps/%map%.png",
 	'image_xj' => "http://xtreme-jumps.eu/e107_plugins/lgsl_menu/images/mapz/halflife2/cstrike/%map%.jpg",
@@ -40,8 +37,8 @@ $dconf = array (
 	'download_cc' => "https://cosy-climbing.net/files/maps/%map%.rar",
 	'download_xj' => "http://files.xtreme-jumps.eu/maps/%map%.rar",
 	
-	'demos_cc' => "https://cosy-climbing.net/files/maps/%demo%.rar",
-	'demos_xj' => "http://files.xtreme-jumps.eu/maps/%demo%.rar",	
+	'demos_cc' => "https://cosy-climbing.net/files/demos/%demo%.rar",
+	'demos_xj' => "http://files.xtreme-jumps.eu/demos/%demo%.rar",	
 	
 	'cookieKey' => "cc1f891423db1ee24498e76f3b107bbe"
 );
@@ -61,7 +58,7 @@ $menuStart = "servers";
 $menu = 'servers|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|reg|login';
 $menuLogged = 'servers|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|logout';
 $menuCS = 'kz_players|kz_maps|kz_duels';
-$menuAdmin = 'admin_servers|admin_achiev|admin_lang|admin_players';
+$menuAdmin = 'admin_servers|admin_achiev|admin_langs|admin_players';
 
 $menu = parse_menu($menu);
 $menuLogged = parse_menu($menuLogged);
@@ -69,7 +66,7 @@ $menuCS = parse_menu($menuCS);
 $menuAdmin = parse_menu($menuAdmin);
 
 // The sequence is important
-$ActionList  = "setup|admin_servers|admin_lang|admin_achiev|admin_players|servers|players|kz_maps|achiev_players|achiev|reg|kz_duels|kz_players|ucp|steam_login|login|logout";
+$ActionList  = "setup|admin_servers|admin_langs|admin_achiev|admin_players|servers|players|kz_maps|achiev_players|achiev|reg|kz_duels|kz_players|ucp|steam_login|login|logout";
 $ActionList = action_sort($ActionList);
 
 // The sequence is important
@@ -99,28 +96,19 @@ $parseRules = array(
 $langs = array(
 	"langTitle" => "Lonis",
 
-	"langLang_en" => "English",
-
-	"langTheme_main" => "Standart",
-	"langTheme_white" => "Invert",
-	"langTheme_image" => "Images",
-	"langTheme_null" => "Empty",
 	"langThemeNotFound" => "Theme not found",
 
-	"lang_home" => "Home",
-	"lang_ucp" => "Profile",
 	"lang_logout" => "Logout",
-	"lang_player" => "Player",
 	"lang_login" => "Login",
-	"lang_reg" => "Register",
-	"lang_players" => "Players",
-	"lang_achiev" => "Achievs",
-	"lang_achiev_players" => "Achievs players",
-	"lang_kz_duels" => "KZ Duels",
-	"lang_kz_maps" => "KZ Maps",
-	"lang_kz_players" => "KZ Players",
-	"lang_admin_achiev" => "Setup achiev",
-	"lang_admin_lang" => "Dictonaries",
+	"" => "",
+	"" => "",
+	"" => "",
+	"" => "",
+	"" => "",
+	"" => "",
+	"" => "",
+	"" => "",
+	"" => "",
 
 	"langError" => "Error",
 	"langUserNotFound" => "Not found user entered data!",
@@ -150,6 +138,7 @@ $langs = array(
 	"lang_playerPerPage" => "Players per page",
 	"lang_mapsPerPage" => "Maps per page",
 	"lang_playersPerPage" => "Players per page KZ",
+	"lang_achievPerPage" => "Achiev per page", 
 	"lang_langlist" => "Language list (space specarate)",
 	"lang_lang" => "Language default" ,
 	"lang_themelist" => "Theme list (space specarate)",
@@ -157,7 +146,13 @@ $langs = array(
 	"lang_cstheme" => "Theme default in CS",
 	"lang_email" => "E-mail",
 	"lang_cookieKey" => "Cookie Key",
-
+	'lang_image_cc' => "Image from CC",
+	'lang_image_xj' => "Image from XJ",
+	'lang_download_cc' => "Download map CC",
+	'lang_download_xj' => "Download map XJ",	
+	'lang_demos_cc' => "Download demos CC",
+	'lang_demos_xj' => "Download demos XJ",	
+	
 	"lang_setupGeneral" => "General setting",
 	"lang_setupDb" => "Database",
 	"langGenerate" => "Generate",
@@ -176,13 +171,6 @@ $langs = array(
 	"langDbNotTablesFile" => "File with tables not found",
 	"langDbNotDataFile" => "File with data not found",
 	
-	'lang_image_cc' => "Image from CC",
-	'lang_image_xj' => "Image from XJ",
 
-	'lang_download_cc' => "Download map CC",
-	'lang_download_xj' => "Download map XJ",
-	
-	'lang_demos_cc' => "Download demos CC",
-	'lang_demos_xj' => "Download demos XJ",	
 );
 ?>

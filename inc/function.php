@@ -72,16 +72,6 @@ function parse_urls($url) {
 	return $urls;
 }
 
-// Connect to db
-function db_connect($host, $user, $password, $db, $charset) {
-	if (!mysql_connect($host, $user, $password)) return 0;
-	if (!mysql_select_db($db)) return 0;
-	if (!mysql_fetch_assoc(mysql_query("show tables"))) return 0;
-	
-	mysql_query("SET NAMES ".$charset);
-	return 1;
-}
-
 // Time format ##:##.##
 function timed($ftime, $pad=0) {
 	$min = floor($ftime/60);
@@ -165,7 +155,7 @@ function mysql_query_file($file) {
 	
 	$q_data = explode(";", implode("",$file));
 	foreach($q_data as $value) {
-		$r = mysql_query($value);
+		$r = mysqli_query($db, $value);
 		if($r===false) return 2;
 	}
 	
@@ -197,5 +187,11 @@ function parse_menu($menu) {
 	
 	return $ret;
 }
+
+function mysqli_result($res, $row, $field=0) { 
+    $res->data_seek($row); 
+    $datarow = $res->fetch_array(); 
+    return $datarow[$field]; 
+} 
 
 ?>

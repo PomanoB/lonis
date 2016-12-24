@@ -1,9 +1,9 @@
 <?php
 
 $q = "SELECT COUNT(*) FROM `kz_duel`";
-$r = mysql_query($q);
+$r = mysqli_query($db, $q);
 
-$total = mysql_result($r, 0);
+$total = mysqli_result($r, 0);
 
 if (isset($_GET["page"]))
 	$page = abs((int)$_GET["page"]);
@@ -23,11 +23,11 @@ $q = "SELECT *,
 	(SELECT `name` FROM `unr_players` WHERE `id` = `player2`) AS `name2`
 	FROM `kz_duel` LIMIT $start, $mapsPerPage";
 
-$r = mysql_query($q);
+$r = mysqli_query($db, $q);
 
 $duels = array();
 
-while($row = mysql_fetch_array($r))
+while($row = mysqli_fetch_array($r))
 {
 	if ($row["result1"] < $row["result2"])
 	{

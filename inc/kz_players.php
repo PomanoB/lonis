@@ -42,9 +42,9 @@ $smarty->assign('rec', $rec);
 
 // Players top
 $q = "SELECT COUNT(DISTINCT `player`) FROM `kz_map_top` WHERE 1 {$types[$type]}";
-$r = mysql_query($q);
+$r = mysqli_query($db, $q);
 
-$total = mysql_result($r, 0);
+$total = mysqli_result($r, 0);
 $smarty->assign('total', $total);
 
 if (isset($_GET["page"]))
@@ -75,11 +75,11 @@ else {
 		ON `unr_players`.`id` = `tmp`.`player` ORDER BY `records` DESC LIMIT $start, $playersPerPage";
 }
 
-$r = mysql_query($q);
+$r = mysqli_query($db, $q);
 
 $players = array();
 $i = ($page - 1)*$playersPerPage + 1;
-while($row = mysql_fetch_array($r))
+while($row = mysqli_fetch_array($r))
 {
 	$row["number"] = $i++;
 	$players[] = $row;
