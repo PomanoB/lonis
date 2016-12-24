@@ -1,8 +1,8 @@
 <?php
-
-
 class hlds
-{	var $socket;
+{
+	var $charset = "utf-8";
+	var $socket;
 	var $host='127.0.0.1';
 	var $port=27015;
 
@@ -15,7 +15,7 @@ class hlds
 	var $rcon_challenge=0;
 
 
-	function hlds($host='',$port=27015)
+	function __construct($host='',$port=27015)
 	{    	if ($host!='')
     		$this->connect($host,$port);
     }
@@ -419,7 +419,7 @@ class hlds
 		{
 
 			$pos2=strpos($str,0,$pos+1);
-			$players[$i]['name']=htmlspecialchars(substr($str,$pos+1,$pos2-$pos-1));
+			$players[$i]['name']=htmlspecialchars(substr($str,$pos+1,$pos2-$pos-1), ENT_QUOTES, "utf-8");
 			$pos=$pos2+1;
 			$players[$i]['frag']=ord(substr($str,$pos,1));
 			if ($players[$i]['frag']>200) $players[$i]['frag']-=256;

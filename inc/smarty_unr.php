@@ -5,9 +5,13 @@ include 'smarty/Smarty.class.php';
 class Smarty_unr extends Smarty
 {
 
-	function Smarty_unr()
+	public function __construct()
 	{
-		$this->Smarty();
+		try {
+			parent::__construct();
+		} catch (SmartyException $e) {
+			exit($e->getMessage());
+		}
 
 		$this->template_dir = 'templates/';
 		$this->compile_dir = 'smarty/templates_c/';
