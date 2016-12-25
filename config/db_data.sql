@@ -28,7 +28,7 @@ insert  into `themes`(`id`,`theme`,`default`,`cs`) values
 (4,'empty',0,0);
 
 DELETE FROM `themes_lang`;
-insert  into `themes_lang`(`id`,`themesid`,`lang`,`desc`) values 
+insert  into `themes_lang`(`id`,`themesid`,`lang`,`name`) values 
 (1,1,'ru','Стандарная'),
 (2,2,'ru','Инвертная'),
 (3,3,'ru','Картинки'),
@@ -84,7 +84,7 @@ insert  into `unr_achiev`(`id`,`type`,`count`) values
 (42,'collect_halloween_present',20);
 
 DELETE FROM `unr_achiev_lang`;
-insert  into `unr_achiev_lang`(`lid`,`achievid`,`lang`,`ltype`,`value`) values 
+insert  into `unr_achiev_lang`(`id`,`achievid`,`lang`,`ltype`,`value`) values 
 (1,1,'ru','name','Военные Облигации'),
 (2,2,'ru','name','Рецидивист'),
 (3,3,'ru','name','Волшебная Пуля'),
