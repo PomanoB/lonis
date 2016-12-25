@@ -6,6 +6,7 @@ CREATE TABLE `unr_achiev` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `unr_achiev_lang`;
 CREATE TABLE `unr_achiev_lang` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `achievid` int(10) NOT NULL,
@@ -13,7 +14,7 @@ CREATE TABLE `unr_achiev_lang` (
   `lang` varchar(2) NOT NULL,
   `value` varchar(256) DEFAULT NULL,
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `servers`;
 CREATE TABLE `servers` (
@@ -35,18 +36,19 @@ CREATE TABLE `servers_lang` (
 
 DROP TABLE IF EXISTS `weapons`;
 CREATE TABLE `weapons` (
-  `id` int(10) unsigned DEFAULT NOT NULL,
-  `name` varchar(16) NOT NULL,
-  `fullname` varchar(32) DEFAULT NULL
+  `id` int(10) unsigned DEFAULT NULL,
+  `name` varchar(16),
+  `fullname` varchar(32)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `lang`;
 CREATE TABLE `lang` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `lang` varchar(2) NOT NULL,
   `name` varchar(16) NOT NULL,
   `default` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `langs`;
 CREATE TABLE `langs` (
@@ -55,21 +57,23 @@ CREATE TABLE `langs` (
   `value` varchar(256) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `themes`;
 CREATE TABLE `themes` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `theme` VARCHAR(8),
   `default` TINYINT(1) DEFAULT '0',
    `cs` TINYINT(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `themes_lang`;
 CREATE TABLE `themes_lang` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `themesid` int(10) NOT NULL,
   `lang` varchar(2) NOT NULL,
   `name` varchar(16) NOT NULL,
   KEY `id` (`id`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `kz_duel`;
 CREATE TABLE `kz_duel` (
@@ -329,7 +333,7 @@ SELECT
   `p`.`name` AS `plname`,
   `a`.`id`   AS `aid`,
   (SELECT
-     COUNT(0),
+     COUNT(*)
    FROM (`unr_players_achiev`
       JOIN `achiev`)
    WHERE ((`unr_players_achiev`.`achievId` = `achiev`.`id`)
