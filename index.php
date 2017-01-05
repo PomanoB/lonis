@@ -38,7 +38,6 @@ if($uri!="") {
 $baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseUrl}";
 
 // Debug trace
-
 //print_p();
 //print_p($_SESSION);
 //print_p($_SERVER);
@@ -203,27 +202,32 @@ $smarty->assign('webadmin', $webadmin);
 // Get name from DB
 if (isset($_GET["name"])) {
 	$name = $_GET["name"];
+	$name = url_replace($name, BACK);
+	
 	$q = "SELECT * FROM `unr_players` WHERE `name` = '$name' OR `name` = REPLACE('$name', '_', ' ') LIMIT 1";	
 	$r = mysqli_query($db, $q);
 	if($info = mysqli_fetch_assoc($r))
 		$playerId = $info["id"];
+	
+	$smarty->assign('name', $name);
+	$smarty->assign('name_url', $_GET["name"]);
 }
 
 if($action!="setup") {
 	// Menu
 	function create_menu($menu) {
-		global $langs;
+		global $langs, $ActionList;
 		
 		foreach($menu as $key=>$item) {
 			$val = explode("|", $item);
 			if($item!="-") {
 				$menulist[$key]["item"] = $item;
 				$menulist[$key]["name"] = $langs["lang_".$val[0]];
-				$menulist[$key]["url"] = "/".$val[0];
+				$menulist[$key]["url"] = $ActionList[$val[0]];
 				if(isset($val[1])) {
 					foreach($val as $k=>$subitem) {
 						$menulist[$key][$k]["name"] = $langs["lang_$subitem"];
-						$menulist[$key][$k]["url"] = "/".$subitem;	
+						$menulist[$key][$k]["url"] = $ActionList[$subitem];	
 					}	
 				}
 			}
@@ -245,8 +249,8 @@ if(file_exists("inc/$action.php"))
 
 if(file_exists("templates/$action.tpl"))
 	$smarty->assign('action', $action);
-else
-	header("Location: $baseUrl/error/404");
+//else
+//	header("Location: $baseUrl/error/404");
 
 // Global temlate vars
 $smarty->assign('baseUrl', $baseUrl);

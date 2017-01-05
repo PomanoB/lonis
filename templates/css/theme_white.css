@@ -332,18 +332,6 @@ h2 {
 
 #network img {display: none}
 
-#network select {
-	background: transparent;
-	border: 0px;
-	color: #ffffff;
-}
-
-#network option {
-	background: #171717;
-	border: 0px;
-	color: #ffffff;
-}
-
 #network .username { 
 	font-style: italic;
 	padding: 10px;
@@ -388,18 +376,14 @@ li div.left {
 	font-weight: bold;
 }
 
-select {
+#langForm select, #themeForm select {
 	background: transparent;
 	border: 0px;
 	color: #000000;
 }
 
-option {
+#langForm option, #themeForm option {
 	background: #ffffff;
 	border: 0px;
 	color: #000000;
 }
-
-.color-nogc {color: #006400}
-.color-wpn {color: #ff0000}
-.color {color: #000000}

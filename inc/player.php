@@ -1,6 +1,8 @@
 <?php
 $id = 0;
-
+$message = "";
+$info = array();
+	
 if (isset($playerId))
 	$id = $playerId;
 elseif (isset($_GET["id"]))
@@ -10,9 +12,7 @@ if ($id) {
 	$q = "SELECT * FROM `unr_players` WHERE `id` = $id";
 	$r = mysqli_query($db, $q);
 	
-	if($info = mysqli_fetch_assoc($r))
-	{
-		
+	if($info = mysqli_fetch_assoc($r)) {
 		if($ipInfo = geoip_record_by_addr($gi, $info["lastIp"]) && !is_null($ipInfo))
 		{
 			$info["ipInfo"]["country_code"] = strtolower($ipInfo->country_code);
@@ -37,17 +37,19 @@ if ($id) {
 		$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `player` = $id";
 		$r = mysqli_query($db, $q);
 		$info["mapCompleted"] = mysqli_result($r, 0);
-	
+		
+		$znak = strpos($info["name"], "?");
+		$info["name_url"] = $znak===false ? rawurlencode($info["name"]) : "unrid$id";
+		
 		$smarty->assign('info', $info);
 	}
-	else
-	{
-		$smarty->assign('message', '»грок не найден!');
+	else {
+		$message = $langs['langPlayerNotFound'];
 	}
 }
-else
-{
-	header("HTTP/1.1 404 Not Found");
-//	var_dump($_SERVER);
+else {
+	$message = $langs['langPlayerNotFound'];
 }
+
+$smarty->assign('message', $message)
 ?>

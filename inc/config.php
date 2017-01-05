@@ -55,28 +55,43 @@ $menu_footer = array(
 
 // Menu List
 $menuStart = "servers";
-$menu = 'servers|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|reg|login';
-$menuLogged = 'servers|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|logout';
-$menuCS = 'kz_players|kz_maps|kz_duels';
-$menuAdmin = 'admin_servers|admin_achiev|admin_langs|admin_players';
+$menu = parse_menu('servers|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|reg|login');
+$menuLogged = parse_menu('servers|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|logout');
+$menuCS = parse_menu('kz_players|kz_maps|kz_duels');
+$menuAdmin = parse_menu('admin_servers|admin_achiev|admin_langs|admin_players');
 
-$menu = parse_menu($menu);
-$menuLogged = parse_menu($menuLogged);
-$menuCS = parse_menu($menuCS);
-$menuAdmin = parse_menu($menuAdmin);
-
-// The sequence is important
-$ActionList  = "setup|admin_servers|admin_langs|admin_achiev|admin_players|servers|players|kz_maps|achiev_players|achiev|reg|kz_duels|kz_players|ucp|steam_login|login|logout";
-$ActionList = action_sort($ActionList);
+$ActionList  = array (
+	"setup" => "/setup/",
+	"admin_servers" => "/admin/servers",
+	"admin_langs" => "/admin/langs",
+	"admin_achiev" => "/admin/achiev",
+	"admin_players" => "/admin/players",
+	"servers" => "/servers/",
+	"players" => "/players/",
+	"achiev_players" => "/achiev/players",
+	"achiev" => "/achiev/",
+	"kz_players" => "/kreedz/players",
+	"kz_maps" => "/kreedz/maps",
+	"kz_duels" => "/kreedz/duels",
+	"reg" => "/reg/",
+	"ucp" => "/ucp/",
+	"steam_login" => "/steam/",
+	"login" => "/login/",
+	"logout" => "/logout/"
+	);
 
 // The sequence is important
 $parseRules = array(
 	"/^error(\/([0-9]+))/" => "index.php?action=error&err=%2%",
+	"/^setup?(\/(logout))?/" => "index.php?action=setup&acts=%2%",
 	"/^reg\/(.*)/" => "index.php?action=reg&key=%1%",
+	"/^login/" => "index.php?action=login",
 	"/^logout/" => "index.php?action=login&logout=1",
-	"/^setup\/logout?/" => "index.php?action=setup&logout=1",
+	"/^ucp/" => "index.php?action=ucp",
+
+	"/^admin\/([0-9a-zA-Z_!]+)?(\/page([0-9]+))?/" => "index.php?action=admin_%1%&page=%3%",
 	
-	"/^servers\/(.*)/" => "index.php?action=servers&addr=%1%",
+	"/^servers?(\/(.*))/" => "index.php?action=servers&addr=%2%",
 	
 	"/^players\/(.*)?(\/page([0-9]+))?/" => "index.php?action=players&search=%1%&page=%3%",	
 	
@@ -85,12 +100,12 @@ $parseRules = array(
 	"/^achiev?(\/page([0-9]+))?(\/)?(.*)?/" => "index.php?action=achiev&page=%2%&aname=%4%",
 	"/^(.*)\/achiev?(\/page([0-9]+))?/" => "index.php?action=achiev&name=%1%&page=%3%",
 	
-	"/^kreedz\/players?(\/(pro|noob|all))?(\/(num|top1))?(\/page([0-9]+))?/" => "index.php?action=kz_players&type=%2%&sort=%4%&page=%6%",
-	"/^kreedz\/\/(pro|noob|all)?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_maps&page=%3%&type=%1%&rec=%5%",
+	"/^kreedz\/duels?(\/page([0-9]+))?/" => "index.php?action=kz_duels&page=%2%",
+	"/^kreedz\/players?(\/(pro|noob|all))?(\/page([0-9]+))?(\/(num|top1))?/" => "index.php?action=kz_players&type=%2%&sort=%6%&page=%4%",
+	"/^kreedz\/maps?(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_maps&page=%4%&type=%2%&rec=%6%",
 	"/^kreedz\/([0-9a-zA-Z_!]+)?(\/(pro|noob|all))?(\/page([0-9]+)?)?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
-	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%",
+	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(num|top1))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
 	
-	"/^($ActionList)?(\/page([0-9]+))?/" => "index.php?action=%1%&page=%3%",
 	"/^(.*)/" => "index.php?action=player&name=%1%",
 );
 
@@ -101,15 +116,6 @@ $langs = array(
 
 	"lang_logout" => "Logout",
 	"lang_login" => "Login",
-	"" => "",
-	"" => "",
-	"" => "",
-	"" => "",
-	"" => "",
-	"" => "",
-	"" => "",
-	"" => "",
-	"" => "",
 
 	"langError" => "Error",
 	"langUserNotFound" => "Not found user entered data!",

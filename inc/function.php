@@ -10,17 +10,14 @@ function get_request($var) {
 
 // Parse URL. Exp: ##/##/## from array($rule, $url)
 function parse_uri($uri, $rules) {
-	$uris = parse_url($uri);
+	$uris = explode("?", $uri);
 	
 	$ret = "";
-	if(isset($uris["path"])) {
-		$ret =  parse_match($uris["path"], $rules);
-	}
+	if(isset($uris[0]))
+		$ret =  parse_match($uris[0], $rules);
 	
-	if(isset($uris["query"])) {
-		$delim = $ret=="" ? "?" : "&";
-		$ret .= $delim.$uris["query"];
-	}
+	if(isset($uris[1]))
+		$ret .= ($ret=="" ? "?" : "&").$uris[1];
 	
 	return $ret;
 }
@@ -192,6 +189,24 @@ function mysqli_result($res, $row, $field=0) {
     $res->data_seek($row); 
     $datarow = $res->fetch_array(); 
     return $datarow[$field]; 
-} 
+}
+
+DEFINE ("BACK", 1);
+function url_replace($str, $r = 0) {
+	$list1 = "?|#";
+	$list2 = "•|○";
+	
+	$list = $r==0 ? $list1 : $list2;
+	$listr = $r==0 ? $list2 : $list1;
+	
+	$list = explode("|", $list);
+	$listr = explode("|", $listr);
+
+	foreach($list as $key=>$value) {
+		$str = str_replace($value, $listr[$key], $str);
+	}
+	
+	return $str;
+}
 
 ?>

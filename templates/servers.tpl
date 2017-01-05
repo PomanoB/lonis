@@ -9,10 +9,10 @@
 			<td width="400" align="center">	
 				<img src="{$info.img}" id='mapimg'>
 				<table class="sinfo" align="center">
-					<tr><td></td></td>
 					<tr><td class="th" width="100">{$langIP}</td><td>{$addr}</td></tr>
+					<tr><td class="th" width="100">{$langIP}</td><td>{$info.ip}</td></tr>
 					<tr><td class="th">{$langName}</td><td>{$info.name}</td>
-					<tr><td class="th">{$langIP}</td><td>{$info.map}</td>
+					<tr><td class="th">{$langMap}</td><td>{$info.map}</td>
 					<tr><td class="th">{$langMod}</td><td>{$info.mod}</td>
 					<tr><td class="th">{$langDescriptor}</td><td>{$info.descriptor}</td>
 					<tr><td class="th">{$lang_players}</td><td>{$info.players} / {$info.max_players}</td>
@@ -24,7 +24,7 @@
 			<td>
 				<table class="splayers">
 					<tr>
-						<td width=200><b>{$langPlayer}</b></td>
+						<td width=200><b>{$lang_player}</b></td>
 						<td><b>{$langFrags}</b></td>
 					</tr>	
 				{foreach from=$players item=plr}
@@ -39,24 +39,33 @@
 	</table>
 	{/if}
 {else}
-	<p><div>{$langWelcome} <b>{$server_name}</b></div>
+	<p><h2>{$langWelcome}<br><i>{$server_name}</i></h2>
 	
-	<p><table>
-	{foreach from=$servers item=serv}
-		<tr>
-			<td align="right"><p>{$serv.desc}</td>
-			<td>&nbsp;</td>
-		</tr>	
-		<tr>
-			<td>&nbsp;</td>
-			<td><a href='{$baseUrl}/servers/"{$serv.addres}"'><b>{$serv.name}</b> (<i>{$serv.addres}</i>)</a></td>
+	<p><table class="table-list">
+		<tr class="title">
+			<td>#</td>
+			<td>{$langIP}</td>
+			<td>{$langType}</td>
+			<td>{$langName}</td>
+			<td>{$langMap}</td>
+			<td>{$lang_players}</td>
+			<td>{$langTime}</td>
+		</tr>
+	{foreach from=$servers key=key item=serv}
+		<tr class="list">
+			<td>{$key+1}</td>
+			<td><a href='{$baseUrl}/servers/{$serv.addres}'><b>{$serv.addres}</b></a></td>
+			<td>{$serv.modname}</td>
+			<td>{$serv.name}</td>
+			<td>{$serv.map}</td>			
+			<td>{$serv.players} / {$serv.max_players}</td>
+			<td><i>{$serv.update}</i></td>
 		</tr>
 	{/foreach}
 	</table>
-	<br>
 	
 	<form action="{$baseUrl}/servers" method="post">
-	<p><div><input type="text" name="addr" /><br><button class="but">{$langCheck} {$langIP}</button></div>
+	<p><div align="center"><input type="text" name="addr" />&nbsp;<button class="but">{$langCheck} {$langIP}</button></div>
 	</form>
 {/if}
 	</center>

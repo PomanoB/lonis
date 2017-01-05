@@ -82,6 +82,9 @@ $i = ($page - 1)*$playersPerPage + 1;
 while($row = mysqli_fetch_array($r))
 {
 	$row["number"] = $i++;
+	
+	$row["name_url"] = url_replace($row["name"]);
+	
 	$players[] = $row;
 }	
 

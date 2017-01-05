@@ -276,7 +276,7 @@ class hlds
 
 		$pos2=strpos($str,0);
   		$server_info['name']=substr($str,2,$pos2-2);
-
+		
         $pos=$pos2;
 		$pos2=strpos($str,0,$pos+1);
        	$server_info['map']=substr($str,$pos+1,$pos2-$pos-1);
@@ -470,13 +470,6 @@ class hlds
 		return $rules;
 
 	}
-
-
-
-
 }
-
-
-
 
 ?>

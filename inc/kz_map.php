@@ -102,10 +102,10 @@ else {
 		$start = ($page - 1) * $playersPerPage;
 
 	
-		$q = "SELECT `kz_map_top`.*, `unr_players`.`name` FROM 
-					(`kz_map_top` LEFT JOIN `unr_players` ON `unr_players`.`id` = `player`)
-					WHERE `map` = '$map' {$types[$type]} 
-					GROUP BY `player` ORDER BY `time` LIMIT $start, $playersPerPage";
+		$q = "SELECT `kz_map_top`.*, `unr_players`.`name`, `weapons`.`name` AS `wname` 
+				FROM `kz_map_top`, `unr_players`, `weapons`
+				WHERE `map` = '$map' AND `unr_players`.`id` = `player` AND `weapons`.`id` = `kz_map_top`.`weapon` {$types[$type]} 
+				GROUP BY `player` ORDER BY `time` LIMIT $start, $playersPerPage";
 		$r = mysqli_query($db, $q);
 		$i = ($page - 1)*$playersPerPage + 1;
 		while($row = mysqli_fetch_array($r)) {

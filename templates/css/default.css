@@ -73,6 +73,9 @@ div .inline {
 	padding-right: 10px;
 }
 
+.color_nogc { color: red; }
+.color_wpn { color: red; }
+
 /* Menu pages */
 
 .tabs {
@@ -108,3 +111,4 @@ div .inline {
 	padding: 5px; 
 	border: 0px solid #aaa; 
 }
+

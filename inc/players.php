@@ -68,7 +68,9 @@ if ($total) {
 			$row["countryImg"] = 'img/country/'.$countryCode.'.png';
 		else
 			$row["countryImg"] = '';
-			
+		
+		$row["name_url"] = url_replace($row["name"]);
+		
 		$players[] = $row;
 	}
 }

@@ -2,9 +2,15 @@
 		<div class="error_message">{$message}</div>
 			
 		<table id="admin_servers">
-		<form action="{$baseUrl}/admin_servers/" method="post">
+		<form action="{$baseUrl}/admin/servers/" method="post">
 			<tr>
-				<td><input name="name" type="text" class="col_name"/></td>
+				<td>
+					<select name="mod" class="mod">
+					{foreach from=$mod item=modd}
+						<option value="{$modd.mid}">{$modd.modname}</option>
+					{/foreach}
+					</select>
+				</td>
 				<td><input name="addres" type="text" class="col_addres"/></td>
 				<td>
 					<input type="image" src="{$baseUrl}/img/add.png" name="act" value="add" alt="{$langAdd}">
@@ -12,14 +18,20 @@
 			</tr>
 		</form>
 			<tr class="title">
-				<td>{$langName}</td>
+				<td>{$langType}</td>
 				<td>{$langIP}</td>
 				<td>#</td>
 			</tr>
 {foreach from=$servers item=server}
-		<form action="{$baseUrl}/admin_servers/" method="post">
+		<form action="{$baseUrl}/admin/servers/" method="post">
 			<tr>
-				<td><input value="{$server.name}" name="name" type="text" class="col_name" /></td>
+				<td>
+					<select name="mod" class="mod">
+					{foreach from=$mod item=modd}
+						<option value="{$modd.mid}" {if $server.mod==$modd.mid}selected{/if}>{$modd.modname}</option>
+					{/foreach}
+					</select>
+				</td>
 				<td><input value="{$server.addres}" name="addres" type="text" class="col_addres" /></td>
 				<td >
 					<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="edit" alt="{$langUpdate}">
@@ -31,26 +43,4 @@
 			</tr>
 		</form>
 {/foreach}
-		</table>
-		<br>
-		
-		<table id="admin_servers">
-			<tr class="title">
-				<td>{$langName}</td>
-				<td>{$langLanguage}</td>
-				<td>{$langDescription}</td>
-			</tr>		
-{foreach from=$servers_lang item=slang}
-		<form action="{$baseUrl}/admin_servers/" method="post">
-			<tr>
-				<td>{if $slang.part}&nbsp;{else}{$slang.name}{/if}</td>
-				<td>{$slang.lang}</td>
-				<td><input value="{$slang.desc}" name="desc" type="text" class="col_desc" /></td>
-				<td >
-					<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="editlang" alt="{$langUpdate}">
-					<input name="lid" type="hidden" value="{$slang.lid}" />
-				</td>
-			</tr>
-		</form>
-{/foreach}	
 		</table>

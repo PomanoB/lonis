@@ -9,16 +9,23 @@ INSERT  INTO `servers`(`id`,`name`,`addres`) VALUES
 (3,'[K.lan] Kreedz','cs.klan-hub.ru:27017'),
 (4,'[K.lan] Zombie Plague','cs.klan-hub.ru:27018');
 
-DELETE FROM `servers_lang`;
-INSERT  INTO `servers_lang`(`id`,`serverid`,`lang`,`desc`) VALUES 
-(1,1,'ru','Любите безостановочную стрельбу'),
-(2,2,'ru','Вы сторонник классической игры'),
-(3,3,'ru','Нравится паркур'),
-(4,4,'ru','Окутайтесь в атмосферу страха и ужаса'),
-(5,1,'en','Like non-stop shooting'),
-(6,2,'en','You are a supporter of the classic game'),
-(7,3,'en','Like the parkour'),
-(8,4,'en','Acetates in an atmosphere of fear and terror');
+DELETE FROM `servers_mod`;
+insert  into `servers_mod`(`mid`,`modname`) values 
+(1,'Classic'),
+(2,'Public'),
+(3,'Aim'),
+(4,'CSDM'),
+(5,'Deathrun'),
+(6,'GunGame'),
+(7,'HNS'),
+(8,'JailBreak'),
+(9,'Kreedz'),
+(10,'Knife'),
+(11,'SoccerJump'),
+(12,'SuperHero'),
+(13,'Surf'),
+(14,'Warcraft'),
+(15,'ZombieMod');
 
 DELETE FROM `themes`;
 insert  into `themes`(`id`,`theme`,`default`,`cs`) values 
@@ -355,7 +362,7 @@ insert  into `langs`(`lang`,`var`,`value`) values
 ('ru','langKzAll','Все'),
 ('ru','langStats','Статистика: '),
 ('ru','langMap','Карта '),
-('ru','langPlayer','Игрок'),
+('ru','lang_player','Игрок'),
 ('ru','lang_players','Игроки'),
 ('ru','langTime','Время'),
 ('ru','langCp','Чекпоинтов'),
@@ -497,7 +504,7 @@ insert  into `langs`(`lang`,`var`,`value`) values
 ('en','langKzAll','All'),
 ('en','langStats','Statistics: '),
 ('en','langMap','Map'),
-('en','langPlayer','Player'),
+('en','lang_player','Player'),
 ('en','lang_players','Players'),
 ('en','langTime','Time'),
 ('en','langCp','Checkpoints'),

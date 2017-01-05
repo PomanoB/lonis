@@ -16,13 +16,13 @@ if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmi
 }
 
 $where = '';
-if (isset($_POST["map"]) && $_POST["map"] !='') {
+if (isset($_GET["map"]) && $_GET["map"] !='') {
 	//header('Location: kreedz/'.$_POST["map"]); exit();
 	if (get_magic_quotes_gpc()) {
-		$map = $_POST["map"];
+		$map = $_GET["map"];
 	}
 	else {
-		$map = addslashes($_POST["map"]);
+		$map = addslashes($_GET["map"]);
 	}
 	
 	$smarty->assign('map', stripslashes($map));
@@ -58,10 +58,10 @@ if (isset($_GET["rec"])) $rec = $_GET["rec"];
 $smarty->assign('rec', $rec);
 
 if($rec=="norec") {		
-	$q = "SELECT COUNT(*) FROM (SELECT * FROM `kz_norec` WHERE `player` = 0) AS tmp";	
+	$q = "SELECT COUNT(*) FROM (SELECT * FROM `kz_norec` WHERE `player` = 0) AS tmp WHERE 1 {$where}";	
 }
 else {
-	$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top1` WHERE 1 {$types[$type]} {$where}";	
+	$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE 1 {$types[$type]} {$where}";	
 }
 	 
 $r = mysqli_query($db, $q);
@@ -87,14 +87,18 @@ if ($total)
 	$start = ($page - 1) * $mapsPerPage;
 		
 	if($rec=="norec") {
-		$q = "SELECT * FROM (SELECT * FROM `kz_norec` WHERE `player` = 0) AS tmp LIMIT $start, $mapsPerPage";
+		//$mapsPerPage = $mapsPerPage*3;
+		$q = "SELECT * FROM (SELECT * FROM `kz_norec` WHERE `player` = 0) AS tmp WHERE 1 {$where} LIMIT $start, $mapsPerPage";
 		$r = mysqli_query($db, $q);
 		while($row = mysqli_fetch_array($r)) {
 			$maps[] = $row;
 		}
 	}
 	else {
-		$q = "SELECT * FROM `kz_map_tops` WHERE 1 {$types[$type]} GROUP BY `map` ORDER BY `map` LIMIT $start, $mapsPerPage ";
+		$q = "SELECT `tmp`.*, `unr_players`.`name`, `weapons`.`name` AS `wname` 
+				FROM (SELECT * FROM `kz_map_top` ORDER BY `time`) AS `tmp`, `unr_players`, `weapons`
+				WHERE `unr_players`.`id` = `player` AND `weapons`.`id` = `tmp`.`weapon` {$types[$type]} {$where} 
+				GROUP BY `map` ORDER BY `map` LIMIT $start, $mapsPerPage";
 		$r = mysqli_query($db, $q);
 		while($row = mysqli_fetch_array($r))
 		{
@@ -112,6 +116,6 @@ $smarty->assign('message', $message);
 $smarty->assign('maps', $maps);
 $smarty->assign('page', $page);
 $smarty->assign('totalPages', $totalPages);
-$smarty->assign('pageUrl', "$baseUrl/kreedz//$type/page%page%/$rec");
+$smarty->assign('pageUrl', "$baseUrl/kreedz/maps/$type/page%page%/$rec");
 	
 ?>

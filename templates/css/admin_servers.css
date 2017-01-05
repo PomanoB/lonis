@@ -5,7 +5,7 @@
 	padding: 10px;
 }
 
-tr.title {
+tr .title {
 	background: #191919;
 	color: white;
 	font-weight: bold;
@@ -33,11 +33,19 @@ tr.title {
 	width: 250px;
 }
 
-#admin_servers .col_desc {
-	width: 400px;
-}
-
 table {
 	margin-left:auto; 
 	margin-right:auto;
+}
+
+.mod select {
+	background: transparent;
+	border: 1px;
+	color: #000000;
+}
+
+.mod option {
+	background: #ffffff;
+	border: 1px;
+	color: #000000;
 }

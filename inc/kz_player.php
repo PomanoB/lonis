@@ -1,4 +1,6 @@
 <?php
+$message = "";
+
 $types = array(
 	'pro' => 'AND `go_cp` = 0 AND (`weapon` = 16 OR `weapon` = 29)',
 	'noob' => 'AND (`go_cp` != 0 OR (`weapon` != 16 AND `weapon` != 29))',
@@ -30,7 +32,7 @@ $smarty->assign('rec', $rec);
 $plr = (isset($_GET["id"]) && ($id = abs((int)$_GET["id"]))) || (isset($playerId) && $id = $playerId);
 if($plr) {
 	$map_num = 0;
-	$q = "SELECT COUNT(DISTINCT `map`) AS `records` FROM `kz_map_top` WHERE `player`=$id {$types[$type]} GROUP BY `player`";	
+	$q = "SELECT COUNT(DISTINCT `map`) AS `records` FROM `kz_map_top` WHERE `player`=$id {$types[$type]}";	
 	$r = mysqli_query($db, $q);
 	while($row = mysqli_fetch_array($r))
 	{
@@ -39,7 +41,7 @@ if($plr) {
 	$smarty->assign('map_num', $map_num);
 
 	$map_top1 = 0;
-	$q = "SELECT COUNT(DISTINCT `map`) AS `records` FROM `kz_map_top1` WHERE `player`=$id {$types[$type]} GROUP BY `player`";
+	$q = "SELECT COUNT(DISTINCT `map`) AS `records` FROM `kz_map_top1` WHERE `player`=$id {$types[$type]}";
 	$r = mysqli_query($db, $q);
 	while($row = mysqli_fetch_array($r))
 	{
@@ -53,13 +55,20 @@ if($plr) {
 	if($name = mysqli_result($r, 0))
 	{
 		$smarty->assign('name', $name);
+		
+		$name_url = url_replace($name);
+		$smarty->assign('name_url', $name_url);
+		
 		$smarty->assign('id', $id);
 		
 		if($rec=="norec") {
-			$q = "SELECT COUNT(*) FROM (SELECT * FROM `kz_norec` WHERE `player` <> $id AND `player` = 0) AS tmp";
+			$q = "SELECT COUNT(*) FROM (SELECT * FROM `kz_norec` WHERE `player` <> {$id} AND `player` = 0) AS tmp";
 		}
 		else {
-			$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `player` = $id {$types[$type]}";
+			if($sort=="top1")
+				$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top1` WHERE `player` = {$id} {$types[$type]}";
+			else 
+				$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `player` = {$id} {$types[$type]}";
 		}
 		$r = mysqli_query($db, $q);
 
@@ -79,10 +88,13 @@ if($plr) {
 		
 		$smarty->assign('page', $page);
 		$smarty->assign('totalPages', $totalPages);
-		$smarty->assign('pageUrl', "$baseUrl/$name/kreedz/$type/page%page%/$rec");
+		$smarty->assign('pageUrl', "$baseUrl/$name_url/kreedz/$type/page%page%/$rec/$sort");
 		
 		$start = ($page - 1) * $mapsPerPage;
 		
+		$smarty->assign('mapsPerPage', $mapsPerPage);
+		
+		$maps = array();
 		if($rec=="norec") {
 			$q = "SELECT * FROM `kz_norec` WHERE `player` <> 1 AND `player` = 0 LIMIT $start, $mapsPerPage";
 			
@@ -93,23 +105,33 @@ if($plr) {
 			}
 		}
 		else {
-			$q = "SELECT * FROM `kz_map_tops` WHERE `player` = {$id} {$types[$type]} ORDER BY `map` LIMIT $start, $mapsPerPage";
-
+			if($sort=="top1") {
+				$q = "SELECT * FROM `kz_map_top1` WHERE `player` = {$id} {$types[$type]} LIMIT $start, $mapsPerPage";
+			}
+			else {
+				$q = "SELECT `tmp`.*, `weapons`.`name` AS `wname` 
+					FROM (SELECT * FROM `kz_map_top` ORDER BY `time`) AS `tmp`, `weapons`
+					WHERE `player` = {$id} AND `weapons`.`id` = `tmp`.`weapon` {$types[$type]} 
+					GROUP BY `map` ORDER BY `map` LIMIT $start, $mapsPerPage";
+			}
+			
 			$r = mysqli_query($db, $q);
 			
-			$maps = array();
-			while($row = mysqli_fetch_array($r))
-			{
+			while($row = mysqli_fetch_array($r)) {
 				$row["time"] = timed($row["time"], 5);
-				$row["timerec"] = timed($row["timerec"], 2);
 			
 				$maps[] = $row;
 			}
+			
 		}
+		
 		$smarty->assign('maps', $maps);
 	}
 	else {
-		$smarty->assign('message', 'Игрок не найден!');
+		$message = $langs["langPlayerNotFound"];
 	}
 }
+
+$smarty->assign('message', $message);
+$smarty->assign('plr', $plr);
 ?>

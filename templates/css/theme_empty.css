@@ -336,18 +336,6 @@ h2 {
 
 #network img {display: none}
 
-#network select {
-	background: transparent;
-	border: 0px;
-	color: #000000;
-}
-
-#network option {
-	background: #ffffff;
-	border: 0px;
-	color: #000000;
-}
-
 #network .username { 
 	font-style: italic;
 	padding: 10px;
@@ -391,7 +379,3 @@ ul.nice-list li .right {color: #999;}
 li div.left {
 	font-weight: bold;
 }
-
-.color-nogc {color: #006400}
-.color-wpn {color: #ff0000}
-.color {color: #000000}

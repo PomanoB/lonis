@@ -4,8 +4,8 @@
 		<meta charset="UTF-8">
 		<link rel="shortcut icon" href="{$baseUrl}/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/default.css">
-		<link rel="stylesheet" href="{$baseUrl}/templates/css/{$action}.css">
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/theme_{$theme}.css">
+		<link rel="stylesheet" href="{$baseUrl}/templates/css/{$action}.css">
 		<script type="text/javascript" src="{$baseUrl}/templates/js/jquery.min.js"></script>
 		<script type="text/javascript" src="{$baseUrl}/templates/js/main.js"></script>
 		<script type="text/javascript" src="{$baseUrl}/templates/js/{$action}.js"></script>
@@ -64,35 +64,36 @@
 			{* PAGE OFF *}
 		
 		</div>
-			<div class="wrapper">
-				<div class="left_block">
-					{foreach from=$menu_footer key=key item=href}
-						<a href="{$href}" style="margin-left:50px;" target="_blank">{$key}</a>
-					{/foreach}				
-				</div>
-				<div class="right_block">
-				{if $conn}
-					{if !$cs}
-					<form method="post" id="customForm" style="padding:7px 8px 0 0; margin:0; display:inline;" action="">
-						<img src="{$baseUrl}/img/country/{$lang}.png">
-						<select id="lang" name="lang" onchange="document.getElementById('customForm').submit();">
-						{foreach from=$langselect key=key item=desc}
-							<option value="{$key}" {if $lang==$key}selected{/if}>{$desc}</option>
-						{/foreach}
-						</select>
-					</form>
-					
-					<form method="post" id="themeForm" style="padding:2px 8px 0 0; margin:0; display:inline;" action="">			
-						<select style="margin-left:50px;" id="theme" name="theme" onchange="document.getElementById('themeForm').submit();">
-						{foreach from=$themeselect key=key item=desc}
-							<option value="{$key}" {if $theme==$key}selected{/if}>{$desc}</option>
-						{/foreach}
-						</select>
-					</form>
-					{/if}
-				{/if}
-				</div>
+		
+		<div class="wrapper">
+			<div class="left_block">
+				{foreach from=$menu_footer key=key item=href}
+					<a href="{$href}" style="margin-left:50px;" target="_blank">{$key}</a>
+				{/foreach}				
 			</div>
-			<br><br>
+			<div class="right_block">
+			{if $conn}
+				{if !$cs}
+				<form method="post" id="langForm" style="padding:7px 8px 0 0; margin:0; display:inline;" action="">
+					<img src="{$baseUrl}/img/country/{$lang}.png">
+					<select id="lang" name="lang" onchange="document.getElementById('langForm').submit();">
+					{foreach from=$langselect key=key item=desc}
+						<option value="{$key}" {if $lang==$key}selected{/if}>{$desc}</option>
+					{/foreach}
+					</select>
+				</form>
+				
+				<form method="post" id="themeForm" style="padding:2px 8px 0 0; margin:0; display:inline;" action="">			
+					<select style="margin-left:50px;" id="theme" name="theme" onchange="document.getElementById('themeForm').submit();">
+					{foreach from=$themeselect key=key item=desc}
+						<option value="{$key}" {if $theme==$key}selected{/if}>{$desc}</option>
+					{/foreach}
+					</select>
+				</form>
+				{/if}
+			{/if}
+			</div>
+		</div>
+		<br><br>
 	</body>
 </html>

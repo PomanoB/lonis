@@ -42,4 +42,4 @@ RewriteRule ^error(/([0-9]+))?$ index.php?action=error&err=$2 [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^(.*)? index.php [L]
+RewriteRule ^(.*\?)$ index.php$1 [L,NC]

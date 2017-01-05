@@ -21,7 +21,7 @@
 
 				<p><div class="err_message">{$message}</div>
 				
-{if isset($palyers)}
+{if isset($players)}
 				<div>
 					<a href="{$baseUrl}/kreedz/{$mapname}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
 					<a href="{$baseUrl}/kreedz/{$mapname}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
@@ -33,7 +33,7 @@
 				<p><table class="table-list">
 					<tr class="title" >
 						<td>№</td>
-						<td>{$langPlayer}</td>
+						<td>{$lang_player}</td>
 						<td>{$langTime}</td>
 						<td>{$langCp}</td>
 						<td>{$langGoCp}</td>
@@ -48,10 +48,10 @@
 						<td>
 							<a href="{$baseUrl}/{$player.name|replace:' ':'_'}/kreedz">{$player.name|escape}</a>
 						</td>
-						<td class="th_numeric">{$player.time}</td>
-						<td class="th_numeric color{if !$player.go_cp}-nogc{/if}">{$player.cp}</td>
-						<td class="th_numeric color{if !$player.go_cp}-nogc{/if}">{$player.go_cp}</td>
-						<td class="color{if $map.wname == "USP" && $map.wname == "KNIFE"}-wpn{/if}">{$map.wname}</td>
+						<td>{$player.time}</td>
+						<td class="{if $player.go_cp==0}color_nogc{/if}">{$player.cp}</td>
+						<td class="{if $player.go_cp==0}color_nogc{/if}">{$player.go_cp}</td>
+						<td class="{if $player.wname != 'USP' && $player.wname != 'KNIFE'}color_wpn{/if}">{$player.wname}</td>
 			{if $webadmin==1}
 						<form action="{$baseUrl}/kreedz/{$mapname}" method="post">			
 						<td>

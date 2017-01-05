@@ -112,13 +112,13 @@ legend {
 	padding-left: 4px;
 }
 
-tr.list {
+tr.list, .maplist {
 	background:none repeat scroll 0 0 #ffffff;
 	border-bottom:1px #D5DDE5 dashed;
 	height: 25px;
 }
 
-tr.list:hover  {
+tr.list:hover, .maplist:hover  {
 	background:#e3f1ff;
 }
 
@@ -127,6 +127,7 @@ tr.title {
 	color: white;
 	font-weight: bold;
 	font-family: Verdana, Tahoma;
+	font-size: 12px;
 	vertical-align: middle;
 	margin-left: 10px;
 	margin-right: 10px;
@@ -386,18 +387,14 @@ li div.left {
 	font-weight: bold;
 }
 
-select {
+#langForm select, #themeForm select {
 	background: transparent;
 	border: 0px;
 	color: #ffffff;
 }
 
-option {
+#langForm option, #themeForm option {
 	background: #171717;
 	border: 0px;
 	color: #ffffff;
 }
-
-.color-nogc {color: #006400}
-.color-wpn {color: #ff0000}
-.color {color: #000000}
