@@ -109,7 +109,7 @@ CREATE TABLE `kz_map_top` (
   `cp` int(10) unsigned NOT NULL,
   `go_cp` int(10) unsigned NOT NULL,
   `weapon` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`, `map`),
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 DROP TABLE IF EXISTS `kz_save`;
@@ -185,3 +185,22 @@ CREATE TABLE `unr_players_var` (
   `value` varchar(512) NOT NULL,
   PRIMARY KEY (`playerId`,`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;	   
+
+DROP TABLE IF EXISTS `kz_map_rec`;
+CREATE TABLE `kz_map_rec` (
+	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`mapname` VARCHAR(64) NOT NULL,
+	`mappath` VARCHAR(16) NULL DEFAULT NULL,
+	`time` DECIMAL(10,2) NULL DEFAULT NULL,
+	`player` VARCHAR(32) NULL DEFAULT NULL,
+	`country` VARCHAR(8) NULL DEFAULT NULL,
+	`comm` VARCHAR(8) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`, `mapname`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `kz_map_list`;
+CREATE TABLE `kz_map_list` (
+	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`mapname` VARCHAR(64) NOT NULL,
+	PRIMARY KEY (`id`, `mapname`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

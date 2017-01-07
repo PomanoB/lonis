@@ -14,21 +14,6 @@ if (isset($_GET["aname"]) && $_GET["aname"]!="") {
 		$id = $row["id"];
 		assign('achiev', $row);
 		
-		/*
-		$q = "SELECT COUNT(*) FROM `achiev_aname`";	 
-		$r = mysqli_query($db, $q);
-		
-		$total = mysqli_result($r, 0);
-		assign('total', $total);
-
-		$pages = generate_page($_GET["page"], $total, $achievPerPage);
-		$pages["pageUrl"] = "$baseUrl/achiev/$aname/page%page%";
-		assign('pages', $pages);
-			
-		$limit = "LIMIT ".$pages["start"].",".$pages["perpage"];
-		
-		{$limit}
-		*/
 		$q = "SELECT `p`.`id` AS `plid`, `p`.`name` AS `plname`, 
 			(SELECT COUNT(*) FROM `unr_players_achiev`, `unr_achiev` 
 				WHERE `unr_players_achiev`.`achievId` = `unr_achiev`.`id` 
