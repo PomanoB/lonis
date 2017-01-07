@@ -1,10 +1,10 @@
 			<div class="wrapper">		
-				<div class="titles left_block">{$lang_kz_players}</div>
+				<div class="titles left_block">{$langs.kz_players}</div>
 		{if !$cs}
 				<div class=" right_block">
-					<form action="" method="get" id="search_map_form" class="">
-						<input type="text" name="player" id="player" value="{if isset($player)}{$player}{/if}" placeholder="{$langSearch}"/ >
-						<input type="image" name="picture" src="{$baseUrl}/img/find.png" alt="{$langSearch}"/>
+					<form action="" method="post" id="search_map_form" class="">
+						<input type="text" name="player" id="player" value="{if isset($player)}{$player}{/if}" placeholder="{$langs.Search}"/ >
+						<input type="image" name="picture" src="{$baseUrl}/img/find.png" alt="{$langs.Search}"/>
 						&nbsp;
 					</form>
 				</div>
@@ -13,21 +13,21 @@
 			
 			<br><br>
 			<div>
-				<a href="{$baseUrl}/kreedz/players/pro/{$sort}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
-				<a href="{$baseUrl}/kreedz/players/noob/{$sort}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
-				<a href="{$baseUrl}/kreedz/players/all/{$sort}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langKzAll}</a>
+				<a href="{$baseUrl}/kreedz/players/pro/{$sort}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
+				<a href="{$baseUrl}/kreedz/players/noob/{$sort}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
+				<a href="{$baseUrl}/kreedz/players/all/{$sort}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
 				::
-				<a href="{$baseUrl}/kreedz/players/{$type}/num" {if $sort == "num"}style="font-weight:bold;"{else}{/if}>{$langKzNum}</a>
-				<a href="{$baseUrl}/kreedz/players/{$type}/top1" {if $sort == "top1"}style="font-weight:bold;"{else}{/if}>{$langKzTop1}</a>
+				<a href="{$baseUrl}/kreedz/players/{$type}/num" {if $sort == "num"}style="font-weight:bold;"{else}{/if}>{$langs.kznum}</a>
+				<a href="{$baseUrl}/kreedz/players/{$type}/top1" {if $sort == "top1"}style="font-weight:bold;"{else}{/if}>{$langs.kztop1}</a>
 			</div>
 			
-			<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}</p>
+			{$generate_page}
 			<div style="padding:10px;">
 				<table class="table-list">
 					<tr class="title">
 						<td>№</td>
-						<td>{$lang_player}</td>
-						<td>{$langRecords}</td>
+						<td>{$langs.player}</td>
+						<td>{$langs.Records}</td>
 					</tr>
 	{foreach from=$players item=player}
 					<tr class="list">

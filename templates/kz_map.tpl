@@ -1,20 +1,20 @@
 			<div class="wrapper">		
-				<div class="titles left_block">{$langMap} {$mapname|escape:html}</div>
+				<div class="titles left_block">{$langs.Map} <i>{$mapname|escape:html}</i></div>
 
 				<div class="right_block" align="center">
-					<img src="{$imgmap}" onerror="this.src='{$baseUrl}/img/noimage.png'" /><br>
-					<a href="{$downmap}" alt="{$langDownload} {$mapname}">{$langDownload}</a>
+					<img src="{$imgmap}" oncontextmenu="return false;" /><br>
+					<a href="{$wrs.download}" alt="{$langs.Download} {$mapname}">{$langs.Download}</a>
 					<p>
 				</div>
 			</div>
-			<br><br>			
+			<br>		
 			<div style="padding:10px;">
-				<p><b>{$langWorldRecord}:</b>
+				<p><b><a href="{$wrs.map}" target="_blank">{$langs.WorldRecord}:</a></b>
 {foreach from=$maprec item=wr}
 				{$wr.mappath} {$wr.time} {$wr.player} <i>{$wr.country}</i>;
 {/foreach}				
 
-				<p><b>{$langRuRecord}:&nbsp;</b>
+				<p><b><a href="{$kzru.map}" target="_blank">{$langs.RuRecord}:</a>&nbsp;</b>
 {foreach from=$mapcomm item=ru}
 				{$ru.mappath} {$ru.time} {$ru.player};
 {/foreach}
@@ -23,21 +23,21 @@
 				
 {if isset($players)}
 				<div>
-					<a href="{$baseUrl}/kreedz/{$mapname}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
-					<a href="{$baseUrl}/kreedz/{$mapname}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
-					<a href="{$baseUrl}/kreedz/{$mapname}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langKzAll}</a>
+					<a href="{$baseUrl}/kreedz/{$mapname}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
+					<a href="{$baseUrl}/kreedz/{$mapname}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
+					<a href="{$baseUrl}/kreedz/{$mapname}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
 				</div>
 			
-				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}	
+				{$generate_page}
 				
 				<p><table class="table-list">
 					<tr class="title" >
 						<td>№</td>
-						<td>{$lang_player}</td>
-						<td>{$langTime}</td>
-						<td>{$langCp}</td>
-						<td>{$langGoCp}</td>
-						<td>{$langWeapon}</td>
+						<td>{$langs.player}</td>
+						<td>{$langs.Time}</td>
+						<td>{$langs.Cp}</td>
+						<td>{$langs.GoCp}</td>
+						<td>{$langs.Weapon}</td>
 				{if $webadmin==1}
 						<td>#</td>
 				{/if}
@@ -58,7 +58,7 @@
 							<input type="hidden" name="confirm" value="0">
 							<input type="checkbox" name="confirm" value="1">
 							<button class="but" name="act" value="delete">
-								<img src="{$baseUrl}/img/delete.png" border=0 alt="{$langDelete}">
+								<img src="{$baseUrl}/img/delete.png" border=0 alt="{$langs.Delete}">
 							</button>
 							<input name="id" type="hidden" value="{$player.id}" />
 						</td>

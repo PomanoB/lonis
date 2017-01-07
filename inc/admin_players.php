@@ -3,21 +3,28 @@ if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webad
 	header('Location: '.$baseUrl);
 }
 
+$search = $where = "";
+if (isset($_POST["search"]) && $_POST["search"] !='') {
+	$search = slashes($_POST["search"]);
+	
+	header("Location: $baseUrl/admin/players/$search");
+}
+
+if (isset($_GET["search"]) && $_GET["search"] != '') {
+	$search = slashes($_GET["search"]);
+
+	assign('search', stripslashes($search));
+	
+	$where = "AND `name` LIKE '%$search%'";
+}
+
 $message = "";
 
 $act = isset($_POST["act"]) ? $_POST["act"] : "";	
-
 if ($act == "edit") {
-	if(get_magic_quotes_gpc()) {
-		$name =  $_POST["name"];
-		$password = $_POST["password"];
-		$email = $_POST["email"];
-	}
-	else {
-		$name = addslashes($_POST["name"]);
-		$password = addslashes($_POST["password"]);
-		$email = addslashes($_POST["email"]);		
-	}
+	$name = slashes($_POST["name"]);
+	$password = slashes($_POST["password"]);
+	$email = slashes($_POST["email"]);
 
 	$active = isset($_POST["active"]) ? 1: 0;
 	$webadmin = isset($_POST["webadmin"]) ? 1 : 0;
@@ -35,23 +42,16 @@ if ($act == "edit") {
 		WHERE `id` = $id";
 		mysqli_query($db, $q);
 		
-		$message = $langs["langSaved"];
+		$message = $langs["Saved"];
 	}
 	else
-		$message = $langs["langError"];
+		$message = $langs["Error"];
 }		
 else
 if ($act == "add") {
-	if(get_magic_quotes_gpc()) {
-		$name =  $_POST["name"];
-		$password = $_POST["password"];
-		$email = $_POST["email"];
-	}
-	else {
-		$name = addslashes($_POST["name"]);
-		$password = addslashes($_POST["password"]);
-		$email = addslashes($_POST["email"]);		
-	}
+	$name = slashes($_POST["name"]);
+	$password = slashes($_POST["password"]);
+	$email = slashes($_POST["email"]);
 	
 	$active = isset($_POST["active"]) ? 1: 0;
 	$webadmin = isset($_POST["webadmin"]) ? 1 : 0;
@@ -59,21 +59,21 @@ if ($act == "add") {
 	if (strlen($name) > 0 && $password != "") {
 		$r = mysqli_query($db, "SELECT * FROM unr_players WHERE `name` = '$name'");
 		if ($row = mysqli_fetch_assoc($r)) {
-			$smarty->assign('message', $langs["langAlreadyUsed"]);
+			assign('message', $langs["AlreadyUsed"]);
 		}
 		else {
 			$password = md5($password);
 			$q = "INSERT INTO `unr_players` (`name`, `password`, `email`, `active`, `webadmin`) VALUES ('$name', '$password', '$email', '$active', '$webadmin')";
 			mysqli_query($db, $q);
 			
-			$message = $langs["langSaved"];
+			$message = $langs["Saved"];
 			
 			$search = $name;
 		}
 
 	}
 	else
-		$message = $langs["langError"];
+		$message = $langs["Error"];
 }
 else
 if ($act == "delete") {
@@ -84,65 +84,31 @@ if ($act == "delete") {
 		mysqli_query($db, $q);
 	}
 	else
-		$message = $langs["langConfirm"];
+		$message = $langs["Confirm"];
 }
 
-if (isset($_REQUEST["search"]) && $_REQUEST["search"] != '')
-{
-	if (get_magic_quotes_gpc()) {
-		$search = $_REQUEST["search"];
-	}
-	else {
-		$search = addslashes($_REQUEST["search"]);
-	}
-	$smarty->assign('pageUrl', "$baseUrl/admin_players/$search/page%page%");
-		
-	$smarty->assign('search', stripslashes($search));
-	
-	$where = "WHERE `name` LIKE '%$search%'";
-}
-else
-{
-	$where = '';
-	$smarty->assign('pageUrl', "$baseUrl/admin_players/page%page%");
-}
+assign('message', $message); 
 
-$smarty->assign('message', $message); 
-
-$q = "SELECT COUNT(*) FROM `unr_players` $where";
+$q = "SELECT COUNT(*) FROM `unr_players` WHERE 1 {$where}";
 $r = mysqli_query($db, $q);
 
 $total = mysqli_result($r, 0);
 
-if (isset($_GET["page"]))
-	$page = abs((int)$_GET["page"]);
-else
-	$page = 1;
-if (!$page)
-	$page = 1;
+$pages = generate_page($_GET["page"], $total, $playerPerPage);
+$pages["pageUrl"] = "$baseUrl/admin/players/page%page%/$search";
+assign('pages', $pages);	
 
-$totalPages = ceil($total/$playerPerPage);	
-if ($page > $totalPages)
-	$page = 1;
+$limit = "LIMIT ".$pages["start"].",".$pages["perpage"];
 
-$smarty->assign('page', $page);
-$smarty->assign('totalPages', $totalPages);	
-	
-$players = array();
-
-if ($total)
-{	
-	$start = ($page - 1) * $playerPerPage;
-
-	$q = "SELECT * FROM `unr_players` $where ORDER BY `name` LIMIT $start, $playerPerPage";
-
+if ($total) {	
+	$q = "SELECT * FROM `unr_players` WHERE 1 {$where} ORDER BY `name` {$limit}";
 	$r = mysqli_query($db, $q);
-	while($row = mysqli_fetch_array($r))
-	{
-
-			
+	
+	$players = array();
+	while($row = mysqli_fetch_array($r)) {
 		$players[] = $row;
 	}
 }
-$smarty->assign('players', $players);
+
+assign('players', $players);
 ?>

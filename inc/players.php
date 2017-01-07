@@ -1,73 +1,56 @@
 <?php
-
-if (isset($_REQUEST["search"]) && $_REQUEST["search"] != '')
-{
-	if (get_magic_quotes_gpc()) {
-		$search = $_REQUEST["search"];
-	}
-	else {
-		$search = addslashes($_REQUEST["search"]);
-	}
-	$smarty->assign('pageUrl', "$baseUrl/players/$search/page%page%");
-		
-	$smarty->assign('search', stripslashes($search));
+$search = $where = "";
+if (isset($_POST["search"]) && $_POST["search"] !='') {
+	$search = slashes($_POST["search"]);
 	
-	$where = "WHERE `name` LIKE '%$search%'";
-}
-else
-{
-	$where = '';
-	$smarty->assign('pageUrl', "$baseUrl/players/page%page%");
+	header("Location: $baseUrl/players/$search");
 }
 
-$q = "SELECT COUNT(*) FROM `unr_players` $where";
+if (isset($_GET["search"]) && $_GET["search"] != '') {
+	$search = slashes($_GET["search"]);
+	
+	assign('search', stripslashes($search));
+	
+	$where = "AND `name` LIKE '%{$search}%'";
+}
+
+$sort = $_GET["sort"] ? $_GET["sort"] : "name";
+$desc = $sort=="achiev" ? "DESC" : "";
+$order = "ORDER BY `{$sort}` {$desc}";
+
+$q = "SELECT COUNT(*) FROM `unr_players` WHERE 1 {$where}";
 $r = mysqli_query($db, $q);
-
 $total = mysqli_result($r, 0);
 
-if (isset($_GET["page"]))
-	$page = abs((int)$_GET["page"]);
-else
-	$page = 1;
-if (!$page)
-	$page = 1;
+$pages = generate_page($_GET["page"], $total, $playerPerPage);
+$pages["pageUrl"] = "{$baseUrl}/players/{$sort}/page%page%/{$search}";
+assign('pages', $pages);
 
-$totalPages = ceil($total/$playerPerPage);	
-if ($page > $totalPages)
-	$page = 1;
+$limit = "LIMIT ".$pages["start"].",".$pages["perpage"];
 
-$smarty->assign('page', $page);
-$smarty->assign('totalPages', $totalPages);	
-	
 $players = array();
 
-if ($total) {	
-	$start = ($page - 1) * $playerPerPage;
-
-	$q = "SELECT * FROM `unr_players` $where ORDER BY `name` LIMIT $start, $playerPerPage";
-
+if($total) {
+	$q = "SELECT * FROM (SELECT `id` AS `plid`, `name`, `lastIp`, `email`, `steam_id_64`,
+		(SELECT COUNT(*) FROM `unr_players_achiev`, `unr_achiev` 
+			WHERE `achievId` = `unr_achiev`.`id` AND `count` = `progress` AND `playerId` = `plid`) AS `achiev`
+		FROM `unr_players`) AS `tmp` WHERE 1 {$where} {$order} {$limit}";	
 	$r = mysqli_query($db, $q);
-	while($row = mysqli_fetch_array($r))
-	{
-		$countryName = '';
-		$countryCode = '';
-		if ($row["lastIp"])
-		{
-			$record = geoip_record_by_addr($gi, $row["lastIp"]);
-			if(!is_null($record))
-			{
-				$countryCode = strtolower($record->country_code);
-				$countryName = $record->country_name;
-			}
+	
+	while($row = mysqli_fetch_array($r)) {
+		if(isset($row["lastIp"]) && $row["lastIp"]!="") {
+			$q = "SELECT `code`, `country` FROM `geoip_countries` WHERE `ip_to` >= INET_ATON('{$row["lastIp"]}') ORDER BY `ip_to` ASC LIMIT 1";
+			$geoip = mysqli_fetch_assoc(mysqli_query($db, $q));
 		}
 		
-		$row["countryCode"] = $countryCode;
-		$row["countryName"] = $countryName;
+		$row["countryName"] = isset($geoip["country"]) ? $geoip["country"] : "";
+		$row["countryCode"] = isset($geoip["code"]) ? $geoip["code"] : "";
 		
-		if (file_exists('img/country/'.$countryCode.'.png'))
-			$row["countryImg"] = 'img/country/'.$countryCode.'.png';
-		else
-			$row["countryImg"] = '';
+		$img = 'img/country/'.$row["countryCode"].'.png';
+		$row["countryImg"] = file_exists($img) ? $img : "";
+		
+		$row["avatarLink"] = "http://www.gravatar.com";
+		$row["avatar"] = $row["avatarLink"].'/avatar/'.md5($row["email"]).'?d=wavatar&s='.$avatarSize["Icon"];
 		
 		$row["name_url"] = url_replace($row["name"]);
 		
@@ -75,6 +58,6 @@ if ($total) {
 	}
 }
 
-$smarty->assign('players', $players);
+assign('players', $players);
 
 ?>

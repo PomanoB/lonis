@@ -1,31 +1,30 @@
 	<center>
 {if $addr}
-	<p><h2>{$lang_servers}</h2>
+	<p><h2>{$langs.servers} :: <i>{$addr}</i></h2>
 	{if $message}
 		<p><div class="error_message">{$message}</div>
 	{else}
 	<p><table id="servers">
 		<tr style="vertical-align: top;">
 			<td width="400" align="center">	
-				<img src="{$info.img}" id='mapimg'>
+				{if isset($info.img)}<img src="{$info.img}" id="mapimg" oncontextmenu="return false;" >{/if}
 				<table class="sinfo" align="center">
-					<tr><td class="th" width="100">{$langIP}</td><td>{$addr}</td></tr>
-					<tr><td class="th" width="100">{$langIP}</td><td>{$info.ip}</td></tr>
-					<tr><td class="th">{$langName}</td><td>{$info.name}</td>
-					<tr><td class="th">{$langMap}</td><td>{$info.map}</td>
-					<tr><td class="th">{$langMod}</td><td>{$info.mod}</td>
-					<tr><td class="th">{$langDescriptor}</td><td>{$info.descriptor}</td>
-					<tr><td class="th">{$lang_players}</td><td>{$info.players} / {$info.max_players}</td>
-					<tr><td class="th">{$langType}</td><td>{$info.type}</td>
-					<tr><td class="th">{$langOS}</td><td>{$info.os}</td>
-					<tr><td class="th">{$langBots}</td><td>{$info.bots}</td>
+					<tr><td class="th" width="100">{$langs.IP}</td><td>{$info.ip}</td></tr>
+					<tr><td class="th">{$langs.Name}</td><td>{$info.name}</td>
+					<tr><td class="th">{$langs.Map}</td><td>{$info.map}</td>
+					<tr><td class="th">{$langs.Mod}</td><td>{$info.mod}</td>
+					<tr><td class="th">{$langs.Descriptor}</td><td>{$info.descriptor}</td>
+					<tr><td class="th">{$langs.players}</td><td>{$info.players} / {$info.max_players}</td>
+					<tr><td class="th">{$langs.Type}</td><td>{$info.type}</td>
+					<tr><td class="th">{$langs.OS}</td><td>{$info.os}</td>
+					<tr><td class="th">{$langs.Bots}</td><td>{$info.bots}</td>
 				</table>
 			</td>
 			<td>
 				<table class="splayers">
 					<tr>
-						<td width=200><b>{$lang_player}</b></td>
-						<td><b>{$langFrags}</b></td>
+						<td width=200><b>{$langs.player}</b></td>
+						<td><b>{$langs.Frags}</b></td>
 					</tr>	
 				{foreach from=$players item=plr}
 					<tr>
@@ -39,17 +38,17 @@
 	</table>
 	{/if}
 {else}
-	<p><h2>{$langWelcome}<br><i>{$server_name}</i></h2>
+	<p><h2>{$langs.Welcome}<br><i>{$server_name}</i></h2>
 	
 	<p><table class="table-list">
 		<tr class="title">
 			<td>#</td>
-			<td>{$langIP}</td>
-			<td>{$langType}</td>
-			<td>{$langName}</td>
-			<td>{$langMap}</td>
-			<td>{$lang_players}</td>
-			<td>{$langTime}</td>
+			<td>{$langs.IP}</td>
+			<td>{$langs.Type}</td>
+			<td>{$langs.Name}</td>
+			<td>{$langs.Map}</td>
+			<td>{$langs.players}</td>
+			<td>{$langs.Time}</td>
 		</tr>
 	{foreach from=$servers key=key item=serv}
 		<tr class="list">
@@ -64,8 +63,8 @@
 	{/foreach}
 	</table>
 	
-	<form action="{$baseUrl}/servers" method="post">
-	<p><div align="center"><input type="text" name="addr" />&nbsp;<button class="but">{$langCheck} {$langIP}</button></div>
+	<form action="{$baseUrl}/servers/" method="post">
+	<p><div align="center"><input type="text" name="addr" />&nbsp;<button class="but">{$langs.Check} {$langs.IP}</button></div>
 	</form>
 {/if}
 	</center>

@@ -1,10 +1,29 @@
-{* /%name%/achiev/ *}
-{capture name=player_achive}
-			<h2>{$lang_achiev}</h2>
+{* /achiev/%aname% *}
+{capture name=achiev assign=achiev}
+			<h2>{$langs.achiev}</h2>
 			<div style="padding:10px;">
-				<p><h1>{*{$langAchievsPlayer}*} {$playerName|escape}</h1>
+				<p>{$langs.achievsPlayers}</p>
+				<div class="achiev achiev_completed">
+					<b>{$achiev.name}</b>
+					<br />
+					<span>{$achiev.description}</span>
+				</div>
+	{foreach from=$players item=player}
+				<div class="achiev">
+					<b><a href="{$baseUrl}/{$player.plname_url}/achiev">{$player.plname|escape}</a></b>
+					<br />
+					<span>{$langs.achievPlayerTotal} {$player.achiev_total}</span>
+				</div>
+	{/foreach}</div>
+{/capture}
+
+{* /%name%/achiev/ *}
+{capture name=player_achiev assign=player_achiev}
+			<h2>{$langs.achiev}</h2>
+			<div style="padding:10px;">
+				<p><h1>{*{$langs.AchievsPlayer}*} {$playerName|escape}</h1>
 				
-				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}<br>
+				{$generate_page}
 				
 	{foreach from=$achievs item=achiev}
 				<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
@@ -21,7 +40,7 @@
 					</div>
 		{elseif isset($achiev.unlocked)}
 					<div class="unlocekd_time">
-						{$langAchievsUnlocked}{$achiev.unlocked|date_format:"%d.%m.%Y %H:%M"}
+						{$langs.AchievsUnlocked}{$achiev.unlocked|date_format:"%d.%m.%Y %H:%M"}
 					</div>
 	{/if}
 				</div>
@@ -30,39 +49,11 @@
 			</div>
 {/capture}
 
-{* /achiev/%aname% *}
-{capture name=achive}
-			<p><h2>{$lang_achiev} :: {$aname|replace:"_":" "}</h2>
-			<div style="padding:10px;">
-				
-				{if isset($achievs)}
-				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}<br>
-				
-				{foreach from=$achievs item=achiev}
-					<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
-						<a href="{$baseUrl}/achiev/{$achiev.name|replace:' ':'_'}">{$achiev.name}</a>
-						<br />
-						<span style="color: #dddddd">{$achiev.description}</span>
-						{if isset($achiev.width)}
-							<div>
-								<div class="progress_background">
-									<div class="progress_bar" style="width:{$achiev.width}%">
-									</div>
-								</div>
-								<span class="progress_counter">{$achiev.progress}/{$achiev.count}</span>
-							</div>
-						{/if}
-					</div>
-				{/foreach}
-				{/if}
-			</div>
-{/capture}
-
 {* /achiev *}
-{capture name=achive_list}			
-				<p><h2>{$lang_achiev}</h2>
+{capture name=achiev_list assign=achiev_list}			
+				<p><h2>{$langs.achiev}</h2>
 				
-				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}<br>
+				{$generate_page}
 				
 				<table>
 	{foreach from=$achievs item=achiev}
@@ -93,9 +84,9 @@
 {/capture}
 
 {if isset($aname)}
-	{$smarty.capture.achive}
-{elseif $plrs==1}
-	{$smarty.capture.player_achive}
+	{$achiev}
+{elseif isset($plId)}
+	{$player_achiev}
 {else}
-	{$smarty.capture.achive_list}
+	{$achiev_list}
 {/if}

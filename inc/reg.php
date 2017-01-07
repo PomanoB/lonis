@@ -2,26 +2,18 @@
 $message = "";
 if (isset($_SESSION["user_$cookieKey"]) && !isset($_GET["key"]))
 {
-	$message = $langs["langAlreadyRegister"];
+	$message = $langs["AlreadyRegister"];
 }
 else
-if (isset($_POST["reg_nick"]) && isset($_POST["reg_password"]))
-{
-	if (get_magic_quotes_gpc()) {
-		$nick = $_POST["reg_nick"];
-		$password = $_POST["reg_password"];
-		$mail = $_POST["email"];
-	}
-	else {
-		$nick = addslashes($_POST["reg_nick"]);
-		$password = addslashes($_POST["reg_password"]);
-		$mail = addslashes($_POST["email"]);
-	}
+if (isset($_POST["reg_nick"]) && isset($_POST["reg_password"])) {
+	$nick = slashes($_POST["reg_nick"]);
+	$password = slashes($_POST["reg_password"]);
+	$mail = slashes($_POST["email"]);
+
 	$errors = array();
-	
-	if (!$nick) $errors[] = $langs["langNotInputNick"];
-	if (!$password) $errors[] = $langs["langNotInputPassword"];	
-	if (!$mail) $errors[] = $langs["langNotInputMail"];
+	if (!$nick) $errors[] = $langs["NotInputNick"];
+	if (!$password) $errors[] = $langs["NotInputPassword"];	
+	if (!$mail) $errors[] = $langs["NotInputMail"];
 		
 	if (count($errors) == 0) {
 		$password = md5($password);
@@ -32,49 +24,45 @@ if (isset($_POST["reg_nick"]) && isset($_POST["reg_password"]))
 			$player = mysqli_insert_id($db);
 			mysqli_query($db, "INSERT INTO `unr_activate` SET `player`= '$player', `key` = '$key', `time` = '$time'");
 			
-			$langActiveMail = $langs["langActiveMail"];
+			$langActiveMail = $langs["ActiveMail"];
 			
 			if(mail($_POST["email"], '[K.lan]', "$langActiveMail \n $baseUrl/reg/$key", 'From: $email')) {
-				$message = $langs["lang_sendMailError"];
+				$message = $langs["sendMailError"];
 			}
 			else {
 				mysqli_query($db, "INSERT INTO `unr_players` SET `name`= '$nick', `password` = '$password', `email` = '$mail'");	
-				$message = $langs["lang_regSuccess"];
+				$message = $langs["regSuccess"];
 			}
 		}
 		else
 		{
-			$message = $langs["langAlreadyUsed"];
+			$message = $langs["AlreadyUsed"];
 		}
 	}
-	else
-	{
-		$message = $langs["langRegErrors"] . implode('<br />', $errors);
+	else {
+		$message = $langs["RegErrors"] . implode('<br />', $errors);
 	}
 }
 else
-if (isset($_GET["key"]) && $_GET["key"] != '')
-{
-	if (get_magic_quotes_gpc())
-		$key = $_GET["key"];
-	else
-		$key =  addslashes($_GET["key"]);
+if (isset($_GET["key"]) && $_GET["key"] != '') {
+	$key =  slashes($_GET["key"]);
 	
-	$r = mysqli_query($db, "SELECT * FROM `unr_activate` WHERE `key`= '$key' AND `time` + $activateTime > UNIX_TIMESTAMP()");
-	if ($row = mysqli_fetch_array($r))
-	{
+	$q = "SELECT * FROM `unr_activate` WHERE `key`= '$key' AND `time` + $activateTime > UNIX_TIMESTAMP()";
+	$r = mysqli_query($db, $q);
+	
+	if ($row = mysqli_fetch_array($r)) {
 		$id = $row["id"];
 		$player = $row["player"];
+		
 		mysqli_query($db, "UPDATE `unr_players` SET `active` = 1 WHERE `id` = $player");
 		mysqli_query($db, "DELETE FROM `unr_activate` WHERE `id` = $id");
 		
-		$message = $langs["langActiveSuccess"];
+		$message = $langs["ActiveSuccess"];
 	}
-	else
-	{
-		$message = $langs["langActiveError"];
+	else {
+		$message = $langs["ActiveError"];
 	}
 }
 
-$smarty->assign('message', $message); 
+assign('message', $message); 
 ?>

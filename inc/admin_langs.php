@@ -12,12 +12,12 @@ while($row = mysqli_fetch_array($r)) {
 	$lang_list[] = $row["lang"];
 }
 
-$smarty->assign('lang_list', $lang_list);
+assign('lang_list', $lang_list);
 
 if ($act == "add") {
-	$langkey = get_magic_quotes_gpc() ? $_POST["langx"] : addslashes($_POST["langx"]);
-	$var = get_magic_quotes_gpc() ? $_POST["var"] : addslashes($_POST["var"]);
-	$value = get_magic_quotes_gpc() ? $_POST["value"] : addslashes($_POST["value"]);
+	$langkey = slashes($_POST["langx"]);
+	$var = slashes($_POST["var"]);
+	$value = slashes($_POST["value"]);
 	
 	if($langkey && $var && $value) {
 		$q = "INSERT INTO `langs` (`lang`, `var`, `value`) VALUES ";
@@ -31,16 +31,16 @@ if ($act == "add") {
 		mysqli_query($db, $q);	
 	}
 	else
-		$message = $langs["langError"];
+		$message = $langs["Error"];
 }
 else
 if ($act == "edit") {
-	$var = get_magic_quotes_gpc() ? $_POST["var"] : addslashes($_POST["var"]);	
+	$var = slashes($_POST["var"]);	
 	
 	foreach($_POST as $key=>$value) {
 		if(strpos("_$key", $var)) {
 			$langkey = str_replace($var."_", "", $key);
-			$value = get_magic_quotes_gpc() ? $value : addslashes($value);
+			$value = slashes($value);
 				$q = "UPDATE `langs` SET `value` = '$value' WHERE `lang` = '$langkey' AND `var` = '$var'";
 				mysqli_query($db, $q);
 		
@@ -50,17 +50,17 @@ if ($act == "edit") {
 else
 if ($act == "delete") {
 	if(isset($_POST["confirm"]) && $_POST["confirm"]==1) {
-		$var = get_magic_quotes_gpc() ? $_POST["var"] : addslashes($_POST["var"]);	
+		$var = slashes($_POST["var"]);	
 		$q = "DELETE FROM `langs` WHERE `var` = '$var'";
 		mysqli_query($db, $q);
 	}
 	else {
-		$message = "<script>alert('".$langs["langConfirm"]."');</script>";
-		$smarty->assign('confirm_msg', $message);
+		$message = "<script>alert('".$langs["Confirm"]."');</script>";
+		assign('confirm_msg', $message);
 	}
 }
 
-$smarty->assign('message', $message);
+assign('message', $message);
 
 // Get language list
 $r = mysqli_query($db, "SELECT * FROM `langs` ORDER BY `lang`");
@@ -74,5 +74,5 @@ foreach ($dblangs as $l => $arr) {
 	}
 }
 
-$smarty->assign('lang_row', $row);	
+assign('lang_row', $row);	
 ?>

@@ -1,169 +1,132 @@
 <?php
-$plrs = 0;
-	
-// achive || /achiev/%aname%
+// achiev || /achiev/%aname%
 if (isset($_GET["aname"]) && $_GET["aname"]!="") {
-	$aname = urldecode($_GET["aname"]);
-	$aname = get_magic_quotes_gpc() ? $aname : addslashes($aname);
+	$aname = slashes(urldecode($_GET["aname"]));
+	assign('aname', $aname);
 	
 	$q = "SELECT `id`, `name`, `description` FROM achiev 
 			WHERE `lang`='{$lang}' 
 			AND (`name` = '$aname' OR `name` = REPLACE('$aname', '_', ' '))
 		LIMIT 1";
 	$r = mysqli_query($db, $q);
+	
 	if ($row = mysqli_fetch_array($r))  {
 		$id = $row["id"];
-		$smarty->assign('achiev', $row);
+		assign('achiev', $row);
 		
+		/*
 		$q = "SELECT COUNT(*) FROM `achiev_aname`";	 
 		$r = mysqli_query($db, $q);
 		
 		$total = mysqli_result($r, 0);
-		$smarty->assign('total', $total);
+		assign('total', $total);
 
-		if (isset($_GET["page"]))
-			$page = abs((int)$_GET["page"]);
-		else
-			$page = 1;
-		if (!$page)
-			$page = 1;
-
-		$totalPages = ceil($total/$achievPerPage);	
-		if ($page > $totalPages)
-			$page = 1;
+		$pages = generate_page($_GET["page"], $total, $achievPerPage);
+		$pages["pageUrl"] = "$baseUrl/achiev/$aname/page%page%";
+		assign('pages', $pages);
+			
+		$limit = "LIMIT ".$pages["start"].",".$pages["perpage"];
 		
-		$start = ($page - 1) * $achievPerPage;
-		
-		$q = "SELECT * FROM `achiev_aname` WHERE `aid` = $id LIMIT $start, $achievPerPage";
+		{$limit}
+		*/
+		$q = "SELECT `p`.`id` AS `plid`, `p`.`name` AS `plname`, 
+			(SELECT COUNT(*) FROM `unr_players_achiev`, `unr_achiev` 
+				WHERE `unr_players_achiev`.`achievId` = `unr_achiev`.`id` 
+					AND `unr_achiev`.`count` = `unr_players_achiev`.`progress` 
+					AND `unr_players_achiev`.`playerId` = `plid`) AS `achiev_total` 
+				FROM `unr_players` AS `p`, `unr_players_achiev` AS `pa`, `unr_achiev` AS `a` 
+				WHERE `a`.`count` = `pa`.`progress` 
+					AND `p`.`id` = `pa`.`playerId` 
+					AND `pa`.`achievId` = `a`.`id` 
+					AND `a`.`id` = $id";	
 		$r = mysqli_query($db, $q);
-		$players = array();
 		
+		$players = array();
 		while($row = mysqli_fetch_array($r)) {
+			$row["plname_url"] = url_replace($row["plname"]);
 			$players[] = $row;
 		}
 		
-		$smarty->assign('players', $players);
-		$smarty->assign('aname', $aname);
-		
-		$smarty->assign('page', $page);
-		$smarty->assign('totalPages', $totalPages);
-		$smarty->assign('pageUrl', "$baseUrl/achiev/$aname/page%page%");
+		assign('players', $players);
 	}
 	else {
-		//header("Location: $baseUrl/error/404");
+		$message = $langs["PageNotFound"];
 	}
 }
-else // player_achive || /%name%/achiev/
+else // player_achiev || /%name%/achiev/
 if (isset($_GET["plid"]) || isset($playerId)) { 
-	if (isset($playerId))
-		$plId = $playerId;
-	else
-		$plId = abs((int)$_GET["plid"]);
-
+	$plId = isset($playerId) ? $playerId : abs((int)$_GET["plid"]);
+	assign('plId');
 	
 	$q = "SELECT `name` FROM `unr_players` WHERE `id` = $plId";
 	$r = mysqli_query($db, $q);
-	if ($row = mysqli_fetch_array($r))
-	{
-		
+	if ($row = mysqli_fetch_array($r)) {
 		$q = "SELECT COUNT(*) FROM `achiev` WHERE `lang`='{$lang}'";	 
 		$r = mysqli_query($db, $q);
 		
 		$total = mysqli_result($r, 0);
-		$smarty->assign('total', $total);
-
-		if (isset($_GET["page"]))
-			$page = abs((int)$_GET["page"]);
-		else
-			$page = 1;
-		if (!$page)
-			$page = 1;
-
-		$totalPages = ceil($total/$achievPerPage);	
-		if ($page > $totalPages)
-			$page = 1;
+		assign('total', $total);
 		
-		$start = ($page - 1) * $achievPerPage;
+		$pages = generate_page($_GET["page"], $total, $achievPerPage);
+		$pages["pageUrl"] = "$baseUrl/$name/achiev/page%page%/";
+		assign('pages', $pages);
+
+		$limit = "LIMIT ".$pages["start"].",".$pages["perpage"];
 	
-		$smarty->assign('playerName', $row["name"]);
+		assign('playerName', $row["name"]);
 		
 		$q = "SELECT `id`, `name`, `description`, `count`, 
-			IF(`progress` IS NULL, 0, `progress`) AS `progress` 
-		FROM `achiev` 
-		LEFT JOIN `unr_players_achiev` ON `achievId` = `id` AND `playerId` = $plId 
-		WHERE `lang`='{$lang}' 
-		ORDER BY `progress` = `count` 
-		DESC, `progress`/`count` DESC
-		LIMIT $start, $achievPerPage";
-	
+				IF(`progress` IS NULL, 0, `progress`) AS `progress`
+			FROM `achiev` 
+			LEFT JOIN `unr_players_achiev` ON `achievId` = `id` AND `playerId` = $plId 
+			WHERE `lang`='{$lang}' 
+			ORDER BY `progress` = `count` DESC, `progress`/`count` DESC {$limit}";
 		$r = mysqli_query($db, $q);
 	
 		$achievs = array();
-		
-		while($row = mysqli_fetch_array($r))
-		{
+		while($row = mysqli_fetch_array($r)) {
 			if ($row["count"] != 1 && $row["count"] != $row["progress"])
 				$row["width"] = $row["progress"] * 100 / $row["count"];
+			
 			$achievs[] = $row;
 		}
-		$plrs = 1;
-		$smarty->assign('achievs', $achievs);
-		
-		
-		$smarty->assign('page', $page);
-		$smarty->assign('totalPages', $totalPages);
-		
-		$name = str_replace("#", "%23", $name);
-		$smarty->assign('pageUrl', "$baseUrl/$name/achiev/page%page%/");
+		assign('achievs', $achievs);
 	}
 	else
-		header("Location: $baseUrl/achiev");
-
+		$message = $langs["PlayerNotFound"];
 }
-else {// achive_list || /achiev
+else {// achiev_list || /achiev
 	$q = "SELECT COUNT(*) FROM `unr_achiev`"; 
 	$r = mysqli_query($db, $q);
 	
 	$total = mysqli_result($r, 0);
-	$smarty->assign('total', $total);
+	assign('total', $total);
 
-	if (isset($_GET["page"]))
-		$page = abs((int)$_GET["page"]);
-	else
-		$page = 1;
-	if (!$page)
-		$page = 1;
+	$pages = generate_page($_GET["page"], $total, $achievPerPage);
+	$pages["pageUrl"] = "$baseUrl/achiev/page%page%/";
+	assign('pages', $pages);
 
-	$totalPages = ceil($total/$achievPerPage);	
-	if ($page > $totalPages)
-		$page = 1;
-	
-	$start = ($page - 1) * $achievPerPage;
+	$limit = "LIMIT ".$pages["start"].",".$pages["perpage"];
 		
 	$q = 'SET @playerCount := (SELECT COUNT(*) FROM `unr_players`)';
 	mysqli_query($db, $q);
 	$q = "SELECT `id` AS `aId`, `name`, `description`, 
-		(SELECT COUNT(*) FROM `achiev`, `unr_players_achiev` 
-		WHERE `unr_players_achiev`.`achievId` = `achiev`.`id` 
-			AND `achiev`.`count` = `unr_players_achiev`.`progress` 
+		(SELECT COUNT(*) FROM `unr_achiev`, `unr_players_achiev` 
+		WHERE `unr_players_achiev`.`achievId` = `unr_achiev`.`id` 
+			AND `unr_achiev`.`count` = `unr_players_achiev`.`progress` 
 			AND `unr_players_achiev`.`achievId` = `aId`)/@playerCount*100 AS `completed` 
-		FROM `achiev` 
-		WHERE `lang`='{$lang}'		
-		ORDER BY `completed` DESC LIMIT $start, $achievPerPage";
+		FROM `achiev` WHERE `lang`='{$lang}' ORDER BY `completed` DESC {$limit}";
 	$r = mysqli_query($db, $q);
 	
 	$achievs = array();
-		
 	while($row = mysqli_fetch_array($r)) {
 		$row["completed"] = floor($row["completed"]*100)/100;
 		$achievs[] = $row;
 	}
-	$smarty->assign('achievs', $achievs);
 	
-	$smarty->assign('page', $page);
-	$smarty->assign('totalPages', $totalPages);
-	$smarty->assign('pageUrl', "$baseUrl/achiev/page%page%/");
+	assign('achievs', $achievs);
 }
 
-$smarty->assign('plrs', $plrs);
+assign('message');
+
 ?>

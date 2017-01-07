@@ -1,4 +1,4 @@
-		<div class="title">{$lang_admin_servers}</div>
+		<div class="title">{$langs.admin_servers}</div>
 		<div class="error_message">{$message}</div>
 			
 		<table id="admin_servers">
@@ -13,13 +13,13 @@
 				</td>
 				<td><input name="addres" type="text" class="col_addres"/></td>
 				<td>
-					<input type="image" src="{$baseUrl}/img/add.png" name="act" value="add" alt="{$langAdd}">
+					<input type="image" src="{$baseUrl}/img/add.png" name="act" value="add" alt="{$langs.Add}">
 				</td>
 			</tr>
 		</form>
 			<tr class="title">
-				<td>{$langType}</td>
-				<td>{$langIP}</td>
+				<td>{$langs.Type}</td>
+				<td>{$langs.IP}</td>
 				<td>#</td>
 			</tr>
 {foreach from=$servers item=server}
@@ -34,10 +34,10 @@
 				</td>
 				<td><input value="{$server.addres}" name="addres" type="text" class="col_addres" /></td>
 				<td >
-					<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="edit" alt="{$langUpdate}">
+					<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="edit" alt="{$langs.Update}">
 					<input type="hidden" name="confirm" value="0" />
 					<input type="checkbox" name="confirm" value="1" />
-					<input type="image" src="{$baseUrl}/img/delete.png" name="act" value="delete" alt="{$langDelete}">
+					<input type="image" src="{$baseUrl}/img/delete.png" name="act" value="delete" alt="{$langs.Delete}">
 					<input name="id" type="hidden" value="{$server.id}" />
 				</td>
 			</tr>

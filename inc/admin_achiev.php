@@ -8,16 +8,9 @@ if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webad
 $act = isset($_POST["act"]) ? $_POST["act"] : "";	
 
 if ($act == "edit") {
-	if(get_magic_quotes_gpc()) {
-		$name =  $_POST["name"];
-		$descr = $_POST["descr"];
-		$type = $_POST["type"];
-	}
-	else {
-		$name = addslashes($_POST["name"]);
-		$descr = addslashes($_POST["descr"]);
-		$type = addslashes($_POST["type"]);		
-	}
+	$name = slashes($_POST["name"]);
+	$descr = slashes($_POST["descr"]);
+	$type = slashes($_POST["type"]);		
 	
 	$count = abs((int)$_POST["count"]);
 	if (!$count)
@@ -41,12 +34,7 @@ if ($act == "edit") {
 }
 else
 if ($act == "add") {
-	if(get_magic_quotes_gpc()) {
-		$type = $_POST["type"];
-	}
-	else {
-		$type = addslashes($_POST["type"]);		
-	}
+	$type = slashes($_POST["type"]);
 	
 	$count = abs((int)$_POST["count"]);
 	if (!$count)
@@ -74,15 +62,10 @@ if ($act == "delete") {
 		mysqli_query($db, $q);
 	}
 	else
-		$message = $langs["langConfirm"];
+		$message = $langs["Confirm"];
 }
 if ($act == "editlang") {
-	if(get_magic_quotes_gpc()) {
-		$value = $_POST["value"];
-	}
-	else {
-		$value = addslashes($_POST["value"]);		
-	}
+	$value = slashes($_POST["value"]);		
 	
 	$lid = $_POST["lid"];
 	
@@ -90,18 +73,17 @@ if ($act == "editlang") {
 	mysqli_query($db, $q);
 }
 
-$smarty->assign('message', $message); 
+assign('message', $message); 
 
 // Achiev
 $q = "SELECT * FROM `achiev` WHERE `lang` = '$lang' ORDER BY `type`";
 $r = mysqli_query($db, $q);
 
 $achievs = array();
-while($row = mysqli_fetch_array($r))
-{
+while($row = mysqli_fetch_array($r)) {
 	$achievs[] = $row;
 }
-$smarty->assign('achievs', $achievs);
+assign('achievs', $achievs);
 
 // Achiev Lang
 $q = "SELECT * FROM `unr_achiev_lang` LEFT JOIN `unr_achiev` 
@@ -113,8 +95,7 @@ $lasttype = "";
 $lastlang = "";
 $pretype = "";
 $achievs_lang = array();
-while($row = mysqli_fetch_array($r))
-{
+while($row = mysqli_fetch_array($r)) {
 	$type = $row['type']."_".$row['count'];
 	
 	$row['hr'] = $type!=$pretype ? 1 : 0;
@@ -128,5 +109,5 @@ while($row = mysqli_fetch_array($r))
 	
 	$achievs_lang[] = $row;
 }
-$smarty->assign('achievs_lang', $achievs_lang);
+assign('achievs_lang', $achievs_lang);
 ?>

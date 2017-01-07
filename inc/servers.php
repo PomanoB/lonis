@@ -3,34 +3,36 @@ $message = "";
 
 include 'hlds.php';
 
-if(isset($_GET["addr"])) {
-	$addr = $_GET["addr"];
-}
-else
 if(isset($_POST["addr"])) {
-	$addr =  $_POST["addr"];
+	$addr = $_POST["addr"];
+	header("Location: {$baseUrl}/servers/$addr");
 }
-else
-	$addr = "";
+
+$addr = isset($_GET["addr"]) ?  $_GET["addr"] : "";
 
 $server=new hlds();
 
 if($addr) {	
 	if (!$server->connect($addr)) {
-		$message = $langs['langServerNotFound'];
+		$message = $langs['ServerNotFound'];
 	}
 	else {
 		$info = $server->info();
 		$players = $server->get_players();
 		
-		$img = "$baseUrl/img/{$info['mod']}/{$info['map']}.jpg";
-		$info['img'] = file_exists($img) ? $img : "$baseUrl/img/noimage.png";
+		$img_file = "{$docRoot}{$baseSite}/img/{$info['mod']}/{$info['map']}.jpg";
+		$mapimage = "{$docRoot}{$baseSite}/img/mapimage.jpg";
+
+		if(file_exists($img_file)) {
+			file_put_contents($mapimage, file_get_contents($img_file));
+			$info['img'] = "$baseUrl/img/mapimage.jpg";
+		}
 		
 		$addrs = explode(":", $addr);
 		$info["ip"] = gethostbyname($addrs[0]);
 		
-		$smarty->assign('info', $info);
-		$smarty->assign('players', $players);
+		assign('info', $info);
+		assign('players', $players);
 	}
 }
 else {
@@ -66,11 +68,11 @@ else {
 		$servers[] = $row;
 	}
 	
-	$smarty->assign('servers', $servers);
+	assign('servers', $servers);
 }
 
-$smarty->assign('message', $message); 
-$smarty->assign('addr', $addr);
-$smarty->assign('server_name', $server_name);
+assign('message', $message); 
+assign('addr', $addr);
+assign('server_name', $server_name);
 
 ?>

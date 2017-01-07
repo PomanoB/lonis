@@ -1,7 +1,7 @@
 <?php
 $id = 0;
 $message = "";
-$info = array();
+$row = array();
 	
 if (isset($playerId))
 	$id = $playerId;
@@ -12,44 +12,43 @@ if ($id) {
 	$q = "SELECT * FROM `unr_players` WHERE `id` = $id";
 	$r = mysqli_query($db, $q);
 	
-	if($info = mysqli_fetch_assoc($r)) {
-		if($ipInfo = geoip_record_by_addr($gi, $info["lastIp"]) && !is_null($ipInfo))
-		{
-			$info["ipInfo"]["country_code"] = strtolower($ipInfo->country_code);
-			$info["ipInfo"]["country_code3"] = $ipInfo->country_code3;
-			$info["ipInfo"]["country_name"] = $ipInfo->country_name;
-			$info["ipInfo"]["region"] = $ipInfo->region;
-			$info["ipInfo"]["city"] = $ipInfo->city;
-			$info["ipInfo"]["continent_code"] = $ipInfo->continent_code;
-			$info["ipInfo"]["region"] = $ipInfo->region;
+	if($row = mysqli_fetch_assoc($r)) {
+		if(isset($row["lastIp"]) && $row["lastIp"]!="") {
+			$q = "SELECT `code`, `country` FROM `geoip_countries` WHERE `ip_to` >= INET_ATON('{$row["lastIp"]}') ORDER BY `ip_to` ASC LIMIT 1";
+			$geoip = mysqli_fetch_assoc(mysqli_query($db, $q));
 		}
-		else
-			$info["ipInfo"]["country_code"] = '';
 		
+		$row["countryName"] = isset($geoip["country"]) ? $geoip["country"] : "";
+		$row["countryCode"] = isset($geoip["code"]) ? $geoip["code"] : "";
 		
-		$info["gravatar"] = 'http://www.gravatar.com/avatar/'.md5($info["email"]).'?d=wavatar&s='.$gravatarSize;
-		$info["lastTime"] = date('d.m.Y G:i:s', $info["lastTime"]);
+		$img = 'img/country/'.$row["countryCode"].'.png';
+		$row["countryImg"] = file_exists($img) ? $img : "";
+		
+		$row["avatarLink"] = "http://www.gravatar.com/avatar/";
+		$row["avatar"] = $row["avatarLink"].md5($row["email"]).'?d=wavatar&s='.$avatarSize["Full"];
+		
+		$row["lastTime"] = date('d.m.Y G:i:s', $row["lastTime"]);
 		
 		$q = "SELECT COUNT(*) FROM `unr_players_achiev`, `unr_achiev` WHERE `achievId` = `id` AND `count` = `progress` AND `playerId` = $id";
 		$r = mysqli_query($db, $q);
-		$info["achievCompleted"] = mysqli_result($r, 0);
+		$row["achievCompleted"] = mysqli_result($r, 0);
 		
 		$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `player` = $id";
 		$r = mysqli_query($db, $q);
-		$info["mapCompleted"] = mysqli_result($r, 0);
+		$row["mapCompleted"] = mysqli_result($r, 0);
 		
-		$znak = strpos($info["name"], "?");
-		$info["name_url"] = $znak===false ? rawurlencode($info["name"]) : "unrid$id";
+		$znak = strpos($row["name"], "?");
+		$row["name_url"] = $znak===false ? rawurlencode($row["name"]) : "unrid$id";
 		
-		$smarty->assign('info', $info);
+		assign('info', $row);
 	}
 	else {
-		$message = $langs['langPlayerNotFound'];
+		$message = $langs['PlayerNotFound'];
 	}
 }
 else {
-	$message = $langs['langPlayerNotFound'];
+	$message = $langs['PlayerNotFound'];
 }
 
-$smarty->assign('message', $message)
+assign('message', $message)
 ?>

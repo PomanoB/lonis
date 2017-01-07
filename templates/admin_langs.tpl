@@ -1,14 +1,14 @@
 			<center>
-			<div class="title">{$lang_admin_langs}</div>
+			<div class="title">{$langs.admin_langs}</div>
 			<div class="error_message">{$message}</div>
 			
 			<div id="lang">				
-					<form action="{$baseUrl}/admin/langs/#{$langvar}" method="post">	
+					<form action="{$baseUrl}/admin/langs/#{$langs.var}" method="post">	
 					<table class="form_login">
 						<tr class="title">
-							<td>{$lang_setupLang}</td>
-							<td>{$lang_Var}</td>
-							<td>{$lang_Value}</td>
+							<td>{$langs.setupLang}</td>
+							<td>{$langs.Var}</td>
+							<td>{$langs.Value}</td>
 						</tr>
 						<tr>
 							<td class="other">
@@ -27,7 +27,7 @@
 								<input size="40" name="value" type="text" />
 							</td>
 							<td colspan="4">
-								<input type="image" src="{$baseUrl}/img/add.png" name="act" value="add" alt="{$langAdd}">
+								<input type="image" src="{$baseUrl}/img/add.png" name="act" value="add" alt="{$langs.Add}">
 							</td>
 						</tr>
 					</table>
@@ -46,10 +46,10 @@
 			{/foreach}																					
 							</td>
 							<td>
-								<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="edit" alt="{$langUpdate}">
+								<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="edit" alt="{$langs.Update}">
 								<input type="hidden" name="confirm" value="0" />
 								<input type="checkbox" name="confirm" value="1" />
-								<input type="image" src="{$baseUrl}/img/delete.png" name="act" value="delete" alt="{$langDelete}">
+								<input type="image" src="{$baseUrl}/img/delete.png" name="act" value="delete" alt="{$langs.Delete}">
 								<input name="var" type="hidden" value="{$l}" />
 							</td>
 						</tr>

@@ -1,9 +1,9 @@
 			<div class="wrapper">		
-				<div class="titles left_block">{$lang_players}</div>
-		{if !isset($cs)}
+				<div class="titles left_block">{$langs.players}</div>
+		{if !$cs}
 				<div class=" right_block">
 					<form action="{$baseUrl}/admin/players/page{$page}" method="post">
-						<input type="text" name="search" id="search" class="form" {if isset($search)}value="{$search}"{/if} placeholder="{$langSearch}" />
+						<input type="text" name="search" id="search" class="form" {if isset($search)}value="{$search}"{/if} placeholder="{$langs.Search}" />
 						<input type="image" name="picture" src="{$baseUrl}/img/find.png" />
 						&nbsp;
 					</form>
@@ -11,9 +11,9 @@
 		{/if}
 			</div><br>
 			
-			<p><center>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}</center>
+			<center>{$generate_page}</center>
 						
-			<p><div class="error_message">{$message}</div>
+			<div class="error_message">{$message}</div>
 			
 			<div>
 				<table id="admin_players">
@@ -26,16 +26,16 @@
 						<td align="center"><input name="webadmin" type="checkbox"/></td>
 						
 						<td align="center">
-							<input type="image" src="{$baseUrl}/img/add.png" name="act" value="add" alt="{$langAdd}">
+							<input type="image" src="{$baseUrl}/img/add.png" name="act" value="add" alt="{$langs.Add}">
 						</td>
 					</tr>
 				</form>
 					<tr class="title">
-						<td>{$lang_player}</td>
-						<td>{$langPassword}</td>
-						<td>{$langEmail}</td>
-						<td>{$langActive}</td>
-						<td>{$langAdmin}</td>
+						<td>{$langs.player}</td>
+						<td>{$langs.Password}</td>
+						<td>{$langs.Email}</td>
+						<td>{$langs.Active}</td>
+						<td>{$langs.Admin}</td>
 						<td>#</td>
 					</tr>
 				{foreach from=$players item=player}
@@ -48,10 +48,10 @@
 						<td align="center"><input name="webadmin" type="checkbox" {if $player.webadmin==1}checked{/if}/></td>
 						
 						<td align="center">
-							<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="edit" alt="{$langUpdate}">
+							<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="edit" alt="{$langs.Update}">
 							<input type="hidden" name="confirm" value="0" />
 							<input type="checkbox" name="confirm" value="1" />
-							<input type="image" src="{$baseUrl}/img/delete.png" name="act" value="delete" alt="{$langDelete}">
+							<input type="image" src="{$baseUrl}/img/delete.png" name="act" value="delete" alt="{$langs.Delete}">
 							<input name="id" type="hidden" value="{$player.id}" />
 
 						</td>

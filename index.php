@@ -1,4 +1,5 @@
 <?php
+$starttime = microtime(true);
 error_reporting(E_ALL | E_STRICT);
 
 session_start();
@@ -8,11 +9,12 @@ define('IN_KZ_TOP', 1);
 include "inc/function.php";
 include "inc/config.php";
 include "inc/smarty_unr.php";
-//include "inc/geoip/geoip.inc";
-include "inc/geoip/geoipcity.inc";
 
-// Geo IP
-$gi = geoip_open("inc/geoip/GeoIPCity.dat", GEOIP_STANDARD);
+// Smarty
+$smarty = new Smarty_unr();
+
+// Starttime
+assign('starttime', $starttime);
 
 // Read setting from config.php
 foreach($dconf as $key=>$value) {
@@ -23,10 +25,10 @@ foreach($dconf as $key=>$value) {
 date_default_timezone_set($timezone);
 
 // Base URL
-$baseUrl = str_replace("/index.php", "", $_SERVER["PHP_SELF"]);
+$baseSite = str_replace("/index.php", "", $_SERVER["PHP_SELF"]);
 
 // Parse URI
-$uri = str_replace($baseUrl."/", "", $_SERVER["REQUEST_URI"]);
+$uri = str_replace($baseSite."/", "", $_SERVER["REQUEST_URI"]);
 if($uri!="") {
 	$url = parse_urls(parse_uri($uri, $parseRules));
 	if(isset($url["url"]) && isset($url["path"]) && $url["path"]!="index.php") {
@@ -35,7 +37,8 @@ if($uri!="") {
 	$_GET = $url["uri"];
 }
 
-$baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseUrl}";
+$baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseSite}";
+$docRoot = $_SERVER['DOCUMENT_ROOT'];
 
 // Debug trace
 //print_p();
@@ -46,15 +49,10 @@ $baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseUrl}";
 // Action
 $action = isset($_GET["action"]) && $_GET["action"]!="" ? $_GET["action"] : $menuStart;
 
-// Smarty
-$smarty = new Smarty_unr();
-
-//$smarty->error_reporting = E_ALL & ~E_NOTICE;
-
-$config_dir = $smarty->getConfigDir();
+$config_dir = $docRoot.$baseSite;
 
 // Read setting from config file or create default
-$config_path = $config_dir[0].'/'.$config_file;
+$config_path = $config_dir.'/'.$config_file;
 if(file_exists($config_path)) {
 	$conf = array_replace($dconf, parse_ini_file($config_path));
 	foreach($conf as $key=>$value) {
@@ -66,7 +64,9 @@ else {
 	save_config_file($config_path);
 }
 
-$db = mysqli_connect($mysql_host, $mysql_user, $mysql_password);
+if($db = mysqli_connect($mysql_host, $mysql_user, $mysql_password)) {
+		
+}
 if($db) {
 	$conn = 1;
 	if (!mysqli_select_db($db, $mysql_db)) $conn = 0;
@@ -76,15 +76,13 @@ if($db) {
 }
 else
 	$conn = 0;
-
-
 	
 // Connect to mysql
 if($action!="setup" && !$conn) {	
-	header("Location: $baseUrl/action/setup");
+	header("Location: $baseUrl/setup");
 }
 
-$smarty->assign('conn', $conn);
+assign('conn', $conn);
 
 if($conn) {
 	// Read language 
@@ -99,7 +97,7 @@ if($conn) {
 		if (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]))
 			$lang = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
 		
-	$smarty->assign('lang', $lang);
+	assign('lang', $lang);
 
 	// Read language from file
 	$dblangs = array();
@@ -115,7 +113,7 @@ if($conn) {
 		
 		$langselect[$row['lang']] = $row["name"];
 	}
-	$smarty->assign('langselect', $langselect);
+	assign('langselect', $langselect);
 
 	$langs = array_replace($langs, $dblangs);
 	unset($dblangs);
@@ -130,7 +128,7 @@ if($conn) {
 			
 		$themeselect[$row['theme']] = $row["name"];
 	}
-	$smarty->assign('themeselect', $themeselect);
+	assign('themeselect', $themeselect);
 
 	if (isset($_POST["theme"]))
 	{
@@ -140,7 +138,7 @@ if($conn) {
 		}
 		else {
 			$langTheme1 = $themeselect[$theme];
-			$langTheme2 = $langs["langThemeNotFound"];
+			$langTheme2 = $langs["ThemeNotFound"];
 		echo "<script>alert('$langTheme1 $langTheme2')</script>";
 		}
 	}
@@ -150,9 +148,7 @@ if($conn) {
 setlocale(LC_ALL, $lang.'_'.$lang.'.'.$charset);
 	
 // Set all langs to Smarty
-foreach($langs as $key=>$value) {
-	$smarty->assign($key, $value);
-}
+assign("langs", $langs);
 	
 // CS Style
 $cs = isset($_SESSION["cs_$cookieKey"]) ? $_SESSION["cs_$cookieKey"] : $cs;
@@ -173,8 +169,8 @@ if($cs) {
 if (isset($_SESSION["unr_theme_$cookieKey"]))
 	$theme = $_SESSION["unr_theme_$cookieKey"];
 
-$smarty->assign('cs', $cs);
-$smarty->assign('theme', $theme);
+assign('cs', $cs);
+assign('theme', $theme);
 
 // Select Player
 $webadmin = 0;
@@ -188,7 +184,7 @@ if (isset($_SESSION["user_$cookieKey"]["id"]) && $action!="setup") {
 		
 		if($row["webadmin"]==1) $webadmin = 1;
 		
-		$smarty->assign('user', $_SESSION["user_$cookieKey"]);
+		assign('user', $_SESSION["user_$cookieKey"]);
 		
 	}
 	else
@@ -197,7 +193,7 @@ if (isset($_SESSION["user_$cookieKey"]["id"]) && $action!="setup") {
 	$menu = $menuLogged;
 }
 
-$smarty->assign('webadmin', $webadmin);
+assign('webadmin', $webadmin);
 
 // Get name from DB
 if (isset($_GET["name"])) {
@@ -209,8 +205,8 @@ if (isset($_GET["name"])) {
 	if($info = mysqli_fetch_assoc($r))
 		$playerId = $info["id"];
 	
-	$smarty->assign('name', $name);
-	$smarty->assign('name_url', $_GET["name"]);
+	assign('name', $name);
+	assign('name_url', $_GET["name"]);
 }
 
 if($action!="setup") {
@@ -222,11 +218,11 @@ if($action!="setup") {
 			$val = explode("|", $item);
 			if($item!="-") {
 				$menulist[$key]["item"] = $item;
-				$menulist[$key]["name"] = $langs["lang_".$val[0]];
+				$menulist[$key]["name"] = $langs[$val[0]];
 				$menulist[$key]["url"] = $ActionList[$val[0]];
 				if(isset($val[1])) {
 					foreach($val as $k=>$subitem) {
-						$menulist[$key][$k]["name"] = $langs["lang_$subitem"];
+						$menulist[$key][$k]["name"] = $langs[$subitem];
 						$menulist[$key][$k]["url"] = $ActionList[$subitem];	
 					}	
 				}
@@ -236,29 +232,24 @@ if($action!="setup") {
 		return $menulist;
 	}
 
-	$smarty->assign('menulist', create_menu($menu));
-	$smarty->assign('menuadminlist', create_menu($menuAdmin));
+	assign('menulist', create_menu($menu));
+	assign('menuadminlist', create_menu($menuAdmin));
 }
 
 // Menu Footer
-$smarty->assign('menu_footer', $menu_footer);
+assign('menu_footer', $menu_footer);
 	
 // Include action
 if(file_exists("inc/$action.php"))
 	include "inc/$action.php";
 
-if(file_exists("templates/$action.tpl"))
-	$smarty->assign('action', $action);
-//else
-//	header("Location: $baseUrl/error/404");
+if(!file_exists("templates/$action.tpl"))
+	header("Location: $baseUrl/error/404");
 
 // Global temlate vars
-$smarty->assign('baseUrl', $baseUrl);
-
-if(isset($langs["lang_$action"]))
-	$smarty->assign('langAction', $langs["lang_$action"]);
-
-$smarty->assign('cake', mt_rand(1, 5));
+assign('baseUrl', $baseUrl);
+assign('action', $action);
+assign('cake', mt_rand(1, 5));
 
 // Template
 $smarty->display("index.tpl");
@@ -269,6 +260,5 @@ $_SESSION["lastUrl_$cookieKey"] = $baseUrl;
 unset($_GLOBALS);
 unset($_GET);
 unset($_POST);
-		
-geoip_close($gi);
+
 ?>

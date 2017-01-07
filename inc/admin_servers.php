@@ -8,36 +8,26 @@ if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webad
 $act = isset($_POST["act"]) ? $_POST["act"] : "";	
 
 if ($act == "edit") {
-	if(get_magic_quotes_gpc()) {
-		$addres = $_POST["addres"];
-	}
-	else {
-		$addres = addslashes($_POST["addres"]);	
-	}
-		
+	$addres = slashes($_POST["addres"]);	
+
 	$id = $_POST["id"];
 	$mod = $_POST["mod"];
 
 	if (strlen($addres) > 0)
 		mysqli_query($db, "UPDATE `servers` SET `addres` = '$addres', `mod` = '$mod' WHERE `id` = $id");
 	else
-		$message = $langs["langError"];
+		$message = $langs["Error"];
 }
 else
 if ($act == "add") {
-	if(get_magic_quotes_gpc()) {
-		$addres = $_POST["addres"];
-	}
-	else {
-		$addres = addslashes($_POST["addres"]);	
-	}
+	$addres = slashes($_POST["addres"]);
 	
 	$mod = $_POST["mod"];
 		
 	if (strlen($addres) > 0)
 		mysqli_query($db, "INSERT INTO `servers` (`addres`, `mod`) VALUES ('$addres', '$mod')");
 	else
-		$message = $langs["langError"];
+		$message = $langs["Error"];
 }
 else
 if ($act == "delete") {
@@ -47,10 +37,10 @@ if ($act == "delete") {
 		mysqli_query($db, "DELETE FROM `servers` WHERE `id`= $id");
 	}
 	else
-		$message = $langs["langConfirm"];
+		$message = $langs["Confirm"];
 }
 
-$smarty->assign('message', $message);
+assign('message', $message);
 
 // Servser
 $r = mysqli_query($db, "SELECT * FROM `servers`");
@@ -59,7 +49,7 @@ $servers = array();
 while($row = mysqli_fetch_array($r)) {
 	$servers[] = $row;
 }
-$smarty->assign('servers', $servers);
+assign('servers', $servers);
 
 // Servser Mod
 $r = mysqli_query($db, "SELECT * FROM `servers_mod`");
@@ -68,6 +58,6 @@ $mod = array();
 while($row = mysqli_fetch_array($r)) {
 	$mod[] = $row;
 }
-$smarty->assign('mod', $mod);
+assign('mod', $mod);
 
 ?>

@@ -296,14 +296,14 @@ h2 {
 /* Header */
 /* Network */
 
-#network {background: #ffffff}
+#network {background: #3B3B37}
 #network .left {
-	color: #000;
+	color: #333;
 	vertical-align: text-bottom;
 }
 
 #network .right {
-	color: #000;
+	color: #333;
 	vertical-align: text-bottom;
 }
 
@@ -311,16 +311,12 @@ h2 {
 	display: block;
 	padding: 6px 10px 7px;
 	text-decoration: none;
-	color: #000000;
+	color: #FFFFFF;
 }
 
-#network .install span {
-	display: block;
-	padding: 6px 10px 7px;
-	text-decoration: none;
-	color: #666;
+#network .item img {
+	vertical-align: middle;
 }
-
 #network .item a:hover {
 	background: #F6F6F6;
 	color: #000;
@@ -331,11 +327,12 @@ h2 {
 }
 #network .text-separator, #network span {color: #999;}
 .center-wrapper {
-	margin-left: 45px;	
+	margin-left: 45px;
 }
 
-#network img {display: none}
-
+#network .name {
+	padding-left: 4px;
+}
 #network .username { 
 	font-style: italic;
 	padding: 10px;

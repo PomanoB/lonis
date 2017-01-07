@@ -1,12 +1,12 @@
 			<div class="wrapper">		
 				<div class="titles left_block">
-					{$lang_kz_maps}{if $rec=="norec"} - {$langKzNoRec}{/if} ({$total})
+					{$langs.kz_maps}{if $rec=="norec"} - {$langs.kznorec}{/if} ({$total})
 				</div>
 		{if !$cs}
 				<div class="right_block">
 					<form action="" method="get" id="search_map_form">
-						<input type="text" name="map" id="map" value="{if isset($map)}{$map}{/if}" placeholder="{$langSearch}"/>
-						<input type="image" name="picture" src="{$baseUrl}/img/find.png" alt="{$langSearch}"/>
+						<input type="text" name="map" id="map" value="{if isset($map)}{$map}{/if}" placeholder="{$langs.Search}"/>
+						<input type="image" name="picture" src="{$baseUrl}/img/find.png" alt="{$langs.Search}"/>
 						&nbsp;
 					</form>
 				</div>
@@ -16,9 +16,9 @@
 			<br>
 			<div>
 	{if $rec=="norec"}				
-				<p><div><a href="{$baseUrl}/kreedz/maps/{$type}">{$langKzRec}</a></div>
+				<p><div><a href="{$baseUrl}/kreedz/maps/{$type}">{$langs.kzrec}</a></div>
 				
-				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}</p>
+				{$generate_page}
 				
 				<div class="inline">
 		{foreach from=$maps key=key item=map}
@@ -27,23 +27,23 @@
 				</div>
 	{else}
 				<p><div>
-					<a href="{$baseUrl}/kreedz/maps/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langKzPro}</a>
-					<a href="{$baseUrl}/kreedz/maps/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langKzNoob}</a>
-					<a href="{$baseUrl}/kreedz/maps/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langKzAll}</a>
-					:: <a href="{$baseUrl}/kreedz/maps/{$type}/norec">{$langKzNoRec}</a>
+					<a href="{$baseUrl}/kreedz/maps/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
+					<a href="{$baseUrl}/kreedz/maps/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
+					<a href="{$baseUrl}/kreedz/maps/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
+					:: <a href="{$baseUrl}/kreedz/maps/{$type}/norec">{$langs.kznorec}</a>
 				</div>
 				<p><div class="err_message">{$message}</div>
-				<p>{generate_pages page=$page totalPages=$totalPages pageUrl=$pageUrl}
+				{$generate_page}
 				
 				<div style="padding:10px;">
 				<table class="table-list">
 					<tr class="title">
-						<td>{$langMap}</td>
-						<td>{$lang_player}</td>
-						<td>{$langTime}</td>
-						<td>{$langCp}</td>
-						<td>{$langGoCp}</td>
-						<td>{$langWeapon}</td>
+						<td>{$langs.Map}</td>
+						<td>{$langs.player}</td>
+						<td>{$langs.Time}</td>
+						<td>{$langs.Cp}</td>
+						<td>{$langs.GoCp}</td>
+						<td>{$langs.Weapon}</td>
 				{if $webadmin==1}
 						<td	>#</td>
 				{/if}
@@ -62,7 +62,7 @@
 							<input type="hidden" name="confirm" value="0">
 							<input type="checkbox" name="confirm" value="1">
 							<button class="but" name="act" value="delete">
-								<img src="{$baseUrl}/img/delete.png" border=0 alt="{$langDelete}">
+								<img src="{$baseUrl}/img/delete.png" border=0 alt="{$langs.Delete}">
 							</button>
 							<input name="delmap" type="hidden" value="{$map.map}" />
 						</td>

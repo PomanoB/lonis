@@ -5,6 +5,12 @@ $lang = "en";
 $theme = "main";
 $cstheme = "main";
 
+$avatarSize = array(
+	"Icon" => 24,
+	"Medium" => 80,
+	"Full" => 150,
+);
+	
 // Default config
 $conf_type = array(
 	'password' => array('mysql_password'),
@@ -24,21 +30,12 @@ $dconf = array (
 	'server_name' => '[K.lan] Counter-Strike',
 	'email' => 'admin@klan-hub.ru',
 	
-	'activateTime' => 60 * 60 * 24 * 3,		
-	'gravatarSize' => 150,
-	'playerPerPage' => 20,
-	'mapsPerPage' => 20,
-	'playersPerPage' => 20,
-	'achievPerPage' => 5,
-	
-	'image_cc' => "https://cosy-climbing.net/img/maps/%map%.png",
-	'image_xj' => "http://xtreme-jumps.eu/e107_plugins/lgsl_menu/images/mapz/halflife2/cstrike/%map%.jpg",
-
-	'download_cc' => "https://cosy-climbing.net/files/maps/%map%.rar",
-	'download_xj' => "http://files.xtreme-jumps.eu/maps/%map%.rar",
-	
-	'demos_cc' => "https://cosy-climbing.net/files/demos/%demo%.rar",
-	'demos_xj' => "http://files.xtreme-jumps.eu/demos/%demo%.rar",	
+	'activateTime' => 60 * 60 * 24 * 3,
+	'playerPerPage' => 15,
+	'mapsPerPage' => 15,
+	'playersPerPage' => 15,
+	'achievPerPage' => 50,
+	'achievPlayersPerPage' => 5,
 	
 	'cookieKey' => "cc1f891423db1ee24498e76f3b107bbe"
 );
@@ -55,8 +52,8 @@ $menu_footer = array(
 
 // Menu List
 $menuStart = "servers";
-$menu = parse_menu('servers|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|reg|login');
-$menuLogged = parse_menu('servers|players|achiev_players|achiev|kz_players|kz_maps|kz_duels|logout');
+$menu = parse_menu('servers|players|achiev|kz_players|kz_maps|kz_duels|reg|login');
+$menuLogged = parse_menu('servers|players|achiev|kz_players|kz_maps|kz_duels|logout');
 $menuCS = parse_menu('kz_players|kz_maps|kz_duels');
 $menuAdmin = parse_menu('admin_servers|admin_achiev|admin_langs|admin_players');
 
@@ -68,7 +65,6 @@ $ActionList  = array (
 	"admin_players" => "/admin/players",
 	"servers" => "/servers/",
 	"players" => "/players/",
-	"achiev_players" => "/achiev/players",
 	"achiev" => "/achiev/",
 	"kz_players" => "/kreedz/players",
 	"kz_maps" => "/kreedz/maps",
@@ -88,15 +84,14 @@ $parseRules = array(
 	"/^login/" => "index.php?action=login",
 	"/^logout/" => "index.php?action=login&logout=1",
 	"/^ucp/" => "index.php?action=ucp",
-
-	"/^admin\/([0-9a-zA-Z_!]+)?(\/page([0-9]+))?/" => "index.php?action=admin_%1%&page=%3%",
+	"/^steam/" => "index.php?action=steam_login",
 	
-	"/^servers?(\/(.*))/" => "index.php?action=servers&addr=%2%",
+	"/^admin\/([0-9a-zA-Z_!]+)?(\/page([0-9]+))?(\/(.*))?/" => "index.php?action=admin_%1%&page=%3%&search=%5%",
 	
-	"/^players\/(.*)?(\/page([0-9]+))?/" => "index.php?action=players&search=%1%&page=%3%",	
+	"/^servers\/(.*)/" => "index.php?action=servers&addr=%1%",
 	
-	"/^achiev_players(\/page([0-9]+))?/" => "index.php?action=achiev_players&page=%2%",
-	"/^achiev\/players(\/page([0-9]+))?/" => "index.php?action=achiev_players&page=%2%",	
+	"/^players?(\/(name|achiev))?(\/page([0-9]+))?(\/(.*))?/" => "index.php?action=players&sort=%2%&page=%4%&search=%6%",	
+		
 	"/^achiev?(\/page([0-9]+))?(\/)?(.*)?/" => "index.php?action=achiev&page=%2%&aname=%4%",
 	"/^(.*)\/achiev?(\/page([0-9]+))?/" => "index.php?action=achiev&name=%1%&page=%3%",
 	
@@ -107,77 +102,70 @@ $parseRules = array(
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(num|top1))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
 	
 	"/^(.*)/" => "index.php?action=player&name=%1%",
-);
+	);
 
 $langs = array(
-	"langTitle" => "Lonis",
+	"Title" => "Lonis",
 
-	"langThemeNotFound" => "Theme not found",
+	"ThemeNotFound" => "Theme not found",
 
-	"lang_logout" => "Logout",
-	"lang_login" => "Login",
+	"logout" => "Logout",
+	"login" => "Login",
 
-	"langError" => "Error",
-	"langUserNotFound" => "Not found user entered data!",
+	"Error" => "Error",
+	"UserNotFound" => "Not found user entered data!",
 	
-	"langName" => "Name",
-	"langPassword" => "Password",
-	"langUpdate" => "Update",
-	"langCurrent" => "Current",
+	"Name" => "Name",
+	"Password" => "Password",
+	"Update" => "Update",
+	"Current" => "Current",
 
-	"lang_setup" => "Setup config",
-	"langSave" => "Save",
-	"langSaved" => "Saved",
-	"langReset" => "Reset",
-	"langResetDef" => "Reset to default",
-	"langConfirm" => "Confirmed action",
-	"lang_timezone" => "Time zone",
-	"lang_charset" => "Charset",
-	"lang_mysql_user" => "User db",
-	"lang_mysql_password" => "Password db",
-	"lang_mysql_host" => "Host db",
-	"lang_mysql_db" => "Database",
-	"lang_mysql_prefix" => "Prefix db",
-	'lang_server_name' => 'Server Name',
-	"lang_activateTime" => "Activation time e-mail",
-	"lang_baseUrl" => "Url site",
-	"lang_gravatarSize" => "Avatar size",
-	"lang_playerPerPage" => "Players per page",
-	"lang_mapsPerPage" => "Maps per page",
-	"lang_playersPerPage" => "Players per page KZ",
-	"lang_achievPerPage" => "Achiev per page", 
-	"lang_langlist" => "Language list (space specarate)",
-	"lang_lang" => "Language default" ,
-	"lang_themelist" => "Theme list (space specarate)",
-	"lang_theme" => "Theme default",
-	"lang_cstheme" => "Theme default in CS",
-	"lang_email" => "E-mail",
-	"lang_cookieKey" => "Cookie Key",
-	'lang_image_cc' => "Image from CC",
-	'lang_image_xj' => "Image from XJ",
-	'lang_download_cc' => "Download map CC",
-	'lang_download_xj' => "Download map XJ",	
-	'lang_demos_cc' => "Download demos CC",
-	'lang_demos_xj' => "Download demos XJ",	
+	"setup" => "Setup config",
+	"Save" => "Save",
+	"Saved" => "Saved",
+	"Reset" => "Reset",
+	"ResetDef" => "Reset to default",
+	"Confirm" => "Confirmed action",
+	"timezone" => "Time zone",
+	"charset" => "Charset",
+	"mysql_user" => "User db",
+	"mysql_password" => "Password db",
+	"mysql_host" => "Host db",
+	"mysql_db" => "Database",
+	"mysql_prefix" => "Prefix db",
+	"server_name' => 'Server Name",
+	"activateTime" => "Activation time e-mail",
+	"baseUrl" => "Url site",
+	"gravatarSize" => "Avatar size",
+	"playerPerPage" => "Players per page",
+	"mapsPerPage" => "Maps per page",
+	"playersPerPage" => "Players per page KZ",
+	"achievPerPage" => "Achiev per page",
+	"achievPlayersPerPage" => "Achiev Players per page",	
+	"list" => "Language list (space specarate)",
+	"lang" => "Language default" ,
+	"themelist" => "Theme list (space specarate)",
+	"theme" => "Theme default",
+	"cstheme" => "Theme default in CS",
+	"email" => "E-mail",
+	"cookieKey" => "Cookie Key",
 	
-	"lang_setupGeneral" => "General setting",
-	"lang_setupDb" => "Database",
-	"langGenerate" => "Generate",
-	"lang_setupLang" => "Languages",
-	"langDbTitle" => "Working with database",
-	"langBase" => "DB",
-	"langTables" => "Tables",
-	"langData" => "Data",
-	"langCreate" => "Create",
-	"langDelete" => "Delete",
-	"langSave" => "Save",
-	"langAdd" => "Add",
-	"langClear" => "Clear",
-	"langEdit" => "Edit",
-	"langDbNotConnect" => "Not connection to database",
-	"langDbNotTablesFile" => "File with tables not found",
-	"langDbNotDataFile" => "File with data not found",
-	
-
-);
+	"setupGeneral" => "General setting",
+	"setupDb" => "Database",
+	"Generate" => "Generate",
+	"setupLang" => "Languages",
+	"DbTitle" => "Working with database",
+	"Base" => "DB",
+	"Tables" => "Tables",
+	"Data" => "Data",
+	"Create" => "Create",
+	"Delete" => "Delete",
+	"Save" => "Save",
+	"Add" => "Add",
+	"Clear" => "Clear",
+	"Edit" => "Edit",
+	"DbNotConnect" => "Not connection to database",
+	"DbNotTablesFile" => "File with tables not found",
+	"DbNotDataFile" => "File with data not found",
+	);
 ?>

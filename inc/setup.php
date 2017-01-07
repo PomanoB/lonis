@@ -10,28 +10,20 @@ if ($acts == "logout") {
 }
 else
 if (isset($_POST["setting_user"]) && isset($_POST["setting_password"])) {
-	if (get_magic_quotes_gpc())
-	{
-		$setting_user = $_POST["setting_user"];
-		$setting_password = $_POST["setting_password"];
-	}
-	else
-	{
-		$setting_user = addslashes($_POST["setting_user"]);
-		$setting_password = addslashes($_POST["setting_password"]);
-	}
+	$setting_user = slashes($_POST["setting_user"]);
+	$setting_password = slashes($_POST["setting_password"]);
 	
 	if($setting_user==$mysql_user && $setting_password==$mysql_password) {
 		$_SESSION["setting_user"] = $setting_user;
 		header("Location: $baseUrl/setup");
 	}
 	else {
-		$message = $langs["langUserNotFound"];
+		$message = $langs["UserNotFound"];
 	}
 }
 else {
 	if (isset($_SESSION["setting_user"])) {
-		$smarty->assign('act', $act);
+		assign('act', $act);
 		
 		/* General setting */
 		if($act=="genkey") {
@@ -42,8 +34,8 @@ else {
 			$user = $_POST["fld_mysql_user"];
 			$password = $_POST["fld_mysql_password"];
 			
-			if (!$user) $errors[] = $langs["langNotInputNick"];	
-			if (!$password) $errors[] = $langs["langNotInputPassword"];
+			if (!$user) $errors[] = $langs["NotInputNick"];	
+			if (!$password) $errors[] = $langs["NotInputPassword"];
 			
 			foreach($_POST as $key=>$value) {
 				if($_POST[$key]=="") {
@@ -53,7 +45,7 @@ else {
 			}
 			
 			if ($user && $password) {
-				$fp = fopen($config_dir[0].'/'.$config_file, 'w');
+				$fp = fopen($config_dir.'/'.$config_file, 'w');
 				$text = "";
 				foreach($_POST as $key=>$value) {
 					$key = str_replace("fld_", "", $key);
@@ -66,10 +58,10 @@ else {
 				fwrite($fp, $text);
 				fclose($fp);
 				
-				$message = $langs["langSaved"];
+				$message = $langs["Saved"];
 			}
 			else {
-				$message = $langs["langNotInput"];
+				$message = $langs["NotInput"];
 			}
 		}
 		else
@@ -77,11 +69,11 @@ else {
 			//if(isset($_POST["comfirm"]) && $_POST["comfirm"]==1) {
 			if($check_confirm = check_comfirm($mysql_password)) {
 				unset($_SESSION["setting_user"]);
-				unlink($config_dir.'/'.$config_file);
+				
 				header("Location: $baseUrl/setup");
 			}
 			else {
-				$resetmessage = $langs["langConfirm"];
+				$resetmessage = $langs["Confirm"];
 			}
 		}
 		
@@ -92,19 +84,19 @@ else {
 			$conflist[$name]["type"] = $input_type[$name];
 			$conflist[$name]["err"] = isset($fld_err[$name]) ? 1 : 0;
 			$conflist[$name]["name"] = "fld_".$name;
-			$conflist[$name]["desc"] = $langs["lang_$name"];
+			$conflist[$name]["desc"] = $langs["$name"];
 			$conflist[$name]["text"] = $input_type[$name]!="password" ?  $value : "";
 		}
-		$smarty->assign('conflist', $conflist);
+		assign('conflist', $conflist);
 		
 		/* Database */
 		$check_confirm = check_comfirm($mysql_password);
-		$smarty->assign('check_confirm', $check_confirm);
-		$smarty->assign('act', $act);
+		assign('check_confirm', $check_confirm);
+		assign('act', $act);
 		
 		if($db = mysqli_connect($mysql_host, $mysql_user, $mysql_password)) {
-			$smarty->assign('comm', $db);
-			$smarty->assign('mysql_db', $mysql_db);
+			assign('comm', $db);
+			assign('mysql_db', $mysql_db);
 			
 			$base = mysqli_select_db($db, $mysql_db);
 			if(!$base) {
@@ -124,19 +116,19 @@ else {
 				
 				mysqli_query($db, "SET NAMES ".$charset);
 				
-				$file = $config_dir[0].'/db_tables.sql';
+				$file = $config_dir.'/db_tables.sql';
 				if($file_table = file_exists($file)) {
 					if(!($tbl =  mysqli_fetch_assoc(mysqli_query($db, "show tables")))) {
 						if($act=="tbladd") {
 							$r = mysql_query_file($file);
 							$r = mysql_query_file($file);
 							if(isset($r))
-								$smarty->assign('dbmessage', $langs["langError"]);
+								assign('dbmessage', $langs["Error"]);
 							else
 								header("Location: $baseUrl/setup");
 							
 						}
-						$smarty->assign('tbl', 0);
+						assign('tbl', 0);
 					}
 					else {
 						$tables = "";
@@ -150,27 +142,27 @@ else {
 							$file_lang = $config_dir.'/db_data_lang.sql';
 							$file_data_lang = mysql_query_file($file);
 							if($file_data || $file_data_lang)
-								$dbmessage = $langs["langError"];
+								$dbmessage = $langs["Error"];
 							else
 								header("Location: $baseUrl/setup");
 						}
 
-						$smarty->assign('tables', $tables);
-						$smarty->assign('file_data', $file_data && $file_data_lang);						
-						$smarty->assign('tbl', 1);
+						assign('tables', $tables);
+						assign('file_data', $file_data && $file_data_lang);						
+						assign('tbl', 1);
 					} // End
 				} // End tables
-				$smarty->assign('file_table', $file_table);
+				assign('file_table', $file_table);
 			} //End db
-			$smarty->assign('db', $db);
+			assign('db', $db);
 		} // End conn	
 				
 	} // End setting
 } // End login, logout
 
-$smarty->assign('message', $message);
-$smarty->assign('resetmessage', $resetmessage);
-$smarty->assign('dbmessage', $dbmessage);
+assign('message', $message);
+assign('resetmessage', $resetmessage);
+assign('dbmessage', $dbmessage);
 				
 /* ----- Function ----- */
 function check_comfirm($mysql_password) {
