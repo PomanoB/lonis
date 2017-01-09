@@ -111,6 +111,7 @@ if($total) {
 		$row["time"] = timed($row["time"], 5);
 		$row["number"] = $number++;
 		
+		$row["name_url"] = url_replace($row["name"]);
 		$players[] = $row;
 	}
 	assign('players', $players);

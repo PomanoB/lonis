@@ -51,7 +51,11 @@
 				
 		<table class="table-list">
 			<tr class="title" >
+			{if $map}
 				<td width="30" align="center">№</td>
+			{else}
+				<td>{$langs.Map}</td>
+			{/if}
 				<td>{$langs.player}</td>
 				<td>{$langs.Time}</td>
 				<td>{$langs.Cp}</td>
@@ -63,15 +67,19 @@
 				</tr>
 	{foreach from=$players item=player}
 			<tr class="list">
+			{if $map}
 				<td align="center">
 					{if $player.number<4}
 						<img src="{$baseUrl}/img/top{$player.number}.png" width="22" height="16" title="{$player.number}" alt="{$player.number}" />
 					{else}
 						{$player.number}
 					{/if}
-				</td>
+				</td>	
+			{else}
+				<td><a href="{$baseUrl}/kreedz/{$player.map}">{$player.map}</a></td>
+			{/if}
 				<td>
-					<a href="{$baseUrl}/{$player.name|replace:' ':'_'}/kreedz">{$player.name|escape}</a>
+					<a href="{$baseUrl}/{$player.name_url}/kreedz">{$player.name|escape}</a>
 				</td>
 				<td>{$player.time}</td>
 				<td class="{if $player.go_cp==0}color_nogc{/if}">{$player.cp}</td>

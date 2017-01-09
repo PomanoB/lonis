@@ -115,7 +115,7 @@ CREATE TABLE `kz_map_top` (
 	`cp` int(10) unsigned NOT NULL,
 	`go_cp` int(10) unsigned NOT NULL,
 	`weapon` int(10) unsigned NOT NULL,
-	`time_add` INT(10) UNSIGNED NULL DEFAULT NULL,
+	`time_add` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`),
 	INDEX `weapon` (`weapon`),
 	FULLTEXT INDEX `map` (`map`)
