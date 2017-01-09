@@ -23,7 +23,7 @@ if (isset($_POST["reg_nick"]) && isset($_POST["reg_password"])) {
 	else {
 		echo $player = $row["player"];
 		$r = mysqli_query($db, "SELECT * FROM `unr_activate` WHERE `player`= '$player'");
-		if ($row = mysqli_fetch_array($r)) {
+		if ($row = mysqli_fetch_assoc($r)) {
 			$message = $langs["InActive"];
 		}
 		else {

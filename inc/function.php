@@ -104,6 +104,22 @@ function timed($ftime, $pad=0) {
 	return $min.':'.$sec.'.'.$ms;
 }
 
+// Elasped time
+function time_elasped($time) {
+	$sec = $time%60;
+	$mins = floor($time/60);
+	$min = $mins%60;
+	$hours = floor($mins/60);
+	$hour = $hours%24;
+	$days = floor($hours/24);
+	$day = $days%365;
+	$year = floor($days/365);
+	
+	$out = "{$year}y {$day}d {$hour}h {$min}m {$sec}s";
+	
+	return $out;
+}
+
 // Name of variable
 function vname( &$var, $scope=false, $prefix="unique", $suffix="value") {
 	$vals = $scope ? $scope : $GLOBALS;
@@ -284,6 +300,7 @@ function generate_page($page, $total, $perpage) {
 	$pages["totalPages"] = $totalPages;
 	$pages["start"] = $start;
 	$pages["perpage"] = $perpage;
+	$pages["end"] = $start + $perpage;
 	
 	return $pages;
 }

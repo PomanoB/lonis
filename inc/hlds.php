@@ -365,7 +365,6 @@ class hlds
    		if ($str{0}=='m')
    			return $this->info_cs16($str);
    		else if ($str{0}=='I')
-   			//return info_source($str);
    			return $this->info_source($str);
    		else
    		{
@@ -375,7 +374,6 @@ class hlds
 
 
 	}
-
 
 	function get_players($sort='frag_desc')
 	{		if (!$this->connected)
@@ -410,8 +408,10 @@ class hlds
 		}
 		$playercount=ord(substr($str,1,1));
 
+		if(substr($str, 0, 2) == "I0")
+				return 0;
+		
 		$str=substr($str,2);
-
 		$players=array();
 
 		$pos=0;

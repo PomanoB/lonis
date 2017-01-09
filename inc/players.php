@@ -14,32 +14,40 @@ if (isset($_GET["search"]) && $_GET["search"] != '') {
 	$where = "AND `name` LIKE '%{$search}%'";
 }
 
-$sort = $_GET["sort"] ? $_GET["sort"] : "name";
+$page = isset($_GET["page"]) ? $_GET["page"] : 0;
+$sort = (isset($_GET["sort"]) && $_GET["sort"]!="") ? $_GET["sort"] : "name";
+
 $desc = $sort=="achiev" ? "DESC" : "";
 $order = "ORDER BY `{$sort}` {$desc}";
 
-$q = "SELECT COUNT(*) FROM `unr_players` WHERE 1 {$where}";
+$q = "SELECT * FROM (SELECT `id` AS `plid`, `name`, `lastIp`, `email`, `steam_id_64`,
+		(SELECT COUNT(*) FROM `unr_players_achiev`, `unr_achiev` 
+			WHERE `achievId` = `unr_achiev`.`id` AND `count` = `progress` AND `playerId` = `plid`) AS `achiev`
+		FROM `unr_players`) AS `tmp`
+		WHERE 1 {$where} {$order}";	
 $r = mysqli_query($db, $q);
-$total = mysqli_result($r, 0);
+$total = mysqli_num_rows($r);
+assign('total', $total);
 
-$pages = generate_page($_GET["page"], $total, $playerPerPage);
+$pages = generate_page($page, $total, $playerPerPage);
 $pages["pageUrl"] = "{$baseUrl}/players/{$sort}/page%page%/{$search}";
 assign('pages', $pages);
 
-$limit = "LIMIT ".$pages["start"].",".$pages["perpage"];
-
-$players = array();
-
 if($total) {
-	$q = "SELECT * FROM (SELECT `id` AS `plid`, `name`, `lastIp`, `email`, `steam_id_64`,
-		(SELECT COUNT(*) FROM `unr_players_achiev`, `unr_achiev` 
-			WHERE `achievId` = `unr_achiev`.`id` AND `count` = `progress` AND `playerId` = `plid`) AS `achiev`
-		FROM `unr_players`) AS `tmp` WHERE 1 {$where} {$order} {$limit}";	
-	$r = mysqli_query($db, $q);
+	$i=0;
+	while($rows = mysqli_fetch_assoc($r)) {
+		$i++;
+		if($i>$pages["start"] && $i<$pages["end"])
+			$rows_limit[] = $rows;
+	}
 	
-	while($row = mysqli_fetch_array($r)) {
+	$players = array();
+	foreach($rows_limit as $row) {
 		if(isset($row["lastIp"]) && $row["lastIp"]!="") {
-			$q = "SELECT `code`, `country` FROM `geoip_countries` WHERE `ip_to` >= INET_ATON('{$row["lastIp"]}') ORDER BY `ip_to` ASC LIMIT 1";
+			$q = "SELECT `code`, `country_name` as `country` FROM
+						(SELECT * FROM `geoip_countries` WHERE `ip_to` >= INET_ATON('{$row["lastIp"]}') ORDER BY `ip_to` ASC LIMIT 1) AS `cnt`,
+						`geoip_locations`
+					WHERE `code` = `country_iso_code` AND `locale_code` = '{$lang}'";
 			$geoip = mysqli_fetch_assoc(mysqli_query($db, $q));
 		}
 		
@@ -56,8 +64,6 @@ if($total) {
 		
 		$players[] = $row;
 	}
+	assign('players', $players);
 }
-
-assign('players', $players);
-
 ?>

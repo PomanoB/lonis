@@ -3,7 +3,7 @@
 		{if !$cs}
 				<div class=" right_block">
 					<form action="" method="post" id="search_map_form" class="">
-						<input type="text" name="player" id="player" value="{if isset($player)}{$player}{/if}" placeholder="{$langs.Search}"/ >
+						<input type="text" name="name" id="name" value="" placeholder="{$langs.Search}"/ >
 						<input type="image" name="picture" src="{$baseUrl}/img/find.png" alt="{$langs.Search}"/>
 						&nbsp;
 					</form>
@@ -25,13 +25,19 @@
 			<div style="padding:10px;">
 				<table class="table-list">
 					<tr class="title">
-						<td>№</td>
+						<td width="30" align="center">№</td>
 						<td>{$langs.player}</td>
 						<td>{$langs.Records}</td>
 					</tr>
 	{foreach from=$players item=player}
 					<tr class="list">
-						<td>{$player.number}</td>
+						<td align="center">
+							{if $player.number<4}
+								<img src="{$baseUrl}/img/top{$player.number}.png" width="22" height="16" title="{$player.number}" alt="{$player.number}" />
+							{else}
+								{$player.number}
+							{/if}
+						</td>
 						<td>
 							<a href="{$baseUrl}/{$player.name_url}/kreedz">{$player.name|escape}</a>
 						</td>

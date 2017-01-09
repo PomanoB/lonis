@@ -2,10 +2,10 @@
 	<p><h2>{$langs.player}</h2><br>
 
 {if !isset($info)}
-	<p><h2>{$name|escape}</h2><br>
+	<p><h2>{$player.name|escape}</h2><br>
 	<p><div class="err_message">{$message}</div></p>
 {else}
-	<a href="{$player.avatarLink}" target="_blank"><img src="{$info.avatar}" alt="{$info.name|escape}" /></a>
+	<a href="{$info.avatarLink}" target="_blank"><img src="{$info.avatar}" alt="{$info.name|escape}" /></a>
 	<p><h2>{$info.name|escape}</h2><br>
 	<p><table>
 		<tr class="playerinfo">
@@ -32,7 +32,8 @@
 	{/if}
 	{if isset($info.steam_id)}
 		<tr class="playerinfo">
-			<td class="infoid">{$langs.SteamID}:</td> <td>{$info.steam_id}</td>
+			<td class="infoid">{$langs.SteamID}:</td>
+			<td><a href="http://steamcommunity.com/profiles/{$info.steam_id_64}/" target="_blank">{$info.steam_id}</a></td>
 		</tr>
 	{/if}
 	{if $info.icq}
@@ -44,7 +45,7 @@
 			<td class="infoid">Последний заход:</td> <td>{$info.lastTime}</td>
 		</tr>
 		<tr class="playerinfo">
-			<td class="infoid">Общий онлайн:</td> <td>{$info.onlineTime}</td>
+			<td class="infoid">Общий онлайн:</td> <td>{$info.onlineTimes}</td>
 		</tr>
 	</table>
 {/if}

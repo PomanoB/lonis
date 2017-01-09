@@ -1,3 +1,20 @@
+header {
+   height:0px;
+}
+
+#top_nav{
+   top: 0px;
+   position: fixed;
+   z-index: 1000;
+}
+
+.server_name {
+  text-shadow: 1px 1px white,
+               2px 2px #777;
+  color: #333;
+  transition: all 1s;
+}
+
 .err_message {
 	text-align: center;
 	color: red;

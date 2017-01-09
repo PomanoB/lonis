@@ -12,6 +12,7 @@
 					</select>
 				</td>
 				<td><input name="addres" type="text" class="col_addres"/></td>
+				<td><input name="name" type="text" class="col_addres"/></td>
 				<td>
 					<input type="image" src="{$baseUrl}/img/add.png" name="act" value="add" alt="{$langs.Add}">
 				</td>
@@ -20,6 +21,7 @@
 			<tr class="title">
 				<td>{$langs.Type}</td>
 				<td>{$langs.IP}</td>
+				<td>{$langs.Name}</td>
 				<td>#</td>
 			</tr>
 {foreach from=$servers item=server}
@@ -33,6 +35,7 @@
 					</select>
 				</td>
 				<td><input value="{$server.addres}" name="addres" type="text" class="col_addres" /></td>
+				<td><input value="{$server.name}" name="name" type="text" class="col_addres" /></td>
 				<td >
 					<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="edit" alt="{$langs.Update}">
 					<input type="hidden" name="confirm" value="0" />

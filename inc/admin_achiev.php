@@ -80,7 +80,7 @@ $q = "SELECT * FROM `achiev` WHERE `lang` = '$lang' ORDER BY `type`";
 $r = mysqli_query($db, $q);
 
 $achievs = array();
-while($row = mysqli_fetch_array($r)) {
+while($row = mysqli_fetch_assoc($r)) {
 	$achievs[] = $row;
 }
 assign('achievs', $achievs);
@@ -95,7 +95,7 @@ $lasttype = "";
 $lastlang = "";
 $pretype = "";
 $achievs_lang = array();
-while($row = mysqli_fetch_array($r)) {
+while($row = mysqli_fetch_assoc($r)) {
 	$type = $row['type']."_".$row['count'];
 	
 	$row['hr'] = $type!=$pretype ? 1 : 0;

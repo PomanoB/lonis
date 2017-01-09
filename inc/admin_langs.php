@@ -8,7 +8,7 @@ if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webad
 $act = isset($_POST["act"]) ? $_POST["act"] : "";	
 // Get languages
 $r = mysqli_query($db, "SELECT `lang` FROM `langs` GROUP BY `lang` ORDER BY `lang`");
-while($row = mysqli_fetch_array($r)) {
+while($row = mysqli_fetch_assoc($r)) {
 	$lang_list[] = $row["lang"];
 }
 
@@ -63,8 +63,8 @@ if ($act == "delete") {
 assign('message', $message);
 
 // Get language list
-$r = mysqli_query($db, "SELECT * FROM `langs` ORDER BY `lang`");
-while($row = mysqli_fetch_array($r)) {
+$r = mysqli_query($db, "SELECT * FROM `langs` ORDER BY `lang`, `id` DESC");
+while($row = mysqli_fetch_assoc($r)) {
 	$dblangs[$row["lang"]][$row["var"]] = $row["value"];
 }	
 

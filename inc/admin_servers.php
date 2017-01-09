@@ -12,9 +12,10 @@ if ($act == "edit") {
 
 	$id = $_POST["id"];
 	$mod = $_POST["mod"];
+	$name = slashes($_POST["name"]);
 
 	if (strlen($addres) > 0)
-		mysqli_query($db, "UPDATE `servers` SET `addres` = '$addres', `mod` = '$mod' WHERE `id` = $id");
+		mysqli_query($db, "UPDATE `servers` SET `addres` = '$addres', `mod` = '$mod', `name` = '$name' WHERE `id` = $id");
 	else
 		$message = $langs["Error"];
 }
@@ -23,9 +24,10 @@ if ($act == "add") {
 	$addres = slashes($_POST["addres"]);
 	
 	$mod = $_POST["mod"];
+	$name = $_POST["name"];
 		
 	if (strlen($addres) > 0)
-		mysqli_query($db, "INSERT INTO `servers` (`addres`, `mod`) VALUES ('$addres', '$mod')");
+		mysqli_query($db, "INSERT INTO `servers` (`addres`, `mod`, `name`) VALUES ('$addres', '$mod', '$name')");
 	else
 		$message = $langs["Error"];
 }
@@ -46,7 +48,7 @@ assign('message', $message);
 $r = mysqli_query($db, "SELECT * FROM `servers`");
 
 $servers = array();
-while($row = mysqli_fetch_array($r)) {
+while($row = mysqli_fetch_assoc($r)) {
 	$servers[] = $row;
 }
 assign('servers', $servers);
@@ -55,7 +57,7 @@ assign('servers', $servers);
 $r = mysqli_query($db, "SELECT * FROM `servers_mod`");
 
 $mod = array();
-while($row = mysqli_fetch_array($r)) {
+while($row = mysqli_fetch_assoc($r)) {
 	$mod[] = $row;
 }
 assign('mod', $mod);

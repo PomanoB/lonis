@@ -50,7 +50,7 @@ if (isset($_GET["key"]) && $_GET["key"] != '') {
 	$q = "SELECT * FROM `unr_activate` WHERE `key`= '$key' AND `time` + $activateTime > UNIX_TIMESTAMP()";
 	$r = mysqli_query($db, $q);
 	
-	if ($row = mysqli_fetch_array($r)) {
+	if ($row = mysqli_fetch_assoc($r)) {
 		$id = $row["id"];
 		$player = $row["player"];
 		

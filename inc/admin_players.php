@@ -20,7 +20,9 @@ if (isset($_GET["search"]) && $_GET["search"] != '') {
 
 $message = "";
 
-$act = isset($_POST["act"]) ? $_POST["act"] : "";	
+$act = isset($_POST["act"]) ? $_POST["act"] : "";
+$page = isset($_GET["page"]) ? $_GET["page"] : 0;
+
 if ($act == "edit") {
 	$name = slashes($_POST["name"]);
 	$password = slashes($_POST["password"]);
@@ -89,26 +91,29 @@ if ($act == "delete") {
 
 assign('message', $message); 
 
-$q = "SELECT COUNT(*) FROM `unr_players` WHERE 1 {$where}";
+$q = "SELECT * FROM `unr_players` WHERE 1 {$where} ORDER BY `name`";
 $r = mysqli_query($db, $q);
 
-$total = mysqli_result($r, 0);
+$total = mysqli_num_rows($r);
+assign('total', $total);
 
-$pages = generate_page($_GET["page"], $total, $playerPerPage);
+$pages = generate_page($page, $total, $playerPerPage);
 $pages["pageUrl"] = "$baseUrl/admin/players/page%page%/$search";
 assign('pages', $pages);	
 
-$limit = "LIMIT ".$pages["start"].",".$pages["perpage"];
+if ($total) {
+	$i=0;
+	while($rows = mysqli_fetch_assoc($r)) {
+		$i++;
+		if($i>$pages["start"] && $i<$pages["end"])
+			$rows_limit[] = $rows;
+	}
 
-if ($total) {	
-	$q = "SELECT * FROM `unr_players` WHERE 1 {$where} ORDER BY `name` {$limit}";
-	$r = mysqli_query($db, $q);
-	
 	$players = array();
-	while($row = mysqli_fetch_array($r)) {
+	foreach($rows_limit as $row) {
 		$players[] = $row;
 	}
+	assign('players', $players);
 }
 
-assign('players', $players);
 ?>

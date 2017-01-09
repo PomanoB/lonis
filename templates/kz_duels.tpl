@@ -17,10 +17,10 @@
 				<a href="{$baseUrl}/kreedz/{$duel.map}">{$duel.map}</a>
 			</td>
 			<td>
-				<a href="{$baseUrl}/{$duel.winnerName_url}">{$duel.winnerName|escape}</a>
+				<a href="{$baseUrl}/{$duel.winnerName_url}/kreedz/">{$duel.winnerName|escape}</a>
 			</td>
 			<td>
-				<a href="{$baseUrl}/{$duel.looserName_url}">{$duel.looserName|escape}</a>
+				<a href="{$baseUrl}/{$duel.looserName_url}/kreedz/">{$duel.looserName|escape}</a>
 			</td>
 			<td class="th_numeric">{$duel.winnerPoints}</td>
 			<td class="th_numeric">{$duel.looserPoints}</td>

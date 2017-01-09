@@ -1,4 +1,5 @@
 <?php
+$i=$j=$k=$n=$m=0;
 $config_file = "config.ini";
 $cs = 0;
 $lang = "en";
@@ -14,7 +15,16 @@ $avatarSize = array(
 // Default config
 $conf_type = array(
 	'password' => array('mysql_password'),
-	'number' => array('activateTime', 'gravatarSize', 'playerPerPage', 'mapsPerPage', 'playersPerPage', 'achievPerPage')
+	'number' => array(
+		'activateTime', 
+		'gravatarSize', 
+		'playerPerPage', 
+		'mapsPerPage', 
+		'playersPerPage', 
+		'achievPerPage',
+		'achievPlayersPerPage',
+		'server_update'
+		)
 );
 
 $dconf = array (
@@ -35,7 +45,8 @@ $dconf = array (
 	'mapsPerPage' => 15,
 	'playersPerPage' => 15,
 	'achievPerPage' => 50,
-	'achievPlayersPerPage' => 5,
+	'achievPlayersPerPage' => 10,
+	'server_update' => 60 * 30,
 	
 	'cookieKey' => "cc1f891423db1ee24498e76f3b107bbe"
 );
@@ -51,24 +62,25 @@ $menu_footer = array(
 );
 
 // Menu List
-$menuStart = "servers";
-$menu = parse_menu('servers|players|achiev|kz_players|kz_maps|kz_duels|reg|login');
-$menuLogged = parse_menu('servers|players|achiev|kz_players|kz_maps|kz_duels|logout');
+$menuStart = "home";
+$menu = parse_menu('home|servers|players|achiev|kz_players|kz_maps|kz_duels|reg|login');
+$menuLogged = parse_menu('home|servers|players|achiev|kz_players|kz_maps|kz_duels|logout');
 $menuCS = parse_menu('kz_players|kz_maps|kz_duels');
 $menuAdmin = parse_menu('admin_servers|admin_achiev|admin_langs|admin_players');
 
 $ActionList  = array (
+	"home" => "/home/",
 	"setup" => "/setup/",
-	"admin_servers" => "/admin/servers",
-	"admin_langs" => "/admin/langs",
-	"admin_achiev" => "/admin/achiev",
-	"admin_players" => "/admin/players",
+	"admin_servers" => "/admin/servers/",
+	"admin_langs" => "/admin/langs/",
+	"admin_achiev" => "/admin/achiev/",
+	"admin_players" => "/admin/players/",
 	"servers" => "/servers/",
 	"players" => "/players/",
 	"achiev" => "/achiev/",
-	"kz_players" => "/kreedz/players",
-	"kz_maps" => "/kreedz/maps",
-	"kz_duels" => "/kreedz/duels",
+	"kz_players" => "/kreedz/players/",
+	"kz_maps" => "/kreedz/maps/",
+	"kz_duels" => "/kreedz/duels/",
 	"reg" => "/reg/",
 	"ucp" => "/ucp/",
 	"steam_login" => "/steam/",
@@ -86,13 +98,16 @@ $parseRules = array(
 	"/^ucp/" => "index.php?action=ucp",
 	"/^steam/" => "index.php?action=steam_login",
 	
+	"/^home/" => "index.php?action=home",
+	
 	"/^admin\/([0-9a-zA-Z_!]+)?(\/page([0-9]+))?(\/(.*))?/" => "index.php?action=admin_%1%&page=%3%&search=%5%",
 	
-	"/^servers\/(.*)/" => "index.php?action=servers&addr=%1%",
+	"/^servers?(\/page([0-9]+))?(\/(.*))?/" => "index.php?action=servers&page=%2%&addr=%4%",
 	
 	"/^players?(\/(name|achiev))?(\/page([0-9]+))?(\/(.*))?/" => "index.php?action=players&sort=%2%&page=%4%&search=%6%",	
 		
-	"/^achiev?(\/page([0-9]+))?(\/)?(.*)?/" => "index.php?action=achiev&page=%2%&aname=%4%",
+	"/^achiev\/(page([0-9]+))?(\/)?(.*)?/" => "index.php?action=achiev&page=%2%&aname=%4%",
+	"/^achievs\/(page([0-9]+))?/" => "index.php?action=achiev&page=%2%&act=achievs",
 	"/^(.*)\/achiev?(\/page([0-9]+))?/" => "index.php?action=achiev&name=%1%&page=%3%",
 	
 	"/^kreedz\/duels?(\/page([0-9]+))?/" => "index.php?action=kz_duels&page=%2%",
@@ -102,7 +117,7 @@ $parseRules = array(
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(num|top1))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
 	
 	"/^(.*)/" => "index.php?action=player&name=%1%",
-	);
+);
 
 $langs = array(
 	"Title" => "Lonis",

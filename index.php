@@ -38,7 +38,7 @@ if($uri!="") {
 }
 
 $baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseSite}";
-$docRoot = $_SERVER['DOCUMENT_ROOT'];
+$docRoot = $_SERVER['DOCUMENT_ROOT'].$baseSite;
 
 // Debug trace
 //print_p();
@@ -49,7 +49,7 @@ $docRoot = $_SERVER['DOCUMENT_ROOT'];
 // Action
 $action = isset($_GET["action"]) && $_GET["action"]!="" ? $_GET["action"] : $menuStart;
 
-$config_dir = $docRoot.$baseSite;
+$config_dir = $docRoot;
 
 // Read setting from config file or create default
 $config_path = $config_dir.'/'.$config_file;
@@ -63,6 +63,8 @@ else {
 	$conf = $dconf;
 	save_config_file($config_path);
 }
+
+assign("conf", $conf);
 
 if($db = mysqli_connect($mysql_host, $mysql_user, $mysql_password)) {
 		
@@ -85,19 +87,31 @@ if($action!="setup" && !$conn) {
 assign('conn', $conn);
 
 if($conn) {
+	// Read defaul language
+	$r = mysqli_query($db, "SELECT * FROM `lang` ORDER BY `name`");
+	while($row = mysqli_fetch_array($r)) {
+		if($row['default']==1)
+			$lang_def = $row['lang'];
+		
+		$langselect[$row['lang']] = $row["name"];
+	}
+	assign('langselect', $langselect);
+
 	// Read language 
 	if (isset($_POST["lang"])) {
 		$lang = $_POST["lang"];
 		$_SESSION["unr_lang_$cookieKey"] = $lang;
 	}
 		
-	if (isset($_SESSION["unr_lang_$cookieKey"]))
+	if (isset($_SESSION["unr_lang_$cookieKey"])) {
 		$lang = $_SESSION["unr_lang_$cookieKey"];
-	else	
+	}
+	else {	
 		if (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]))
 			$lang = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
-		
-	assign('lang', $lang);
+		else
+			$lang = $lang_def;
+	}
 
 	// Read language from file
 	$dblangs = array();
@@ -106,21 +120,12 @@ if($conn) {
 		$dblangs[$row["var"]] = $row["value"];
 	}
 
-	$r = mysqli_query($db, "SELECT * FROM `lang` ORDER BY `name`");
-	while($row = mysqli_fetch_array($r)) {
-		if($row['default']==1)
-			$lang = $row['lang'];
-		
-		$langselect[$row['lang']] = $row["name"];
-	}
-	assign('langselect', $langselect);
-
 	$langs = array_replace($langs, $dblangs);
-	unset($dblangs);
-
+	unset($dblangs);	
+	assign('lang', $lang);
+	
 	// Read themes
-	$q = "SELECT * FROM `themes` LEFT JOIN `themes_lang` 
-			ON `themes`.`id` = `themesid` WHERE `lang` = '$lang'";
+	$q = "SELECT * FROM `themes` LEFT JOIN `themes_lang` ON `themes`.`id` = `themesid` WHERE `lang` = '$lang'";
 	$r = mysqli_query($db, $q);
 	while($row = mysqli_fetch_array($r)) {
 		if($row['default']==1) $theme = $row['theme'];
@@ -185,29 +190,13 @@ if (isset($_SESSION["user_$cookieKey"]["id"]) && $action!="setup") {
 		if($row["webadmin"]==1) $webadmin = 1;
 		
 		assign('user', $_SESSION["user_$cookieKey"]);
-		
 	}
 	else
 		unset($_SESSION["user_$cookieKey"]);
 	
 	$menu = $menuLogged;
 }
-
 assign('webadmin', $webadmin);
-
-// Get name from DB
-if (isset($_GET["name"])) {
-	$name = $_GET["name"];
-	$name = url_replace($name, BACK);
-	
-	$q = "SELECT * FROM `unr_players` WHERE `name` = '$name' OR `name` = REPLACE('$name', '_', ' ') LIMIT 1";	
-	$r = mysqli_query($db, $q);
-	if($info = mysqli_fetch_assoc($r))
-		$playerId = $info["id"];
-	
-	assign('name', $name);
-	assign('name_url', $_GET["name"]);
-}
 
 if($action!="setup") {
 	// Menu
@@ -236,6 +225,12 @@ if($action!="setup") {
 	assign('menuadminlist', create_menu($menuAdmin));
 }
 
+// Get From unr_players
+$name = isset($_GET["name"]) ? url_replace($_GET["name"], BACK) : "";
+$id = isset($_GET["id"]) ? abs((int)$_GET["id"]) : 0;
+$player = getPlayerFormDB($db, $name, $id);
+assign('player', $player);
+
 // Menu Footer
 assign('menu_footer', $menu_footer);
 	
@@ -250,6 +245,7 @@ if(!file_exists("templates/$action.tpl"))
 assign('baseUrl', $baseUrl);
 assign('action', $action);
 assign('cake', mt_rand(1, 5));
+assign('cake_pl', mt_rand(0, 9));
 
 // Template
 $smarty->display("index.tpl");
@@ -261,4 +257,23 @@ unset($_GLOBALS);
 unset($_GET);
 unset($_POST);
 
+/* FUNCTIONS */
+
+// Get Player from DB
+function getPlayerFormDB($db, $name, $id) {
+	$name = slashes($name);
+		
+	$q = "SELECT * FROM `unr_players` WHERE `name` = '{$name}' OR `id` = {$id} ORDER BY `id` LIMIT 1";	
+	$r = mysqli_query($db, $q);
+	$player = mysqli_fetch_assoc($r);
+	
+	if(!isset($player)) {
+		$player["id"] = $id;
+		$player["name"] = $name;
+	}
+	
+	$player["name_url"] = url_replace($player["name"]);
+	
+	return $player;
+}
 ?>

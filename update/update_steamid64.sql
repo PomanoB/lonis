@@ -41,12 +41,14 @@ $$
 DELIMITER ;
 
 -- SHOW LIST --
+
 /*
 SELECT `steam_id`, `steam_id_64`, getSteamId64(`steam_id`) AS `new_steam_id_64` 
 FROM `unr_players` WHERE `steam_id` != '' ORDER BY `steam_id` DESC;
 */
 
 -- UNDATE steam_id_64 --
+
 UPDATE `unr_players` as `t1`
 INNER JOIN (SELECT `steam_id`, getSteamId64(`steam_id`) AS `new_steam_id_64` FROM `unr_players` WHERE `steam_id_64` = '') as `t2`
 SET `steam_id_64` = `new_steam_id_64`

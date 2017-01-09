@@ -16,56 +16,59 @@
 	
 	<body>
 	{if $action!="setup"}
-	<div id="network">
-		<div class="center-wrapper">
-			<div class="tabbed" id="menu-tabs">
-				<div class="menu">
-				{foreach from=$menulist key=key item=i}
-					<div class="item">
-						<a title="{$i.name}" href="{$baseUrl}{$i.url}">
-							<img src="{$baseUrl}/img/menu/{$i.item}.png"><text class="name">{$i.name}</text>
-						</a>
+	<div id="top_nav0">
+		<div id="network">
+			<div class="center-wrapper">
+				<div class="tabbed" id="menu-tabs">
+					<div class="menu">
+					{foreach from=$menulist key=key item=i}
+						<div class="item">
+							<a title="{$i.name}" href="{$baseUrl}{$i.url}">
+								<img src="{$baseUrl}/img/menu/{$i.item}.png"><text class="name">{$i.name}</text>
+							</a>
+						</div>
+					{/foreach}
+					{if isset($user)}
+						<div class="item">
+							<a title="{$i.name}" href="{$baseUrl}/ucp">
+								<img src="{$baseUrl}/img/menu/reg.png"><text class="username">{$user.name|escape}</text>
+							</a>
+						</div>				
+					{/if}
 					</div>
-				{/foreach}
-				{if isset($user)}
-					<div class="item">
-						<a title="{$i.name}" href="{$baseUrl}/ucp">
-							<img src="{$baseUrl}/img/menu/reg.png"><text class="username">{$user.name|escape}</text>
-						</a>
-					</div>				
-				{/if}
-				</div>
-				
-				<div class="clearer">&nbsp;</div>
-				
-		{if $webadmin}
-				<div class="adminmenu">
-				{foreach from=$menuadminlist key=key item=i}
-					<div class="item">
-						<a title="{$i.name}" href="{$baseUrl}{$i.url}">
-							<img src="{$baseUrl}/img/menu/{$i.item}.png"><text class="name">{$i.name}</text>
-						</a>
+					
+					<div class="clearer">&nbsp;</div>
+					
+			{if $webadmin}
+					<div class="adminmenu">
+					{foreach from=$menuadminlist key=key item=i}
+						<div class="item">
+							<a title="{$i.name}" href="{$baseUrl}{$i.url}">
+								<img src="{$baseUrl}/img/menu/{$i.item}.png"><text class="name">{$i.name}</text>
+							</a>
+						</div>
+					{/foreach}
 					</div>
-				{/foreach}
+			{/if}
 				</div>
-		{/if}
 			</div>
+			<div class="clearer">&nbsp;</div>
 		</div>
-		<div class="clearer">&nbsp;</div>
 	</div>
 	{/if}
 	
 	<div class="head_bg">
-		<div style="float:right;"><img src="{$baseUrl}/img/cake/{$cake}.png" alt="" border="0" /></div>
+		<div style="float:right;"> {* padding-right: 25px; *}
+			<img src="{$baseUrl}/img/cake/cake{$cake}.png" alt="" border="0" />
+			{*<img src="{$baseUrl}/img/cake/pl{$cake_pl}.png" alt="" border="0" />*}
+		</div>
 	</div>
 	<div class="majic">
 		<div id="page" style="border-radius: 20px;">
 		
-			{* PAGE *}
 			{if isset($action)}
 				{include file="$action.tpl"}
 			{/if}
-			{* PAGE OFF *}
 		
 		</div>
 		

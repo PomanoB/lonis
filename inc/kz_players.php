@@ -1,8 +1,8 @@
 <?php
-if (isset($_POST["player"]) && $_POST["player"] !='') {
-	$player = slashes($_POST["player"]);
+if (isset($_POST["name"]) && $_POST["name"] !='') {
+	$name = slashes($_POST["name"]);
 	
-	header("Location: $baseUrl/$player/kreedz");
+	header("Location: $baseUrl/$name/kreedz");
 }
 
 $types = array(
@@ -11,9 +11,7 @@ $types = array(
 	'all' => ''
 );
 
-$type = 'all';
-if (isset($_GET["type"]) && isset($types[$_GET["type"]])) $type = $_GET["type"];
-
+$type = (isset($_GET["type"]) && isset($types[$_GET["type"]])) ? $_GET["type"] : 'all';
 assign('type', $type);
 
 $sort = isset($_GET["sort"]) && $_GET["sort"]!="" ? $_GET["sort"] : "num";
@@ -22,35 +20,40 @@ assign('sort', $sort);
 $rec = isset($_GET["rec"]) && $_GET["rec"]!="" ? $_GET["rec"] : "rec";
 assign('rec', $rec);
 
+$page = isset($_GET["page"]) ? $_GET["page"] : 0;
+
 $table = $sort=="top1" ? "kz_map_top1" : "kz_map_top";
 
 // Players top
-$q = "SELECT COUNT(DISTINCT `player`) FROM `{$table}` WHERE 1 {$types[$type]}";
+$q = "SELECT `tmp`.*, `unr_players`.`name` FROM `unr_players` RIGHT JOIN (
+	SELECT *, COUNT(DISTINCT `map`) AS `records` FROM `{$table}` WHERE 1 {$types[$type]} AND `time`>0 GROUP BY `player`) AS `tmp` 
+	ON `unr_players`.`id` = `tmp`.`player` ORDER BY `records` DESC";
 $r = mysqli_query($db, $q);
 
-$total = mysqli_result($r, 0);
+$total = mysqli_num_rows($r);
 assign('total', $total);
 
-$pages = generate_page($_GET["page"], $total, $playersPerPage);
+$pages = generate_page($page, $total, $playersPerPage);
 $pages["pageUrl"] = "$baseUrl/kreedz/players/$type/page%page%/$sort";
 assign('pages', $pages);
 
-$limit = "LIMIT ".$pages["start"].",".$pages["perpage"];
+if($total) {
+	$i=0;
+	while($rows = mysqli_fetch_assoc($r)) {
+		$i++;
+		if($i>$pages["start"] && $i<$pages["end"])
+			$rows_limit[] = $rows;
+	}
 
-$q = "SELECT `tmp`.*, `unr_players`.`name` FROM `unr_players` RIGHT JOIN (
-	SELECT *, COUNT(DISTINCT `map`) AS `records` FROM `{$table}` WHERE 1 {$types[$type]} GROUP BY `player`) AS `tmp` 
-	ON `unr_players`.`id` = `tmp`.`player` ORDER BY `records` DESC {$limit}";
-$r = mysqli_query($db, $q);
-
-$players = array();
-$number = $pages["start"]+1;
-while($row = mysqli_fetch_array($r)) {
-	$row["number"] = $number++;
-	
-	$row["name_url"] = url_replace($row["name"]);
-	
-	$players[] = $row;
-}	
-
-assign('players', $players);
+	$number = $pages["start"]+1;
+	$players = array();
+	foreach($rows_limit as $row) {
+		$row["number"] = $number++;
+		
+		$row["name_url"] = url_replace($row["name"]);
+		
+		$players[] = $row;
+	}	
+	assign('players', $players);
+}
 ?>
