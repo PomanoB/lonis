@@ -22,12 +22,12 @@ CREATE TABLE `unr_achiev` (
 
 DROP TABLE IF EXISTS `unr_achiev_lang`;
 CREATE TABLE `unr_achiev_lang` (
-	`lid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`achievid` int(10) NOT NULL,
-	`ltype` varchar(4) NOT NULL,
-	`lang` varchar(2) NOT NULL,
-	`value` varchar(256) DEFAULT NULL,
-	KEY `id` (`id`)
+	`lid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`achievid` INT(10) NOT NULL,
+	`lang` VARCHAR(2) NULL DEFAULT NULL,
+	`ltype` VARCHAR(4) NULL DEFAULT NULL,
+	`value` VARCHAR(256) NULL DEFAULT NULL,
+	PRIMARY KEY (`lid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `servers`;
@@ -40,14 +40,14 @@ CREATE TABLE `servers` (
 	`map` varchar(32) DEFAULT NULL,
 	`players` varchar(8) DEFAULT NULL,
 	`update` INT(10) UNSIGNED NOT NULL DEFAULT '0',
-	KEY `id` (`id`)
+	PRIMARY KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `servers_mod`;
 CREATE TABLE `servers_mod` (
 	`mid` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`modname` varchar(16) NOT NULL,
-	KEY `id` (`mid`)
+	PRIMARY KEY (`mid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 DROP TABLE IF EXISTS `weapons`;
@@ -88,11 +88,11 @@ CREATE TABLE `themes` (
 
 DROP TABLE IF EXISTS `themes_lang`;
 CREATE TABLE `themes_lang` (
-	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`themesid` int(10) NOT NULL,
-	`lang` varchar(2) NOT NULL,
-	`name` varchar(16) NOT NULL,
-	KEY `id` (`id`)
+	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`themesid` INT(10) NOT NULL,
+	`lang` VARCHAR(2) NOT NULL,
+	`name` VARCHAR(16) NOT NULL,
+	PRIMARY KEY (`id`)
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `kz_duel`;
@@ -108,17 +108,18 @@ CREATE TABLE `kz_duel` (
 
 DROP TABLE IF EXISTS `kz_map_top`;
 CREATE TABLE `kz_map_top` (
-	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`map` varchar(64) NOT NULL,
-	`player` int(10) unsigned NOT NULL,
-	`time` decimal(10,5) NOT NULL,
-	`cp` int(10) unsigned NOT NULL,
-	`go_cp` int(10) unsigned NOT NULL,
-	`weapon` int(10) unsigned NOT NULL,
+	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`map` VARCHAR(64) NOT NULL,
+	`player` INT(10) UNSIGNED NOT NULL,
+	`time` DECIMAL(10,5) NOT NULL,
+	`cp` INT(10) UNSIGNED NOT NULL,
+	`go_cp` INT(10) UNSIGNED NOT NULL,
+	`weapon` INT(10) UNSIGNED NOT NULL,
 	`time_add` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`),
 	INDEX `weapon` (`weapon`),
-	FULLTEXT INDEX `map` (`map`)
+	INDEX `map` (`map`),
+	INDEX `player` (`player`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 DROP TABLE IF EXISTS `kz_save`;
@@ -158,25 +159,29 @@ CREATE TABLE `unr_dr_stats` (
 
 DROP TABLE IF EXISTS `unr_players`;
 CREATE TABLE `unr_players` (
-	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(32) NOT NULL,
-	`password` varchar(50) NOT NULL,
-	`ip` varchar(32) DEFAULT NULL,
-	`lastIp` varchar(20) DEFAULT NULL,
-	`lastTime` int(1) DEFAULT NULL,
-	`onlineTime` int(1) DEFAULT NULL,
-	`steam_id` varchar(32) DEFAULT NULL,
-	`amxx_flags` varchar(34) DEFAULT NULL,
-	`flags` int(11) DEFAULT NULL DEFAULT '0',
-	`webadmin` tinyint(1) DEFAULT NULL DEFAULT '0',
-	`email` varchar(100) NOT NULL,
-	`icq` int(9) DEFAULT NULL,
-	`active` int(11) DEFAULT '0',
-	`auth` int(10) unsigned DEFAULT NULL DEFAULT '0',
-	`steam_id_64` varchar(30) DEFAULT '',
+	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(32) NOT NULL,
+	`password` VARCHAR(50) NOT NULL,
+	`ip` VARCHAR(32) NULL DEFAULT NULL,
+	`lastIp` VARCHAR(20) NULL DEFAULT NULL,
+	`lastTime` INT(1) NULL DEFAULT NULL,
+	`countryCode` VARCHAR(2) NULL DEFAULT NULL,
+	`onlineTime` INT(1) NULL DEFAULT NULL,
+	`steam_id` VARCHAR(32) NULL DEFAULT NULL,
+	`amxx_flags` VARCHAR(34) NULL DEFAULT NULL,
+	`flags` INT(11) NULL DEFAULT '0',
+	`webadmin` TINYINT(1) NULL DEFAULT '0',
+	`email` VARCHAR(100) NOT NULL,
+	`icq` INT(9) NULL DEFAULT NULL,
+	`active` INT(11) NULL DEFAULT '0',
+	`auth` INT(10) NULL DEFAULT '0',
+	`steam_id_64` VARCHAR(30) NULL DEFAULT NULL,
+	`lang` INT(4) NULL DEFAULT NULL,
+	`themes` INT(4) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`),
-	UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT ;
+	UNIQUE INDEX `name` (`name`),
+	INDEX `country` (`countryCode`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `unr_players_achiev`;
 CREATE TABLE `unr_players_achiev` (
@@ -185,7 +190,7 @@ CREATE TABLE `unr_players_achiev` (
 	`progress` int(11) NOT NULL,
 	`unlocked` INT(11) NOT NULL,
 	PRIMARY KEY (`playerId`,`achievId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `unr_players_var`;
 CREATE TABLE `unr_players_var` (
@@ -195,6 +200,22 @@ CREATE TABLE `unr_players_var` (
 	PRIMARY KEY (`playerId`,`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- TRIGGER --
+CREATE TRIGGER `unr_players_before_insert` BEFORE INSERT ON `unr_players` FOR EACH ROW BEGIN 
+SET NEW.`countryCode` = (
+	SELECT `code` FROM `geoip_whois`
+	WHERE `ip_to` >= INET_ATON(NEW.`lastIp`)
+	ORDER BY `ip_to` ASC LIMIT 1
+);
+END
+
+CREATE TRIGGER `unr_players_before_update` BEFORE UPDATE ON `unr_players` FOR EACH ROW BEGIN 
+SET NEW.`countryCode` = (
+	SELECT `code` FROM `geoip_whois`
+	WHERE `ip_to` >= INET_ATON(NEW.`lastIp`)
+	ORDER BY `ip_to` ASC LIMIT 1
+);
+END
 -- VIEWS --
 
 CREATE OR REPLACE VIEW `achiev` AS 
@@ -218,3 +239,12 @@ FROM (SELECT * FROM `kz_map_top` GROUP BY `map` ORDER BY `time`) `mtop`
 LEFT JOIN `weapons` ON `weapons`.`id` = `mtop`.`weapon`
 JOIN `unr_players` ON `unr_players`.`id` = `mtop`.`player`
 GROUP BY `mtop`.`map`
+
+select `p`.`id` AS `id`,`p`.`name` AS `name`,`p`.`lastIp` AS `lastIp`,`p`.`email` AS `email`,`p`.`steam_id_64` AS `steam_id_64`,
+	`p`.`countryCode` AS `countryCode`,`l`.`country_name` AS `countryName`, `locale_code` as `lang`,
+	
+	(select count(0) from (`unr_players_achiev` `pa` join `unr_achiev` `a`) 
+		where ((`pa`.`achievId` = `a`.`id`) and (`a`.`count` = `pa`.`progress`) and (`pa`.`playerId` = `p`.`id`))) AS `achiev`
+
+from (`unr_players` `p` join `geoip_locations` `l`) 
+where (`p`.`countryCode` = `l`.`country_iso_code`);

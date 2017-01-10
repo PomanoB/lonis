@@ -63,7 +63,7 @@ $menu_footer = array(
 
 // Menu List
 $menuStart = "home";
-$menu = parse_menu('home|servers|players|achiev|kz_players|kz_maps|kz_duels|reg|login');
+$menu = parse_menu('home|servers|players|achiev|kz_players|kz_maps|kz_duels|auth');
 $menuLogged = parse_menu('home|servers|players|achiev|kz_players|kz_maps|kz_duels|logout');
 $menuCS = parse_menu('kz_players|kz_maps|kz_duels');
 $menuAdmin = parse_menu('admin_servers|admin_achiev|admin_langs|admin_players');
@@ -81,23 +81,20 @@ $ActionList  = array (
 	"kz_players" => "/kreedz/players/",
 	"kz_maps" => "/kreedz/maps/",
 	"kz_duels" => "/kreedz/duels/",
-	"reg" => "/reg/",
 	"ucp" => "/ucp/",
-	"steam_login" => "/steam/",
-	"login" => "/login/",
+	"steam" => "/steam/",
+	"auth" => "/auth/",
 	"logout" => "/logout/"
 	);
 
 // The sequence is important
 $parseRules = array(
-	"/^error(\/([0-9]+))/" => "index.php?action=error&err=%2%",
-	"/^setup?(\/(logout))?/" => "index.php?action=setup&acts=%2%",
-	"/^reg\/(.*)/" => "index.php?action=reg&key=%1%",
-	"/^login/" => "index.php?action=login",
-	"/^logout/" => "index.php?action=login&logout=1",
+	"/^error\/([0-9]+)/" => "index.php?action=error&err=%1%",
+	"/^setup\/(.*)/" => "index.php?action=setup&acts=%1%",
+	"/^auth\/(.*)/" => "index.php?action=auth&key=%1%",
+	"/^logout/" => "index.php?action=auth&act=logout",
 	"/^ucp/" => "index.php?action=ucp",
-	"/^steam/" => "index.php?action=steam_login",
-	
+	"/^steam/" => "index.php?action=steam",
 	"/^home/" => "index.php?action=home",
 	
 	"/^admin\/([0-9a-zA-Z_!]+)?(\/page([0-9]+))?(\/(.*))?/" => "index.php?action=admin_%1%&page=%3%&search=%5%",
@@ -112,7 +109,7 @@ $parseRules = array(
 	
 	"/^kreedz\/duels?(\/page([0-9]+))?/" => "index.php?action=kz_duels&page=%2%",
 	"/^kreedz\/players?(\/(pro|noob|all))?(\/page([0-9]+))?(\/(num|top1))?/" => "index.php?action=kz_players&type=%2%&sort=%6%&page=%4%",
-	"/^kreedz\/maps?(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?/" => "index.php?action=kz_maps&page=%4%&type=%2%&rec=%6%",
+	"/^kreedz\/maps?(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(.*))?/" => "index.php?action=kz_maps&type=%2%&page=%4%&rec=%6%&map=%8%",
 	"/^kreedz\/([0-9a-zA-Z_!]+)?(\/(pro|noob|all))?(\/page([0-9]+)?)?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(num|top1))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
 	

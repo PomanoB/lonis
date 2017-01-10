@@ -1,4 +1,19 @@
 <?php
+if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1) {
+	$act = isset($_POST["act"]) ? $_POST["act"] : "";
+	
+	if ($act == "delete") {
+		if(isset($_POST["confirm"]) && $_POST["confirm"]==1) {
+			$delmap = $_POST["delmap"];
+			
+			$q = "DELETE FROM `kz_map_top` WHERE `map`= '$delmap'";
+			mysqli_query($db, $q);
+		}
+		else
+			$message = $langs["Confirm"];;
+	}
+}
+
 $message = "";
 
 $types = array(
@@ -20,25 +35,16 @@ $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 $rec = isset($_GET["rec"]) ? $_GET["rec"] : 'rec';
 assign('rec', $rec);
 
-if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1) {
-	$act = isset($_POST["act"]) ? $_POST["act"] : "";
-	
-	if ($act == "delete") {
-		if(isset($_POST["confirm"]) && $_POST["confirm"]==1) {
-			$delmap = $_POST["delmap"];
-			
-			$q = "DELETE FROM `kz_map_top` WHERE `map`= '$delmap'";
-			mysqli_query($db, $q);
-		}
-		else
-			$message = $langs["Confirm"];;
-	}
-}
+$type = (isset($_GET["type"]) && isset($types[$_GET["type"]])) ? $_GET["type"] : 'all';
 
 $where = '';
-if (isset($_POST["map"]) && $_POST["map"] !='') {
+
+if(isset($_POST["map"]) && $_POST["map"] !='') 
+	$map = slashes($_POST["map"]);
+else if(isset($_GET["map"]) && $_GET["map"] !='')
 	$map = slashes($_GET["map"]);
-	
+
+if(isset($map)) {
 	assign('map', stripslashes($map));
 	
 	if($rec=="norec")

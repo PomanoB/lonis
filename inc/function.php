@@ -20,7 +20,8 @@ function slashes($str) {
 
 // check $_GET, $_POST, $_SESSION
 function get_request($var) {
-	return $act = isset($_GET["act"]) ? (isset($_POST["act"]) ? $_POST["act"] : $_GET["act"]) : "";
+	$var = isset($_GET[$var]) ? (isset($_POST[$var]) ? $_POST[$var] : $_GET[$var]) : "";
+	return slashes($var);
 }
 
 // Parse URL. Exp: ##/##/## from array($rule, $url)
@@ -303,5 +304,16 @@ function generate_page($page, $total, $perpage) {
 	$pages["end"] = $start + $perpage;
 	
 	return $pages;
+}
+
+function mb_str_replace($needle, $replacement, $haystack) {
+    $needle_len = mb_strlen($needle);
+    $replacement_len = mb_strlen($replacement);
+    $pos = mb_strpos($haystack, $needle);
+    while($pos !== false) {
+        $haystack = mb_substr($haystack, 0, $pos).$replacement.mb_substr($haystack, $pos + $needle_len);
+        $pos = mb_strpos($haystack, $needle, $pos + $replacement_len);
+    }
+    return $haystack;
 }
 ?>

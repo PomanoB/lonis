@@ -64,7 +64,7 @@
 		</div>
 	</div>
 	<div class="majic">
-		<div id="page" style="border-radius: 20px;">
+		<div id="page" style="border-radius: 20px; padding: 15px;">
 		
 			{if isset($action)}
 				{include file="$action.tpl"}

@@ -63,13 +63,11 @@ else {
 	$conf = $dconf;
 	save_config_file($config_path);
 }
-
 assign("conf", $conf);
 
-if($db = mysqli_connect($mysql_host, $mysql_user, $mysql_password)) {
-		
-}
-if($db) {
+$db = @mysqli_connect($mysql_host, $mysql_user, $mysql_password);
+$conn = mysqli_connect_errno($db);
+if(!$conn) {
 	$conn = 1;
 	if (!mysqli_select_db($db, $mysql_db)) $conn = 0;
 	if (!mysqli_fetch_assoc(mysqli_query($db, "show tables"))) $conn = 0;
@@ -87,8 +85,14 @@ if($action!="setup" && !$conn) {
 assign('conn', $conn);
 
 if($conn) {
+	// Get From unr_players
+	$name = isset($_GET["name"]) ? url_replace($_GET["name"], BACK) : "";
+	$id = isset($_GET["id"]) ? abs((int)$_GET["id"]) : 0;
+	$player = getPlayerFormDB($db, $name, $id);
+	assign('player', $player);
+
 	// Read defaul language
-	$r = mysqli_query($db, "SELECT * FROM `lang` ORDER BY `name`");
+	$r = mysqli_query($db, "SELECT * FROM `lang` WHERE `use` = 1 ORDER BY `name` ");
 	while($row = mysqli_fetch_array($r)) {
 		if($row['default']==1)
 			$lang_def = $row['lang'];
@@ -112,7 +116,7 @@ if($conn) {
 		else
 			$lang = $lang_def;
 	}
-
+	
 	// Read language from file
 	$dblangs = array();
 	$r = mysqli_query($db, "SELECT * FROM `langs` WHERE `lang`='$lang'");
@@ -225,12 +229,6 @@ if($action!="setup") {
 	assign('menuadminlist', create_menu($menuAdmin));
 }
 
-// Get From unr_players
-$name = isset($_GET["name"]) ? url_replace($_GET["name"], BACK) : "";
-$id = isset($_GET["id"]) ? abs((int)$_GET["id"]) : 0;
-$player = getPlayerFormDB($db, $name, $id);
-assign('player', $player);
-
 // Menu Footer
 assign('menu_footer', $menu_footer);
 	
@@ -276,4 +274,17 @@ function getPlayerFormDB($db, $name, $id) {
 	
 	return $player;
 }
+
+function geoip($db, $ip, $lang) {
+	if(isset($ip) && $ip!="") {
+		$q = "SELECT `code`, `country_name` as `country` FROM
+					(SELECT * FROM `geoip_whois` WHERE `ip_to` >= INET_ATON('{$ip}') ORDER BY `ip_to` ASC LIMIT 1) AS `cnt`,
+					`geoip_locations`
+				WHERE `code` = `country_iso_code` AND `locale_code` = '{$lang}'";
+		return mysqli_fetch_assoc(mysqli_query($db, $q));
+	}
+	else 
+		return 0;
+}
+	
 ?>

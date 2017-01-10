@@ -38,12 +38,9 @@ else {
 		assign('map_top1', $map_top1);
 	}
 	else {	
-		$q = "SELECT *, `top`.`map` as `map` FROM 
-					(SELECT `map`, `time` as `xtime` FROM `kz_map_top` 
-						WHERE `player` = {$id} OR `player` = 0 GROUP BY `map` ORDER BY `time` ASC) AS `top`
-					LEFT JOIN `kz_map_top1` `top1` ON `top`.`map` = `top1`.`map`
-					WHERE `xtime` = 0 ORDER BY `top`.`map`";
-
+		$q = " SELECT * FROM `kz_map_top1` 
+				RIGHT JOIN (SELECT `mapname` FROM `kz_map` WHERE NOT EXISTS 
+					(SELECT * FROM `kz_map_top` WHERE player={$id} AND `mapname`=`map`)) AS m ON `map`=`mapname`";
 		$r_norec = mysqli_query($db, $q);
 		$map_norec = mysqli_num_rows($r_norec);
 		assign('map_norec', $map_norec);
@@ -67,6 +64,7 @@ else {
 		
 		$maps = array();
 		foreach($rows_limit as $row) {
+			$row["map"] = $row["mapname"];
 			if(isset($row["time"]))
 			$row["time"] = timed($row["time"], 5);
 			

@@ -9,15 +9,17 @@
 			<p>
 		</div>
 	</div>
+	
+	{if isset($maprec)}
 	<div style="padding-left: 20px;">
-		{if $download_url!=""}
 		<a href="{$download_url}" alt="{$langs.Download} {$map}">
 			&nbsp;<img src="{$baseUrl}/img/download_map.png" title="{$langs.Download}" alt="{$langs.Download}">
 		</a>
-		{/if}
-	<div>
-
 	</div>
+	{/if}
+	
+	{if isset($maprec)}
+	<div>
 		<p><table>
 		{foreach from=$maprec item=rec}
 			<tr>
@@ -32,14 +34,15 @@
 		{/foreach}
 		</table>
 	</div>
+	{/if}
 {else}	
 	<div class="wrapper">
 		<div class="titles left_block">{$langs.lastRecKZ}</div>
-	</div><br>
+	</div>
 {/if}
-	<div class="err_message">{$message}</div>
+
+	<p><div class="err_message">{$message}</div></p>
 		
-{if $total}
 	<div style="padding:10px;">
 		<div>
 			<a href="{$baseUrl}/kreedz/{$map}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
@@ -64,7 +67,8 @@
 		{if $webadmin==1}
 				<td>#</td>
 		{/if}
-				</tr>
+			</tr>
+	{if $total}
 	{foreach from=$players item=player}
 			<tr class="list">
 			{if $map}
@@ -101,6 +105,6 @@
 	{/if}
 			</tr>
 	{/foreach}
+	{/if}
 		</table>
 	</div>
-{/if}

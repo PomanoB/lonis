@@ -4,7 +4,7 @@
 		</div>
 {if !$cs}
 		<div class="right_block">
-			<form action="" method="get" id="search_map_form">
+			<form action="{$baseUrl}/kreedz/maps/" method="post" id="search_map_form">
 				<input type="text" name="map" id="map" value="{if isset($map)}{$map}{/if}" placeholder="{$langs.Search}"/>
 				<input type="image" name="picture" src="{$baseUrl}/img/find.png" title="{$langs.Search}" alt="{$langs.Search}" />
 				&nbsp;
@@ -26,11 +26,13 @@
 				<tr class="title">
 					<td>{$langs.Map}</td>
 				</tr>
+	{if isset($maps)}
 	{foreach from=$maps key=key item=map}
 				<tr class="list">
 					<td><a href="{$baseUrl}/kreedz/{$map.mapname}">{$map.mapname}</a></td>
 				</tr>
 	{/foreach}
+	{/if}
 			</table>
 		</div>
 {else}
@@ -53,10 +55,12 @@
 				<td>{$langs.Cp}</td>
 				<td>{$langs.GoCp}</td>
 				<td>{$langs.Weapon}</td>
-		{if $webadmin==1}
+	{if $webadmin==1}
 				<td	>#</td>
-		{/if}
+	{/if}
 			</tr>
+
+	{if isset($maps)}
 	{foreach from=$maps item=map}
 			<tr class="list">
 				<td><a href="{$baseUrl}/kreedz/{$map.mapname}">{$map.mapname}</a></td>
@@ -81,6 +85,7 @@
 	{/if}			
 			</tr>
 	{/foreach}
+	{/if}
 		</table>
 		</div>
 {/if}

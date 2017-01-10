@@ -32,8 +32,8 @@ a:link, a:visited {
 .head_bg {
 	background: #171717;
 }
-
 /* DIVs */
+
 #page {
 	margin-right: 15px;
 	padding-right: 15px;
@@ -206,8 +206,7 @@ tr.title {
 
 /* INPUTS */
 .bigform {
-	font-size: 180%;
-	text-align: center;
+	font-size: 140%;
 	height: 30px;
 	border: 1px solid #DCDCDC;
 }
@@ -232,9 +231,8 @@ button {
 	-webkit-box-shadow:0 0 10px #000;
 }
 
-.info {
-	font-size: 11px;
-	width: 200px;
+.infos {
+	text-align: right;
 }
 
 .infoid {

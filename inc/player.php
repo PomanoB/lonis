@@ -1,15 +1,8 @@
 <?php
 if($player["id"]) {
-	if(isset($player["lastIp"]) && $player["lastIp"]!="") {
-		$q = "SELECT `code`, `country_name` as `country` FROM
-					(SELECT * FROM `geoip_countries` WHERE `ip_to` >= INET_ATON('{$player["lastIp"]}') ORDER BY `ip_to` ASC LIMIT 1) AS `cnt`,
-					`geoip_locations`
-				WHERE `code` = `country_iso_code` AND `locale_code` = '{$lang}'";
-		$geoip = mysqli_fetch_assoc(mysqli_query($db, $q));
-	}
-	
-	$player["countryName"] = isset($geoip["country"]) ? $geoip["country"] : "";
-	$player["countryCode"] = isset($geoip["code"]) ? $geoip["code"] : "";
+	$geoip = geoip($db, $player["lastIp"], $lang);
+	$player["countryName"] = $geoip["country"];
+	$player["countryCode"] = $geoip["code"];
 	
 	$img = "img/country/{$player["countryCode"]}.png";
 	$player["countryImg"] = file_exists($img) ? $img : "";

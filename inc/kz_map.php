@@ -31,7 +31,7 @@ assign('type', $type);
 
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 
-$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `map` = '{$map}' and `player` <> 0";
+$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `map` = '{$map}'";
 $r = mysqli_query($db, $q);
 
 $found = mysqli_result($r, 0);

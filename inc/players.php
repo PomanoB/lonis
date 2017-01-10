@@ -20,11 +20,7 @@ $sort = (isset($_GET["sort"]) && $_GET["sort"]!="") ? $_GET["sort"] : "name";
 $desc = $sort=="achiev" ? "DESC" : "";
 $order = "ORDER BY `{$sort}` {$desc}";
 
-$q = "SELECT * FROM (SELECT `id` AS `plid`, `name`, `lastIp`, `email`, `steam_id_64`,
-		(SELECT COUNT(*) FROM `unr_players_achiev`, `unr_achiev` 
-			WHERE `achievId` = `unr_achiev`.`id` AND `count` = `progress` AND `playerId` = `plid`) AS `achiev`
-		FROM `unr_players`) AS `tmp`
-		WHERE 1 {$where} {$order}";	
+$q = "SELECT * FROM `players` WHERE (`lang`='{$lang}' OR `lang` IS NULL) {$where} {$order}";	
 $r = mysqli_query($db, $q);
 $total = mysqli_num_rows($r);
 assign('total', $total);
@@ -43,16 +39,9 @@ if($total) {
 	
 	$players = array();
 	foreach($rows_limit as $row) {
-		if(isset($row["lastIp"]) && $row["lastIp"]!="") {
-			$q = "SELECT `code`, `country_name` as `country` FROM
-						(SELECT * FROM `geoip_countries` WHERE `ip_to` >= INET_ATON('{$row["lastIp"]}') ORDER BY `ip_to` ASC LIMIT 1) AS `cnt`,
-						`geoip_locations`
-					WHERE `code` = `country_iso_code` AND `locale_code` = '{$lang}'";
-			$geoip = mysqli_fetch_assoc(mysqli_query($db, $q));
-		}
-		
-		$row["countryName"] = isset($geoip["country"]) ? $geoip["country"] : "";
-		$row["countryCode"] = isset($geoip["code"]) ? $geoip["code"] : "";
+		//$geoip = geoip($db, $row["lastIp"], $lang);
+		//$row["countryName"] = $geoip["country"];
+		//$row["countryCode"] = $geoip["code"];
 		
 		$img = 'img/country/'.$row["countryCode"].'.png';
 		$row["countryImg"] = file_exists($img) ? $img : "";
