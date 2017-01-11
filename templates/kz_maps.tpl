@@ -19,7 +19,7 @@
 			<b>{$langs.kznorec}</b> :: <a href="{$baseUrl}/kreedz/maps/{$type}">{$langs.kzrec}</a>
 		</div>
 		
-		{$generate_page}
+		<p>&nbsp;{$generate_page}
 		
 		<div>
 			<table class="table-list">
@@ -44,9 +44,8 @@
 		</div>
 		<p><div class="err_message">{$message}</div>
 		
-		{$generate_page}
+		<p>&nbsp;{$generate_page}
 		
-		<div style="padding:10px;">
 		<table class="table-list">
 			<tr class="title">
 				<td>{$langs.Map}</td>
@@ -87,6 +86,5 @@
 	{/foreach}
 	{/if}
 		</table>
-		</div>
 {/if}
 	</div>

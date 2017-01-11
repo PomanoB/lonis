@@ -3,8 +3,8 @@ $i=$j=$k=$n=$m=0;
 $config_file = "config.ini";
 $cs = 0;
 $lang = "en";
-$theme = "main";
-$cstheme = "main";
+$theme = "default";
+$cstheme = "default";
 
 $avatarSize = array(
 	"Icon" => 24,
@@ -99,17 +99,17 @@ $parseRules = array(
 	
 	"/^admin\/([0-9a-zA-Z_!]+)?(\/page([0-9]+))?(\/(.*))?/" => "index.php?action=admin_%1%&page=%3%&search=%5%",
 	
-	"/^servers?(\/page([0-9]+))?(\/(.*))?/" => "index.php?action=servers&page=%2%&addr=%4%",
+	"/^servers\/(page([0-9]+))?(\/(.*))?/" => "index.php?action=servers&page=%2%&addr=%4%",
 	
-	"/^players?(\/(name|achiev))?(\/page([0-9]+))?(\/(.*))?/" => "index.php?action=players&sort=%2%&page=%4%&search=%6%",	
+	"/^players\/(name|achiev|country)?(-)?(asc|desc)?(\/page([0-9]+))?(\/(.*))?/" => "index.php?action=players&order=%1%&sort=%3%&page=%5%&search=%7%",
 		
 	"/^achiev\/(page([0-9]+))?(\/)?(.*)?/" => "index.php?action=achiev&page=%2%&aname=%4%",
 	"/^achievs\/(page([0-9]+))?/" => "index.php?action=achiev&page=%2%&act=achievs",
-	"/^(.*)\/achiev?(\/page([0-9]+))?/" => "index.php?action=achiev&name=%1%&page=%3%",
+	"/^(.*)\/achiev\/(page([0-9]+))?/" => "index.php?action=achiev&name=%1%&page=%3%",
 	
-	"/^kreedz\/duels?(\/page([0-9]+))?/" => "index.php?action=kz_duels&page=%2%",
-	"/^kreedz\/players?(\/(pro|noob|all))?(\/page([0-9]+))?(\/(num|top1))?/" => "index.php?action=kz_players&type=%2%&sort=%6%&page=%4%",
-	"/^kreedz\/maps?(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(.*))?/" => "index.php?action=kz_maps&type=%2%&page=%4%&rec=%6%&map=%8%",
+	"/^kreedz\/duels\/(page([0-9]+))?/" => "index.php?action=kz_duels&page=%2%",
+	"/^kreedz\/players\/((pro|noob|all))?(\/page([0-9]+))?(\/(num|top1))?/" => "index.php?action=kz_players&type=%2%&sort=%6%&page=%4%",
+	"/^kreedz\/maps\/((pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(.*))?/" => "index.php?action=kz_maps&type=%2%&page=%4%&rec=%6%&map=%8%",
 	"/^kreedz\/([0-9a-zA-Z_!]+)?(\/(pro|noob|all))?(\/page([0-9]+)?)?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(num|top1))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
 	
@@ -145,7 +145,7 @@ $langs = array(
 	"mysql_host" => "Host db",
 	"mysql_db" => "Database",
 	"mysql_prefix" => "Prefix db",
-	"server_name' => 'Server Name",
+	"server_name" => "Server Name",
 	"activateTime" => "Activation time e-mail",
 	"baseUrl" => "Url site",
 	"gravatarSize" => "Avatar size",
@@ -154,13 +154,9 @@ $langs = array(
 	"playersPerPage" => "Players per page KZ",
 	"achievPerPage" => "Achiev per page",
 	"achievPlayersPerPage" => "Achiev Players per page",	
-	"list" => "Language list (space specarate)",
-	"lang" => "Language default" ,
-	"themelist" => "Theme list (space specarate)",
-	"theme" => "Theme default",
-	"cstheme" => "Theme default in CS",
-	"email" => "E-mail",
+	"server_update" => "Timer updated servers",
 	"cookieKey" => "Cookie Key",
+	"email" => "E-mail",
 	
 	"setupGeneral" => "General setting",
 	"setupDb" => "Database",

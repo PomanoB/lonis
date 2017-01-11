@@ -51,6 +51,9 @@ $action = isset($_GET["action"]) && $_GET["action"]!="" ? $_GET["action"] : $men
 
 $config_dir = $docRoot;
 
+// Default config vars
+$conf = $dconf;
+
 // Read setting from config file or create default
 $config_path = $config_dir.'/'.$config_file;
 if(file_exists($config_path)) {
@@ -60,8 +63,7 @@ if(file_exists($config_path)) {
 	}
 }
 else {
-	$conf = $dconf;
-	save_config_file($config_path);
+	save_config_file($config_path, $conf);
 }
 assign("conf", $conf);
 
@@ -69,8 +71,10 @@ $db = @mysqli_connect($mysql_host, $mysql_user, $mysql_password);
 $conn = mysqli_connect_errno($db);
 if(!$conn) {
 	$conn = 1;
-	if (!mysqli_select_db($db, $mysql_db)) $conn = 0;
-	if (!mysqli_fetch_assoc(mysqli_query($db, "show tables"))) $conn = 0;
+	if (!mysqli_select_db($db, $mysql_db)) 
+		$conn = 0;
+	else
+		if (!mysqli_fetch_assoc(mysqli_query($db, "show tables"))) $conn = 0;
 	
 	mysqli_query($db, "SET NAMES ".$charset);
 }
@@ -78,9 +82,8 @@ else
 	$conn = 0;
 	
 // Connect to mysql
-if($action!="setup" && !$conn) {	
-	header("Location: $baseUrl/setup");
-}
+if($action!="setup" && !$conn)
+	header("Location: $baseUrl/setup/");
 
 assign('conn', $conn);
 

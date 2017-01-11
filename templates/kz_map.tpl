@@ -50,7 +50,7 @@
 			<a href="{$baseUrl}/kreedz/{$map}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
 		</div>
 
-		{$generate_page}
+		<p>&nbsp;{$generate_page}
 				
 		<table class="table-list">
 			<tr class="title" >

@@ -41,17 +41,11 @@ if($map && !$found) {
 	header("Location: {$baseUrl}/kreedz/");
 }
 
-if($map) {	
-	$q = "SELECT `kz_map_top`.*, `unr_players`.`name`, `wname` 
-			FROM `kz_map_top`, `unr_players`, `weapons`
-			WHERE `map` = '{$map}' AND `unr_players`.`id` = `player` AND `weapons`.`id` = `kz_map_top`.`weapon` {$types[$type]} 
-			GROUP BY `player` ORDER BY `time`";
-}
-else {
-	$q = "SELECT `t`.*, `name`, `wname` FROM `kz_map_top` `t`,`unr_players` `p`, `weapons` `w`
-		WHERE `time`>0 AND `player` = `p`.`id` AND `weapon` = `w`.`id` {$types[$type]} 
-		ORDER BY `time_add` DESC, `map` LIMIT 0, 10";
-}
+if($map)
+	$q = "SELECT * FROM `kz_map_tops` WHERE `map` = '{$map}' {$types[$type]} GROUP BY `player` ORDER BY `time`";
+else
+	$q = "SELECT * FROM `kz_map_tops` WHERE 1 {$types[$type]} ORDER BY `time_add` DESC, `map` LIMIT 0, 10";
+
 $r = mysqli_query($db, $q);
 	
 $total = mysqli_num_rows($r);

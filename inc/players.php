@@ -15,18 +15,19 @@ if (isset($_GET["search"]) && $_GET["search"] != '') {
 }
 
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
-$sort = (isset($_GET["sort"]) && $_GET["sort"]!="") ? $_GET["sort"] : "name";
+$order = (isset($_GET["order"])) ? $_GET["order"] : "";
+$page = isset($_GET["page"]) ? $_GET["page"] : 0;
+$sort = isset($_GET["sort"]) ? $_GET["sort"] : "";
 
-$desc = $sort=="achiev" ? "DESC" : "";
-$order = "ORDER BY `{$sort}` {$desc}";
+$orderby = $order ? "`{$order}` {$sort}, `name` {$sort}" : "`name`";
 
-$q = "SELECT * FROM `players` WHERE (`lang`='{$lang}' OR `lang` IS NULL) {$where} {$order}";	
+$q = "SELECT * FROM `players` WHERE (`lang`='{$lang}' OR `lang` IS NULL) {$where} ORDER BY {$orderby}";	
 $r = mysqli_query($db, $q);
 $total = mysqli_num_rows($r);
 assign('total', $total);
 
 $pages = generate_page($page, $total, $playerPerPage);
-$pages["pageUrl"] = "{$baseUrl}/players/{$sort}/page%page%/{$search}";
+$pages["pageUrl"] = "{$baseUrl}/players/{$order}-{$sort}/page%page%/{$search}";
 assign('pages', $pages);
 
 if($total) {
@@ -39,11 +40,7 @@ if($total) {
 	
 	$players = array();
 	foreach($rows_limit as $row) {
-		//$geoip = geoip($db, $row["lastIp"], $lang);
-		//$row["countryName"] = $geoip["country"];
-		//$row["countryCode"] = $geoip["code"];
-		
-		$img = 'img/country/'.$row["countryCode"].'.png';
+		$img = 'img/country/'.$row["country"].'.png';
 		$row["countryImg"] = file_exists($img) ? $img : "";
 		
 		$row["avatarLink"] = "http://www.gravatar.com";

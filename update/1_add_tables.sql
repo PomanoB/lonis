@@ -39,7 +39,7 @@ CREATE TABLE `servers` (
 	`name` varchar(32) DEFAULT NULL,
 	`map` varchar(32) DEFAULT NULL,
 	`players` varchar(8) DEFAULT NULL,
-	`update` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+	`update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -165,7 +165,7 @@ CREATE TABLE `unr_players` (
 	`ip` VARCHAR(32) NULL DEFAULT NULL,
 	`lastIp` VARCHAR(20) NULL DEFAULT NULL,
 	`lastTime` INT(1) NULL DEFAULT NULL,
-	`countryCode` VARCHAR(2) NULL DEFAULT NULL,
+	`country` VARCHAR(5) NULL DEFAULT NULL,
 	`onlineTime` INT(1) NULL DEFAULT NULL,
 	`steam_id` VARCHAR(32) NULL DEFAULT NULL,
 	`amxx_flags` VARCHAR(34) NULL DEFAULT NULL,
@@ -180,7 +180,7 @@ CREATE TABLE `unr_players` (
 	`themes` INT(4) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `name` (`name`),
-	INDEX `country` (`countryCode`)
+	INDEX `country` (`country`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `unr_players_achiev`;
@@ -201,6 +201,8 @@ CREATE TABLE `unr_players_var` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- TRIGGER --
+
+DELIMITER |
 CREATE TRIGGER `unr_players_before_insert` BEFORE INSERT ON `unr_players` FOR EACH ROW BEGIN 
 SET NEW.`countryCode` = (
 	SELECT `code` FROM `geoip_whois`
@@ -216,35 +218,5 @@ SET NEW.`countryCode` = (
 	ORDER BY `ip_to` ASC LIMIT 1
 );
 END
--- VIEWS --
-
-CREATE OR REPLACE VIEW `achiev` AS 
-SELECT
-	`unr_achiev`.`id`    AS `id`,
-	`unr_achiev`.`count` AS `count`,
-	`unr_achiev`.`type`  AS `type`,
-	`lname`.`value`      AS `name`,
-	`ldesc`.`value`      AS `description`,
-	`lname`.`lang`       AS `lang`
-FROM ((`unr_achiev`
-	JOIN `unr_achiev_lang` `lname`
-		ON (((`unr_achiev`.`id` = `lname`.`achievid`) AND (`lname`.`ltype` = 'name'))))
-	JOIN `unr_achiev_lang` `ldesc`
-		ON (((`unr_achiev`.`id` = `ldesc`.`achievid`) AND (`ldesc`.`ltype` = 'desc'))))
-WHERE (`lname`.`lang` = `ldesc`.`lang`);
-	 
-CREATE OR REPLACE VIEW `kz_map_top1` AS 
-SELECT `mtop`.*, `unr_players`.`name`, `wname`
-FROM (SELECT * FROM `kz_map_top` GROUP BY `map` ORDER BY `time`) `mtop`
-LEFT JOIN `weapons` ON `weapons`.`id` = `mtop`.`weapon`
-JOIN `unr_players` ON `unr_players`.`id` = `mtop`.`player`
-GROUP BY `mtop`.`map`
-
-select `p`.`id` AS `id`,`p`.`name` AS `name`,`p`.`lastIp` AS `lastIp`,`p`.`email` AS `email`,`p`.`steam_id_64` AS `steam_id_64`,
-	`p`.`countryCode` AS `countryCode`,`l`.`country_name` AS `countryName`, `locale_code` as `lang`,
-	
-	(select count(0) from (`unr_players_achiev` `pa` join `unr_achiev` `a`) 
-		where ((`pa`.`achievId` = `a`.`id`) and (`a`.`count` = `pa`.`progress`) and (`pa`.`playerId` = `p`.`id`))) AS `achiev`
-
-from (`unr_players` `p` join `geoip_locations` `l`) 
-where (`p`.`countryCode` = `l`.`country_iso_code`);
+| 
+DELIMITER ;

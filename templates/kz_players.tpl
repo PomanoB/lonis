@@ -21,7 +21,7 @@
 				<a href="{$baseUrl}/kreedz/players/{$type}/top1" {if $sort == "top1"}style="font-weight:bold;"{else}{/if}>{$langs.kztop1}</a>
 			</div>
 			
-			{$generate_page}
+			<p>&nbsp;{$generate_page}
 			<div style="padding:10px;">
 				<table class="table-list">
 					<tr class="title">

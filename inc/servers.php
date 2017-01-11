@@ -60,11 +60,9 @@ else {
 		$servers = array();
 		foreach($rows_limit as $row) {
 			$id = $row['id'];
-			$update = $row['update'];
-
-			$up = time()-$update;
-			if($up > $server_update) {
-				$update = time();
+			$update = strtotime($row['update']);
+			
+			if(time()-$update > $server_update) {
 				if($server->connect($row["addres"])) {
 					$info = $server->info();
 					$row = array_replace($row, $info);
@@ -80,9 +78,10 @@ else {
 							`map` = '{$row['map']}', 
 							`players` = {$row['players']}, 
 							`max_players` = {$row['max_players']}, 
-							`update` = '{$update}' 
 						WHERE `id` = {$id}";
 				mysqli_query($db, $q);
+				
+				$update = time();
 			}
 			
 			$row["update"] = strftime("%d.%m %H:%M", $update);

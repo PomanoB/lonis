@@ -18,7 +18,7 @@
 		<p>{$langs.kznum}: {$map_norec}
 	{/if}	
 	
-		{$generate_page}
+		<p>&nbsp;{$generate_page}
 		
 		<table class="table-list">
 			<tr class="title">

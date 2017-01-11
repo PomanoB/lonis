@@ -1,39 +1,27 @@
 <?php
 
-function smarty_function_generate_pages($params, &$smarty)
-{
-	$totalPages = 1;
-	$page = 1;
-	$baseUrl = '';
-	foreach($params as $_key => $_val)
-	{
-        switch($_key) 
-		{
-            case 'totalPages':
-				$totalPages = $_val;
-				break;
-            case 'page':
-				$page = $_val;
-				break;
-			case 'pageUrl':
-				$baseUrl = $_val;
-				break;
-        }
-    }
-	if ($totalPages <= 1)
-		return '';
-	$output = '<div>';
+function smarty_function_generate_pages($params, &$smarty) {
+	$params_list = array(
+		"totalPages" => 0,
+		"page" => 0,
+		"pageUrl" => ""
+		);
+		
+	foreach($params as $key => $val) {
+		$$key = isset($key) ? $val : $param_list[$key]; 
+	}
 	
-	if ($page > 2)
-		$output .= ('<a href="'.str_replace('%page%', 1, $baseUrl).'">1</a> ');
-	if ($page > 1)
-		$output .= ('<a href="'.str_replace('%page%', ($page - 1), $baseUrl).'">'.($page - 1).'</a> ');
-	$output .= '<b>'.$page.'</b> ';
-	if ($page < $totalPages)
-		$output .= ('<a href="'.str_replace('%page%', ($page + 1), $baseUrl).'">'.($page + 1).'</a> ');
-	if ($page < $totalPages - 1)
-		$output .= ('<a href="'.str_replace('%page%', ($totalPages), $baseUrl).'">'.($totalPages).'</a> ');
-	$output .= '</div>';
+	if ($totalPages <= 1)
+		return "";
+	
+	$output = "";
+	if ($page > 2) $output .= "<a href=".str_replace("%page%", 1, $pageUrl).">1</a> ";
+	if ($page > 1) $output .= "<a href=".str_replace("%page%", ($page - 1), $pageUrl).">".($page - 1)."</a> ";
+	$output .= "<b>{$page}</b> ";
+	if ($page < $totalPages) $output .= "<a href=".str_replace("%page%", ($page + 1), $pageUrl).">".($page+1)."</a> ";
+	if ($page < $totalPages - 1) $output .= "<a href=".str_replace("%page%", ($totalPages), $pageUrl).">".($totalPages)."</a> ";
+	$output .= "";
+	
 	return $output;
 }
 ?>

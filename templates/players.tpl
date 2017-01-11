@@ -11,15 +11,15 @@
 {/if}
 	</div><br>
 
-	{$generate_page}
+	<p>&nbsp;{$generate_page}
 	
 	<div style="padding:10px;">
 		<table class="table-list">
 			<tr class="title">
 				<td>&nbsp;</td>
-				<td><a href="{$baseUrl}/players/name/page{$pages.page}">{$langs.player}</td>
-				<td>{$langs.Country}</td>
-				<td><a href="{$baseUrl}/players/achiev/page{$pages.page}">{$langs.achiev}</td>
+				<td><a href="{$baseUrl}/players/name/page{$pages.page}">{$langs.player}</a></td>
+				<td><a href="{$baseUrl}/players/country/page{$pages.page}">{$langs.Country}</a></td>
+				<td><a href="{$baseUrl}/players/achiev-desc/page{$pages.page}">{$langs.achiev}</a></td>
 				<td>{$langs.KzStats}</td>
 			</tr>
 	{if $total}

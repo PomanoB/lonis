@@ -22,12 +22,10 @@ assign('rec', $rec);
 
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 
-$table = $sort=="top1" ? "kz_map_top1" : "kz_map_top";
+$table = $sort=="top1" ? "kz_map_tops1" : "kz_map_tops";
 
 // Players top
-$q = "SELECT `tmp`.*, `unr_players`.`name` FROM `unr_players` RIGHT JOIN (
-	SELECT *, COUNT(DISTINCT `map`) AS `records` FROM `{$table}` WHERE 1 {$types[$type]} AND `time`>0 GROUP BY `player`) AS `tmp` 
-	ON `unr_players`.`id` = `tmp`.`player` ORDER BY `records` DESC";
+$q = "SELECT `name`, COUNT(DISTINCT `map`) AS `records` FROM `{$table}` WHERE 1 {$types[$type]} GROUP BY `player` ORDER BY `records` DESC";
 $r = mysqli_query($db, $q);
 
 $total = mysqli_num_rows($r);

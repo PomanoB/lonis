@@ -1,6 +1,6 @@
 <p><h2>{$langs.kz_duels}</h2>
 
-{$generate_page}
+<p>&nbsp;{$generate_page}
 
 <div style="padding:10px;">
 	<table class="table-list">

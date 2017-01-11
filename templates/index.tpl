@@ -1,4 +1,37 @@
-{capture generate_page assign=generate_page}<p>{generate_pages page=$pages.page totalPages=$pages.totalPages pageUrl=$pages.pageUrl}</p>{/capture}
+{capture generate_page assign=generate_page}
+	<p>&nbsp;{generate_pages page=$pages.page totalPages=$pages.totalPages pageUrl=$pages.pageUrl}</p>
+{/capture}
+
+{capture generate_page assign=generate_page}
+	{if isset($pages)}
+		{$page = $pages.page}
+		{$totalPages = $pages.totalPages}
+		{$pageUrl = $pages.pageUrl}
+	{/if}
+	
+	{if $totalPages > 1}
+		{if $page > 2}
+			{$aHref = str_replace("%page%", "1", $pageUrl)}
+			<a href="{$aHref}">1 </a>
+		{/if}
+		{if $page > 1}
+			{$aHref = str_replace("%page%", $page-1, $pageUrl)}
+			<a href="{$aHref}">{$page-1} </a>
+		{/if}
+		
+		<b>{$page}</b>
+		
+		{if $page < $totalPages}
+			{$aHref = str_replace("%page%", $page+1, $pageUrl)}
+			<a href="{$aHref}">{$page+1} </a>
+		{/if}
+
+		{if $page < $totalPages-1}
+			{$aHref = str_replace("%page%", $totalPages, $pageUrl)}
+			<a href="{$aHref}"> {$totalPages}</a>
+		{/if}
+	{/if}
+{/capture}
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -66,10 +99,13 @@
 	<div class="majic">
 		<div id="page" style="border-radius: 20px; padding: 15px;">
 		
+<!-------------------------------------------------------------------------------------------------------------------->
+
 			{if isset($action)}
 				{include file="$action.tpl"}
 			{/if}
-		
+			
+<!-------------------------------------------------------------------------------------------------------------------->		
 		</div>
 		
 		<div class="wrapper">
@@ -100,9 +136,11 @@
 				{/if}
 			{/if}
 			</div>
-		</div>
+		</div><br>
+		
 		<div align="center" style="color: #ffffff">
-			<sub>({gentime start=$starttime})</sub>
+			{*<sub>({gentime start=$starttime})</sub>*}
+			<sub>({$gentime = microtime(true)-$starttime}{$gentime})</sub>
 		</div>
 		<br>
 	</body>

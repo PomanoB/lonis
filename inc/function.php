@@ -177,7 +177,7 @@ function save_ini_file(array $var, array $parent = array()) {
 }
 
 // Saved config file
-function save_config_file($file) {
+function save_config_file($file, $conf) {
 	$fp = fopen($file, 'w');
 	$text = "";
 	foreach($conf as $key=>$value) {

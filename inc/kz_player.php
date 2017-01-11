@@ -32,13 +32,13 @@ else {
 		$map_num = mysqli_num_rows($r_num);
 		assign('map_num', $map_num);
 
-		$q = "SELECT * FROM `kz_map_top1` WHERE `player` = {$id} {$types[$type]}";
+		$q = "SELECT * FROM `kz_map_tops1` WHERE `player` = {$id} {$types[$type]}";
 		$r_top1 = mysqli_query($db, $q);
 		$map_top1 = mysqli_num_rows($r_top1);
 		assign('map_top1', $map_top1);
 	}
 	else {	
-		$q = " SELECT * FROM `kz_map_top1` 
+		$q = " SELECT * FROM `kz_map_tops1` 
 				RIGHT JOIN (SELECT `mapname` FROM `kz_map` WHERE NOT EXISTS 
 					(SELECT * FROM `kz_map_top` WHERE player={$id} AND `mapname`=`map`)) AS m ON `map`=`mapname`";
 		$r_norec = mysqli_query($db, $q);

@@ -58,7 +58,7 @@
 	{/if}
 {else}
 
-	{$generate_page}
+	<p>&nbsp;{$generate_page}
 	
 	<p><table class="table-list">
 		<tr class="title">

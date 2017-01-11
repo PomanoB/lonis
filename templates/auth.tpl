@@ -4,7 +4,7 @@
 		</div>
 		<p><div style="color: red;">{$message}</div></p>
 		
-		<div style="">
+		<div align="center" style="">
 			<div style="display: inline-block; vertical-align: top; background: #f5f5f5; padding: 10px; margin: 10px; border-radius: 20px;">
 				<h2>{$langs.login}</h2>
 				<p>
