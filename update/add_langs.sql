@@ -1,9 +1,26 @@
+-- --------------------------------------------------------
+-- Хост:                         127.0.0.1
+-- Версия сервера:               5.7.16-log - MySQL Community Server (GPL)
+-- Операционная система:         Win64
+-- HeidiSQL Версия:              9.4.0.5144
+-- --------------------------------------------------------
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+-- Дамп структуры для таблица lonis.langs
+CREATE TABLE IF NOT EXISTS `langs` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `lang` varchar(2) NOT NULL,
+  `var` varchar(64) NOT NULL,
+  `value` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=361 DEFAULT CHARSET=utf8;
+
+-- Дамп данных таблицы lonis.langs: ~348 rows (приблизительно)
 /*!40000 ALTER TABLE `langs` DISABLE KEYS */;
 INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(1, 'ru', 'ThemeNotFound', 'тема не существует'),
@@ -46,7 +63,7 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(38, 'ru', 'sendMailError', 'Ошибка отправки почты'),
 	(39, 'ru', 'achievsPlayers', 'Игроки, выполнившие достижение'),
 	(40, 'ru', 'achievPlayerTotal', 'Всего выполнено достижений:'),
-	(41, 'ru', 'achievsUnlocked', 'Разблокировано: '),
+	(41, 'ru', 'achievsUnlocked', 'Разблокировано'),
 	(42, 'ru', 'Description', 'Описание'),
 	(43, 'ru', 'Count', 'Количество'),
 	(44, 'ru', 'Type', 'Тип'),
@@ -62,7 +79,7 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(54, 'ru', 'kzpro', 'Про'),
 	(55, 'ru', 'kznoob', 'Новички'),
 	(56, 'ru', 'kzall', 'Все'),
-	(57, 'ru', 'Stats', 'Статистика: '),
+	(57, 'ru', 'Stats', 'Статистика'),
 	(58, 'ru', 'Map', 'Карта '),
 	(59, 'ru', 'player', 'Игрок'),
 	(60, 'ru', 'players', 'Игроки'),
@@ -83,8 +100,8 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(75, 'ru', 'KzStats', 'KZ Статистика'),
 	(76, 'ru', 'DRStats', 'DR Статистика'),
 	(77, 'ru', 'City', 'Город'),
-	(78, 'ru', 'achievCompleted', 'Выполнил достижений: '),
-	(79, 'ru', 'MapCompleted', 'Прошёл KZ карт: '),
+	(78, 'ru', 'achievCompleted', 'Выполнил достижений'),
+	(79, 'ru', 'MapCompleted', 'Прошёл KZ карт'),
 	(80, 'ru', 'kz_duels', 'KZ Дуэль'),
 	(81, 'ru', 'kz_maps', 'KZ карты'),
 	(82, 'ru', 'kz_players', 'KZ игроки'),
@@ -189,7 +206,7 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(181, 'en', 'sendMailError', 'Error mail send'),
 	(182, 'en', 'achievsPlayers', 'Players who complete the achievement'),
 	(183, 'en', 'achievPlayerTotal', 'Just completed the achievements:'),
-	(184, 'en', 'achievsUnlocked', 'Unlocked: '),
+	(184, 'en', 'achievsUnlocked', 'Unlocked'),
 	(185, 'en', 'Description', 'Description'),
 	(186, 'en', 'Count', 'Count'),
 	(187, 'en', 'Type', 'Type'),
@@ -204,7 +221,7 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(196, 'en', 'kzpro', 'Pro'),
 	(197, 'en', 'kznoob', 'Noob'),
 	(198, 'en', 'kzall', 'All'),
-	(199, 'en', 'Stats', 'Statistics: '),
+	(199, 'en', 'Stats', 'Statistics'),
 	(200, 'en', 'Map', 'Map'),
 	(201, 'en', 'player', 'Player'),
 	(202, 'en', 'players', 'Players'),
@@ -225,8 +242,8 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(217, 'en', 'KzStats', 'KZ Statistics'),
 	(218, 'en', 'DRStats', 'DR Statistics'),
 	(219, 'en', 'City', 'City'),
-	(220, 'en', 'achievCompleted', 'Fulfilled achievements: '),
-	(221, 'en', 'MapCompleted', 'Went KZ maps: '),
+	(220, 'en', 'achievCompleted', 'Fulfilled achievements'),
+	(221, 'en', 'MapCompleted', 'Went KZ maps'),
 	(222, 'en', 'kz_duels', 'KZ Duels'),
 	(223, 'en', 'kz_maps', 'KZ Maps'),
 	(224, 'en', 'kz_players', 'KZ Players'),
@@ -353,7 +370,11 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(353, 'ru', 'auth', 'Войти'),
 	(354, 'en', 'auth', 'Login'),
 	(355, 'ru', 'Authorization', 'Авторизация'),
-	(356, 'en', 'Authorization', 'Authorization');
+	(356, 'en', 'Authorization', 'Authorization'),
+	(357, 'en', 'ourLastTime', 'Our Last Time'),
+	(358, 'ru', 'ourLastTime', 'Последний заход'),
+	(359, 'en', 'SharedOnline', 'Shared Online'),
+	(360, 'ru', 'SharedOnline', 'Общий онлайн');
 /*!40000 ALTER TABLE `langs` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

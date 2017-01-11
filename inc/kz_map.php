@@ -95,7 +95,7 @@ if($total) {
 	$rows_limit = "";
 	while($rows = mysqli_fetch_assoc($r)) {
 		$i++;
-		if($i>$pages["start"] && $i<$pages["end"])
+		if($i>$pages["start"] && $i<=$pages["end"])
 			$rows_limit[] = $rows;
 	}
 	

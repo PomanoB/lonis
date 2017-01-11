@@ -34,7 +34,7 @@ if($total) {
 	$i=0;
 	while($rows = mysqli_fetch_assoc($r)) {
 		$i++;
-		if($i>$pages["start"] && $i<$pages["end"])
+		if($i>$pages["start"] && $i<=$pages["end"])
 			$rows_limit[] = $rows;
 	}
 	
@@ -48,6 +48,10 @@ if($total) {
 		
 		$row["name_url"] = url_replace($row["name"]);
 		
+		$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `player` = {$row["id"]}";
+		$r = mysqli_query($db, $q);
+		$row["mapCompleted"] = mysqli_result($r, 0);
+	
 		$players[] = $row;
 	}
 	assign('players', $players);

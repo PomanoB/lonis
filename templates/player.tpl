@@ -9,17 +9,17 @@
 	<p><h2>{$info.name|escape}</h2><br>
 	<p><table>
 		<tr class="playerinfo">
-			<td class="infoid">{$langs.Country}</td> 
+			<td class="infoid">{$langs.Country}:</td> 
 			<td>{if $info.countryImg}<img src="{$baseUrl}/{$info.countryImg}" />{/if} {$info.countryName}</td>
 		</tr>
 		
 		<tr class="playerinfo">
-			<td class="infoid">{$langs.achievCompleted}</td> 
+			<td class="infoid">{$langs.achievCompleted}:</td> 
 			<td><a href="{$baseUrl}/{$info.name_url}/achiev" title="{$langs.View}">{$info.achievCompleted}</a></td>
 		</tr>
 
 		<tr class="playerinfo">
-			<td class="infoid">{$langs.MapCompleted}</td> 
+			<td class="infoid">{$langs.MapCompleted}:</td> 
 			<td><a href="{$baseUrl}/{$info.name_url}/kreedz" title="{$langs.View}">{$info.mapCompleted}</a></td>
 		</tr>
 	{if isset($info.ipInfo.country_name)}
@@ -42,10 +42,10 @@
 		</tr>
 	{/if}
 		<tr class="playerinfo">
-			<td class="infoid">Последний заход:</td> <td>{$info.lastTime}</td>
+			<td class="infoid">{$langs.ourLastTime}:</td> <td>{$info.lastTime}</td>
 		</tr>
 		<tr class="playerinfo">
-			<td class="infoid">Общий онлайн:</td> <td>{$info.onlineTimes}</td>
+			<td class="infoid">{$langs.SharedOnline}:</td> <td>{$info.onlineTimes}</td>
 		</tr>
 	</table>
 {/if}

@@ -31,10 +31,10 @@ WHERE `p`.`id` = `t`.`player` AND `w`.`id` = `t`.`weapon`;
 GROUP BY `t`.`map`;
 
 CREATE OR REPLACE VIEW `players` AS 
-select `p`.`id` AS `id`,`p`.`name` AS `name`,`p`.`lastIp` AS `lastIp`,`p`.`email` AS `email`,`p`.`steam_id_64` AS `steam_id_64`,
+SELECT `p`.`id` AS `id`,`p`.`name` AS `name`,`p`.`lastIp` AS `lastIp`,`p`.`email` AS `email`,`p`.`steam_id_64` AS `steam_id_64`,
 	`p`.`country` AS `country`,`l`.`country_name` AS `countryName`, `locale_code` as `lang`,
 	
-	(select count(0) from (`unr_players_achiev` `pa` join `unr_achiev` `a`) 
-		where ((`pa`.`achievId` = `a`.`id`) and (`a`.`count` = `pa`.`progress`) and (`pa`.`playerId` = `p`.`id`))) AS `achiev`
+	(SELECT COUNT(0) FROM (`unr_players_achiev` `pa` JOIN `unr_achiev` `a`) 
+		WHERE ((`pa`.`achievId` = `a`.`id`) AND (`a`.`count` = `pa`.`progress`) AND (`pa`.`playerId` = `p`.`id`))) AS `achiev`,
 
-from `unr_players` `p` left join `geoip_locations` `l` on `p`.`country` = `l`.`country_iso_code`
+FROM `unr_players` `p` LEFT JOIN `geoip_locations` `l` ON `p`.`country` = `l`.`country_iso_code`

@@ -20,7 +20,7 @@
 				<td><a href="{$baseUrl}/players/name/page{$pages.page}">{$langs.player}</a></td>
 				<td><a href="{$baseUrl}/players/country/page{$pages.page}">{$langs.Country}</a></td>
 				<td><a href="{$baseUrl}/players/achiev-desc/page{$pages.page}">{$langs.achiev}</a></td>
-				<td>{$langs.KzStats}</td>
+				<td>{$langs.MapCompleted}</td>
 			</tr>
 	{if $total}
 		{foreach from=$players item=player}
@@ -40,7 +40,7 @@
 					<a href="{$baseUrl}/{$player.name_url}/achiev">{$player.achiev}</a>
 				</td>
 				<td>
-					<a href="{$baseUrl}/{$player.name_url}/kreedz">{$langs.View}</a>
+					<a href="{$baseUrl}/{$player.name_url}/kreedz">{$player.mapCompleted}</a>
 				</td>
 			</tr>
 		{/foreach}

@@ -201,22 +201,24 @@ CREATE TABLE `unr_players_var` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- TRIGGER --
+DROP TRIGGER IF EXISTS `unr_players_before_insert`;
+DROP TRIGGER IF EXISTS `unr_players_before_update`;
+DROP TRIGGER IF EXISTS `kz_map_top_before_insert`;
+DROP TRIGGER IF EXISTS `kz_map_top_after_delete`;
 
-DELIMITER |
+DELIMITER $$
 CREATE TRIGGER `unr_players_before_insert` BEFORE INSERT ON `unr_players` FOR EACH ROW BEGIN 
-SET NEW.`countryCode` = (
+SET NEW.`country` = (
 	SELECT `code` FROM `geoip_whois`
 	WHERE `ip_to` >= INET_ATON(NEW.`lastIp`)
 	ORDER BY `ip_to` ASC LIMIT 1
 );
-END
+END$$
 
 CREATE TRIGGER `unr_players_before_update` BEFORE UPDATE ON `unr_players` FOR EACH ROW BEGIN 
-SET NEW.`countryCode` = (
+SET NEW.`country` = (
 	SELECT `code` FROM `geoip_whois`
 	WHERE `ip_to` >= INET_ATON(NEW.`lastIp`)
 	ORDER BY `ip_to` ASC LIMIT 1
 );
-END
-| 
-DELIMITER ;
+END$$
