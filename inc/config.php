@@ -24,7 +24,8 @@ $conf_type = array(
 		'achievPerPage',
 		'achievPlayersPerPage',
 		'server_update'
-		)
+		),
+	'checkbox' => array('servers_autoupdate')
 );
 
 $dconf = array (
@@ -47,6 +48,7 @@ $dconf = array (
 	'achievPerPage' => 50,
 	'achievPlayersPerPage' => 10,
 	'server_update' => 60 * 30,
+	'servers_autoupdate' => 1,
 	
 	'cookieKey' => "cc1f891423db1ee24498e76f3b107bbe"
 );
@@ -155,6 +157,7 @@ $langs = array(
 	"achievPerPage" => "Achiev per page",
 	"achievPlayersPerPage" => "Achiev Players per page",	
 	"server_update" => "Timer updated servers",
+	"servers_autoupdate" => "Auto Update servers",
 	"cookieKey" => "Cookie Key",
 	"email" => "E-mail",
 	

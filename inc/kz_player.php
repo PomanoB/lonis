@@ -56,15 +56,13 @@ else {
 	if($total) {
 		$r = $rec=="norec" ? $r_norec : ($sort=="top1" ? $r_top1 : $r_num);
 		
-		while($rows = mysqli_fetch_assoc($r)) {
-			$i++;
-			if($i>$pages["start"] && $i<=$pages["end"])
-				$rows_limit[] = $rows;
-		}
+		$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $mapsPerPage);
 		
 		$maps = array();
 		foreach($rows_limit as $row) {
-			$row["map"] = $row["mapname"];
+			if(isset($row["mapname"]))
+				$row["map"] = $row["mapname"];
+			
 			if(isset($row["time"]))
 			$row["time"] = timed($row["time"], 5);
 			

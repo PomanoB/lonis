@@ -15,12 +15,7 @@ $pages["pageUrl"] = "$baseUrl/kreedz/duels/page%page%";
 assign('pages', $pages);
 
 if($total) {
-	$i=0;
-	while($rows = mysqli_fetch_assoc($r)) {
-		$i++;
-		if($i>$pages["start"] && $i<=$pages["end"])
-			$rows_limit[] = $rows;
-	}
+	$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $mapsPerPage);
 
 	$duels = array();
 	foreach($rows_limit as $row) {

@@ -32,15 +32,16 @@ CREATE TABLE `unr_achiev_lang` (
 
 DROP TABLE IF EXISTS `servers`;
 CREATE TABLE `servers` (
-	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`mod` int(10) DEFAULT NULL,
-	`addres` varchar(32) NOT NULL,
+	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`mod` INT(10) NOT NULL,
+	`addres` VARCHAR(32) NOT NULL,
 	`vip` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',
-	`name` varchar(32) DEFAULT NULL,
-	`map` varchar(32) DEFAULT NULL,
-	`players` varchar(8) DEFAULT NULL,
+	`name` VARCHAR(32) NULL DEFAULT NULL,
+	`map` VARCHAR(32) NULL DEFAULT NULL,
+	`players` INT(4) NULL DEFAULT NULL,
+	`max_players` INT(4) NULL DEFAULT NULL,
 	`update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY `id` (`id`)
+	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `servers_mod`;

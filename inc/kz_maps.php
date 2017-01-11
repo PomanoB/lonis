@@ -70,12 +70,7 @@ $pages["pageUrl"] = "$baseUrl/kreedz/maps/$type/page%page%/$rec";
 assign('pages', $pages);
 
 if ($total) {
-	$i=0;
-	while($rows = mysqli_fetch_assoc($r)) {
-		$i++;
-		if($i>$pages["start"] && $i<=$pages["end"])
-			$rows_limit[] = $rows;
-	}
+	$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $mapsPerPage);
 
 	foreach($rows_limit as $row) {
 		$row["time"] = timed($row["time"], 2);

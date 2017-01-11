@@ -19,12 +19,7 @@ if($act=="achievs") {
 	$smarty->assign('pages', $pages);
 
 	if ($total) {
-		$i=0;
-		while($rows = mysqli_fetch_assoc($r)) {
-			$i++;
-			if($i>$pages["start"] && $i<=$pages["end"])
-				$rows_limit[] = $rows;
-		}
+		$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $achievPlayersPerPage);
 			
 		$players = array();
 		foreach($rows_limit as $row) {
@@ -72,12 +67,7 @@ else { // url=/achiev/%aname%
 			assign('pages', $pages);
 		
 			if($total) {
-				$i=0;
-				while($rows = mysqli_fetch_assoc($r)) {
-					$i++;
-					if($i>=$pages["start"] && $i<=$pages["end"])
-						$rows_limit[] = $rows;
-				}
+				$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $achievPlayersPerPage);
 				
 				$players = array();
 				foreach($rows_limit as $row) {
@@ -106,12 +96,7 @@ else { // url=/achiev/%aname%
 		assign('pages', $pages);
 
 		if($total) {
-			$i=0;
-			while($rows = mysqli_fetch_assoc($r)) {
-				$i++;
-				if($i>$pages["start"] && $i<=$pages["end"])
-					$rows_limit[] = $rows;
-			}
+			$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $achievPerPage);
 			
 			$achievs = array();
 			foreach($rows_limit as $row) {
@@ -143,12 +128,7 @@ else { // url=/achiev/%aname%
 		assign('pages', $pages);
 
 		if($total) {
-			$i=0;
-			while($rows = mysqli_fetch_assoc($r)) {
-				$i++;
-				if($i>$pages["start"] && $i<=$pages["end"])
-					$rows_limit[] = $rows;
-			}
+			$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $achievPerPage);
 
 			$achievs = array();
 			foreach($rows_limit as $row) {

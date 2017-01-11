@@ -235,6 +235,18 @@ function mysqli_result($res, $row, $field=0) {
     return $datarow[$field]; 
 }
 
+// Mysql: LIMIT $start, $perpage
+function mysqli_fetch_assoc_limit($r, $start, $perpage) {
+	$i=0;
+	while($rows = mysqli_fetch_assoc($r)) {
+		$i++;
+		if($i>$start && $i<=($start+$perpage))
+			$rows_limit[] = $rows;
+	}
+	
+	return $rows_limit;
+}
+
 // Replace fake simbol
 DEFINE ("BACK", 1);
 function url_replace($str, $r = 0) {
@@ -301,7 +313,6 @@ function generate_page($page, $total, $perpage) {
 	$pages["totalPages"] = $totalPages;
 	$pages["start"] = $start;
 	$pages["perpage"] = $perpage;
-	$pages["end"] = $start + $perpage;
 	
 	return $pages;
 }

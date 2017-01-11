@@ -50,38 +50,36 @@ else {
 	assign('pages', $pages);
 
 	if($total) {
-		$i=0;
-		while($rows = mysqli_fetch_assoc($r)) {
-			$i++;
-			if($i>=$pages["start"] && $i<=$pages["end"])
-				$rows_limit[] = $rows;
-		}
+		$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], 15);
 		
 		$servers = array();
 		foreach($rows_limit as $row) {
 			$id = $row['id'];
-			$update = strtotime($row['update']);
 			
-			if(time()-$update > $server_update) {
-				if($server->connect($row["addres"])) {
-					$info = $server->info();
-					$row = array_replace($row, $info);
-				}
-				else {
-					$row['map'] = "";
-					$row['players'] = 0;
-					$row['max_players'] = 0;
-				}
+			if($servers_autoupdate) {
+				$update = strtotime($row['update']);
 				
-				$q = "UPDATE `servers` 
-						SET `name` = '{$row['name']}', 
-							`map` = '{$row['map']}', 
-							`players` = {$row['players']}, 
-							`max_players` = {$row['max_players']}, 
-						WHERE `id` = {$id}";
-				mysqli_query($db, $q);
-				
-				$update = time();
+				if(time()-$update > $server_update) {
+					if($server->connect($row["addres"])) {
+						$info = $server->info();
+						$row = array_replace($row, $info);
+					}
+					else {
+						$row['map'] = "";
+						$row['players'] = 0;
+						$row['max_players'] = 0;
+					}
+					
+					$q = "UPDATE `servers` 
+							SET `name` = '{$row['name']}', 
+								`map` = '{$row['map']}', 
+								`players` = {$row['players']}, 
+								`max_players` = {$row['max_players']}, 
+							WHERE `id` = {$id}";
+					mysqli_query($db, $q);
+					
+					$update = time();
+				}
 			}
 			
 			$row["update"] = strftime("%d.%m %H:%M", $update);
