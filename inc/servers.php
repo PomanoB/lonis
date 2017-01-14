@@ -78,11 +78,11 @@ else {
 							WHERE `id` = {$id}";
 					mysqli_query($db, $q);
 					
-					$update = time();
+					$row["update"] = time();
 				}
 			}
 			
-			$row["update"] = strftime("%d.%m %H:%M", $update);
+			$row["update"] = strftime("%d.%m %H:%M", $row["update"]);
 			
 			$servers[] = $row;
 		}

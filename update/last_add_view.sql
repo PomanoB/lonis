@@ -27,7 +27,7 @@ SELECT * FROM `kz_map_top` GROUP BY `map` ORDER BY `time`;
 CREATE OR REPLACE VIEW `kz_map_tops1` AS 
 SELECT `t`.*, `p`.`name`, `wname` 
 FROM `kz_map_top1` `t`,  `unr_players` `p`, `weapons` `w`
-WHERE `p`.`id` = `t`.`player` AND `w`.`id` = `t`.`weapon`;
+WHERE `p`.`id` = `t`.`player` AND `w`.`id` = `t`.`weapon`
 GROUP BY `t`.`map`;
 
 CREATE OR REPLACE VIEW `players` AS 
@@ -35,6 +35,6 @@ SELECT `p`.`id` AS `id`,`p`.`name` AS `name`,`p`.`lastIp` AS `lastIp`,`p`.`email
 	`p`.`country` AS `country`,`l`.`country_name` AS `countryName`, `locale_code` as `lang`,
 	
 	(SELECT COUNT(0) FROM (`unr_players_achiev` `pa` JOIN `unr_achiev` `a`) 
-		WHERE ((`pa`.`achievId` = `a`.`id`) AND (`a`.`count` = `pa`.`progress`) AND (`pa`.`playerId` = `p`.`id`))) AS `achiev`,
+		WHERE ((`pa`.`achievId` = `a`.`id`) AND (`a`.`count` = `pa`.`progress`) AND (`pa`.`playerId` = `p`.`id`))) AS `achiev`
 
 FROM `unr_players` `p` LEFT JOIN `geoip_locations` `l` ON `p`.`country` = `l`.`country_iso_code`

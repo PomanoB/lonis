@@ -1,15 +1,31 @@
-DROP TABLE IF EXISTS `kz_map`;
-CREATE TABLE `kz_map` (
-	`map` VARCHAR(64) NOT NULL,
-	`diff` INT(2) UNSIGNED NULL DEFAULT '0',
-	`type` VARCHAR(32) NULL DEFAULT NULL,
-	`sc` INT(10) UNSIGNED NULL DEFAULT NULL,
-	`authors` VARCHAR(128) NULL DEFAULT NULL,
-	`date_old` VARCHAR(16) NULL DEFAULT NULL,
-	PRIMARY KEY (`mapname`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+-- --------------------------------------------------------
+-- Хост:                         127.0.0.1
+-- Версия сервера:               5.7.16-log - MySQL Community Server (GPL)
+-- Операционная система:         Win64
+-- HeidiSQL Версия:              9.4.0.5144
+-- --------------------------------------------------------
 
-INSERT INTO `kz_map` (`map`, `diff`, `type`, `sc`, `authors`, `date_old`) VALUES
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Дамп структуры для таблица lonis.kz_map
+DROP TABLE IF EXISTS `kz_map`;
+CREATE TABLE IF NOT EXISTS `kz_map` (
+  `mapname` varchar(64) NOT NULL,
+  `diff` int(2) unsigned DEFAULT '0',
+  `type` varchar(32) DEFAULT NULL,
+  `sc` int(10) unsigned DEFAULT NULL,
+  `authors` varchar(128) DEFAULT NULL,
+  `date_old` varchar(16) DEFAULT NULL,
+  PRIMARY KEY (`mapname`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Дамп данных таблицы lonis.kz_map: ~4 742 rows (приблизительно)
+/*!40000 ALTER TABLE `kz_map` DISABLE KEYS */;
+INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`) VALUES
 	('!zzl_superjump!', 0, NULL, NULL, NULL, NULL),
 	('!zzl_superjump2!', 1, 'climb', NULL, 'Denmark, SmK1337', '05.08.2009'),
 	('1324_darkhop', 1, 'climb', NULL, 'Lithuania, Zaidejas1324', '23.01.2011'),
@@ -4752,3 +4768,8 @@ INSERT INTO `kz_map` (`map`, `diff`, `type`, `sc`, `authors`, `date_old`) VALUES
 	('zr_icecave', 0, NULL, NULL, NULL, NULL),
 	('zr_minimountain', 0, NULL, NULL, NULL, NULL),
 	('zs_60units', 1, 'bhop', NULL, NULL, NULL);
+/*!40000 ALTER TABLE `kz_map` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

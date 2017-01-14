@@ -11,75 +11,17 @@ INSERT INTO `menu` (`id`, `lvl`, `num`, `admin`, `action`) VALUES
 	(9, 1, 2, 1, 'admin_langs'),
 	(10, 1, 3, 1, 'admin_achiev'),
 	(11, 1, 4, 1, 'admin_players');
-
-DELETE FROM `parserules`;
-INSERT INTO `parserules` (`num`, `rules`, `url`) VALUES
-	(1, '/^setup\\/(.*)/', 'index.php?action=setup&acts=%1%'),
-	(2, '/^error\\/([0-9]+)/', 'index.php?action=error&err=%1%'),
-	(3, '/^auth\\/(.*)/', 'index.php?action=auth&key=%1%'),
-	(4, '/^logout/', 'index.php?action=auth&act=logout'),
-	(5, '/^ucp/', 'index.php?action=ucp'),
-	(6, '/^steam/', 'index.php?action=steam'),
-	(7, '/^home/', 'index.php?action=home'),
-	(8, '/^admin\\/([0-9a-zA-Z_!]+)?(\\/page([0-9]+))?(\\/(.*))?/', 'index.php?action=admin_%1%&page=%3%&search=%5%'),
-	(9, '/^servers\\/(page([0-9]+))?(\\/(.*))?/', 'index.php?action=servers&page=%2%&addr=%4%'),
-	(10, '/^players\\/(name|achiev|country)?(-)?(asc|desc)?(\\/page([0-9]+))?(\\/(.*))?/', 'index.php?action=players&order=%1%&sort=%3%&page=%5%&search=%7%'),
-	(11, '/^achiev\\/(page([0-9]+))?(\\/)?(.*)?/', 'index.php?action=achiev&page=%2%&aname=%4%'),
-	(12, '/^achievs\\/(page([0-9]+))?/', 'index.php?action=achiev&page=%2%&act=achievs'),
-	(13, '/^(.*)\\/achiev\\/(page([0-9]+))?/', 'index.php?action=achiev&name=%1%&page=%3%'),
-	(14, '/^kreedz\\/duels\\/(page([0-9]+))?/', 'index.php?action=kz_duels&page=%2%'),
-	(15, '/^kreedz\\/players\\/((pro|noob|all))?(\\/page([0-9]+))?(\\/(num|top1))?/', 'index.php?action=kz_players&type=%2%&sort=%6%&page=%4%'),
-	(16, '/^kreedz\\/maps\\/((pro|noob|all))?(\\/page([0-9]+))?(\\/(norec|rec))?(\\/(.*))?/', 'index.php?action=kz_maps&type=%2%&page=%4%&rec=%6%&map=%8%'),
-	(17, '/^kreedz\\/([0-9a-zA-Z_!]+)?(\\/(pro|noob|all))?(\\/page([0-9]+)?)?/', 'index.php?action=kz_map&map=%1%&type=%3%&page=%5%'),
-	(18, '/^(.*)\\/kreedz(\\/(pro|noob|all))?(\\/page([0-9]+))?(\\/(norec|rec))?(\\/(num|top1))?/', 'index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%'),
-	(19, '/^(.*)/', 'index.php?action=player&name=%1%');
 	
 DELETE FROM `kz_comm`;
-INSERT INTO `kz_comm` (`sort`,`name`, `url`, `image`, `download`, `mapinfo`) VALUES
-	('2','cc', 'https://cosy-climbing.net', 'https://cosy-climbing.net/img/maps/%map%.png', 'https://cosy-climbing.net/files/maps/%map%.rar', 'https://cosy-climbing.net/search.php?q=%map%&in=&ex=&ep=&be=%map%&t=all&r=0&s=Search&adv=0'),
-	('4','kz-rush', 'http://kz-rush.ru', 'http://kz-rush.ru/xr_images/maps/%map%.jpg', 'http://kz-rush.ru/maps/%map%', 'http://kz-rush.ru/maps/%map%'),
-	('3','kzru', 'http://kzru.one', 'http://kzru.one/plugins/lgsl/lgsl_files/lgsl_image.php?map=%map%', 'http://kzru.one/maps/%map%', 'http://kzru.one/maps/%map%'),
-	('1','xj', 'http://files.xtreme-jumps.eu', 'http://xtreme-jumps.eu/e107_plugins/lgsl_menu/images/mapz/halflife2/cstrike/%map%.jpg', 'http://files.xtreme-jumps.eu/maps/%map%.rar', 'http://xtreme-jumps.eu/demos_history/map_info.php?map=%map%');
+INSERT INTO `kz_comm` (`sort`, `name`, `fullname`, `url`, `image`, `download`, `mapinfo`) VALUES
+	(2, 'cc', 'Cosy Climbing', 'https://cosy-climbing.net', 'https://cosy-climbing.net/img/maps/%map%.png', 'https://cosy-climbing.net/files/maps/%map%.rar', 'https://cosy-climbing.net/search.php?q=%map%&in=&ex=&ep=&be=%map%&t=all&r=0&s=Search&adv=0'),
+	(4, 'kz-rush', 'Kz-Rush', 'http://kz-rush.ru', 'http://kz-rush.ru/xr_images/maps/%map%.jpg', 'http://kz-rush.ru/maps/%map%', 'http://kz-rush.ru/maps/%map%'),
+	(3, 'kzru', 'KZ Russia', 'http://kzru.one', 'http://kzru.one/plugins/lgsl/lgsl_files/lgsl_image.php?map=%map%', 'http://kzru.one/maps/%map%', 'http://kzru.one/maps/%map%'),
+	(1, 'xj', 'Xtreme Jumps', 'http://files.xtreme-jumps.eu', 'http://xtreme-jumps.eu/e107_plugins/lgsl_menu/images/mapz/halflife2/cstrike/%map%.jpg', 'http://files.xtreme-jumps.eu/maps/%map%.rar', 'http://xtreme-jumps.eu/demos_history/map_info.php?map=%map%');
 
 DELETE FROM `unr_players`;
 INSERT INTO `unr_players` (`id`, `name`, `password`, `email`, `active`, `webadmin`) VALUES
 (10000, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@site.com', 1, 1);
-
-DELETE FROM `servers`;
-INSERT INTO `servers` (`id`, `mod`, `addres`, `vip`, `name`, `map`, `players`, `max_players`, `update`) VALUES
-(1, 4, 'cs.klan-hub.ru:27015', 1, '[K.lan] CSDM', 'cs_pf_dust', 2, 20, 1483877097),
-(2, 1, 'cs.klan-hub.ru:27016', 1, '[K.lan] Classic', 'de_aztec', 1, 22, 1483877097),
-(3, 9, 'cs.klan-hub.ru:27017', 1, '[K.lan] Kreedz', 'ev_mc_slide', 3, 18, 1483877097),
-(4, 15, 'cs.klan-hub.ru:27018', 1, '[K.lan] Zombie Plague', 'zm_riverside_b4', 3, 22, 1483877097);
-
-INSERT INTO `servers` (`id`, `mod`, `addres`, `vip`, `name`, `map`, `players`, `max_players`, `update`) VALUES
-(5, 9, '91.206.202.23:27044', 0, 'TheAbyss 1.6 #39 Jump Bhop', 'cg_cbblebhop', 17, 18, 1483878200),
-(6, 9, '91.206.202.20:27017', 0, 'TheAbyss 1.6 #19 Jump KZ', 'notkz_phxxblock', 12, 17, 1483878200),
-(7, 9, '176.38.158.22:27020', 0, 'Borshaga CS KreedzJump', 'kz_heat', 8, 18, 1483878200),
-(8, 9, '212.76.153.22:27000', 0, 'cs-lords.ru | Jump', 'kzla_clipbhop', 3, 10, 1483878200),
-(9, 9, '83.222.97.90:27020', 0, 'Skiller.ru - Jump', 'rpz_duck', 11, 17, 1483878200),
-(10, 9, '83.239.99.132:27018', 0, '|sS| KreedZ', 'bhop_egypt_hops', 8, 12, 1483878200),
-(11, 9, '83.222.116.10:27023', 0, 'PPC-ZONE Jump', 'clintmo_longjumper', 2, 16, 1483878200),
-(12, 7, '217.106.106.136:27107', 0, 'MakeFrag|floppytown|HNS', 'hns_floppytown', 7, 14, 1483878202),
-(13, 7, '95.31.32.123:27016', 0, 'MakeFrag|HNS_255aa|DM_2016', 'hns_floppytown_pro', 6, 16, 1483878202);
-	
-DELETE FROM `servers_mod`;
-insert  into `servers_mod`(`mid`,`modname`) values 
-	(1,'Classic'),
-	(2,'Public'),
-	(3,'Aim'),
-	(4,'CSDM'),
-	(5,'Deathrun'),
-	(6,'GunGame'),
-	(7,'HNS'),
-	(8,'JailBreak'),
-	(9,'Kreedz'),
-	(10,'Knife'),
-	(11,'SoccerJump'),
-	(12,'SuperHero'),
-	(13,'Surf'),
-	(14,'Warcraft'),
-	(15,'ZombieMod');
 
 	
 DELETE FROM `lang`;
