@@ -3,7 +3,7 @@
 {if !$cs}
 		<div class=" right_block">
 			<form action="" method="post">
-				<input type="text" name="search" id="search" class="form" {if isset($search)}value="{$search}"{/if} placeholder="{$langs.Search}" />
+				<input type="text" name="search" id="search" class="form" }value="{if isset($search){$search}{/if}" placeholder="{$langs.Search}" />
 				<input type="image" name="picture" src="{$baseUrl}/img/find.png" alt="{$langs.Search}"/>
 				&nbsp;
 			</form>
@@ -17,9 +17,9 @@
 		<table class="table-list">
 			<tr class="title">
 				<td>&nbsp;</td>
-				<td><a href="{$baseUrl}/players/name/page{$pages.page}">{$langs.player}</a></td>
-				<td><a href="{$baseUrl}/players/country/page{$pages.page}">{$langs.Country}</a></td>
-				<td><a href="{$baseUrl}/players/achiev-desc/page{$pages.page}">{$langs.achiev}</a></td>
+				<td><a href="{$baseUrl}/players/name/page{$pages.page}/$search">{$langs.player}</a></td>
+				<td><a href="{$baseUrl}/players/country/page{$pages.page}/$search">{$langs.Country}</a></td>
+				<td><a href="{$baseUrl}/players/achiev-desc/page{$pages.page}/$search">{$langs.achiev}</a></td>
 				<td>{$langs.MapCompleted}</td>
 			</tr>
 	{if $total}

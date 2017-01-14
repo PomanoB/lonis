@@ -1,23 +1,16 @@
 <?php
-$search = $where = "";
-if (isset($_POST["search"]) && $_POST["search"] !='') {
-	$search = slashes($_POST["search"]);
-	
-	header("Location: $baseUrl/players/$search");
-}
 
-if (isset($_GET["search"]) && $_GET["search"] != '') {
-	$search = slashes($_GET["search"]);
-	
-	assign('search', stripslashes($search));
-	
-	$where = "AND `name` LIKE '%{$search}%'";
-}
+$page = isset($_GET["page"]) && $_GET["page"] ? $_GET["page"] : 0;
+$order = isset($_GET["order"]) && $_GET["order"] ? $_GET["order"] : "";
+$sort = isset($_GET["sort"]) && $_GET["sort"] ? $_GET["sort"] : "";
 
-$page = isset($_GET["page"]) ? $_GET["page"] : 0;
-$order = (isset($_GET["order"])) ? $_GET["order"] : "";
-$page = isset($_GET["page"]) ? $_GET["page"] : 0;
-$sort = isset($_GET["sort"]) ? $_GET["sort"] : "";
+$search = isset($_POST["search"]) && $_POST["search"] ? slashes($_POST["search"]) : "";
+//if($search) header("Location: $baseUrl/players/$search");
+
+if(isset($_GET["search"]) && $_GET["search"]) $search = slashes($_GET["search"]);
+assign('search', stripslashes($search));
+
+$where = $search ? "AND `name` LIKE '%$search%'" : "";
 
 $orderby = $order ? "`{$order}` {$sort}, `name` {$sort}" : "`name`";
 

@@ -5,7 +5,7 @@
 {if !$cs}
 		<div class="right_block">
 			<form action="" method="post" id="search_map_form">
-				<input type="text" name="map" id="map" value="{if isset($map)}{$map}{/if}" placeholder="{$langs.Search}"/>
+				<input type="text" name="search" id="search" value="{if isset($search)}{$search}{/if}" placeholder="{$langs.Search}"/>
 				<input type="image" name="picture" src="{$baseUrl}/img/find.png" title="{$langs.Search}" alt="{$langs.Search}" />
 				&nbsp;
 			</form>
@@ -16,7 +16,7 @@
 	<div>
 {if $rec=="norec"}				
 		<p><div>
-			<b>{$langs.kznorec}</b> :: <a href="{$baseUrl}/kreedz/maps/{$type}">{$langs.kzrec}</a>
+			<b>{$langs.kznorec}</b> :: <a href="{$baseUrl}/kreedz/maps/{$type}/{$search}">{$langs.kzrec}</a>
 		</div>
 		
 		<p>&nbsp;{$generate_page}
@@ -37,10 +37,10 @@
 		</div>
 {else}
 		<p><div>
-			<a href="{$baseUrl}/kreedz/maps/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
-			<a href="{$baseUrl}/kreedz/maps/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
-			<a href="{$baseUrl}/kreedz/maps/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
-			:: <a href="{$baseUrl}/kreedz/maps/{$type}/norec">{$langs.kznorec}</a>
+			<a href="{$baseUrl}/kreedz/maps/pro/{$rec}/{$search}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
+			<a href="{$baseUrl}/kreedz/maps/noob/{$rec}/{$search}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
+			<a href="{$baseUrl}/kreedz/maps/all/{$rec}/{$search}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
+			:: <a href="{$baseUrl}/kreedz/maps/{$type}/norec/{$search}">{$langs.kznorec}</a>
 		</div>
 		<p><div class="err_message">{$message}</div>
 		

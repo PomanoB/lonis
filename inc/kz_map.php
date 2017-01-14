@@ -42,7 +42,10 @@ if($map && !$found) {
 }
 
 if($map)
-	$q = "SELECT * FROM `kz_map_tops` WHERE `map` = '{$map}' {$types[$type]} GROUP BY `player` ORDER BY `time`";
+	$q = "SELECT `t`.* FROM `kz_map_tops` `t`
+				JOIN (SELECT `map`, `player`, min(`time`) as `time` FROM `kz_map_top` WHERE `map` = '{$map}' GROUP BY `player`) AS `tmp`
+				ON `t`.`map` = `tmp`.`map` AND `t`.`player` = `tmp`.`player` AND `t`.`time` = `tmp`.`time`
+				WHERE 1 {$types[$type]} GROUP BY `player`  ORDER BY `time`";
 else
 	$q = "SELECT * FROM `kz_map_tops` WHERE 1 {$types[$type]} ORDER BY `time_add` DESC, `map` LIMIT 0, 10";
 

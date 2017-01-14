@@ -1,4 +1,5 @@
 <?php
+
 if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1) {
 	$act = isset($_POST["act"]) ? $_POST["act"] : "";
 	
@@ -14,42 +15,22 @@ if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmi
 	}
 }
 
-$types = array(
-	'pro' => 'AND `go_cp` = 0 AND (`weapon` = 16 OR `weapon` = 29)',
-	'noob' => 'AND (`go_cp` != 0 OR (`weapon` != 16 AND `weapon` != 29))',
-	'all' => ''
-);
-
-$type = (isset($_GET["type"]) && isset($types[$_GET["type"]])) ? $_GET["type"] : 'all';
+$type = isset($_GET["type"]) && isset($types[$_GET["type"]]) ? $_GET["type"] : 'all';
 assign('type', $type);
 
-$recs = array(
-	'norec' => 'AND',
-	'rec' => ''
-);
-
-$page = isset($_GET["page"]) ? $_GET["page"] : 0;
-
-$rec = isset($_GET["rec"]) ? $_GET["rec"] : 'rec';
+$rec = isset($_GET["rec"]) && $_GET["rec"] ? $_GET["rec"] : 'rec';
 assign('rec', $rec);
 
-$type = (isset($_GET["type"]) && isset($types[$_GET["type"]])) ? $_GET["type"] : 'all';
+$page = isset($_GET["page"]) && $_GET["page"] ? $_GET["page"] : 0;
 
-$where = "";
+$search = isset($_POST["search"]) ? slashes($_POST["search"]) : "";
+//if($search) header("Location: $baseUrl/kreedz/maps/$search");
 
-if(isset($_POST["map"]) && $_POST["map"] !='') 
-	$map = slashes($_POST["map"]);
-else if(isset($_GET["map"]) && $_GET["map"] !='')
-	$map = slashes($_GET["map"]);
+if(isset($_GET["search"]) && $_GET["search"]) $search = slashes($_GET["search"]);
+assign('search', stripslashes($search));
 
-if(isset($map)) {
-	assign('map', stripslashes($map));
-	
-	if($rec=="norec")
-		$where = "AND `mapname` LIKE '%$map%'";
-	else
-		$where = "AND `map` LIKE '%$map%'";
-}
+$like = $rec=="norec" ? "mapname" : "map";
+$where = $search ? "AND `$like` LIKE '%$search%'" : "";
 
 if($rec=="norec") {
 	$q = "SELECT * FROM `kz_map` `m` LEFT JOIN `kz_map_tops1` `t` ON `t`.`map` = `m`.`mapname` 
@@ -64,7 +45,7 @@ $total = mysqli_num_rows($r);
 assign('total', $total);
 
 $pages = generate_page($page, $total, $mapsPerPage);
-$pages["pageUrl"] = "$baseUrl/kreedz/maps/$type/page%page%/$rec";
+$pages["pageUrl"] = "$baseUrl/kreedz/maps/$type/page%page%/$rec/$search";
 assign('pages', $pages);
 
 if ($total) {
@@ -73,8 +54,7 @@ if ($total) {
 	foreach($rows_limit as $row) {
 		$row["time"] = timed($row["time"], 2);
 		
-		if(isset($row["name"]))
-			$row["name_url"] = url_replace($row["name"]);
+		if(isset($row["name"])) $row["name_url"] = url_replace($row["name"]);
 		
 		$maps[] = $row;
 	}

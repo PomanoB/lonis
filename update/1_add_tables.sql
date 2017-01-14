@@ -99,7 +99,8 @@ CREATE TABLE IF NOT EXISTS `kz_map_top` (
 	PRIMARY KEY (`id`),
 	INDEX `weapon` (`weapon`),
 	INDEX `map` (`map`),
-	INDEX `player` (`player`)
+	INDEX `player` (`player`),
+	INDEX `time` (`time`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 DROP TABLE IF EXISTS `kz_save`;
