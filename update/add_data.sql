@@ -29,13 +29,13 @@ INSERT INTO `parserules` (`num`, `rules`, `url`) VALUES
 	(13, '/^(.*)\\/achiev\\/(page([0-9]+))?/', 'index.php?action=achiev&name=%1%&page=%3%'),
 	(14, '/^kreedz\\/duels\\/(page([0-9]+))?/', 'index.php?action=kz_duels&page=%2%'),
 	(15, '/^kreedz\\/players\\/((pro|noob|all))?(\\/page([0-9]+))?(\\/(num|top1))?/', 'index.php?action=kz_players&type=%2%&sort=%6%&page=%4%'),
-	(16, '/^kreedz\\/maps\\/((pro|noob|all))?(\\/page([0-9]+))?(\\/(norec|rec))?(\\/(.*))?/', 'index.php?action=kz_maps&type=%2%&page=%4%&rec=%6%&map=%8%')
+	(16, '/^kreedz\\/maps\\/((pro|noob|all))?(\\/page([0-9]+))?(\\/(norec|rec))?(\\/(.*))?/', 'index.php?action=kz_maps&type=%2%&page=%4%&rec=%6%&map=%8%'),
 	(17, '/^kreedz\\/([0-9a-zA-Z_!]+)?(\\/(pro|noob|all))?(\\/page([0-9]+)?)?/', 'index.php?action=kz_map&map=%1%&type=%3%&page=%5%'),
 	(18, '/^(.*)\\/kreedz(\\/(pro|noob|all))?(\\/page([0-9]+))?(\\/(norec|rec))?(\\/(num|top1))?/', 'index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%'),
 	(19, '/^(.*)/', 'index.php?action=player&name=%1%');
 	
 DELETE FROM `kz_comm`;
-INSERT INTO `kz_comm` (`sort`,`name`, `url`, `image`, `download`, `map`) VALUES
+INSERT INTO `kz_comm` (`sort`,`name`, `url`, `image`, `download`, `mapinfo`) VALUES
 	('2','cc', 'https://cosy-climbing.net', 'https://cosy-climbing.net/img/maps/%map%.png', 'https://cosy-climbing.net/files/maps/%map%.rar', 'https://cosy-climbing.net/search.php?q=%map%&in=&ex=&ep=&be=%map%&t=all&r=0&s=Search&adv=0'),
 	('4','kz-rush', 'http://kz-rush.ru', 'http://kz-rush.ru/xr_images/maps/%map%.jpg', 'http://kz-rush.ru/maps/%map%', 'http://kz-rush.ru/maps/%map%'),
 	('3','kzru', 'http://kzru.one', 'http://kzru.one/plugins/lgsl/lgsl_files/lgsl_image.php?map=%map%', 'http://kzru.one/maps/%map%', 'http://kzru.one/maps/%map%'),
@@ -83,9 +83,9 @@ insert  into `servers_mod`(`mid`,`modname`) values
 
 	
 DELETE FROM `lang`;
-INSERT INTO `lang` (`id`, `lang`, `name`, `use`, `default`) VALUES
-	(1, 'ru', 'Русский', 1, 1),
-	(2, 'en', 'English', 1, 0),
+INSERT INTO `lang` (`id`, `lang`, `name`, `default`) VALUES
+	(1, 'ru', 'Русский', 1),
+	(2, 'en', 'English', 0);
 	
 DELETE FROM `themes`;
 insert  into `themes`(`id`,`theme`,`default`,`cs`) values 
@@ -104,7 +104,7 @@ insert  into `themes_lang`(`id`,`themesid`,`lang`,`name`) values
 
 	
 DELETE FROM `weapons`;
-insert  into `weapons`(`id`,`name`,`fullname`) values 
+insert  into `weapons`(`id`,`wname`,`fullname`) values 
 	(0,'NONE',''),
 	(1,'P228','SIG Sauer P228'),
 	(2,'WAT',''),
@@ -185,7 +185,7 @@ insert  into `unr_achiev`(`id`,`type`,`count`) values
 	(42,'collect_halloween_present',20);
 
 DELETE FROM `unr_achiev_lang`;
-insert  into `unr_achiev_lang`(`id`,`achievid`,`lang`,`ltype`,`value`) values 
+insert  into `unr_achiev_lang`(`lid`,`achievid`,`lang`,`ltype`,`value`) values 
 	(1,1,'ru','name','Военные Облигации'),
 	(2,2,'ru','name','Рецидивист'),
 	(3,3,'ru','name','Волшебная Пуля'),
