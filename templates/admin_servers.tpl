@@ -2,7 +2,7 @@
 		<div class="error_message">{$message}</div>
 			
 		<table id="admin_servers">
-		<form action="{$baseUrl}/admin/servers/" method="post">
+		<form action="" method="post">
 			<tr>
 				<td>
 					<select name="mod" class="mod">
@@ -25,7 +25,7 @@
 				<td>#</td>
 			</tr>
 {foreach from=$servers item=server}
-		<form action="{$baseUrl}/admin/servers/" method="post">
+		<form action="" method="post">
 			<tr>
 				<td>
 					<select name="mod" class="mod">

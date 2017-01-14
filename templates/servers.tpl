@@ -4,7 +4,7 @@
 		</div>
 {if !$cs}
 		<div class="right_block">
-			<form action="{$baseUrl}/servers/" method="post">
+			<form action="" method="post">
 				<input type="text" name="addr" value="{if isset($map)}{$map}{/if}" placeholder="{$langs.Check} {$langs.IP}" />
 				<input type="image" name="picture" src="{$baseUrl}/img/find.png" title="{$langs.Check} {$langs.IP}" alt="{$langs.Check} {$langs.IP}"/>
 			</form>

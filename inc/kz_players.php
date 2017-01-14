@@ -1,8 +1,15 @@
 <?php
-if (isset($_POST["name"]) && $_POST["name"] !='') {
-	$name = slashes($_POST["name"]);
+$where = "";
+
+if(isset($_POST["sname"]) && $_POST["sname"] !='') 
+	$sname = slashes($_POST["sname"]);
+else if(isset($_GET["sname"]) && $_GET["sname"] !='')
+	$sname = slashes($_GET["sname"]);
+
+if(isset($sname)) {
+	assign('sname', stripslashes($sname));
 	
-	header("Location: $baseUrl/$name/kreedz");
+	$where = "AND `name` LIKE '%$sname%'";
 }
 
 $types = array(
@@ -25,7 +32,7 @@ $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 $table = $sort=="top1" ? "kz_map_tops1" : "kz_map_tops";
 
 // Players top
-$q = "SELECT `name`, COUNT(DISTINCT `map`) AS `records` FROM `{$table}` WHERE 1 {$types[$type]} GROUP BY `player` ORDER BY `records` DESC";
+$q = "SELECT `name`, COUNT(DISTINCT `map`) AS `records` FROM `{$table}` WHERE 1 {$where} {$types[$type]} GROUP BY `player` ORDER BY `records` DESC";
 $r = mysqli_query($db, $q);
 
 $total = mysqli_num_rows($r);

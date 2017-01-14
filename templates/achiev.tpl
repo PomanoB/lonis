@@ -11,7 +11,7 @@
 	<div style="padding:10px;">
 		{foreach from=$players item=player}
 		<div class="achiev">
-			<b><a href="{$baseUrl}/{$player.name|replace:' ':'_'}/achiev">{$player.name|escape}</a></b>
+			<b><a href="{$baseUrl}/{$player.name|replace:' ':'_'}/achiev/">{$player.name|escape}</a></b>
 			<br />
 			<span>{$langs.achievPlayerTotal} {$player.achiev_total}</span>
 		</div>
@@ -36,7 +36,7 @@
 		
 	{foreach from=$players item=player}
 		<div class="achiev">
-			<b><a href="{$baseUrl}/{$player.plname_url}/achiev">{$player.plname|escape}</a></b>
+			<b><a href="{$baseUrl}/{$player.plname_url}/achiev/">{$player.plname|escape}</a></b>
 			<br />
 			<span>{$langs.achievPlayerTotal} {$player.achiev_total}</span>
 		</div>

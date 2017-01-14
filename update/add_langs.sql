@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS `langs` (
   `var` varchar(64) NOT NULL,
   `value` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=361 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=369 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы lonis.langs: ~348 rows (приблизительно)
+-- Дамп данных таблицы lonis.langs: ~358 rows (приблизительно)
 /*!40000 ALTER TABLE `langs` DISABLE KEYS */;
 INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(1, 'ru', 'ThemeNotFound', 'тема не существует'),
@@ -38,7 +38,7 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(13, 'ru', 'NotInputMail', 'Вы не ввели e-mail!'),
 	(14, 'ru', 'AlreadyLogin', 'Вы уже вошли!'),
 	(15, 'ru', 'Warning', 'Внимание!'),
-	(16, 'ru', 'UserNotFound', 'Не найден пользователь с введёнными вами данными!'),
+	(16, 'ru', 'UserNotFound', 'Игрок не найден'),
 	(17, 'ru', 'Name', 'Имя'),
 	(18, 'ru', 'Password', 'Пароль'),
 	(19, 'ru', 'login', 'Войти'),
@@ -54,10 +54,10 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(29, 'ru', 'Current', 'Текущий'),
 	(30, 'ru', 'InActive', 'Учётная запись неактивна!'),
 	(31, 'ru', 'AlreadyRegister', 'Вы уже зарегистрированы!'),
-	(32, 'ru', 'regSuccess', 'Вы успешно зарегистрированы! Ссылка для активации отправлена на указанный e-mail'),
-	(33, 'ru', 'AlreadyUsed', 'Такое имя пользователя уже занято!'),
+	(32, 'ru', 'regSuccess', 'Вы успешно зарегистрированы!'),
+	(33, 'ru', 'AlreadyUsed', 'Такой игрок существует!'),
 	(34, 'ru', 'Email', 'e-mail'),
-	(35, 'ru', 'ActiveSuccess', 'Ваша учётная запись успешно активирована!'),
+	(35, 'ru', 'ActiveSuccess', 'Учётная запись успешно активирована!'),
 	(36, 'ru', 'ActiveError', 'Неверный либо старый ключ активации!'),
 	(37, 'ru', 'ActiveMail', 'Для активации пройдите по следующей ссылке:'),
 	(38, 'ru', 'sendMailError', 'Ошибка отправки почты'),
@@ -119,7 +119,6 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(94, 'ru', 'TitlePersonalData', 'Личные данные'),
 	(95, 'ru', 'ICQ', 'ICQ'),
 	(96, 'ru', 'Avatar', 'Аватар'),
-	(97, 'ru', 'steam', 'Войдите через Steam'),
 	(98, 'ru', 'NoSteamLogin', 'Или заполните форму'),
 	(99, 'ru', 'setup', 'Настройка конфига'),
 	(100, 'ru', 'Save', 'Сохранить'),
@@ -180,7 +179,7 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(155, 'en', 'NotInputMail', 'You have not entered e-mail!'),
 	(156, 'en', 'AlreadyLogin', 'You already entered!'),
 	(157, 'en', 'Warning', 'Warning!'),
-	(158, 'en', 'UserNotFound', 'Not found user entered data!'),
+	(158, 'en', 'UserNotFound', 'Player not found'),
 	(159, 'en', 'Name', 'Name'),
 	(160, 'en', 'Password', 'Password'),
 	(161, 'en', 'login', 'Login'),
@@ -197,10 +196,10 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(172, 'en', 'Current', 'Current'),
 	(173, 'en', 'InActive', 'Account inactive!'),
 	(174, 'en', 'AlreadyRegister', 'You are already registered!'),
-	(175, 'en', 'regSuccess', 'You have successfully registered! Activation link sent to your e-mail'),
-	(176, 'en', 'AlreadyUsed', 'This username is already taken!'),
+	(175, 'en', 'regSuccess', 'You have successfully registered!'),
+	(176, 'en', 'AlreadyUsed', 'This player is already exists!'),
 	(177, 'en', 'Email', 'e-mail'),
-	(178, 'en', 'ActiveSuccess', 'Your account is successfully activated!'),
+	(178, 'en', 'ActiveSuccess', 'Account is successfully activated!'),
 	(179, 'en', 'ActiveError', 'Old or invalid activation key!'),
 	(180, 'en', 'ActiveMail', 'To activate click on the following link:'),
 	(181, 'en', 'sendMailError', 'Error mail send'),
@@ -261,7 +260,6 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(236, 'en', 'TitlePersonalData', 'Personal Data'),
 	(237, 'en', 'ICQ', 'ICQ'),
 	(238, 'en', 'Avatar', 'Avatar'),
-	(239, 'en', 'steam_login', 'Sign in through Steam'),
 	(240, 'en', 'NoSteamLogin', 'Or fill out the form'),
 	(241, 'en', 'setup', 'Setup config'),
 	(242, 'en', 'Save', 'Save'),
@@ -374,7 +372,17 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(357, 'en', 'ourLastTime', 'Our Last Time'),
 	(358, 'ru', 'ourLastTime', 'Последний заход'),
 	(359, 'en', 'SharedOnline', 'Shared Online'),
-	(360, 'ru', 'SharedOnline', 'Общий онлайн');
+	(360, 'ru', 'SharedOnline', 'Общий онлайн'),
+	(363, 'en', 'WrongIP', 'Wrong IP'),
+	(364, 'ru', 'WrongIP', 'Неправильный IP'),
+	(365, 'en', 'WrongSteamId', 'Wrong Steam Id, e.g. STEAM_#:#:#..#'),
+	(366, 'ru', 'WrongSteamId', 'Неправильный Steam Id, вид STEAM_#:#:#..#'),
+	(367, 'en', 'WrongEmail', 'Wrong E-mail'),
+	(368, 'ru', 'WrongEmail', 'Неправильный e-mail'),
+	(369, 'en', 'regActivate', 'Activation link sent to your e-mail'),
+	(370, 'ru', 'regActivate', 'Ссылка для активации отправлена на e-mail'),
+	(371, 'en', 'ResetPassword', 'Reset Password'),
+	(372, 'ru', 'ResetPassword', 'Произведен сброс пароля');
 /*!40000 ALTER TABLE `langs` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -1,5 +1,5 @@
 <?php
-$message = "";
+
 
 // Admin action
 if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1) {

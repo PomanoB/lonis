@@ -3,7 +3,7 @@
 		{if !$cs}
 				<div class=" right_block">
 					<form action="" method="post" id="search_map_form" class="">
-						<input type="text" name="name" id="name" value="" placeholder="{$langs.Search}"/ >
+						<input type="text" name="sname" id="sname" value="" placeholder="{$langs.Search}"/ >
 						<input type="image" name="picture" src="{$baseUrl}/img/find.png" alt="{$langs.Search}"/>
 						&nbsp;
 					</form>

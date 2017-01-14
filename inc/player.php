@@ -8,7 +8,7 @@ if($player["id"]) {
 	$player["countryImg"] = file_exists($img) ? $img : "";
 	
 	$player["avatarLink"] = "http://www.gravatar.com";
-	$player["avatar"] = $player["avatarLink"]."/avatar/".md5($player["email"]).'?d=wavatar&s='.$avatarSize["Full"];
+	$player["avatar"] = $player["avatarLink"]."/avatar/".md5($player["email"])."?d=wavatar&s={$avatarSize_Full}";
 	
 	$player["lastTime"] = date('d.m.Y G:i:s', $player["lastTime"]);
 	

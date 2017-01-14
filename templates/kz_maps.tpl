@@ -4,7 +4,7 @@
 		</div>
 {if !$cs}
 		<div class="right_block">
-			<form action="{$baseUrl}/kreedz/maps/" method="post" id="search_map_form">
+			<form action="" method="post" id="search_map_form">
 				<input type="text" name="map" id="map" value="{if isset($map)}{$map}{/if}" placeholder="{$langs.Search}"/>
 				<input type="image" name="picture" src="{$baseUrl}/img/find.png" title="{$langs.Search}" alt="{$langs.Search}" />
 				&nbsp;
@@ -71,7 +71,7 @@
 					<img src="{$baseUrl}/img/weapons/{$map.weapon}.gif" alt="{$map.wname}" />
 				</td>
 	{if $webadmin==1}
-				<form action="{$baseUrl}/kreedz" method="post">			
+				<form action="" method="post">			
 				<td>
 					<input type="hidden" name="confirm" value="0">
 					<input type="checkbox" name="confirm" value="1">

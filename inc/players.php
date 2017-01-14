@@ -40,7 +40,7 @@ if($total) {
 		$row["countryImg"] = file_exists($img) ? $img : "";
 		
 		$row["avatarLink"] = "http://www.gravatar.com";
-		$row["avatar"] = $row["avatarLink"].'/avatar/'.md5($row["email"]).'?d=wavatar&s='.$avatarSize["Icon"];
+		$row["avatar"] = $row["avatarLink"]."/avatar/".md5($row["email"])."?d=wavatar&s={$avatarSize_Icon}";
 		
 		$row["name_url"] = url_replace($row["name"]);
 		

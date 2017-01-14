@@ -1,5 +1,5 @@
 <?php
-$message = "";
+
 
 $types = array(
 	'pro' => 'AND `go_cp` = 0 AND (`weapon` = 16 OR `weapon` = 29)',

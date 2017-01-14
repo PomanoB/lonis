@@ -267,7 +267,7 @@ function url_replace($str, $r = 0) {
 }
 
 // SteamId64 to SteamId (bc)
-function bcGetAuthID($steamId64) {
+function bc_getSteamId($steamId64) {
 	$iServer = bcmod($$steamId64, "2")=="0" ? 0 : 1;
 	$steamId = bcsub($steamId64, $iServer);
 	$steamId = (bccomp("76561197960265728",$steamId) == -1) ? bcsub($steamId,"76561197960265728") : $steamId;
@@ -276,12 +276,12 @@ function bcGetAuthID($steamId64) {
 }
 
 // SteamId64 to STEAM_0:0:00000000
-function GetAuthID($steamId64) {
+function getSteamId($steamId64) {
 	return "STEAM_".((($steamId64 >> 56) & 0xFF)==1 ? 0 : 1).":".($steamId64 & 1).":".(($steamId64 >> 1) & 0x7FFFFFF);
 }
 
 // STEAM_0:0:00000000 to SteamId64
-function GetAuthID64($steamId) {
+function getSteamId64($steamId) {
 	if(strpos("STEAM_0:", $steamId) === false)
 		return 0;
 	
@@ -292,13 +292,21 @@ function GetAuthID64($steamId) {
 	
 	return 0;
 }
-
-// Steam info from: http://steamcommunity.com/profiles/{$steamId64}/?xml=1
-function get_steam_info($data, $key) {
-	$p1 = strpos($data, "<{$key}><![CDATA[") + strlen("<{$key}><![CDATA[");
-	$p2 = strpos($data, "]]></{$key}>");
+			
+// Get steam_info
+function getSteamInfo($steamId64, $key) {
+	$steamProfile = "http://steamcommunity.com/profiles/$steamId64/?xml=1";
+	$str = file_get_contents($steamProfile);
+			
+	$str = str_replace("<![CDATA[", "", $str);
+	$str = str_replace("]]>", "", $str);
 	
-	return substr($data, $p1, $p2 - $p1);
+	$str = explode("<{$key}>", $str);
+	$str = isset($str[1]) ? $str[1] : $str[0] ;
+	$str = explode("</{$key}>", $str);
+	$str = isset($str[0]) ? $str[0] : "";
+	
+	return $str;
 }
 
 // Generate massive pages
@@ -327,4 +335,5 @@ function mb_str_replace($needle, $replacement, $haystack) {
     }
     return $haystack;
 }
+
 ?>

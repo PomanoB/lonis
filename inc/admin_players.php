@@ -18,7 +18,7 @@ if (isset($_GET["search"]) && $_GET["search"] != '') {
 	$where = "AND `name` LIKE '%$search%'";
 }
 
-$message = "";
+
 
 $act = isset($_POST["act"]) ? $_POST["act"] : "";
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;

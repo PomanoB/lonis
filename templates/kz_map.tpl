@@ -92,7 +92,7 @@
 					<img src="{$baseUrl}/img/weapons/{$player.weapon}.gif" alt="{$player.wname}" />
 				</td>
 	{if $webadmin==1}
-				<form action="{$baseUrl}/kreedz/{$map}" method="post">			
+				<form action="" method="post">			
 				<td>
 					<input type="hidden" name="confirm" value="0">
 					<input type="checkbox" name="confirm" value="1">

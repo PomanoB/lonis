@@ -1,5 +1,5 @@
 <?php
-$message = array();
+
 
 $acts = isset($_GET["acts"]) ? $_GET["acts"] : "";
 $act = isset($_POST["act"]) ? $_POST["act"] : "";
@@ -18,7 +18,7 @@ if (isset($_POST["setting_user"]) && isset($_POST["setting_password"])) {
 		header("Location: $baseUrl/setup/");
 	}
 	else {
-		$message["setting"] = $langs["UserNotFound"];
+		$message = $langs["UserNotFound"];
 	}
 }
 else 
@@ -29,50 +29,43 @@ if (isset($_SESSION["setting_user"])) {
 		$conf["cookieKey"] = md5($conf["mysql_user"].time()."abracadabra");
 	}
 		
-	if($check_confirm = check_comfirm($mysql_password)) {
-		/* General setting */
-		if($act=="save") {
-			$user = $_POST["fld_mysql_user"];
-			$password = $_POST["fld_mysql_password"];
-			
-			foreach($_POST as $key=>$value) {
-				if($_POST[$key]=="") {
-					$key = str_replace("fld_", "", $key);
-					$fld_err[$key] = 1;
-				}
-			}
-			
-			if ($user && $password) {
-				$fp = fopen($config_dir.'/'.$config_file, 'w');
-				$text = "";
-				foreach($_POST as $key=>$value) {
-					$key = str_replace("fld_", "", $key);
-					if(isset($conf[$key])) {
-						$text .= $key." = '".$value."'\n";
-						$conf[$key]=$value;
-						$$key = $value;
-					}
-				}
-				fwrite($fp, $text);
-				fclose($fp);
-				
-				$message["setting"] = $langs["Saved"];
-			}
-		}
-		else
-		if($act=="reset") {
-			unset($_SESSION["setting_user"]);
-			unlink($docRoot."/config.ini");
-			
-			header("Location: $baseUrl/setup/");
-		}
-	}
-	else {
-		$message["reset"] = $langs["Confirm"];
-	}
+	if($act=="save") {
+		$user = $_POST["fld_mysql_user"];
+		$password = $_POST["fld_mysql_password"];
 		
-	$input_type = row2col($conf_type);
-	foreach($conf as $name=>$value) {
+		foreach($_POST as $key=>$value) {
+			if($_POST[$key]=="") {
+				$key = str_replace("fld_", "", $key);
+				$fld_err[$key] = 1;
+			}
+		}
+		
+		if ($user && $password) {
+			$fp = fopen($config_dir.'/'.$config_file, 'w');
+			$text = "";
+			foreach($_POST as $key=>$value) {
+				$key = str_replace("fld_", "", $key);
+				if(isset($conf[$key])) {
+					$text .= $key." = '".$value."'\n";
+					$conf[$key]=$value;
+					$$key = $value;
+				}
+			}
+			fwrite($fp, $text);
+			fclose($fp);
+			
+			$message = $langs["Saved"];
+		}
+	}
+	else
+	if($act=="reset") {
+		unset($_SESSION["setting_user"]);
+		unlink($docRoot."/config.ini");
+		
+		header("Location: $baseUrl/setup/");
+	}
+	
+	foreach($dbconf as $name=>$value) {
 		if(!isset($input_type[$name])) $input_type[$name] = "text";
 		$conflist[$name]["type"] = $input_type[$name];
 		$conflist[$name]["err"] = isset($fld_err[$name]) ? 1 : 0;
@@ -82,8 +75,7 @@ if (isset($_SESSION["setting_user"])) {
 	}
 	assign('conflist', $conflist);
 	
-	/* Database */
-	$check_confirm = check_comfirm($mysql_password);
+	$check_confirm = check_confirm($mysql_password);
 	assign('check_confirm', $check_confirm);
 	assign('act', $act);
 	
@@ -110,15 +102,15 @@ if (isset($_SESSION["setting_user"])) {
 			
 			mysqli_query($db, "SET NAMES ".$charset);
 		
-		} //End db
+		} 
 		assign('base', $base);
-	} // End conn	
-} // End login, logout
+	} 	
+}
 
 assign('message', $message);
 				
 /* ----- Function ----- */
-function check_comfirm($mysql_password) {
+function check_confirm($mysql_password) {
 	return (isset($_POST["confirm_password"]) && $_POST["confirm_password"]==$mysql_password) ? 1 : 0;
 }
 ?>

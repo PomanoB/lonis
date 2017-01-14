@@ -14,8 +14,6 @@ if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmi
 	}
 }
 
-$message = "";
-
 $types = array(
 	'pro' => 'AND `go_cp` = 0 AND (`weapon` = 16 OR `weapon` = 29)',
 	'noob' => 'AND (`go_cp` != 0 OR (`weapon` != 16 AND `weapon` != 29))',
@@ -37,7 +35,7 @@ assign('rec', $rec);
 
 $type = (isset($_GET["type"]) && isset($types[$_GET["type"]])) ? $_GET["type"] : 'all';
 
-$where = '';
+$where = "";
 
 if(isset($_POST["map"]) && $_POST["map"] !='') 
 	$map = slashes($_POST["map"]);

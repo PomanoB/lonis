@@ -10,7 +10,7 @@
 			
 			<div>
 				<table id="achiev_admin">
-				<form action="{$baseUrl}/admin/achiev/" method="post">
+				<form action="" method="post">
 					<tr class="title">
 						<td>{$langs.Type}</td>
 						<td>{$langs.Count}</td>
@@ -36,7 +36,7 @@
 						<td>#</td>
 					</tr>
 {foreach from=$achievs item=achiev}
-				<form action="{$baseUrl}/admin/achiev/" method="post">
+				<form action="" method="post">
 					<tr>
 						<td><input value="{$achiev.type}" name="type" type="text" class="col_type" /></td>
 						<td><input value="{$achiev.count}" name="count" type="text" class="col_count" /></td>
@@ -67,7 +67,7 @@
 						<td>#</td>
 					</tr>		
 {foreach from=$achievs_lang item=alang}
-				<form action="{$baseUrl}/admin/achiev/#{$alang.type}" method="post">
+				<form action="#{$alang.type}" method="post">
 					{if $alang.hr}<tr><td colspan=5><hr></td></tr>{/if}
 					<tr id="{$alang.type}">
 						<td align="right">{if $alang.part}&nbsp;{else}{$alang.type} ({$alang.count}){/if}</td>

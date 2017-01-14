@@ -2,7 +2,7 @@
 	<p><div class="titles">{$langs.players}</div></p>
 {if !$cs}
 	<div class="">
-		<form action="{$baseUrl}/admin/players/page{$page}" method="post">
+		<form action="" method="post">
 			<input type="text" name="search" id="search" class="form" {if isset($search)}value="{$search}"{/if} placeholder="{$langs.Search}" />
 			<input type="image" name="picture" src="{$baseUrl}/img/find.png" />
 			&nbsp;
@@ -16,7 +16,7 @@
 	
 	<div>
 		<table id="admin_players">
-			<form action="{$baseUrl}/admin/players/page{$page}" method="post" name="achiev_admin">
+			<form action="" method="post" name="achiev_admin">
 			<tr>
 				<td><input name="name" type="text" class="col1" /></td>
 				<td><input name="password" type="text" class="col2" /></td>
@@ -38,7 +38,7 @@
 				<td>#</td>
 			</tr>
 		{foreach from=$players item=player}
-			<form action="{$baseUrl}/admin/players/page{$page}" method="post" name="achiev_admin">
+			<form action="" method="post" name="achiev_admin">
 			<tr class="list">
 				<td><input name="name" type="text" class="col1" value="{$player.name}"/></td>
 				<td><input name="password" type="text" class="col2" /></td>

@@ -1,3 +1,39 @@
+DELETE FROM `menu`;
+INSERT INTO `menu` (`id`, `lvl`, `num`, `admin`, `action`) VALUES
+	(1, 1, 1, 0, 'home'),
+	(2, 1, 3, 0, 'servers'),
+	(3, 1, 4, 0, 'players'),
+	(4, 1, 5, 0, 'achiev'),
+	(5, 1, 6, 0, 'kz_players'),
+	(6, 1, 7, 0, 'kz_maps'),
+	(7, 1, 8, 0, 'kz_duels'),
+	(8, 1, 1, 1, 'admin_servers'),
+	(9, 1, 2, 1, 'admin_langs'),
+	(10, 1, 3, 1, 'admin_achiev'),
+	(11, 1, 4, 1, 'admin_players');
+
+DELETE FROM `parserules`;
+INSERT INTO `parserules` (`num`, `rules`, `url`) VALUES
+	(1, '/^setup\\/(.*)/', 'index.php?action=setup&acts=%1%'),
+	(2, '/^error\\/([0-9]+)/', 'index.php?action=error&err=%1%'),
+	(3, '/^auth\\/(.*)/', 'index.php?action=auth&key=%1%'),
+	(4, '/^logout/', 'index.php?action=auth&act=logout'),
+	(5, '/^ucp/', 'index.php?action=ucp'),
+	(6, '/^steam/', 'index.php?action=steam'),
+	(7, '/^home/', 'index.php?action=home'),
+	(8, '/^admin\\/([0-9a-zA-Z_!]+)?(\\/page([0-9]+))?(\\/(.*))?/', 'index.php?action=admin_%1%&page=%3%&search=%5%'),
+	(9, '/^servers\\/(page([0-9]+))?(\\/(.*))?/', 'index.php?action=servers&page=%2%&addr=%4%'),
+	(10, '/^players\\/(name|achiev|country)?(-)?(asc|desc)?(\\/page([0-9]+))?(\\/(.*))?/', 'index.php?action=players&order=%1%&sort=%3%&page=%5%&search=%7%'),
+	(11, '/^achiev\\/(page([0-9]+))?(\\/)?(.*)?/', 'index.php?action=achiev&page=%2%&aname=%4%'),
+	(12, '/^achievs\\/(page([0-9]+))?/', 'index.php?action=achiev&page=%2%&act=achievs'),
+	(13, '/^(.*)\\/achiev\\/(page([0-9]+))?/', 'index.php?action=achiev&name=%1%&page=%3%'),
+	(14, '/^kreedz\\/duels\\/(page([0-9]+))?/', 'index.php?action=kz_duels&page=%2%'),
+	(15, '/^kreedz\\/players\\/((pro|noob|all))?(\\/page([0-9]+))?(\\/(num|top1))?/', 'index.php?action=kz_players&type=%2%&sort=%6%&page=%4%'),
+	(16, '/^kreedz\\/maps\\/((pro|noob|all))?(\\/page([0-9]+))?(\\/(norec|rec))?(\\/(.*))?/', 'index.php?action=kz_maps&type=%2%&page=%4%&rec=%6%&map=%8%')
+	(17, '/^kreedz\\/([0-9a-zA-Z_!]+)?(\\/(pro|noob|all))?(\\/page([0-9]+)?)?/', 'index.php?action=kz_map&map=%1%&type=%3%&page=%5%'),
+	(18, '/^(.*)\\/kreedz(\\/(pro|noob|all))?(\\/page([0-9]+))?(\\/(norec|rec))?(\\/(num|top1))?/', 'index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%'),
+	(19, '/^(.*)/', 'index.php?action=player&name=%1%');
+	
 DELETE FROM `kz_comm`;
 INSERT INTO `kz_comm` (`sort`,`name`, `url`, `image`, `download`, `map`) VALUES
 	('2','cc', 'https://cosy-climbing.net', 'https://cosy-climbing.net/img/maps/%map%.png', 'https://cosy-climbing.net/files/maps/%map%.rar', 'https://cosy-climbing.net/search.php?q=%map%&in=&ex=&ep=&be=%map%&t=all&r=0&s=Search&adv=0'),
@@ -24,9 +60,8 @@ INSERT INTO `servers` (`id`, `mod`, `addres`, `vip`, `name`, `map`, `players`, `
 (9, 9, '83.222.97.90:27020', 0, 'Skiller.ru - Jump', 'rpz_duck', 11, 17, 1483878200),
 (10, 9, '83.239.99.132:27018', 0, '|sS| KreedZ', 'bhop_egypt_hops', 8, 12, 1483878200),
 (11, 9, '83.222.116.10:27023', 0, 'PPC-ZONE Jump', 'clintmo_longjumper', 2, 16, 1483878200),
-(12, 9, '46.174.52.5:27208', 0, NULL, NULL, NULL, NULL, NULL),
-(13, 7, '217.106.106.136:27107', 0, 'MakeFrag|floppytown|HNS', 'hns_floppytown', 7, 14, 1483878202),
-(14, 7, '95.31.32.123:27016', 0, 'MakeFrag|HNS_255aa|DM_2016', 'hns_floppytown_pro', 6, 16, 1483878202);
+(12, 7, '217.106.106.136:27107', 0, 'MakeFrag|floppytown|HNS', 'hns_floppytown', 7, 14, 1483878202),
+(13, 7, '95.31.32.123:27016', 0, 'MakeFrag|HNS_255aa|DM_2016', 'hns_floppytown_pro', 6, 16, 1483878202);
 	
 DELETE FROM `servers_mod`;
 insert  into `servers_mod`(`mid`,`modname`) values 

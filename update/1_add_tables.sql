@@ -1,7 +1,24 @@
 -- TABLES --
 
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE IF NOT EXISTS `menu` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `lvl` int(2) unsigned NOT NULL DEFAULT '0',
+  `num` int(2) unsigned NOT NULL DEFAULT '0',
+  `admin` tinyint(1) NOT NULL DEFAULT '0',
+  `action` varchar(16) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `parserules`;
+CREATE TABLE IF NOT EXISTS `parserules` (
+	`num` INT(10) UNSIGNED NOT NULL,
+	`rules` VARCHAR(128) NOT NULL,
+	`url` VARCHAR(128) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `kz_comm`;
-CREATE TABLE `kz_comm` (
+CREATE TABLE IF NOT EXISTS `kz_comm` (
 	`sort` INT(10) NOT NULL,
 	`name` VARCHAR(8) NOT NULL,
 	`fullname` VARCHAR(16) NOT NULL,
@@ -13,7 +30,7 @@ CREATE TABLE `kz_comm` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `unr_achiev`;
-CREATE TABLE `unr_achiev` (
+CREATE TABLE IF NOT EXISTS `unr_achiev` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(40) NOT NULL,
   `count` int(10) unsigned NOT NULL,
@@ -21,7 +38,7 @@ CREATE TABLE `unr_achiev` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `unr_achiev_lang`;
-CREATE TABLE `unr_achiev_lang` (
+CREATE TABLE IF NOT EXISTS `unr_achiev_lang` (
 	`lid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`achievid` INT(10) NOT NULL,
 	`lang` VARCHAR(2) NULL DEFAULT NULL,
@@ -31,7 +48,7 @@ CREATE TABLE `unr_achiev_lang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `servers`;
-CREATE TABLE `servers` (
+CREATE TABLE IF NOT EXISTS `servers` (
 	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`mod` INT(10) NOT NULL,
 	`addres` VARCHAR(32) NOT NULL,
@@ -45,14 +62,14 @@ CREATE TABLE `servers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `servers_mod`;
-CREATE TABLE `servers_mod` (
+CREATE TABLE IF NOT EXISTS `servers_mod` (
 	`mid` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`modname` varchar(16) NOT NULL,
 	PRIMARY KEY (`mid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 DROP TABLE IF EXISTS `weapons`;
-CREATE TABLE `weapons` (
+CREATE TABLE IF NOT EXISTS `weapons` (
 	`id` int(10) unsigned DEFAULT NULL,
 	`wname` varchar(16),
 	`fullname` varchar(32),
@@ -60,7 +77,7 @@ CREATE TABLE `weapons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `lang`;
-CREATE TABLE `lang` (
+CREATE TABLE IF NOT EXISTS `lang` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `lang` varchar(2) NOT NULL,
   `name` varchar(16) NOT NULL,
@@ -68,18 +85,8 @@ CREATE TABLE `lang` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `langs`;
-CREATE TABLE `langs` (
-	`id` INT(10) NOT NULL AUTO_INCREMENT,
-	`lang` VARCHAR(2) NOT NULL,
-	`var` VARCHAR(64) NOT NULL,
-	`value` VARCHAR(256) NOT NULL,
-	PRIMARY KEY (`id`)
-)
-ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 DROP TABLE IF EXISTS `themes`;
-CREATE TABLE `themes` (
+CREATE TABLE IF NOT EXISTS `themes` (
 	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`theme` VARCHAR(8),
 	`default` TINYINT(1) DEFAULT '0',
@@ -88,7 +95,7 @@ CREATE TABLE `themes` (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `themes_lang`;
-CREATE TABLE `themes_lang` (
+CREATE TABLE IF NOT EXISTS `themes_lang` (
 	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`themesid` INT(10) NOT NULL,
 	`lang` VARCHAR(2) NOT NULL,
@@ -97,7 +104,7 @@ CREATE TABLE `themes_lang` (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `kz_duel`;
-CREATE TABLE `kz_duel` (
+CREATE TABLE IF NOT EXISTS `kz_duel` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`map` varchar(64) NOT NULL,
 	`player1` int(10) unsigned NOT NULL,
@@ -108,7 +115,7 @@ CREATE TABLE `kz_duel` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `kz_map_top`;
-CREATE TABLE `kz_map_top` (
+CREATE TABLE IF NOT EXISTS `kz_map_top` (
 	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`map` VARCHAR(64) NOT NULL,
 	`player` INT(10) UNSIGNED NOT NULL,
@@ -124,7 +131,7 @@ CREATE TABLE `kz_map_top` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 DROP TABLE IF EXISTS `kz_save`;
-CREATE TABLE `kz_save` (
+CREATE TABLE IF NOT EXISTS `kz_save` (
 	`map` varchar(50) NOT NULL,
 	`player` int(11) NOT NULL,
 	`posx` int(11) NOT NULL,
@@ -141,16 +148,17 @@ CREATE TABLE `kz_save` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `unr_activate`;
-CREATE TABLE `unr_activate` (
-	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`player` int(11) NOT NULL,
-	`key` varchar(50) NOT NULL,
-	`time` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `unr_activate` (
+	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`player` INT(11) NOT NULL,
+	`key` VARCHAR(50) NOT NULL,
+	`time` INT(11) NOT NULL,
+	`password` VARCHAR(50) NULL DEFAULT NULL,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 DROP TABLE IF EXISTS `unr_dr_stats`;
-CREATE TABLE `unr_dr_stats` (
+CREATE TABLE IF NOT EXISTS `unr_dr_stats` (
 	`map` varchar(32) NOT NULL,
 	`player` int(10) unsigned NOT NULL,
 	`time` int(10) unsigned NOT NULL,
@@ -159,7 +167,7 @@ CREATE TABLE `unr_dr_stats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `unr_players`;
-CREATE TABLE `unr_players` (
+CREATE TABLE IF NOT EXISTS `unr_players` (
 	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(32) NOT NULL,
 	`password` VARCHAR(50) NOT NULL,
@@ -185,7 +193,7 @@ CREATE TABLE `unr_players` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `unr_players_achiev`;
-CREATE TABLE `unr_players_achiev` (
+CREATE TABLE IF NOT EXISTS `unr_players_achiev` (
 	`playerId` int(11) NOT NULL,
 	`achievId` int(11) NOT NULL,
 	`progress` int(11) NOT NULL,
@@ -194,7 +202,7 @@ CREATE TABLE `unr_players_achiev` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `unr_players_var`;
-CREATE TABLE `unr_players_var` (
+CREATE TABLE IF NOT EXISTS `unr_players_var` (
 	`playerId` int(11) NOT NULL,
 	`key` varchar(50) NOT NULL,
 	`value` varchar(512) NOT NULL,
@@ -204,8 +212,6 @@ CREATE TABLE `unr_players_var` (
 -- TRIGGER --
 DROP TRIGGER IF EXISTS `unr_players_before_insert`;
 DROP TRIGGER IF EXISTS `unr_players_before_update`;
-DROP TRIGGER IF EXISTS `kz_map_top_before_insert`;
-DROP TRIGGER IF EXISTS `kz_map_top_after_delete`;
 
 DELIMITER $$
 CREATE TRIGGER `unr_players_before_insert` BEFORE INSERT ON `unr_players` FOR EACH ROW BEGIN 

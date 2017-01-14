@@ -1,23 +1,28 @@
 <?php
-$starttime = microtime(true);
+
+if(!file_exists("inc/error.php") || !file_exists("templates/error.tpl")) {
+	echo "Error... Die.";
+	die();
+}
+
 error_reporting(E_ALL | E_STRICT);
+
+$starttime = microtime(true);
 
 session_start();
 
 define('IN_KZ_TOP', 1);
 
-include "inc/function.php";
 include "inc/config.php";
+include "inc/function.php";
+include "inc/function_sql.php";
 include "inc/smarty_unr.php";
-
-// Smarty
-$smarty = new Smarty_unr();
 
 // Starttime
 assign('starttime', $starttime);
 
 // Read setting from config.php
-foreach($dconf as $key=>$value) {
+foreach($conf_def as $key=>$value) {
 	$$key = $value;
 }
 
@@ -38,6 +43,8 @@ if($uri!="") {
 }
 
 $baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseSite}";
+assign("baseUrl", $baseUrl);
+
 $docRoot = $_SERVER['DOCUMENT_ROOT'].$baseSite;
 
 // Debug trace
@@ -49,24 +56,26 @@ $docRoot = $_SERVER['DOCUMENT_ROOT'].$baseSite;
 // Action
 $action = isset($_GET["action"]) && $_GET["action"]!="" ? $_GET["action"] : $menuStart;
 
-$config_dir = $docRoot;
+// Global temlate vars
+assign('action', $action);
 
-// Default config vars
-$conf = $dconf;
+// Config DIR;
+$config_dir = $docRoot;
 
 // Read setting from config file or create default
 $config_path = $config_dir.'/'.$config_file;
-if(file_exists($config_path)) {
-	$conf = array_replace($dconf, parse_ini_file($config_path));
-	foreach($conf as $key=>$value) {
-		$$key = $value;
-	}
-}
-else {
-	save_config_file($config_path, $conf);
-}
-assign("conf", $conf);
+if(file_exists($config_path))
+	$dbconf = array_replace($dbconf_def, parse_ini_file($config_path));
+else
+	save_config_file($config_path, $dbconf);
 
+foreach($dbconf as $key=>$value) {
+	$$key = $value;
+}
+
+assign("dbconf", $dbconf);
+
+// Connect to mysql
 $db = @mysqli_connect($mysql_host, $mysql_user, $mysql_password);
 $conn = mysqli_connect_errno($db);
 if(!$conn) {
@@ -81,28 +90,29 @@ if(!$conn) {
 else
 	$conn = 0;
 	
-// Connect to mysql
 if($action!="setup" && !$conn)
 	header("Location: $baseUrl/setup/");
 
 assign('conn', $conn);
 
 if($conn) {
-	// Get From unr_players
+	$is_config = mysqli_result(mysqli_query($db, "SHOW TABLES FROM {$mysql_db} like 'config'"), 0);
+	if(!$is_config) {
+		createConfigTable($db, $conf_def, $conf_type);
+		$conf = $conf_def;
+	}
+	else
+		$conf = array_replace($conf_def, getConfigVar($db));
+	
+	// Get Players
 	$name = isset($_GET["name"]) ? url_replace($_GET["name"], BACK) : "";
 	$id = isset($_GET["id"]) ? abs((int)$_GET["id"]) : 0;
-	$player = getPlayerFormDB($db, $name, $id);
+	
+	$player = getPlayer($db, $name, $id);
 	assign('player', $player);
 
 	// Read defaul language
-	$r = mysqli_query($db, "SELECT * FROM `lang` WHERE `use` = 1 ORDER BY `name` ");
-	while($row = mysqli_fetch_array($r)) {
-		if($row['default']==1)
-			$lang_def = $row['lang'];
-		
-		$langselect[$row['lang']] = $row["name"];
-	}
-	assign('langselect', $langselect);
+	assign('langselect', getLang($db));
 
 	// Read language 
 	if (isset($_POST["lang"])) {
@@ -120,27 +130,12 @@ if($conn) {
 			$lang = $lang_def;
 	}
 	
-	// Read language from file
-	$dblangs = array();
-	$r = mysqli_query($db, "SELECT * FROM `langs` WHERE `lang`='$lang'");
-	while($row = mysqli_fetch_array($r)) {
-		$dblangs[$row["var"]] = $row["value"];
-	}
-
-	$langs = array_replace($langs, $dblangs);
-	unset($dblangs);	
+	$dblangs = getLangs($db, $lang);
+	$langs = array_replace($langs, $dblangs);	
 	assign('lang', $lang);
 	
 	// Read themes
-	$q = "SELECT * FROM `themes` LEFT JOIN `themes_lang` ON `themes`.`id` = `themesid` WHERE `lang` = '$lang'";
-	$r = mysqli_query($db, $q);
-	while($row = mysqli_fetch_array($r)) {
-		if($row['default']==1) $theme = $row['theme'];
-		if($row['cs']==1) $cstheme = $row['theme'];
-			
-		$themeselect[$row['theme']] = $row["name"];
-	}
-	assign('themeselect', $themeselect);
+	assign('themeselect', getThemes($db, $lang));
 
 	if (isset($_POST["theme"]))
 	{
@@ -151,19 +146,28 @@ if($conn) {
 		else {
 			$langTheme1 = $themeselect[$theme];
 			$langTheme2 = $langs["ThemeNotFound"];
-		echo "<script>alert('$langTheme1 $langTheme2')</script>";
+			echo "<script>alert('$langTheme1 $langTheme2')</script>";
 		}
 	}
+	
+	$menus = getMenus($db, $lang);
+	$menu = $menus["normal"];
+	$menuAdmin = $menus["admin"];
 }
 
 // Set locale
 setlocale(LC_ALL, $lang.'_'.$lang.'.'.$charset);
-	
-// Set all langs to Smarty
-assign("langs", $langs);
+
+// Config
+foreach($conf as $key=>$value) {
+	$$key = $value;
+}
+assign('conf', $conf);
 	
 // CS Style
 $cs = isset($_SESSION["cs_$cookieKey"]) ? $_SESSION["cs_$cookieKey"] : $cs;
+assign('cs', $cs);
+
 if(isset($_GET["cs"])) { 
 	$cs = $_GET["cs_$cookieKey"];
 	$_SESSION["cs_$cookieKey"] = $cs;
@@ -175,19 +179,18 @@ if(isset($_POST["cs"])) {
 
 if($cs) {
 	$_SESSION["unr_theme_$cookieKey"] = $cstheme;
-	$menu = $menuCS;
+	$menu = $menu["cs"];
 }
 
-if (isset($_SESSION["unr_theme_$cookieKey"]))
+// Session themes
+if (isset($_SESSION["unr_theme_$cookieKey"])) {
 	$theme = $_SESSION["unr_theme_$cookieKey"];
-
-assign('cs', $cs);
+}
 assign('theme', $theme);
 
 // Select Player
 $webadmin = 0;
 if (isset($_SESSION["user_$cookieKey"]["id"]) && $action!="setup") {
-	"SELECT * FROM `unr_players` WHERE `id`= ".$_SESSION["user_$cookieKey"]["id"];
 	$r = mysqli_query($db, "SELECT * FROM `unr_players` WHERE `id`= ".$_SESSION["user_$cookieKey"]["id"]);
 	if ($row = mysqli_fetch_assoc($r)) {
 		foreach($row as $key => $value) {
@@ -195,99 +198,29 @@ if (isset($_SESSION["user_$cookieKey"]["id"]) && $action!="setup") {
 		}
 		
 		if($row["webadmin"]==1) $webadmin = 1;
-		
-		assign('user', $_SESSION["user_$cookieKey"]);
+		$user = $_SESSION["user_$cookieKey"];
+		assign('user', $user);
 	}
 	else
 		unset($_SESSION["user_$cookieKey"]);
-	
-	$menu = $menuLogged;
 }
 assign('webadmin', $webadmin);
 
-if($action!="setup") {
-	// Menu
-	function create_menu($menu) {
-		global $langs, $ActionList;
-		
-		foreach($menu as $key=>$item) {
-			$val = explode("|", $item);
-			if($item!="-") {
-				$menulist[$key]["item"] = $item;
-				$menulist[$key]["name"] = $langs[$val[0]];
-				$menulist[$key]["url"] = $ActionList[$val[0]];
-				if(isset($val[1])) {
-					foreach($val as $k=>$subitem) {
-						$menulist[$key][$k]["name"] = $langs[$subitem];
-						$menulist[$key][$k]["url"] = $ActionList[$subitem];	
-					}	
-				}
-			}
-		}
-		
-		return $menulist;
-	}
-
-	assign('menulist', create_menu($menu));
-	assign('menuadminlist', create_menu($menuAdmin));
-}
-
-// Menu Footer
+// Assign
 assign('menu_footer', $menu_footer);
-	
-// Include action
-if(file_exists("inc/$action.php"))
-	include "inc/$action.php";
+assign('menu', $menu);
+assign('menuAdmin', $menuAdmin);
 
-if(!file_exists("templates/$action.tpl"))
-	header("Location: $baseUrl/error/404");
-
-// Global temlate vars
-assign('baseUrl', $baseUrl);
-assign('action', $action);
 assign('cake', mt_rand(1, 5));
 assign('cake_pl', mt_rand(0, 9));
 
+assign("langs", $langs);
+
+// Include
+if(file_exists("inc/$action.php"))
+	include "inc/$action.php";
+
 // Template
 $smarty->display("index.tpl");
-
-// Last URL
-$_SESSION["lastUrl_$cookieKey"] = $baseUrl;
-
-unset($_GLOBALS);
-unset($_GET);
-unset($_POST);
-
-/* FUNCTIONS */
-
-// Get Player from DB
-function getPlayerFormDB($db, $name, $id) {
-	$name = slashes($name);
-		
-	$q = "SELECT * FROM `unr_players` WHERE `name` = '{$name}' OR `id` = {$id} ORDER BY `id` LIMIT 1";	
-	$r = mysqli_query($db, $q);
-	$player = mysqli_fetch_assoc($r);
-	
-	if(!isset($player)) {
-		$player["id"] = $id;
-		$player["name"] = $name;
-	}
-	
-	$player["name_url"] = url_replace($player["name"]);
-	
-	return $player;
-}
-
-function geoip($db, $ip, $lang) {
-	if(isset($ip) && $ip!="") {
-		$q = "SELECT `code`, `country_name` as `country` FROM
-					(SELECT * FROM `geoip_whois` WHERE `ip_to` >= INET_ATON('{$ip}') ORDER BY `ip_to` ASC LIMIT 1) AS `cnt`,
-					`geoip_locations`
-				WHERE `code` = `country_iso_code` AND `locale_code` = '{$lang}'";
-		return mysqli_fetch_assoc(mysqli_query($db, $q));
-	}
-	else 
-		return 0;
-}
 	
 ?>

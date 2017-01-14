@@ -1,5 +1,5 @@
 <?php
-$message = "";
+
 
 if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1)) {
 	header('Location: '.$baseUrl);
@@ -65,10 +65,10 @@ assign('message', $message);
 // Get language list
 $r = mysqli_query($db, "SELECT * FROM `langs` ORDER BY `lang`, `id` DESC");
 while($row = mysqli_fetch_assoc($r)) {
-	$dblangs[$row["lang"]][$row["var"]] = $row["value"];
+	$langslist[$row["lang"]][$row["var"]] = $row["value"];
 }	
 
-foreach ($dblangs as $l => $arr) {
+foreach ($langslist as $l => $arr) {
 	foreach ($arr as $name => $value) {
 		$row[$name][$l] = $value;
 	}

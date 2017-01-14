@@ -1,5 +1,5 @@
 ﻿<?php
-$message = "";
+
 
 if(isset($_POST["addr"])) {
 	$addr = $_POST["addr"];

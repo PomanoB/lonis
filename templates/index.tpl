@@ -53,31 +53,45 @@
 		<div id="network">
 			<div class="center-wrapper">
 				<div class="tabbed" id="menu-tabs">
-					<div class="menu">
-					{foreach from=$menulist key=key item=i}
+					<div class="menu" >
+				{foreach from=$menu item=i}
 						<div class="item">
 							<a title="{$i.name}" href="{$baseUrl}{$i.url}">
-								<img src="{$baseUrl}/img/menu/{$i.item}.png"><text class="name">{$i.name}</text>
+								<img src="{$baseUrl}/img/menu/{$i.action}.png" alt="{$i.name}" title="{$i.name}">&nbsp;{$i.name}
 							</a>
 						</div>
-					{/foreach}
-					{if isset($user)}
+				{/foreach}
+
+
+				{if !isset($user)}
 						<div class="item">
-							<a title="{$i.name}" href="{$baseUrl}/ucp">
-								<img src="{$baseUrl}/img/menu/reg.png"><text class="username">{$user.name|escape}</text>
+							<a title="{$langs.auth}" href="{$baseUrl}/auth/">
+								<img src="{$baseUrl}/img/menu/auth.png" alt="{$i.name}" title="{$langs.auth}">&nbsp;{$langs.auth}
 							</a>
-						</div>				
-					{/if}
+						</div>
+				{else}
+						<div class="item">
+							<a title="{{$user.name|escape}}" href="{$baseUrl}/ucp/">
+								<img src="{$baseUrl}/img/menu/reg.png" alt="{{$user.name|escape}}" title="{{$user.name|escape}}">
+							</a>
+						</div>	
+						<div class="item">
+							<a title="{$langs.logout}" href="{$baseUrl}/logout/">
+								<img src="{$baseUrl}/img/menu/logout.png" alt="{$i.name}" title="{$langs.logout}">&nbsp;{$langs.logout}
+							</a>
+						</div>			
+				{/if}
+
 					</div>
 					
 					<div class="clearer">&nbsp;</div>
 					
 			{if $webadmin}
 					<div class="adminmenu">
-					{foreach from=$menuadminlist key=key item=i}
+					{foreach from=$menuAdmin item=i}
 						<div class="item">
 							<a title="{$i.name}" href="{$baseUrl}{$i.url}">
-								<img src="{$baseUrl}/img/menu/{$i.item}.png"><text class="name">{$i.name}</text>
+								<img src="{$baseUrl}/img/menu/{$i.action}.png">{$i.name}
 							</a>
 						</div>
 					{/foreach}
@@ -93,7 +107,6 @@
 	<div class="head_bg">
 		<div style="float:right;"> {* padding-right: 25px; *}
 			<img src="{$baseUrl}/img/cake/cake{$cake}.png" alt="" border="0" />
-			{*<img src="{$baseUrl}/img/cake/pl{$cake_pl}.png" alt="" border="0" />*}
 		</div>
 	</div>
 	<div class="majic">
@@ -101,7 +114,7 @@
 		
 <!-------------------------------------------------------------------------------------------------------------------->
 
-			{if isset($action)}
+			{if isset($action) && file_exists("templates/$action.tpl")}
 				{include file="$action.tpl"}
 			{/if}
 			

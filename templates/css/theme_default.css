@@ -9,6 +9,10 @@ body {
 	background-attachment:fixed;
 }
 
+input {
+	font: 10pt verdana, geneva, lucida, 'lucida grande', arial, helvetica, sans-serif;
+}
+
 a:hover, a:active, body_ahover {
 	color: #FFA200;
 }
@@ -206,7 +210,7 @@ tr.title {
 
 /* INPUTS */
 .bigform {
-	font-size: 140%;
+	font-size: 120%;
 	height: 30px;
 	border: 1px solid #DCDCDC;
 }
