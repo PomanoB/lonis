@@ -40,9 +40,8 @@ INSERT INTO `servers` (`id`, `mod`, `addres`, `vip`, `name`, `map`, `players`, `
 	(9, 9, '83.222.97.90:27020', 0, 'Skiller.ru - Jump', 'dyd_onlime_ez', 6, 17, '2017-01-11 10:54:13'),
 	(10, 9, '83.239.99.132:27018', 0, '|sS| KreedZ', 'kzy_downslide', 1, 12, '2017-01-11 10:54:13'),
 	(11, 9, '83.222.116.10:27023', 0, 'PPC-ZONE Jump', 'kz_kx_watercave', 0, 16, '2017-01-11 10:54:13'),
-	(12, 9, '46.174.52.5:27208', 0, 'WildHunters', '', 0, 0, '2017-01-11 10:54:13'),
-	(13, 7, '217.106.106.136:27107', 0, 'MakeFrag|floppytown|HNS', 'hns_floppytown', 0, 14, '2017-01-11 10:54:13'),
-	(14, 7, '95.31.32.123:27016', 0, 'MakeFrag|HNS_255aa|DM_2016', 'hns_floppytown_pro', 2, 16, '2017-01-11 10:54:13');
+	(12, 7, '217.106.106.136:27107', 0, 'MakeFrag|floppytown|HNS', 'hns_floppytown', 0, 14, '2017-01-11 10:54:13'),
+	(13, 7, '95.31.32.123:27016', 0, 'MakeFrag|HNS_255aa|DM_2016', 'hns_floppytown_pro', 2, 16, '2017-01-11 10:54:13');
 /*!40000 ALTER TABLE `servers` ENABLE KEYS */;
 
 -- Дамп структуры для таблица lonis.servers_mod

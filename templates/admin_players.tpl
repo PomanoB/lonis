@@ -10,7 +10,7 @@
 	</div>
 {/if}
 	
-	<p>&nbsp;{$generate_page}
+	<p>&nbsp;{$pages.output}
 				
 	<div class="error_message">{$message}</div>
 	

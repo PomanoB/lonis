@@ -1,6 +1,55 @@
+{if $player.id}
+	<div align="center">
+		<p><h2>{$langs.player}</h2><br>
+
+		<a href="{$player.avatarLink}" target="_blank"><img src="{$player.avatar}" alt="{$player.name|escape}" /></a>
+		<p><h2>{$player.name|escape}</h2><br>
+		<p><table>
+			<tr class="playerinfo">
+				<td class="infoid">{$langs.Country}:</td> 
+				<td>{if $player.countryImg}<img src="{$baseUrl}/{$player.countryImg}" />{/if} {$player.countryName}</td>
+			</tr>
+			
+			<tr class="playerinfo">
+				<td class="infoid">{$langs.achievCompleted}:</td> 
+				<td><a href="{$baseUrl}/{$player.name_url}/achiev" title="{$langs.View}">{$player.achievCompleted}</a></td>
+			</tr>
+
+			<tr class="playerinfo">
+				<td class="infoid">{$langs.MapCompleted}:</td> 
+				<td><a href="{$baseUrl}/{$player.name_url}/kreedz" title="{$langs.View}">{$player.mapCompleted}</a></td>
+			</tr>
+		{if isset($player.ipInfo.country_name)}
+			<tr class="playerinfo">
+				<td class="infoid">{$langs.Country}:</td> <td>{$player.ipInfo.country_name} <img src="img/country/{$player.ipInfo.country_code}.png" /></td>
+			</tr>
+			<tr class="playerinfo">
+				<td class="infoid">{$langs.City}:</td> <td>{$player.ipInfo.city}</td>
+			</tr>
+		{/if}
+		{if isset($player.steam_id)}
+			<tr class="playerinfo">
+				<td class="infoid">{$langs.SteamID}:</td>
+				<td><a href="http://steamcommunity.com/profiles/{$player.steam_id_64}/" target="_blank">{$player.steam_id}</a></td>
+			</tr>
+		{/if}
+		{if $player.icq}
+			<tr class="playerinfo">
+				<td class="infoid">{$langs.ICQ}:</td> <td>{$player.icq}</td>
+			</tr>
+		{/if}
+			<tr class="playerinfo">
+				<td class="infoid">{$langs.ourLastTime}:</td> <td>{$player.lastTime}</td>
+			</tr>
+			<tr class="playerinfo">
+				<td class="infoid">{$langs.SharedOnline}:</td> <td>{$player.onlineTimes}</td>
+			</tr>
+		</table>
+	</div>
+{else}
 	<div class="wrapper">		
 		<div class="titles left_block">{$langs.players}</div>
-{if !$cs}
+	{if !$cs}
 		<div class=" right_block">
 			<form action="" method="post">
 				<input type="text" name="search" id="search" class="form" }value="{if isset($search)}{$search}{/if}" placeholder="{$langs.Search}" />
@@ -8,10 +57,10 @@
 				&nbsp;
 			</form>
 		</div>
-{/if}
+	{/if}
 	</div><br>
 
-	<p>&nbsp;{$generate_page}
+	<p>&nbsp;{$pages.output}
 	
 	<div style="padding:10px;">
 		<table class="table-list">
@@ -22,8 +71,8 @@
 				<td><a href="{$baseUrl}/players/achiev-desc/page{$pages.page}/{$search}">{$langs.achiev}</a></td>
 				<td>{$langs.MapCompleted}</td>
 			</tr>
-	{if $total}
-		{foreach from=$players item=player}
+		{if isset($rows)}
+		{foreach from=$rows item=player}
 			<tr class="list">
 				<td>
 					<a href="{$player.avatarLink}" target="_blank"><img src="{$player.avatar}" alt="{$player.name|escape}" /></a>
@@ -44,6 +93,7 @@
 				</td>
 			</tr>
 		{/foreach}
-	{/if}
+		{/if}
 		</table>
 	</div>
+{/if}

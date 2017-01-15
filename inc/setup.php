@@ -6,22 +6,16 @@ $act = isset($_POST["act"]) ? $_POST["act"] : "";
 
 if ($acts == "logout") {
 	unset($_SESSION["setting_user"]);
-	header("Location: $baseUrl/setup/");
 }
 else
 if (isset($_POST["setting_user"]) && isset($_POST["setting_password"])) {
 	$setting_user = slashes($_POST["setting_user"]);
 	$setting_password = slashes($_POST["setting_password"]);
 	
-	if($setting_user==$mysql_user && $setting_password==$mysql_password) {
+	if($setting_user==$mysql_user && $setting_password==$mysql_password)
 		$_SESSION["setting_user"] = $setting_user;
-		header("Location: $baseUrl/setup/");
-	}
-	else {
-		$message = $langs["UserNotFound"];
-	}
 }
-else 
+
 if (isset($_SESSION["setting_user"])) {
 	if($act=="genkey") {
 		$conf["cookieKey"] = md5($conf["mysql_user"].time()."abracadabra");
@@ -43,7 +37,7 @@ if (isset($_SESSION["setting_user"])) {
 			$text = "";
 			foreach($_POST as $key=>$value) {
 				$key = str_replace("fld_", "", $key);
-				if(isset($conf[$key])) {
+				if(isset($dbconf_def[$key])) {
 					$text .= $key." = '".$value."'\n";
 					$conf[$key]=$value;
 					$$key = $value;

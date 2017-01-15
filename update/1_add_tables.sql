@@ -79,10 +79,10 @@ DROP TABLE IF EXISTS `kz_duel`;
 CREATE TABLE IF NOT EXISTS `kz_duel` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`map` varchar(64) NOT NULL,
-	`player1` int(10) unsigned NOT NULL,
-	`player2` int(10) unsigned NOT NULL,
-	`result1` int(11) NOT NULL,
-	`result2` int(11) NOT NULL,
+	`player1` INT(10) UNSIGNED NOT NULL,
+	`player2` INT(10) UNSIGNED NOT NULL,
+	`result1` INT(11) NOT NULL,
+	`result2` INT(11) NOT NULL,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
@@ -181,10 +181,6 @@ CREATE TABLE IF NOT EXISTS `unr_players_var` (
 	`value` varchar(512) NOT NULL,
 	PRIMARY KEY (`playerId`,`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE OR REPLACE VIEW `geoip_whois` AS 
-SELECT INET_ATON(SUBSTRING_INDEX(`network`,'/',1)) as `ip_from`, `country_iso_code` as `code` FROM `geoip_blocks` `b`
-	LEFT JOIN (SELECT * FROM `geoip_locations` GROUP BY `country_iso_code`) as `l` ON `b`.`geoname_id` = `l`.`geoname_id`;
 	
 -- TRIGGER --
 DROP TRIGGER IF EXISTS `unr_players_before_insert`;

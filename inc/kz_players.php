@@ -19,11 +19,10 @@ $q = "SELECT `name`, `all`, `top1` FROM `unr_players` `p`
 $r = mysqli_query($db, $q);
 
 $total = mysqli_num_rows($r);
-$pages = generate_page($page, $total, $playersPerPage);
-$pages["pageUrl"] = "$baseUrl/kreedz/players/$type/page%page%/$sort/$search";
+$pages = generate_page($page, $total, $playersPerPage, "$baseUrl/kreedz/players/$type/page%page%/$sort/$search");
 
 if($total) {
-	$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $playersPerPage);
+	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playersPerPage);
 
 	$number = $pages["start"]+1;
 	$players = array();

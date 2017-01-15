@@ -1,38 +1,3 @@
-{capture generate_page assign=generate_page}
-	<p>&nbsp;{generate_pages page=$pages.page totalPages=$pages.totalPages pageUrl=$pages.pageUrl}</p>
-{/capture}
-
-{capture generate_page assign=generate_page}
-	{if isset($pages)}
-		{$page = $pages.page}
-		{$totalPages = $pages.totalPages}
-		{$pageUrl = $pages.pageUrl}
-	{/if}
-	
-	{if $totalPages > 1}
-		{if $page > 2}
-			{$aHref = str_replace("%page%", "1", $pageUrl)}
-			<a href="{$aHref}">1 </a>
-		{/if}
-		{if $page > 1}
-			{$aHref = str_replace("%page%", $page-1, $pageUrl)}
-			<a href="{$aHref}">{$page-1} </a>
-		{/if}
-		
-		<b>{$page}</b>
-		
-		{if $page < $totalPages}
-			{$aHref = str_replace("%page%", $page+1, $pageUrl)}
-			<a href="{$aHref}">{$page+1} </a>
-		{/if}
-
-		{if $page < $totalPages-1}
-			{$aHref = str_replace("%page%", $totalPages, $pageUrl)}
-			<a href="{$aHref}"> {$totalPages}</a>
-		{/if}
-	{/if}
-{/capture}
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -128,7 +93,7 @@
 				{/foreach}
 			</div>
 			<div class="right_block">
-			{if $conn}
+			{if !$errno}
 				{if !$cs}
 				<form method="post" id="langForm" style="padding:7px 8px 0 0; margin:0; display:inline;" action="">
 					<img src="{$baseUrl}/img/country/{$lang}.png">

@@ -90,14 +90,12 @@ if ($act == "delete") {
 
 $q = "SELECT * FROM `unr_players` WHERE 1 {$where} ORDER BY `name`";
 $r = mysqli_query($db, $q);
-
 $total = mysqli_num_rows($r);
 
-$pages = generate_page($page, $total, $playerPerPage);
-$pages["pageUrl"] = "$baseUrl/admin/players/page%page%/$search";	
+$pages = generate_page($page, $total, $playerPerPage, "$baseUrl/admin/players/page%page%/$search");	
 
 if ($total) {
-	$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $playerPerPage);
+	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playerPerPage);
 
 	$players = array();
 	foreach($rows_limit as $row) {

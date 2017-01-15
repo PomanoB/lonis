@@ -39,11 +39,10 @@ $r = mysqli_query($db, $q);
 
 $total = mysqli_num_rows($r);
 
-$pages = generate_page($page, $total, $mapsPerPage);
-$pages["pageUrl"] = "$baseUrl/kreedz/maps/$type/page%page%/$rec/$search";
+$pages = generate_page($page, $total, $mapsPerPage, "$baseUrl/kreedz/maps/$type/page%page%/$rec/$search");
 
 if ($total) {
-	$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $mapsPerPage);
+	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
 	
 	$maps = array();
 	foreach($rows_limit as $row) {

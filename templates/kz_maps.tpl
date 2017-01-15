@@ -19,7 +19,7 @@
 			<b>{$langs.kznorec}</b> :: <a href="{$baseUrl}/kreedz/maps/{$type}/{$search}">{$langs.kzrec}</a>
 		</div>
 		
-		<p>&nbsp;{$generate_page}
+		<p>&nbsp;{$pages.output}
 		
 		<div>
 			<table class="table-list">
@@ -44,7 +44,7 @@
 		</div>
 		<p><div class="err_message">{$message}</div>
 		
-		<p>&nbsp;{$generate_page}
+		<p>&nbsp;{$pages.output}
 		
 		<table class="table-list">
 			<tr class="title">

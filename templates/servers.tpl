@@ -5,7 +5,7 @@
 {if !$cs}
 		<div class="right_block">
 			<form action="" method="post">
-				<input type="text" name="addr" value="{if isset($map)}{$map}{/if}" placeholder="{$langs.Check} {$langs.IP}" />
+				<input type="text" name="addr" value="{if isset($addr)}{$addr}{/if}" placeholder="{$langs.Check} {$langs.IP}" />
 				<input type="image" name="picture" src="{$baseUrl}/img/find.png" title="{$langs.Check} {$langs.IP}" alt="{$langs.Check} {$langs.IP}"/>
 			</form>
 			&nbsp;
@@ -58,7 +58,7 @@
 	{/if}
 {else}
 
-	<p>&nbsp;{$generate_page}
+	<p>&nbsp;{$pages.output}
 	
 	<p><table class="table-list">
 		<tr class="title">
@@ -73,7 +73,7 @@
 			<td></td>
 		{/if}
 		</tr>
-	{foreach from=$servers key=key item=serv}
+	{foreach from=$rows key=key item=serv}
 		<tr class="list">
 			<td>{$serv.name}</td>			
 			<td>{$serv.modname}</td>

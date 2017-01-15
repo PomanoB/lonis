@@ -42,8 +42,7 @@ $r = mysqli_query($db, $q);
 	
 $total = mysqli_num_rows($r);
 
-$pages = generate_page($page, $total, $playersPerPage);
-$pages["pageUrl"] = "$baseUrl/kreedz/$map/$type/page%page%";
+$pages = generate_page($page, $total, $playersPerPage, "$baseUrl/kreedz/$map/$type/page%page%");
 
 if($total) {
 	if($map) {
@@ -76,7 +75,7 @@ if($total) {
 	
 	// List
 	$i=0;
-	$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $playersPerPage);
+	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playersPerPage);
 	
 	$number = $pages["start"]+1;
 	$players = array();

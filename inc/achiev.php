@@ -10,12 +10,11 @@ if($act=="achievs") {
 		FROM `unr_players`) AS `tmp34` WHERE `achiev_total` > 0 ORDER BY `achiev_total` DESC";
 	$r = mysqli_query($db, $q);
 	$total = mysqli_num_rows($r);
-
-	$pages = generate_page($_GET["page"], $total, $achievPlayersPerPage);
-	$pages["pageUrl"] = "$baseUrl/achievs/page%page%";
+	
+	$pages = generate_page($_GET["page"], $total, $achievPlayersPerPage, "$baseUrl/achievs/page%page%");
 
 	if ($total) {
-		$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $achievPlayersPerPage);
+		$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPlayersPerPage);
 			
 		$players = array();
 		foreach($rows_limit as $row) {
@@ -27,7 +26,7 @@ else { // url=/achiev/%aname%
 	$aname = (isset($_GET["aname"])) ? $_GET["aname"] : "";
 	
 	if($aname) {
-		$aname = slashes(urldecode($_GET["aname"]));
+		$aname = slashes($_GET["aname"]);
 		
 		$q = "SELECT `id`, `name`, `description` FROM achiev WHERE `lang`='{$lang}' AND `name` = '{$aname}' LIMIT 1";
 		$r = mysqli_query($db, $q);
@@ -51,14 +50,13 @@ else { // url=/achiev/%aname%
 						AND `pa`.`achievId` = `a`.`id` 
 						AND `a`.`id` = $id";	
 			$r = mysqli_query($db, $q);
-			
 			$total = mysqli_num_rows($r);
-
-			$pages = generate_page($page, $total, $achievPlayersPerPage);
-			$pages["pageUrl"] = "$baseUrl/achiev/page%page%/{$aname}";
+			
+			$aname_url = urlencode($aname);
+			$pages = generate_page($page, $total, $achievPlayersPerPage, "$baseUrl/achiev/page%page%/$aname_url");
 		
 			if($total) {
-				$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $achievPlayersPerPage);
+				$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPlayersPerPage);
 				
 				$players = array();
 				foreach($rows_limit as $row) {
@@ -77,14 +75,13 @@ else { // url=/achiev/%aname%
 			WHERE `lang`='{$lang}' 
 			ORDER BY `progress` = `count` DESC, `progress`/`count` DESC";
 		$r = mysqli_query($db, $q);
-		
 		$total = mysqli_num_rows($r);
 		
-		$pages = generate_page($page, $total, $achievPerPage);
-		$pages["pageUrl"] = "{$baseUrl}/{$name}/achiev/page%page%/";
+		$name_url = urlencode($name);
+		$pages = generate_page($page, $total, $achievPerPage, "{$baseUrl}/{$name_url}/achiev/page%page%/");
 
 		if($total) {
-			$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $achievPerPage);
+			$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPerPage);
 			
 			$achievs = array();
 			foreach($rows_limit as $row) {
@@ -109,11 +106,10 @@ else { // url=/achiev/%aname%
 
 		$total = mysqli_num_rows($r);
 
-		$pages = generate_page($page, $total, $achievPerPage);
-		$pages["pageUrl"] = "$baseUrl/achiev/page%page%/";
+		$pages = generate_page($page, $total, $achievPerPage, "$baseUrl/achiev/page%page%/");
 
 		if($total) {
-			$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $achievPerPage);
+			$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPerPage);
 
 			$achievs = array();
 			foreach($rows_limit as $row) {

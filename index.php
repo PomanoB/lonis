@@ -19,7 +19,8 @@ include "inc/function_sql.php";
 include "inc/smarty_unr.php";
 
 // Read setting from config.php
-foreach($conf_def as $key=>$value) {
+$conf = $conf_def;
+foreach($conf as $key=>$value) {
 	$$key = $value;
 }
 
@@ -57,38 +58,33 @@ $config_dir = $docRoot;
 
 // Read setting from config file or create default
 $config_path = $config_dir.'/'.$config_file;
-if(file_exists($config_path))
-	$dbconf = array_replace($dbconf_def, parse_ini_file($config_path));
+$dbconf = $dbconf_def;
+if(file_exists($config_path))	
+	$dbconf = array_replace($dbconf, parse_ini_file($config_path));
 else
-	save_config_file($config_path, $dbconf);
+	save_config_file($config_path, $dbconf_def);
 
 foreach($dbconf as $key=>$value) {
-	$$key = $value;
+	$$key = $value;	
 }
 
 // Connect to mysql
 $db = @mysqli_connect($mysql_host, $mysql_user, $mysql_password);
-$conn = mysqli_connect_errno($db);
-if(!$conn) {
-	$conn = 1;
-	if (!mysqli_select_db($db, $mysql_db)) 
-		$conn = 0;
-	else
-		if (!mysqli_fetch_assoc(mysqli_query($db, "show tables"))) $conn = 0;
-	
-	mysqli_query($db, "SET NAMES ".$charset);
+$errno = mysqli_connect_errno($db);
+if(!$errno) {
+	$errno = !mysqli_select_db($db, $mysql_db);
+	if(!$errno) $errno = mysqli_fetch_assoc(mysqli_query($db, "show tables")) ? 0 : 1;
 }
-else
-	$conn = 0;
 	
-if($action!="setup" && !$conn)
+if($action!="setup" && $errno)
 	header("Location: $baseUrl/setup/");
 
-if($conn) {
+if(!$errno) {
+	mysqli_query($db, "SET NAMES ".$charset);
+	
 	$is_config = mysqli_result(mysqli_query($db, "SHOW TABLES FROM {$mysql_db} like 'config'"), 0);
 	if(!$is_config) {
 		createConfigTable($db, $conf_def, $conf_type);
-		$conf = $conf_def;
 	}
 	else
 		$conf = array_replace($conf_def, getConfigVar($db));

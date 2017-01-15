@@ -38,7 +38,7 @@
 {else}	
 	<div class="wrapper">
 		<div class="titles left_block">{$langs.lastRecKZ}</div>
-	</div>
+	</div><br>
 {/if}
 	
 	<div class="err_message">{$message}</div><br>
@@ -49,7 +49,7 @@
 		<a href="{$baseUrl}/kreedz/{$map}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
 	</div>
 
-	<br>&nbsp;{$generate_page}
+	<br>&nbsp;{$pages.output}
 			
 	<table class="table-list">
 		<tr class="title" >

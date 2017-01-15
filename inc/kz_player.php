@@ -40,13 +40,12 @@ else {
 	
 	$total = $rec=="norec" ? $map_norec : ($sort=="top1" ? $map_top1 : $map_num);
 	
-	$pages = generate_page($page, $total, $mapsPerPage);
-	$pages["pageUrl"] = "$baseUrl/{$player["name_url"]}/kreedz/$type/page%page%/$rec/$sort";
+	$pages = generate_page($page, $total, $mapsPerPage, "$baseUrl/{$player["name_url"]}/kreedz/$type/page%page%/$rec/$sort");
 
 	if($total) {
 		$r = $rec=="norec" ? $r_norec : ($sort=="top1" ? $r_top1 : $r_num);
 		
-		$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $mapsPerPage);
+		$rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
 		
 		$maps = array();
 		foreach($rows_limit as $row) {

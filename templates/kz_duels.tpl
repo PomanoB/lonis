@@ -1,6 +1,6 @@
 <p><h2>{$langs.kz_duels}</h2>
 
-<p>&nbsp;{$generate_page}
+<p>&nbsp;{$pages.output}
 
 <div style="padding:10px;">
 	<table class="table-list">
@@ -11,7 +11,7 @@
 			<td>{$langs.WinnerPoint}</td>
 			<td>{$langs.LooserPoint}</td>
 		</tr>
-{foreach from=$duels item=duel}
+{foreach from=$rows item=duel}
 		<tr class="list">
 			<td>
 				<a href="{$baseUrl}/kreedz/{$duel.map}">{$duel.map}</a>

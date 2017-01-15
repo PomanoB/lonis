@@ -1,3 +1,4 @@
+
 <?php
 /*---------------------------------------------------------------------------------------------*
 	Function
@@ -236,12 +237,12 @@ function mysqli_result($res, $row, $field=0) {
 }
 
 // Mysql: LIMIT $start, $perpage
-function mysqli_fetch_assoc_limit($r, $start, $perpage) {
+function mysqli_fetch_limit($r, $start, $perpage) {
 	$i=0;
 	while($rows = mysqli_fetch_assoc($r)) {
 		$i++;
-		if($i>$start && $i<=($start+$perpage))
-			$rows_limit[] = $rows;
+		if($i>($start+$perpage)) break;
+		if($i>$start) $rows_limit[] = $rows;
 	}
 	
 	return $rows_limit;
@@ -309,18 +310,29 @@ function getSteamInfo($steamId64, $key) {
 	return $str;
 }
 
-// Generate massive pages
-function generate_page($page, $total, $perpage) {
+// Generate pages
+function generate_page($page, $total, $perpage, $pageUrl) {
 	$page = isset($page) ? abs((int)$page) : 1;
 	$page = !$page ? 1 : $page;
 	$totalPages = ceil($total/$perpage);	
 	$page = ($page > $totalPages) ? 1 : $page;
 	$start = ($page - 1) * $perpage;
 	
+	$output = "";
+	if ($totalPages > 1) {
+		if ($page > 2) $output .= "<a href=".str_replace("%page%", 1, $pageUrl).">1</a> ";
+		if ($page > 1) $output .= "<a href=".str_replace("%page%", ($page - 1), $pageUrl).">".($page - 1)."</a> ";
+		$output .= "<b>{$page}</b> ";
+		if ($page < $totalPages) $output .= "<a href=".str_replace("%page%", ($page + 1), $pageUrl).">".($page+1)."</a> ";
+		if ($page < $totalPages - 1) $output .= "<a href=".str_replace("%page%", ($totalPages), $pageUrl).">".($totalPages)."</a> ";
+	}
+		
 	$pages["page"] = $page;
 	$pages["totalPages"] = $totalPages;
 	$pages["start"] = $start;
 	$pages["perpage"] = $perpage;
+	$pages["pageUrl"] = $pageUrl;
+	$pages["output"] = $output;
 	
 	return $pages;
 }

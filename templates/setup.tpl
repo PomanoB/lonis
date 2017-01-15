@@ -1,10 +1,56 @@
 	<div class="title">
 		{$langs.DbTitle} :: 
-		{if isset($act)}<a href="{$baseUrl}/setup/logout">{$langs.logout}</a>{else}{$langs.login}{/if} 
+		{if isset($_SESSION.setting_user)}<a href="{$baseUrl}/setup/logout">{$langs.logout}</a>{else}{$langs.login}{/if} 
 	</div>
-	{if isset($message.setting)}<div class="setup_message">{$message.setting}</div>{/if}
+	{if isset($message)}<div class="setup_message">{$message}</div>{/if}
 		
-{if !isset($act)}
+
+{if isset($_SESSION.setting_user)}
+	<div align="center">
+		<div id="setup">
+		  <form action="" method="post">
+			<table class="form_login">
+	{if isset($conflist)}
+	{foreach from=$conflist item=conf}
+				<tr>
+					<td class="info">
+						<label {if $conf.err}style="color: red;"{/if} for="{$conf.name}">{$conf.desc}</label>
+					</td>
+					<td>
+						<input size="40" type="text" class="form_login" name="fld_{$conf.name}" id="{$conf.name}" value="{$conf.text}"/>
+					</td>
+				</tr>
+	{/foreach}
+	{/if}
+			</table>
+			
+			<div id="">
+				<button name="act" value="save">{$langs.Save}</button> <button name="act" value="reset">{$langs.ResetDef}</button>
+			</div>
+		  </form>		
+		</div>
+
+		<div id="db">	
+		  <form action="#db" method="post">		
+	{if $conn}
+			<div class="message">{$langs.DbNotConnect}</div>
+	{else}
+		{if !$base}
+			<button name="act" value="dbadd">{$langs.Create}</button>
+		{else}
+			<div id="confirmed">
+				<label for="confirm_password">{$langs.Password}</label>
+				<input type="password" class="form_login" name="confirm_password" id="confirm_password" />
+			</div>
+			
+			<button name="act" value="dbdelete">{$langs.Delete}</button>
+		{/if}
+		  </form>
+		 </div>
+	{/if}
+	</div>
+</div>
+{else}
 	<div class="login">
 	  <form action="" method="post">
 		<table class="form_login">
@@ -18,54 +64,8 @@
 			</tr>
 		</table>
 		<div class="login">
-			<button>{$langs.login}</button>
+			<button name="acts" value="login">{$langs.login}</button>
 		</div>
 	  </form>
 	</div>
-{else}
-	<div align="center">
-		<div id="setup">
-		  <form action="" method="post">
-			<table class="form_login">
-	{foreach from=$conflist item=conf}
-				<tr>
-					<td class="info">
-						<label {if $conf.err}style="color: red;"{/if} for="{$conf.name}">{$conf.desc}</label>
-					</td>
-					<td>
-						<input size="40" type="text" class="form_login" name="fld_{$conf.name}" id="{$conf.name}" value="{$conf.text}"/>
-					</td>
-				</tr>
-	{/foreach}
-			</table>
-			
-			<div id="">
-				<button name="act" value="save">{$langs.Save}</button> <button name="act" value="reset">{$langs.ResetDef}</button>
-			</div>
-		  </form>		
-		</div>
-
-		<div id="db">	
-		  <form action="#db" method="post">		
-{if $conn}
-			<div class="message">{$langs.DbNotConnect}</div>
-{else}
-	{if isset($message.db)}<div class="setup_message">{$message.db}</div>{/if}
-		
-			{$langs.Base} :
-	{if isset($base)}
-			<button name="act" value="dbadd">{$langs.Create}</button>
-	{else}
-			<div id="confirmed">
-				<label for="confirm_password">{$langs.Password}</label>
-				<input type="password" class="form_login" name="confirm_password" id="confirm_password" />
-			</div>
-			
-			<button name="act" value="dbdelete">{$langs.Delete}</button>
-	{/if}
-		  </form>
-		 </div>
-{/if}
-	</div>
-</div>
 {/if}

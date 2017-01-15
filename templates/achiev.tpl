@@ -6,7 +6,7 @@
 	</div>
 	
 	{if isset($players)}
-	<p>&nbsp;{$generate_page}
+	<p>&nbsp;{$pages.output}
 	
 	<div style="padding:10px;">
 		{foreach from=$players item=player}
@@ -32,7 +32,7 @@
 			<span>{$achiev.description}</span>
 		</div>
 		
-		<p>&nbsp;{$generate_page}
+		<p>&nbsp;{$pages.output}
 		
 	{foreach from=$players item=player}
 		<div class="achiev">
@@ -50,7 +50,7 @@
 	</div>
 
 	<div style="padding:10px;">
-	<p>&nbsp;{$generate_page}
+	<p>&nbsp;{$pages.output}
 		
 	{foreach from=$achievs item=achiev}
 		<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
@@ -82,7 +82,7 @@
 		<a href="{$baseUrl}/achievs/">{$langs.achiev_players}</a>
 	</div>
 	
-	<p>&nbsp;{$generate_page}
+	<p>&nbsp;{$pages.output}
 	
 	<table>
 	{foreach from=$achievs item=achiev}

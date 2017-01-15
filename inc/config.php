@@ -131,7 +131,7 @@ $parseRules = array(
 	"/^kreedz\/([0-9a-zA-Z_!]+)?(\/(pro|noob|all))?(\/page([0-9]+)?)?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(num|top1))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
 	
-	"/^(.*)/" => "index.php?action=player&name=%1%",
+	"/^(.*)/" => "index.php?action=players&name=%1%",
 );
 
 // Langs

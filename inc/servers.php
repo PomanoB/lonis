@@ -1,18 +1,16 @@
-﻿<?php
-
+<?php
 
 if(isset($_POST["addr"])) {
 	$addr = $_POST["addr"];
 	header("Location: {$baseUrl}/servers/$addr");
 }
+include 'hlds.php';
+$server = new hlds();
 
 $addr = isset($_GET["addr"]) ?  $_GET["addr"] : "";
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 
 $vip = $addr=="vip" ? "AND `vip` = 1" : "";
-
-include 'hlds.php';
-$server = new hlds();
 
 if($addr && $addr!="vip") {	
 	if (!$server->connect($addr)) {
@@ -39,13 +37,12 @@ else {
 	$r = mysqli_query($db, $q);
 	$total = mysqli_num_rows($r);
 	
-	$pages = generate_page($page, $total, 15);
-	$pages["pageUrl"] = "$baseUrl/servers/$addr";
+	$pages = generate_page($page, $total, 15, "$baseUrl/servers/$addr");
 
 	if($total) {
-		$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], 15);
+		$rows_limit = mysqli_fetch_limit($r, $pages["start"], 15);
 		
-		$servers = array();
+		$rows = array();
 		foreach($rows_limit as $row) {
 			$id = $row['id'];
 			
@@ -78,7 +75,7 @@ else {
 			
 			$row["update"] = strftime("%d.%m %H:%M", $row["update"]);
 			
-			$servers[] = $row;
+			$rows[] = $row;
 		}
 	}
 }
