@@ -132,7 +132,7 @@ function getPlayer($db, $name, $id) {
 function geoip($db, $ip, $lang) {
 	if(isset($ip) && $ip!="") {
 		$q = "SELECT `code`, `country_name` as `country` FROM
-					(SELECT * FROM `geoip_whois` WHERE `ip_to` >= INET_ATON('{$ip}') ORDER BY `ip_to` ASC LIMIT 1) AS `cnt`,
+					(SELECT * FROM `geoip_whois` WHERE `ip_from` <= INET_ATON('{$ip}') ORDER BY `ip_from` DESC LIMIT 1) AS `cnt`,
 					`geoip_locations`
 				WHERE `code` = `country_iso_code` AND `locale_code` = '{$lang}'";
 		return mysqli_fetch_assoc(mysqli_query($db, $q));

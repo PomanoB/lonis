@@ -30,6 +30,7 @@
 						<td>{if $sort=="all"}{$langs.kznum}{else}{$langs.kztop1}{/if}</td>
 						<td>{if $sort=="all"}{$langs.kztop1}{else}{$langs.kznum}{/if}</td>
 					</tr>
+	{if isset($players)}
 	{foreach from=$players item=player}
 					<tr class="list">
 						<td align="center">
@@ -44,5 +45,6 @@
 						<td>{$player.col2}</td>
 					<tr>
 	{/foreach}
+	{/if}
 				</table>
 			</div>

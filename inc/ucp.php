@@ -62,7 +62,4 @@ else {
 		$i++;
 	}
 }
-
-assign('addFlags', $addFlags);
-assign('message', $message);
 ?>

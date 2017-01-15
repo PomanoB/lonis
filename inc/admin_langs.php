@@ -12,8 +12,6 @@ while($row = mysqli_fetch_assoc($r)) {
 	$lang_list[] = $row["lang"];
 }
 
-assign('lang_list', $lang_list);
-
 if ($act == "add") {
 	$langkey = slashes($_POST["langx"]);
 	$var = slashes($_POST["var"]);
@@ -56,11 +54,8 @@ if ($act == "delete") {
 	}
 	else {
 		$message = "<script>alert('".$langs["Confirm"]."');</script>";
-		assign('confirm_msg', $message);
 	}
 }
-
-assign('message', $message);
 
 // Get language list
 $r = mysqli_query($db, "SELECT * FROM `langs` ORDER BY `lang`, `id` DESC");
@@ -70,9 +65,8 @@ while($row = mysqli_fetch_assoc($r)) {
 
 foreach ($langslist as $l => $arr) {
 	foreach ($arr as $name => $value) {
-		$row[$name][$l] = $value;
+		$lang_row[$name][$l] = $value;
 	}
 }
-
-assign('lang_row', $row);	
+	
 ?>

@@ -8,14 +8,8 @@ $types = array(
 );
 
 $type = (isset($_GET["type"]) && isset($types[$_GET["type"]])) ? $_GET["type"] : "all";
-assign('type', $type);
-
 $sort = (isset($_GET["sort"]) && $_GET["sort"]!="") ? $_GET["sort"] : "num";
-assign('sort', $sort);
-
 $rec = (isset($_GET["rec"]) && $_GET["rec"]!="") ? $_GET["rec"] : "rec";
-assign('rec', $rec);
-
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 
 if(!$player["id"]) {
@@ -35,7 +29,6 @@ else {
 		$q = "SELECT * FROM `kz_map_tops1` WHERE `player` = {$id} {$types[$type]}";
 		$r_top1 = mysqli_query($db, $q);
 		$map_top1 = mysqli_num_rows($r_top1);
-		assign('map_top1', $map_top1);
 	}
 	else {	
 		$q = " SELECT * FROM `kz_map_tops1` 
@@ -43,15 +36,12 @@ else {
 					(SELECT * FROM `kz_map_top` WHERE player={$id} AND `mapname`=`map`)) AS m ON `map`=`mapname`";
 		$r_norec = mysqli_query($db, $q);
 		$map_norec = mysqli_num_rows($r_norec);
-		assign('map_norec', $map_norec);
 	}
 	
 	$total = $rec=="norec" ? $map_norec : ($sort=="top1" ? $map_top1 : $map_num);
-	assign('total', $total);
 	
 	$pages = generate_page($page, $total, $mapsPerPage);
 	$pages["pageUrl"] = "$baseUrl/{$player["name_url"]}/kreedz/$type/page%page%/$rec/$sort";
-	assign('pages', $pages);
 
 	if($total) {
 		$r = $rec=="norec" ? $r_norec : ($sort=="top1" ? $r_top1 : $r_num);
@@ -72,9 +62,6 @@ else {
 				
 			$maps[] = $row;
 		}
-		assign('maps', $maps);
 	}
 }
-
-assign('message', $message);
 ?>

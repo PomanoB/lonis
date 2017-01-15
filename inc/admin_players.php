@@ -11,11 +11,10 @@ if (isset($_POST["search"]) && $_POST["search"] !='') {
 }
 
 if (isset($_GET["search"]) && $_GET["search"] != '') {
-	$search = slashes($_GET["search"]);
-
-	assign('search', stripslashes($search));
+	$nsearch = slashes($_GET["search"]);
+	$search = $_GET["search"];
 	
-	$where = "AND `name` LIKE '%$search%'";
+	$where = "AND `name` LIKE '%$nsearch%'";
 }
 
 
@@ -89,17 +88,13 @@ if ($act == "delete") {
 		$message = $langs["Confirm"];
 }
 
-assign('message', $message); 
-
 $q = "SELECT * FROM `unr_players` WHERE 1 {$where} ORDER BY `name`";
 $r = mysqli_query($db, $q);
 
 $total = mysqli_num_rows($r);
-assign('total', $total);
 
 $pages = generate_page($page, $total, $playerPerPage);
-$pages["pageUrl"] = "$baseUrl/admin/players/page%page%/$search";
-assign('pages', $pages);	
+$pages["pageUrl"] = "$baseUrl/admin/players/page%page%/$search";	
 
 if ($total) {
 	$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $playerPerPage);
@@ -108,7 +103,6 @@ if ($total) {
 	foreach($rows_limit as $row) {
 		$players[] = $row;
 	}
-	assign('players', $players);
 }
 
 ?>

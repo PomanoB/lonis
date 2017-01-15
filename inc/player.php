@@ -24,8 +24,6 @@ if($player["id"]) {
 	$player["name_url"] = $znak===false ? rawurlencode($player["name"]) : "unrid{$player["id"]}";
 	
 	$player["onlineTimes"] = time_elasped($player["onlineTime"]);
-	
-	assign('info', $player);
 }
 else {
 	header("Location: {$baseUrl}/players/{$player["name"]}");

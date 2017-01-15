@@ -18,9 +18,6 @@ include "inc/function.php";
 include "inc/function_sql.php";
 include "inc/smarty_unr.php";
 
-// Starttime
-assign('starttime', $starttime);
-
 // Read setting from config.php
 foreach($conf_def as $key=>$value) {
 	$$key = $value;
@@ -43,7 +40,6 @@ if($uri!="") {
 }
 
 $baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseSite}";
-assign("baseUrl", $baseUrl);
 
 $docRoot = $_SERVER['DOCUMENT_ROOT'].$baseSite;
 
@@ -55,9 +51,6 @@ $docRoot = $_SERVER['DOCUMENT_ROOT'].$baseSite;
 
 // Action
 $action = isset($_GET["action"]) && $_GET["action"]!="" ? $_GET["action"] : $menuStart;
-
-// Global temlate vars
-assign('action', $action);
 
 // Config DIR;
 $config_dir = $docRoot;
@@ -72,8 +65,6 @@ else
 foreach($dbconf as $key=>$value) {
 	$$key = $value;
 }
-
-assign("dbconf", $dbconf);
 
 // Connect to mysql
 $db = @mysqli_connect($mysql_host, $mysql_user, $mysql_password);
@@ -93,8 +84,6 @@ else
 if($action!="setup" && !$conn)
 	header("Location: $baseUrl/setup/");
 
-assign('conn', $conn);
-
 if($conn) {
 	$is_config = mysqli_result(mysqli_query($db, "SHOW TABLES FROM {$mysql_db} like 'config'"), 0);
 	if(!$is_config) {
@@ -109,10 +98,9 @@ if($conn) {
 	$id = isset($_GET["id"]) ? abs((int)$_GET["id"]) : 0;
 	
 	$player = getPlayer($db, $name, $id);
-	assign('player', $player);
 
 	// Read defaul language
-	assign('langselect', getLang($db));
+	$langselect = getLang($db);
 
 	// Read language 
 	if (isset($_POST["lang"])) {
@@ -132,10 +120,9 @@ if($conn) {
 	
 	$dblangs = getLangs($db, $lang);
 	$langs = array_replace($langs, $dblangs);	
-	assign('lang', $lang);
 	
 	// Read themes
-	assign('themeselect', getThemes($db, $lang));
+	$themeselect = getThemes($db, $lang);
 
 	if (isset($_POST["theme"]))
 	{
@@ -162,7 +149,6 @@ setlocale(LC_ALL, $lang.'_'.$lang.'.'.$charset);
 foreach($conf as $key=>$value) {
 	$$key = $value;
 }
-assign('conf', $conf);
 	
 // CS Style
 $cs = isset($_SESSION["cs_$cookieKey"]) ? $_SESSION["cs_$cookieKey"] : $cs;
@@ -179,14 +165,12 @@ if(isset($_POST["cs"])) {
 
 if($cs) {
 	$_SESSION["unr_theme_$cookieKey"] = $cstheme;
-	$menu = $menu["cs"];
 }
 
 // Session themes
 if (isset($_SESSION["unr_theme_$cookieKey"])) {
 	$theme = $_SESSION["unr_theme_$cookieKey"];
 }
-assign('theme', $theme);
 
 // Select Player
 $webadmin = 0;
@@ -204,21 +188,15 @@ if (isset($_SESSION["user_$cookieKey"]["id"]) && $action!="setup") {
 	else
 		unset($_SESSION["user_$cookieKey"]);
 }
-assign('webadmin', $webadmin);
 
-// Assign
-assign('menu_footer', $menu_footer);
-assign('menu', $menu);
-assign('menuAdmin', $menuAdmin);
-
-assign('cake', mt_rand(1, 5));
-assign('cake_pl', mt_rand(0, 9));
-
-assign("langs", $langs);
+$cake = mt_rand(1, 5);
 
 // Include
 if(file_exists("inc/$action.php"))
 	include "inc/$action.php";
+
+// All assign
+foreach($GLOBALS as $key=>$value) $smarty->assign($key, $value);
 
 // Template
 $smarty->display("index.tpl");

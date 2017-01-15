@@ -1,20 +1,16 @@
 <?php
 
 $type = isset($_GET["type"]) && isset($types[$_GET["type"]]) ? $_GET["type"] : 'all';
-assign('type', $type);
-
 $sort = isset($_GET["sort"]) && $_GET["sort"]!="" ? $_GET["sort"] : "all";
-assign('sort', $sort);
-
 $page = isset($_GET["page"]) && $_GET["page"] ? $_GET["page"] : 0;
 
-$search = isset($_POST["search"]) ? slashes($_POST["search"]) : "";
+$search = isset($_POST["search"]) ? $_POST["search"] : "";
 //if($search) header("Location: $baseUrl/kreedz/players/$name");
 
 if(isset($_GET["search"]) && $_GET["search"]) $search = slashes($_GET["search"]);
-assign('search', stripslashes($search));
+$ssearch = slashes($search);
 
-$where = $search ? "AND `name` LIKE '%$search%'" : "";
+$where = $search ? "AND `name` LIKE '%$ssearch%'" : "";
 
 $q = "SELECT `name`, `all`, `top1` FROM `unr_players` `p`
 		JOIN (SELECT COUNT(DISTINCT `map`) as `all`, `player` FROM kz_map_top WHERE 1 {$types[$type]} GROUP BY `player`) as `t` ON `id` = `t`.`player`
@@ -23,11 +19,8 @@ $q = "SELECT `name`, `all`, `top1` FROM `unr_players` `p`
 $r = mysqli_query($db, $q);
 
 $total = mysqli_num_rows($r);
-assign('total', $total);
-
 $pages = generate_page($page, $total, $playersPerPage);
 $pages["pageUrl"] = "$baseUrl/kreedz/players/$type/page%page%/$sort/$search";
-assign('pages', $pages);
 
 if($total) {
 	$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $playersPerPage);
@@ -49,7 +42,7 @@ if($total) {
 		$row["name_url"] = url_replace($row["name"]);
 		
 		$players[] = $row;
-	}	
-	assign('players', $players);
+	}
 }
+
 ?>

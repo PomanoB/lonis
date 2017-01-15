@@ -16,21 +16,17 @@ if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmi
 }
 
 $type = isset($_GET["type"]) && isset($types[$_GET["type"]]) ? $_GET["type"] : 'all';
-assign('type', $type);
-
 $rec = isset($_GET["rec"]) && $_GET["rec"] ? $_GET["rec"] : 'rec';
-assign('rec', $rec);
-
 $page = isset($_GET["page"]) && $_GET["page"] ? $_GET["page"] : 0;
 
-$search = isset($_POST["search"]) ? slashes($_POST["search"]) : "";
+$search = isset($_POST["search"]) ? $_POST["search"] : "";
 //if($search) header("Location: $baseUrl/kreedz/maps/$search");
 
-if(isset($_GET["search"]) && $_GET["search"]) $search = slashes($_GET["search"]);
-assign('search', stripslashes($search));
+if(isset($_GET["search"]) && $_GET["search"]) $search = $_GET["search"];
+$ssearch = slashes($search);
 
 $like = $rec=="norec" ? "mapname" : "map";
-$where = $search ? "AND `$like` LIKE '%$search%'" : "";
+$where = $search ? "AND `$like` LIKE '%$ssearch%'" : "";
 
 if($rec=="norec") {
 	$q = "SELECT * FROM `kz_map` `m` LEFT JOIN `kz_map_tops1` `t` ON `t`.`map` = `m`.`mapname` 
@@ -42,15 +38,14 @@ else {
 $r = mysqli_query($db, $q);
 
 $total = mysqli_num_rows($r);
-assign('total', $total);
 
 $pages = generate_page($page, $total, $mapsPerPage);
 $pages["pageUrl"] = "$baseUrl/kreedz/maps/$type/page%page%/$rec/$search";
-assign('pages', $pages);
 
 if ($total) {
 	$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $mapsPerPage);
-
+	
+	$maps = array();
 	foreach($rows_limit as $row) {
 		$row["time"] = timed($row["time"], 2);
 		
@@ -58,8 +53,6 @@ if ($total) {
 		
 		$maps[] = $row;
 	}
-	assign('maps', $maps);
 }
 
-assign('message', $message);
 ?>

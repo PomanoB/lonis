@@ -23,8 +23,6 @@ if (isset($_POST["setting_user"]) && isset($_POST["setting_password"])) {
 }
 else 
 if (isset($_SESSION["setting_user"])) {
-	assign('act', $act);
-	echo $act;
 	if($act=="genkey") {
 		$conf["cookieKey"] = md5($conf["mysql_user"].time()."abracadabra");
 	}
@@ -73,16 +71,11 @@ if (isset($_SESSION["setting_user"])) {
 		$conflist[$name]["desc"] = $langs["$name"];
 		$conflist[$name]["text"] = $input_type[$name]!="password" ?  $value : "";
 	}
-	assign('conflist', $conflist);
 	
 	$check_confirm = check_confirm($mysql_password);
-	assign('check_confirm', $check_confirm);
-	assign('act', $act);
 	
 	$db = @mysqli_connect($mysql_host, $mysql_user, $mysql_password);
 	$conn = mysqli_connect_errno($db);
-	assign('conn', $conn);
-	assign('mysql_db', $mysql_db);
 	
 	if(!$conn) {
 		$base = mysqli_select_db($db, $mysql_db);
@@ -103,11 +96,8 @@ if (isset($_SESSION["setting_user"])) {
 			mysqli_query($db, "SET NAMES ".$charset);
 		
 		} 
-		assign('base', $base);
 	} 	
 }
-
-assign('message', $message);
 				
 /* ----- Function ----- */
 function check_confirm($mysql_password) {

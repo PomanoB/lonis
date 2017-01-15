@@ -8,11 +8,9 @@ $q = "SELECT *,
 $r = mysqli_query($db, $q);
 
 $total = mysqli_num_rows($r);
-assign('total', $total);
 
 $pages = generate_page($page, $total, $mapsPerPage);
 $pages["pageUrl"] = "$baseUrl/kreedz/duels/page%page%";
-assign('pages', $pages);
 
 if($total) {
 	$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $mapsPerPage);
@@ -34,6 +32,5 @@ if($total) {
 		
 		$duels[] = $row;
 	}
-	assign('duels', $duels);
 }
 ?>

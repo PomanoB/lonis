@@ -1,16 +1,12 @@
 -- TABLES --
 
 DROP TABLE IF EXISTS `geoip_blocks`;
-CREATE TABLE `geoip_blocks` (
+CREATE TEMPORARY TABLE `geoip_blocks` (
 	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`network` VARCHAR(20) NOT NULL,
-	`ip_from` INT(10) UNSIGNED NOT NULL,
-	`ip_to` INT(10) UNSIGNED NOT NULL,
 	`geoname_id` INT(10) NOT NULL,
 	PRIMARY KEY (`id`),
-	INDEX `geoname_id` (`geoname_id`),
-	INDEX `ip_from` (`ip_from`),
-	INDEX `ip_to` (`ip_to`)
+	INDEX `geoname_id` (`geoname_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `geoip_locations`;
@@ -27,12 +23,25 @@ CREATE TABLE `geoip_locations` (
 	INDEX `country_iso_code` (`country_iso_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- DATA --
+DROP TABLE IF EXISTS `geoip_whois`;
+CREATE TABLE `geoip_whois` (
+	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`network` VARCHAR(20) NOT NULL,
+	`ip_from` INT(10) UNSIGNED NOT NULL,
+	`code` VARCHAR(2),
+	PRIMARY KEY (`id`),
+	INDEX `code` (`code`),
+	INDEX `ip_from` (`ip_from`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- IPv4 --
 
 LOAD DATA LOCAL INFILE 'geoip/GeoLite2-Country-Blocks-IPv4.csv'
 INTO TABLE `geoip_blocks` CHARACTER SET 'UTF8' FIELDS TERMINATED BY ',' 
 OPTIONALLY ENCLOSED BY '' IGNORE 1 LINES
 (`network`,`geoname_id`,@ignored,@ignored,@ignored,@ignored);
+
+-- Locations --
 
 LOAD DATA LOCAL INFILE 'geoip/GeoLite2-Country-Locations-de.csv'
 INTO TABLE `geoip_locations` CHARACTER SET 'UTF8' FIELDS TERMINATED BY ',' 
@@ -73,3 +82,11 @@ LOAD DATA LOCAL INFILE 'geoip/GeoLite2-Country-Locations-zh-CN.csv'
 INTO TABLE `geoip_locations` CHARACTER SET 'UTF8' FIELDS TERMINATED BY ',' 
 OPTIONALLY ENCLOSED BY '' IGNORE 1 LINES
 (`geoname_id`,`locale_code`,`continent_code`,`continent_name`,`country_iso_code`,`country_name`);
+
+-- Whois --
+
+INSERT INTO `geoip_whois` (`network`, `ip_from`, `code`)
+SELECT `network`, INET_ATON(SUBSTRING_INDEX(`network`,'/',1)) as `ip_from`, `country_iso_code` as `code` FROM `geoip_blocks` `b`
+	LEFT JOIN (SELECT * FROM `geoip_locations` GROUP BY `country_iso_code`) as `l` ON `b`.`geoname_id` = `l`.`geoname_id`;
+	
+DROP TABLE IF EXISTS `geoip_blocks`;

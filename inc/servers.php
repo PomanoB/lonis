@@ -7,8 +7,6 @@ if(isset($_POST["addr"])) {
 }
 
 $addr = isset($_GET["addr"]) ?  $_GET["addr"] : "";
-assign('addr', $addr);
-
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 
 $vip = $addr=="vip" ? "AND `vip` = 1" : "";
@@ -34,20 +32,15 @@ if($addr && $addr!="vip") {
 		
 		$addrs = explode(":", $addr);
 		$info["ip"] = gethostbyname($addrs[0]);
-		
-		assign('info', $info);
-		assign('players', $players);
 	}
 }
 else {
 	$q = "SELECT * FROM `servers` LEFT JOIN `servers_mod` ON `mod` = `mid` WHERE 1 {$vip} ORDER BY `name`";	
 	$r = mysqli_query($db, $q);
 	$total = mysqli_num_rows($r);
-	assign('total', $total);
-
+	
 	$pages = generate_page($page, $total, 15);
 	$pages["pageUrl"] = "$baseUrl/servers/$addr";
-	assign('pages', $pages);
 
 	if($total) {
 		$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], 15);
@@ -62,7 +55,8 @@ else {
 				if(time()-$update > $server_update) {
 					if($server->connect($row["addres"])) {
 						$info = $server->info();
-						$row = array_replace($row, $info);
+						if(isset($info))
+							$row = array_replace($row, $info);
 					}
 					else {
 						$row['map'] = "";
@@ -86,9 +80,7 @@ else {
 			
 			$servers[] = $row;
 		}
-		assign('servers', $servers);
 	}
 }
 
-assign('message', $message); 
 ?>

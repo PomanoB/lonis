@@ -11,6 +11,4 @@ $err = isset($_GET["err"]) ? $_GET["err"] : "";
 
 $message = isset($langs[$errs[$err]]) ? $langs[$errs[$err]] : "";
 
-assign('message', $message);
-
 ?>

@@ -1,8 +1,6 @@
 <?php
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
-
 $act = isset($_GET["act"]) ? $_GET["act"] : "";
-assign('act', $act);
 
 // url=/achievs/
 if($act=="achievs") {
@@ -12,11 +10,9 @@ if($act=="achievs") {
 		FROM `unr_players`) AS `tmp34` WHERE `achiev_total` > 0 ORDER BY `achiev_total` DESC";
 	$r = mysqli_query($db, $q);
 	$total = mysqli_num_rows($r);
-	assign('total', $total);
 
 	$pages = generate_page($_GET["page"], $total, $achievPlayersPerPage);
 	$pages["pageUrl"] = "$baseUrl/achievs/page%page%";
-	$smarty->assign('pages', $pages);
 
 	if ($total) {
 		$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $achievPlayersPerPage);
@@ -25,27 +21,24 @@ if($act=="achievs") {
 		foreach($rows_limit as $row) {
 			$players[] = $row;
 		}
-		assign('players', $players);
 	}
 }
 else { // url=/achiev/%aname%
 	$aname = (isset($_GET["aname"])) ? $_GET["aname"] : "";
-	assign('aname', $aname);
 	
 	if($aname) {
 		$aname = slashes(urldecode($_GET["aname"]));
 		
 		$q = "SELECT `id`, `name`, `description` FROM achiev WHERE `lang`='{$lang}' AND `name` = '{$aname}' LIMIT 1";
 		$r = mysqli_query($db, $q);
-		$row = mysqli_fetch_assoc($r);
-		assign('achiev', $row);
+		$achiev = mysqli_fetch_assoc($r);
 		
-		if(!$row) {
+		if(!$achiev) {
 			header("Location: {$baseUrl}/achiev/");
 		}
 		else {
 			assign('aname', $aname);
-			$id = $row["id"];
+			$id = $achiev["id"];
 			
 			$q = "SELECT `p`.`id` AS `plid`, `p`.`name` AS `plname`, 
 				(SELECT COUNT(*) FROM `unr_players_achiev`, `unr_achiev` 
@@ -60,11 +53,9 @@ else { // url=/achiev/%aname%
 			$r = mysqli_query($db, $q);
 			
 			$total = mysqli_num_rows($r);
-			assign('total', $total);
 
 			$pages = generate_page($page, $total, $achievPlayersPerPage);
 			$pages["pageUrl"] = "$baseUrl/achiev/page%page%/{$aname}";
-			assign('pages', $pages);
 		
 			if($total) {
 				$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $achievPlayersPerPage);
@@ -74,7 +65,6 @@ else { // url=/achiev/%aname%
 					$row["plname_url"] = url_replace($row["plname"]);
 					$players[] = $row;
 				}
-				assign('players', $players);
 			}
 		}
 	}
@@ -89,11 +79,9 @@ else { // url=/achiev/%aname%
 		$r = mysqli_query($db, $q);
 		
 		$total = mysqli_num_rows($r);
-		assign('total', $total);
 		
 		$pages = generate_page($page, $total, $achievPerPage);
 		$pages["pageUrl"] = "{$baseUrl}/{$name}/achiev/page%page%/";
-		assign('pages', $pages);
 
 		if($total) {
 			$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $achievPerPage);
@@ -105,7 +93,6 @@ else { // url=/achiev/%aname%
 				
 				$achievs[] = $row;
 			}
-			assign('achievs', $achievs);
 		}
 	}
 	else { // url=/achiev/
@@ -121,11 +108,9 @@ else { // url=/achiev/%aname%
 		$r = mysqli_query($db, $q);
 
 		$total = mysqli_num_rows($r);
-		assign('total', $total);
 
 		$pages = generate_page($page, $total, $achievPerPage);
 		$pages["pageUrl"] = "$baseUrl/achiev/page%page%/";
-		assign('pages', $pages);
 
 		if($total) {
 			$rows_limit = mysqli_fetch_assoc_limit($r, $pages["start"], $achievPerPage);
@@ -134,9 +119,7 @@ else { // url=/achiev/%aname%
 			foreach($rows_limit as $row) {
 				$row["completed"] = floor($row["completed"]*100)/100;
 				$achievs[] = $row;
-			}
-			
-			assign('achievs', $achievs);		
+			}		
 		}
 	}
 }

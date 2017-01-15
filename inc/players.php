@@ -4,24 +4,22 @@ $page = isset($_GET["page"]) && $_GET["page"] ? $_GET["page"] : 0;
 $order = isset($_GET["order"]) && $_GET["order"] ? $_GET["order"] : "";
 $sort = isset($_GET["sort"]) && $_GET["sort"] ? $_GET["sort"] : "";
 
-$search = isset($_POST["search"]) && $_POST["search"] ? slashes($_POST["search"]) : "";
+$search = isset($_POST["search"]) && $_POST["search"] ? $_POST["search"] : "";
 //if($search) header("Location: $baseUrl/players/$search");
 
-if(isset($_GET["search"]) && $_GET["search"]) $search = slashes($_GET["search"]);
-assign('search', stripslashes($search));
+if(isset($_GET["search"]) && $_GET["search"]) $search = $_GET["search"];
+$ssearch = slashes($search);
 
-$where = $search ? "AND `name` LIKE '%$search%'" : "";
+$where = $search ? "AND `name` LIKE '%$ssearch%'" : "";
 
 $orderby = $order ? "`{$order}` {$sort}, `name` {$sort}" : "`name`";
 
 $q = "SELECT * FROM `players` WHERE (`lang`='{$lang}' OR `lang` IS NULL) {$where} ORDER BY {$orderby}";	
 $r = mysqli_query($db, $q);
 $total = mysqli_num_rows($r);
-assign('total', $total);
 
 $pages = generate_page($page, $total, $playerPerPage);
 $pages["pageUrl"] = "{$baseUrl}/players/{$order}-{$sort}/page%page%/{$search}";
-assign('pages', $pages);
 
 if($total) {
 	$i=0;
@@ -43,6 +41,5 @@ if($total) {
 	
 		$players[] = $row;
 	}
-	assign('players', $players);
 }
 ?>

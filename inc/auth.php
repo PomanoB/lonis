@@ -144,7 +144,6 @@ if (isset($_POST["login_user"]) && isset($_POST["login_password"])) {
 
 
 assign('info', $_POST); 
-assign('message', $message); 
 
 function fakemail($email, $theme, $msg, $from) {
 	$fp = fopen($email, 'w');

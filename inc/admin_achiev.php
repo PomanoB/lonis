@@ -73,8 +73,6 @@ if ($act == "editlang") {
 	mysqli_query($db, $q);
 }
 
-assign('message', $message); 
-
 // Achiev
 $q = "SELECT * FROM `achiev` WHERE `lang` = '$lang' ORDER BY `type`";
 $r = mysqli_query($db, $q);
@@ -83,7 +81,6 @@ $achievs = array();
 while($row = mysqli_fetch_assoc($r)) {
 	$achievs[] = $row;
 }
-assign('achievs', $achievs);
 
 // Achiev Lang
 $q = "SELECT * FROM `unr_achiev_lang` LEFT JOIN `unr_achiev` 
@@ -109,5 +106,4 @@ while($row = mysqli_fetch_assoc($r)) {
 	
 	$achievs_lang[] = $row;
 }
-assign('achievs_lang', $achievs_lang);
 ?>

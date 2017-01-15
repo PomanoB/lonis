@@ -182,6 +182,10 @@ CREATE TABLE IF NOT EXISTS `unr_players_var` (
 	PRIMARY KEY (`playerId`,`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE OR REPLACE VIEW `geoip_whois` AS 
+SELECT INET_ATON(SUBSTRING_INDEX(`network`,'/',1)) as `ip_from`, `country_iso_code` as `code` FROM `geoip_blocks` `b`
+	LEFT JOIN (SELECT * FROM `geoip_locations` GROUP BY `country_iso_code`) as `l` ON `b`.`geoname_id` = `l`.`geoname_id`;
+	
 -- TRIGGER --
 DROP TRIGGER IF EXISTS `unr_players_before_insert`;
 DROP TRIGGER IF EXISTS `unr_players_before_update`;
@@ -190,15 +194,15 @@ DELIMITER $$
 CREATE TRIGGER `unr_players_before_insert` BEFORE INSERT ON `unr_players` FOR EACH ROW BEGIN 
 SET NEW.`country` = (
 	SELECT `code` FROM `geoip_whois`
-	WHERE `ip_to` >= INET_ATON(NEW.`lastIp`)
-	ORDER BY `ip_to` ASC LIMIT 1
+	WHERE `ip_from` <= INET_ATON(NEW.`lastIp`) AND NEW.`lastIp` <> ''
+	ORDER BY `ip_from` DESC LIMIT 1
 );
 END$$
 
 CREATE TRIGGER `unr_players_before_update` BEFORE UPDATE ON `unr_players` FOR EACH ROW BEGIN 
 SET NEW.`country` = (
 	SELECT `code` FROM `geoip_whois`
-	WHERE `ip_to` >= INET_ATON(NEW.`lastIp`)
-	ORDER BY `ip_to` ASC LIMIT 1
+	WHERE `ip_from` <= INET_ATON(NEW.`lastIp`) AND NEW.`lastIp` <> ''
+	ORDER BY `ip_from` DESC LIMIT 1
 );
 END$$

@@ -1,6 +1,4 @@
 <?php
-
-
 // Admin action
 if (isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1) {
 	$act = isset($_POST["act"]) ? $_POST["act"] : "";
@@ -24,22 +22,13 @@ $types = array(
 );
 
 $map = isset($_GET["map"]) ? slashes($_GET["map"]) : '';
-assign('map', stripslashes($map));
-	
 $type = (isset($_GET["type"]) && isset($types[$_GET["type"]])) ? $_GET["type"] : 'all';
-assign('type', $type);
-
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 
 $q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `map` = '{$map}'";
 $r = mysqli_query($db, $q);
 
 $found = mysqli_result($r, 0);
-assign('found', $found);
-
-if($map && !$found) {
-	header("Location: {$baseUrl}/kreedz/");
-}
 
 if($map)
 	$q = "SELECT `t`.* FROM `kz_map_tops` `t`
@@ -52,15 +41,12 @@ else
 $r = mysqli_query($db, $q);
 	
 $total = mysqli_num_rows($r);
-assign('total', $total);
 
 $pages = generate_page($page, $total, $playersPerPage);
 $pages["pageUrl"] = "$baseUrl/kreedz/$map/$type/page%page%";
-assign('pages', $pages);
 
 if($total) {
 	if($map) {
-		// Image
 		$img_file = "{$docRoot}/img/cstrike/{$map}.jpg";
 		$mapimage = "{$docRoot}/img/mapimage.jpg";
 		$imgmap = "{$baseUrl}/img/noimage.jpg";
@@ -70,14 +56,11 @@ if($total) {
 			file_put_contents($mapimage, file_get_contents($img_file));
 			$imgmap = "{$baseUrl}/img/mapimage.jpg";
 		}
-		assign('imgmap', $imgmap);
 
-		// World Record
 		$q = "SELECT * FROM `kz_map_rec` `r`, `kz_comm` `c` WHERE `map` = '{$map}' AND `name` = `comm` ORDER BY `sort`";	
 		$r_rec = mysqli_query($db, $q);
 		
 		$maprec = array();
-		$download_url = "";
 		while($row = mysqli_fetch_assoc($r_rec)) {
 			$row["download_url"] = str_replace("%map%", $map, $row["download"]);
 			
@@ -88,9 +71,7 @@ if($total) {
 		
 			$maprec[] = $row;	
 		}
-		assign('maprec', $maprec);
-		
-		assign('download_url', $maprec[0]["download_url"]);
+		$download_url = isset($maprec[0]["download_url"]) ? $maprec[0]["download_url"] : "";
 	}
 	
 	// List
@@ -106,9 +87,5 @@ if($total) {
 		$row["name_url"] = url_replace($row["name"]);
 		$players[] = $row;
 	}
-	assign('players', $players);
 }
-
-
-assign('message', $message);
 ?>
