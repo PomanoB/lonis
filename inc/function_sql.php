@@ -109,24 +109,6 @@ function getLangs($db, $lang) {
 	
 	return $dblangs;
 }
-	
-// Get Player from DB
-function getPlayer($db, $name, $id) {
-	$name = slashes($name);
-		
-	$q = "SELECT * FROM `unr_players` WHERE `name` = '{$name}' OR `id` = {$id} ORDER BY `id` LIMIT 1";	
-	$r = mysqli_query($db, $q);
-	$player = mysqli_fetch_assoc($r);
-	
-	if(!isset($player)) {
-		$player["id"] = $id;
-		$player["name"] = $name;
-	}
-	
-	$player["name_url"] = url_replace($player["name"]);
-	
-	return $player;
-}
 
 // Get GeoIP country_code from DB
 function geoip($db, $ip, $lang) {

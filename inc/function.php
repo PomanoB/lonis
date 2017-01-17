@@ -5,13 +5,13 @@
 *---------------------------------------------------------------------------------------------*/
 
 // assign smarty or ...
-function assign($name, $var = "") {
+function assign($vname, $var = "") {
 	global $smarty;
 	
-	if($var=="" && isset($$name))
-		$var = $$name;
+	if($var=="" && isset($$vname))
+		$var = $$vname;
 
-	$smarty->assign($name, $var);
+	$smarty->assign($vname, $var);
 }
 
 // slashes
@@ -296,9 +296,9 @@ function getSteamId64($steamId) {
 			
 // Get steam_info
 function getSteamInfo($steamId64, $key) {
-	$steamProfile = "http://steamcommunity.com/profiles/$steamId64/?xml=1";
+	$steamProfile = "http://steamcommunity.com/profiles/{$steamId64}/?xml=1";
 	$str = file_get_contents($steamProfile);
-			
+
 	$str = str_replace("<![CDATA[", "", $str);
 	$str = str_replace("]]>", "", $str);
 	

@@ -14,7 +14,6 @@
 	
 	<body>
 	{if $action!="setup"}
-	<div id="top_nav0">
 		<div id="network">
 			<div class="center-wrapper">
 				<div class="tabbed" id="menu-tabs">
@@ -22,41 +21,35 @@
 				{foreach from=$menu item=i}
 						<div class="item">
 							<a title="{$i.name}" href="{$baseUrl}{$i.url}">
-								<img src="{$baseUrl}/img/menu/{$i.action}.png" alt="{$i.name}" title="{$i.name}">&nbsp;{$i.name}
+								<img src="{$baseUrl}/img/menu/{$i.action}.png" alt="{$i.name}" title="{$i.name}" /><text>&nbsp;{$i.name}</text>
 							</a>
 						</div>
 				{/foreach}
 
 
-				{if !isset($user)}
+				{if !$user}
 						<div class="item">
-							<a title="{$langs.auth}" href="{$baseUrl}/auth/">
-								<img src="{$baseUrl}/img/menu/auth.png" alt="{$i.name}" title="{$langs.auth}">&nbsp;{$langs.auth}
+							<a title="{$langs.login}" href="{$baseUrl}/ucp/">
+								<img src="{$baseUrl}/img/menu/login.png" alt="{$langs.login}" title="{$langs.login}" /><text>&nbsp;{$langs.login}</text>
 							</a>
 						</div>
 				{else}
 						<div class="item">
-							<a title="{{$user.name|escape}}" href="{$baseUrl}/ucp/">
-								<img src="{$baseUrl}/img/menu/reg.png" alt="{{$user.name|escape}}" title="{{$user.name|escape}}">
+							<a title="{{$langs.account}}" href="{$baseUrl}/ucp/">
+								<img src="{$baseUrl}/img/menu/account.png" alt="{{$langs.account}}" title="{{$langs.account}}" /><text>&nbsp;{$langs.account}</text>
 							</a>
-						</div>	
-						<div class="item">
-							<a title="{$langs.logout}" href="{$baseUrl}/logout/">
-								<img src="{$baseUrl}/img/menu/logout.png" alt="{$i.name}" title="{$langs.logout}">&nbsp;{$langs.logout}
-							</a>
-						</div>			
+						</div>		
 				{/if}
-
 					</div>
 					
 					<div class="clearer">&nbsp;</div>
 					
-			{if $webadmin}
+			{if $admin}
 					<div class="adminmenu">
 					{foreach from=$menuAdmin item=i}
 						<div class="item">
 							<a title="{$i.name}" href="{$baseUrl}{$i.url}">
-								<img src="{$baseUrl}/img/menu/{$i.action}.png">{$i.name}
+								<img src="{$baseUrl}/img/menu/{$i.action}.png"><text>&nbsp;{$i.name}</text>
 							</a>
 						</div>
 					{/foreach}
@@ -66,11 +59,10 @@
 			</div>
 			<div class="clearer">&nbsp;</div>
 		</div>
-	</div>
 	{/if}
 	
 	<div class="head_bg">
-		<div style="float:right;"> {* padding-right: 25px; *}
+		<div style="float:right;">
 			<img src="{$baseUrl}/img/cake/cake{$cake}.png" alt="" border="0" />
 		</div>
 	</div>

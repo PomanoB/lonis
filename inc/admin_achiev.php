@@ -1,7 +1,7 @@
 <?php
 
 
-if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1)) {
+if (!(isset($_SESSION["user_$cookieKey"]) && $admin == 1)) {
 	header('Location: '.$baseUrl);
 }
 

@@ -69,7 +69,7 @@
 			<td>{$langs.players}</td>
 			<td>{$langs.Time}</td>
 			<td>&nbsp;</td>
-		{if $webadmin}
+		{if $admin}
 			<td></td>
 		{/if}
 		</tr>

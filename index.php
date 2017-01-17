@@ -76,8 +76,7 @@ if(!$errno) {
 	if(!$errno) $errno = mysqli_fetch_assoc(mysqli_query($db, "show tables")) ? 0 : 1;
 }
 	
-if($action!="setup" && $errno)
-	header("Location: $baseUrl/setup/");
+if($action!="setup" && $errno) $action = "setup";
 
 if(!$errno) {
 	mysqli_query($db, "SET NAMES ".$charset);
@@ -89,15 +88,9 @@ if(!$errno) {
 	else
 		$conf = array_replace($conf_def, getConfigVar($db));
 	
-	// Get Players
-	$name = isset($_GET["name"]) ? url_replace($_GET["name"], BACK) : "";
-	$id = isset($_GET["id"]) ? abs((int)$_GET["id"]) : 0;
-	
-	$player = getPlayer($db, $name, $id);
-
 	// Read defaul language
 	$langselect = getLang($db);
-
+	
 	// Read language 
 	if (isset($_POST["lang"])) {
 		$lang = $_POST["lang"];
@@ -136,8 +129,13 @@ if(!$errno) {
 	$menus = getMenus($db, $lang);
 	$menu = $menus["normal"];
 	$menuAdmin = $menus["admin"];
+	
+	$user = isset($_SESSION["user_$cookieKey"]) ? $_SESSION["user_$cookieKey"] : 0;
+	$admin =  $user ? mysqli_result(mysqli_query($db, "SELECT `webadmin` FROM `unr_players` WHERE `id` = '{$user["id"]}'"), 0) : 0;	
 }
 
+
+	
 // Set locale
 setlocale(LC_ALL, $lang.'_'.$lang.'.'.$charset);
 
@@ -166,23 +164,6 @@ if($cs) {
 // Session themes
 if (isset($_SESSION["unr_theme_$cookieKey"])) {
 	$theme = $_SESSION["unr_theme_$cookieKey"];
-}
-
-// Select Player
-$webadmin = 0;
-if (isset($_SESSION["user_$cookieKey"]["id"]) && $action!="setup") {
-	$r = mysqli_query($db, "SELECT * FROM `unr_players` WHERE `id`= ".$_SESSION["user_$cookieKey"]["id"]);
-	if ($row = mysqli_fetch_assoc($r)) {
-		foreach($row as $key => $value) {
-			$_SESSION["user_$cookieKey"][$key] = $value;
-		}
-		
-		if($row["webadmin"]==1) $webadmin = 1;
-		$user = $_SESSION["user_$cookieKey"];
-		assign('user', $user);
-	}
-	else
-		unset($_SESSION["user_$cookieKey"]);
 }
 
 $cake = mt_rand(1, 5);

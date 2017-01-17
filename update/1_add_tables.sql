@@ -49,12 +49,13 @@ CREATE TABLE IF NOT EXISTS `weapons` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `lang`;
-CREATE TABLE IF NOT EXISTS `lang` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `lang` varchar(2) NOT NULL,
-  `name` varchar(16) NOT NULL,
-  `default` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`id`)
+CREATE TABLE `lang` (
+	`id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`lang` VARCHAR(2) NOT NULL,
+	`name` VARCHAR(16) NOT NULL,
+	`use` TINYINT(1) NOT NULL DEFAULT '1',
+	`default` TINYINT(1) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `themes`;

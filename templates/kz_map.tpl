@@ -49,7 +49,7 @@
 		<a href="{$baseUrl}/kreedz/{$map}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
 	</div>
 
-	<br>&nbsp;{$pages.output}
+	<p>&nbsp;{$pages.output}</p>
 			
 	<table class="table-list">
 		<tr class="title" >
@@ -63,7 +63,7 @@
 			<td>{$langs.Cp}</td>
 			<td>{$langs.GoCp}</td>
 			<td>{$langs.Weapon}</td>
-	{if $webadmin==1}
+	{if $admin==1}
 			<td>#</td>
 	{/if}
 		</tr>
@@ -90,7 +90,7 @@
 			<td class="{if $player.wname != 'USP' && $player.wname != 'KNIFE'}color_wpn{/if}">
 				<img src="{$baseUrl}/img/weapons/{$player.weapon}.gif" alt="{$player.wname}" />
 			</td>
-{if $webadmin==1}
+{if $admin==1}
 			<form action="" method="post">			
 			<td>
 				<input type="hidden" name="confirm" value="0">

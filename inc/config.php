@@ -88,7 +88,6 @@ $menu_footer = array(
 $actionList  = array (
 	"error" => "/error/",
 	"home" => "/home/",
-	"setup" => "/setup/",
 	"admin_servers" => "/admin/servers/",
 	"admin_langs" => "/admin/langs/",
 	"admin_achiev" => "/admin/achiev/",
@@ -101,7 +100,6 @@ $actionList  = array (
 	"kz_duels" => "/kreedz/duels/",
 	"ucp" => "/ucp/",
 	"steam" => "/steam/",
-	"auth" => "/auth/",
 	"logout" => "/logout/"
 );
 
@@ -109,10 +107,9 @@ $actionList  = array (
 $parseRules = array(
 	"/^error\/([0-9]+)/" => "index.php?action=error&err=%1%",
 	"/^setup\/(.*)/" => "index.php?action=setup&acts=%1%",
-	"/^auth\/(.*)/" => "index.php?action=auth&key=%1%",
-	"/^logout\//" => "index.php?action=auth&act=logout",
-	"/^ucp\//" => "index.php?action=ucp",
-	"/^steam\//" => "index.php?action=steam",
+	"/^ucp\/(.*)/" => "index.php?action=ucp&key=%1%",
+	"/^logout\//" => "index.php?action=ucp&act=logout",
+	"/^steam\//" => "index.php?action=ucp&act=steam",
 	"/^home\//" => "index.php?action=home",
 	
 	"/^admin\/([0-9a-zA-Z_!]+)?(\/page([0-9]+))?(\/(.*))?/" => "index.php?action=admin_%1%&page=%3%&search=%5%",

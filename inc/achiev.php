@@ -16,14 +16,14 @@ if($act=="achievs") {
 	if ($total) {
 		$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPlayersPerPage);
 			
-		$players = array();
 		foreach($rows_limit as $row) {
-			$players[] = $row;
+			$rows[] = $row;
 		}
 	}
 }
 else { // url=/achiev/%aname%
 	$aname = (isset($_GET["aname"])) ? $_GET["aname"] : "";
+	$name = (isset($_GET["name"])) ? $_GET["name"] : "";
 	
 	if($aname) {
 		$aname = slashes($_GET["aname"]);
@@ -36,7 +36,6 @@ else { // url=/achiev/%aname%
 			header("Location: {$baseUrl}/achiev/");
 		}
 		else {
-			assign('aname', $aname);
 			$id = $achiev["id"];
 			
 			$q = "SELECT `p`.`id` AS `plid`, `p`.`name` AS `plname`, 
@@ -58,21 +57,21 @@ else { // url=/achiev/%aname%
 			if($total) {
 				$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPlayersPerPage);
 				
-				$players = array();
 				foreach($rows_limit as $row) {
 					$row["plname_url"] = url_replace($row["plname"]);
-					$players[] = $row;
+					$rows[] = $row;
 				}
 			}
 		}
 	}
 	else
-	if ($player["id"]) { // url=/%name%/achiev/
-		$q = "SELECT `id`, `name`, `description`, `count`, 
+	if ($name) { // url=/%name%/achiev/
+		$q = "SELECT `a`.`id`, `a`.`name`, `a`.`description`, `count`, 
 				IF(`progress` IS NULL, 0, `progress`) AS `progress`
-			FROM `achiev` 
-			LEFT JOIN `unr_players_achiev` ON `achievId` = `id` AND `playerId` = {$player["id"]}
-			WHERE `lang`='{$lang}' 
+			FROM `achiev` `a`
+			LEFT JOIN `unr_players_achiev` `pa` ON `pa`.`achievId` = `a`.`id` 
+			LEFT JOIN `unr_players` `p` ON `pa`.`playerId` = `p`.`id`
+			WHERE `a`.`lang`='{$lang}' AND `p`.`name` = '{$name}'
 			ORDER BY `progress` = `count` DESC, `progress`/`count` DESC";
 		$r = mysqli_query($db, $q);
 		$total = mysqli_num_rows($r);
@@ -83,12 +82,11 @@ else { // url=/achiev/%aname%
 		if($total) {
 			$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPerPage);
 			
-			$achievs = array();
 			foreach($rows_limit as $row) {
 				if ($row["count"] != 1 && $row["count"] != $row["progress"])
 					$row["width"] = $row["progress"] * 100 / $row["count"];
 				
-				$achievs[] = $row;
+				$rows[] = $row;
 			}
 		}
 	}
@@ -111,10 +109,9 @@ else { // url=/achiev/%aname%
 		if($total) {
 			$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPerPage);
 
-			$achievs = array();
 			foreach($rows_limit as $row) {
 				$row["completed"] = floor($row["completed"]*100)/100;
-				$achievs[] = $row;
+				$rows[] = $row;
 			}		
 		}
 	}

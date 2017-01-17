@@ -54,7 +54,7 @@
 				<td>{$langs.Cp}</td>
 				<td>{$langs.GoCp}</td>
 				<td>{$langs.Weapon}</td>
-	{if $webadmin==1}
+	{if $admin==1}
 				<td	>#</td>
 	{/if}
 			</tr>
@@ -70,7 +70,7 @@
 				<td class="{if $map.wname != 'USP' && $map.wname != 'KNIFE'}color_wpn{/if}">
 					<img src="{$baseUrl}/img/weapons/{$map.weapon}.gif" alt="{$map.wname}" />
 				</td>
-	{if $webadmin==1}
+	{if $admin==1}
 				<form action="" method="post">			
 				<td>
 					<input type="hidden" name="confirm" value="0">

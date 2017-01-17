@@ -1,4 +1,4 @@
-{if $player.id}
+{if isset($player.id)}
 	<div align="center">
 		<p><h2>{$langs.player}</h2><br>
 
@@ -51,7 +51,7 @@
 		<div class="titles left_block">{$langs.players}</div>
 	{if !$cs}
 		<div class=" right_block">
-			<form action="" method="post">
+			<form action="{$baseUrl}/players/" method="post">
 				<input type="text" name="search" id="search" class="form" }value="{if isset($search)}{$search}{/if}" placeholder="{$langs.Search}" />
 				<input type="image" name="picture" src="{$baseUrl}/img/find.png" alt="{$langs.Search}"/>
 				&nbsp;
@@ -81,7 +81,7 @@
 				</td>
 				<td style="width: 20%;">
 					{if $player.countryImg}
-						<img src="{$baseUrl}/{$player.countryImg}" title="{$rec.countryName}" alt="{$rec.countryName}" />
+						<img src="{$baseUrl}/{$player.countryImg}" title="{$player.countryName}" alt="{$player.countryName}" />
 					{/if}
 					{$player.countryName}
 				</td>

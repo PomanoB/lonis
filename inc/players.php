@@ -1,11 +1,22 @@
 <?php
+$name = isset($_GET["name"]) ? url_replace($_GET["name"], BACK) : "";
+
+if($name) {
+	$sname = slashes($name);
+		
+	$q = "SELECT * FROM `unr_players` WHERE `name` = '{$sname}' ORDER BY `id` LIMIT 1";	
+	$r = mysqli_query($db, $q);
+	$player = mysqli_fetch_assoc($r);
 	
-if($player["id"]) {
+	$player["name_url"] = url_replace($player["name"]);
+}
+	
+if(isset($player["id"])) {
 	$geoip = geoip($db, $player["lastIp"], $lang);
 	$player["countryName"] = $geoip["country"];
 	$player["countryCode"] = $geoip["code"];
 	
-	$img = "img/country/{$player["countryCode"]}.png";
+	$img = "img/country/".strtolower($player["countryCode"]).".png";
 	$player["countryImg"] = file_exists($img) ? $img : "";
 	
 	$player["avatarLink"] = "http://www.gravatar.com";
@@ -34,7 +45,6 @@ else {
 	$sort = isset($_GET["sort"]) && $_GET["sort"] ? $_GET["sort"] : "";
 
 	$search = isset($_POST["search"]) && $_POST["search"] ? $_POST["search"] : "";
-	//if($search) header("Location: $baseUrl/players/$search");
 
 	if(isset($_GET["search"]) && $_GET["search"]) $search = $_GET["search"];
 	$ssearch = slashes($search);
@@ -55,8 +65,8 @@ else {
 		
 		$rows = array();
 		foreach($rows_limit as $row) {
-			$img = 'img/country/'.$row["country"].'.png';
-			$row["countryImg"] = file_exists($img) ? $img : "";
+			$img = 'img/country/'.strtolower($row["country"]).'.png';
+			$row["countryImg"] = file_exists($docRoot."/".$img) ? $img : "";
 			
 			$row["avatarLink"] = "http://www.gravatar.com";
 			$row["avatar"] = $row["avatarLink"]."/avatar/".md5($row["email"])."?d=wavatar&s={$avatarSize_Icon}";

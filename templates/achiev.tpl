@@ -5,13 +5,13 @@
 		{$langs.achiev_players}
 	</div>
 	
-	{if isset($players)}
+	{if isset($rows)}
 	<p>&nbsp;{$pages.output}
 	
 	<div style="padding:10px;">
-		{foreach from=$players item=player}
+		{foreach from=$rows item=player}
 		<div class="achiev">
-			<b><a href="{$baseUrl}/{$player.name|replace:' ':'_'}/achiev/">{$player.name|escape}</a></b>
+			<b><a href="{$baseUrl}/{$player.name}/achiev/">{$player.name|escape}</a></b>
 			<br />
 			<span>{$langs.achievPlayerTotal} {$player.achiev_total}</span>
 		</div>
@@ -21,7 +21,7 @@
 {else}
 {if $aname && $aname!=""}
 	<p><div class="titles">
-		{$langs.achiev} :: <i>{$langs.achievsPlayers}</i>
+		{$langs.achiev}
 	</div>
 	
 	<div style="padding:10px;">
@@ -32,9 +32,10 @@
 			<span>{$achiev.description}</span>
 		</div>
 		
+	{if isset($rows)}
 		<p>&nbsp;{$pages.output}
 		
-	{foreach from=$players item=player}
+	{foreach from=$rows item=player}
 		<div class="achiev">
 			<b><a href="{$baseUrl}/{$player.plname_url}/achiev/">{$player.plname|escape}</a></b>
 			<br />
@@ -42,19 +43,21 @@
 		</div>
 	{/foreach}
 	</div>
+	{/if}
 	
-{elseif $player.id}
+{elseif $name && $name!=""}
 
 	<p><div class="titles">
-		{$langs.achiev} :: <i>{$player.name|escape}</i>
+		{$langs.achiev} :: <i>{$name|escape}</i>
 	</div>
 
+	{if isset($rows)}
 	<div style="padding:10px;">
 	<p>&nbsp;{$pages.output}
 		
-	{foreach from=$achievs item=achiev}
+	{foreach from=$rows item=achiev}
 		<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
-			<b><a href="{$baseUrl}/achiev/{$achiev.name|replace:' ':'_'}">{$achiev.name}</a></b>
+			<b><a href="{$baseUrl}/achiev/{$achiev.name}">{$achiev.name}</a></b>
 			<br />
 			<span>{$achiev.description}</span>
 		{if isset($achiev.width)}
@@ -73,19 +76,19 @@
 		</div>
 	{/foreach}
 	</div>
+	{/if}
 	
 {else}
 
 	<p><div class="titles">
-		{$langs.achiev}
-		::
-		<a href="{$baseUrl}/achievs/">{$langs.achiev_players}</a>
+		{$langs.achiev} :: <a href="{$baseUrl}/achievs/">{$langs.achiev_players}</a>
 	</div>
 	
+	{if isset($rows)}
 	<p>&nbsp;{$pages.output}
 	
 	<table>
-	{foreach from=$achievs item=achiev}
+	{foreach from=$rows item=achiev}
 		<tr>
 			<td style="width:65px;">
 		{if file_exists($achiev.aId)}
@@ -96,7 +99,7 @@
 			</td>
 			<td>
 				<div class="achiev" style="padding: 0px;">
-					<div style="background-color: #464647;width: {$achiev.completed}%;overflow: visible;">
+					<div style="background-color: #464647; width: {$achiev.completed}%;overflow: visible;">
 						<div style="width: 550px;padding: 10px;">
 							<span style="float:right;margin-top:10px;margin-right:20px">{$achiev.completed}%</span>
 							<b><a href="{$baseUrl}/achiev/{$achiev.name}">{$achiev.name}</a></b>
@@ -109,5 +112,6 @@
 		</tr>
 	{/foreach}
 	</table>	
+	{/if}
 {/if}
 {/if}

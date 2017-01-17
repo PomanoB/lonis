@@ -25,9 +25,15 @@ INSERT INTO `unr_players` (`id`, `name`, `password`, `email`, `active`, `webadmi
 
 	
 DELETE FROM `lang`;
-INSERT INTO `lang` (`id`, `lang`, `name`, `default`) VALUES
-	(1, 'ru', 'Русский', 1),
-	(2, 'en', 'English', 0);
+INSERT INTO `lang` (`id`, `lang`, `name`, `use`, `default`) VALUES
+	(1, 'ru', 'Русский', 1, 1),
+	(2, 'en', 'English', 1, 0),
+	(3, 'de', 'de', 0, 0),
+	(4, 'es', 'es', 0, 0),
+	(5, 'fr', 'fr', 0, 0),
+	(6, 'ya', 'ya', 0, 0),
+	(7, 'pt', 'pt', 0, 0),
+	(8, 'zh', 'zh', 0, 0);
 	
 DELETE FROM `themes`;
 insert  into `themes`(`id`,`theme`,`default`,`cs`) values 

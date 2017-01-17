@@ -22,8 +22,8 @@ if (isset($_SESSION["setting_user"])) {
 	}
 		
 	if($act=="save") {
-		$user = $_POST["fld_mysql_user"];
-		$password = $_POST["fld_mysql_password"];
+		$mysql_user = $_POST["fld_mysql_user"];
+		$mysql_password = $_POST["fld_mysql_password"];
 		
 		foreach($_POST as $key=>$value) {
 			if($_POST[$key]=="") {
@@ -32,7 +32,7 @@ if (isset($_SESSION["setting_user"])) {
 			}
 		}
 		
-		if ($user && $password) {
+		if ($mysql_user && $mysql_password) {
 			$fp = fopen($config_dir.'/'.$config_file, 'w');
 			$text = "";
 			foreach($_POST as $key=>$value) {
@@ -57,13 +57,13 @@ if (isset($_SESSION["setting_user"])) {
 		header("Location: $baseUrl/setup/");
 	}
 	
-	foreach($dbconf as $name=>$value) {
-		if(!isset($input_type[$name])) $input_type[$name] = "text";
-		$conflist[$name]["type"] = $input_type[$name];
-		$conflist[$name]["err"] = isset($fld_err[$name]) ? 1 : 0;
-		$conflist[$name]["name"] = $name;
-		$conflist[$name]["desc"] = $langs["$name"];
-		$conflist[$name]["text"] = $input_type[$name]!="password" ?  $value : "";
+	foreach($dbconf as $var=>$value) {
+		if(!isset($input_type[$var])) $input_type[$var] = "text";
+		$conflist[$var]["type"] = $input_type[$var];
+		$conflist[$var]["err"] = isset($fld_err[$var]) ? 1 : 0;
+		$conflist[$var]["name"] = $var;
+		$conflist[$var]["desc"] = $langs["$var"];
+		$conflist[$var]["text"] = $input_type[$var]!="password" ?  $value : "";
 	}
 	
 	$check_confirm = check_confirm($mysql_password);

@@ -5,7 +5,7 @@ $sort = isset($_GET["sort"]) && $_GET["sort"]!="" ? $_GET["sort"] : "all";
 $page = isset($_GET["page"]) && $_GET["page"] ? $_GET["page"] : 0;
 
 $search = isset($_POST["search"]) ? $_POST["search"] : "";
-//if($search) header("Location: $baseUrl/kreedz/players/$name");
+//if($search) header("Location: $baseUrl/kreedz/players/$search");
 
 if(isset($_GET["search"]) && $_GET["search"]) $search = slashes($_GET["search"]);
 $ssearch = slashes($search);

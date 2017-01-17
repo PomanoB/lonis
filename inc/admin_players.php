@@ -1,5 +1,5 @@
 <?php
-if (!(isset($_SESSION["user_$cookieKey"]) && $_SESSION["user_$cookieKey"]["webadmin"] == 1)) {
+if (!(isset($_SESSION["user_$cookieKey"]) && $admin == 1)) {
 	header('Location: '.$baseUrl);
 }
 
@@ -28,7 +28,7 @@ if ($act == "edit") {
 	$email = slashes($_POST["email"]);
 
 	$active = isset($_POST["active"]) ? 1: 0;
-	$webadmin = isset($_POST["webadmin"]) ? 1 : 0;
+	$admin = isset($_POST["webadmin"]) ? 1 : 0;
 	$id = $_POST["id"];
 	
 	$setpass = "";
@@ -39,7 +39,7 @@ if ($act == "edit") {
 
 	if (strlen($name) > 0) {
 		$q = "UPDATE `unr_players` 
-		SET `name` = '$name',{$setpass} `email` = '$email', `active` = '$active', `webadmin` = '$webadmin'
+		SET `name` = '$name',{$setpass} `email` = '$email', `active` = '$active', `webadmin` = '$admin'
 		WHERE `id` = $id";
 		mysqli_query($db, $q);
 		
@@ -55,7 +55,7 @@ if ($act == "add") {
 	$email = slashes($_POST["email"]);
 	
 	$active = isset($_POST["active"]) ? 1: 0;
-	$webadmin = isset($_POST["webadmin"]) ? 1 : 0;
+	$admin = isset($_POST["webadmin"]) ? 1 : 0;
 		
 	if (strlen($name) > 0 && $password != "") {
 		$r = mysqli_query($db, "SELECT * FROM unr_players WHERE `name` = '$name'");
@@ -64,7 +64,7 @@ if ($act == "add") {
 		}
 		else {
 			$password = md5($password);
-			$q = "INSERT INTO `unr_players` (`name`, `password`, `email`, `active`, `webadmin`) VALUES ('$name', '$password', '$email', '$active', '$webadmin')";
+			$q = "INSERT INTO `unr_players` (`name`, `password`, `email`, `active`, `webadmin`) VALUES ('$name', '$password', '$email', '$active', '$admin')";
 			mysqli_query($db, $q);
 			
 			$message = $langs["Saved"];

@@ -18,16 +18,16 @@ CREATE TABLE IF NOT EXISTS `langs` (
   `var` varchar(64) NOT NULL,
   `value` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=369 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=373 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы lonis.langs: ~358 rows (приблизительно)
+-- Дамп данных таблицы lonis.langs: ~352 rows (приблизительно)
 /*!40000 ALTER TABLE `langs` DISABLE KEYS */;
 INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(1, 'ru', 'ThemeNotFound', 'тема не существует'),
 	(2, 'ru', 'Main', 'Главная'),
 	(3, 'ru', 'home', 'Начало'),
 	(4, 'ru', 'achiev', 'Достижения'),
-	(5, 'ru', 'ucp', 'Личный кабинет'),
+	(5, 'ru', 'account', 'Аккаунт'),
 	(6, 'ru', 'logout', 'Выйти'),
 	(7, 'ru', 'Title', 'Lonis'),
 	(8, 'ru', 'admin_achiev', 'Настройка достижений'),
@@ -168,7 +168,7 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(144, 'en', 'Main', 'Main'),
 	(145, 'en', 'home', 'Home'),
 	(146, 'en', 'achiev', 'Achievs'),
-	(147, 'en', 'ucp', 'Personal account'),
+	(147, 'en', 'account', 'Account'),
 	(148, 'en', 'logout', 'Logout'),
 	(149, 'en', 'Title', 'Lonis'),
 	(150, 'en', 'admin_achiev', 'Setup achiev'),
