@@ -1,9 +1,15 @@
-<Files config.ini> 
-  deny from all 
-</Files>
-
 RewriteEngine On
 AddDefaultCharset utf-8
+
+Options All -Indexes
+
+<Files config.ini> 
+	deny from all 
+</Files>
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . index.php
 
 #Оключаем отслеживание сим-ссылок
 Options +FollowSymLinks
@@ -38,8 +44,3 @@ ErrorDocument 403 /lonis/error/403
 ErrorDocument 404 /lonis/error/404
 ErrorDocument 500 /lonis/error/500
 RewriteRule ^error(/([0-9]+))?$ index.php?action=error&err=$2 [L]
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-RewriteRule ^(.*)$ index.php [L]

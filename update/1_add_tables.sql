@@ -22,24 +22,6 @@ CREATE TABLE IF NOT EXISTS `kz_comm` (
 	PRIMARY KEY (`name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `unr_achiev`;
-CREATE TABLE IF NOT EXISTS `unr_achiev` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `type` varchar(40) NOT NULL,
-  `count` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `unr_achiev_lang`;
-CREATE TABLE IF NOT EXISTS `unr_achiev_lang` (
-	`lid` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-	`achievid` INT(10) NOT NULL,
-	`lang` VARCHAR(2) NULL DEFAULT NULL,
-	`ltype` VARCHAR(4) NULL DEFAULT NULL,
-	`value` VARCHAR(256) NULL DEFAULT NULL,
-	PRIMARY KEY (`lid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 DROP TABLE IF EXISTS `weapons`;
 CREATE TABLE IF NOT EXISTS `weapons` (
 	`id` int(10) unsigned DEFAULT NULL,

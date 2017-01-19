@@ -22,20 +22,17 @@ if($act=="achievs") {
 	}
 }
 else { // url=/achiev/%aname%
-	$aname = (isset($_GET["aname"])) ? $_GET["aname"] : "";
-	$name = (isset($_GET["name"])) ? $_GET["name"] : "";
+	$aname = isset($_GET["aname"]) ? $_GET["aname"] : "";
+	$name = isset($_GET["name"]) ? $_GET["name"] : "";
 	
 	if($aname) {
 		$aname = slashes($_GET["aname"]);
 		
-		$q = "SELECT `id`, `name`, `description` FROM achiev WHERE `lang`='{$lang}' AND `name` = '{$aname}' LIMIT 1";
+		$q = "SELECT `id`, `name`, `desc` FROM achiev WHERE `lang`='{$lang}' AND `name` = '{$aname}' LIMIT 1";
 		$r = mysqli_query($db, $q);
 		$achiev = mysqli_fetch_assoc($r);
 		
-		if(!$achiev) {
-			header("Location: {$baseUrl}/achiev/");
-		}
-		else {
+		if($achiev) {
 			$id = $achiev["id"];
 			
 			$q = "SELECT `p`.`id` AS `plid`, `p`.`name` AS `plname`, 
@@ -66,7 +63,7 @@ else { // url=/achiev/%aname%
 	}
 	else
 	if ($name) { // url=/%name%/achiev/
-		$q = "SELECT `a`.`id`, `a`.`name`, `a`.`description`, `count`, 
+		$q = "SELECT `a`.`id`, `a`.`name`, `a`.`desc`, `count`, 
 				IF(`progress` IS NULL, 0, `progress`) AS `progress`
 			FROM `achiev` `a`
 			LEFT JOIN `unr_players_achiev` `pa` ON `pa`.`achievId` = `a`.`id` 
@@ -94,7 +91,7 @@ else { // url=/achiev/%aname%
 		$q = 'SET @playerCount := (SELECT COUNT(*) FROM `unr_players`)';
 		mysqli_query($db, $q);
 		
-		$q = "SELECT `id` AS `aId`, `name`, `description`, 
+		$q = "SELECT `id` AS `aId`, `name`, `desc`, 
 			(SELECT COUNT(*) FROM `unr_achiev`, `unr_players_achiev` 
 			WHERE `unr_players_achiev`.`achievId` = `unr_achiev`.`id` 
 				AND `unr_achiev`.`count` = `unr_players_achiev`.`progress` 

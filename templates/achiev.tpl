@@ -20,6 +20,7 @@
 	{/if}	
 {else}
 {if $aname && $aname!=""}
+
 	<p><div class="titles">
 		{$langs.achiev}
 	</div>
@@ -29,7 +30,7 @@
 		<div class="achiev achiev_completed">
 			<b>{$achiev.name}</b>
 			<br />
-			<span>{$achiev.description}</span>
+			<span>{$achiev.desc}</span>
 		</div>
 		
 	{if isset($rows)}
@@ -42,8 +43,9 @@
 			<span>{$langs.achievPlayerTotal} {$player.achiev_total}</span>
 		</div>
 	{/foreach}
-	</div>
 	{/if}
+	</div>
+
 	
 {elseif $name && $name!=""}
 
@@ -59,7 +61,7 @@
 		<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
 			<b><a href="{$baseUrl}/achiev/{$achiev.name}">{$achiev.name}</a></b>
 			<br />
-			<span>{$achiev.description}</span>
+			<span>{$achiev.desc}</span>
 		{if isset($achiev.width)}
 			<div>
 				<div class="progress_background">
@@ -104,7 +106,7 @@
 							<span style="float:right;margin-top:10px;margin-right:20px">{$achiev.completed}%</span>
 							<b><a href="{$baseUrl}/achiev/{$achiev.name}">{$achiev.name}</a></b>
 							<br />
-							<span style="width:450px;display: inline-block;">{$achiev.description}</span>
+							<span style="width:450px;display: inline-block;">{$achiev.desc}</span>
 						</div>
 					</div>
 				</div>

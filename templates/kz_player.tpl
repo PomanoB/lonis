@@ -15,7 +15,7 @@
 	{else}
 		<b>{$langs.kznorec}</b> :: <a href="{$baseUrl}/{$name_url}/kreedz/{$type}">{$langs.kzrec}</a>
 		
-		<p>{$langs.kznum}: {$map_norec}
+		<p><b>{$langs.kznum}</b>: {$map_norec}
 	{/if}	
 	
 		<p>&nbsp;{$pages.output}

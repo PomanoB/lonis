@@ -1,20 +1,5 @@
 -- VIEWS --
 
-CREATE OR REPLACE VIEW `achiev` AS 
-SELECT
-	`unr_achiev`.`id`    AS `id`,
-	`unr_achiev`.`count` AS `count`,
-	`unr_achiev`.`type`  AS `type`,
-	`lname`.`value`      AS `name`,
-	`ldesc`.`value`      AS `description`,
-	`lname`.`lang`       AS `lang`
-FROM ((`unr_achiev`
-	JOIN `unr_achiev_lang` `lname`
-		ON (((`unr_achiev`.`id` = `lname`.`achievid`) AND (`lname`.`ltype` = 'name'))))
-	JOIN `unr_achiev_lang` `ldesc`
-		ON (((`unr_achiev`.`id` = `ldesc`.`achievid`) AND (`ldesc`.`ltype` = 'desc'))))
-WHERE (`lname`.`lang` = `ldesc`.`lang`);
-
 CREATE OR REPLACE VIEW `kz_map_tops` AS
 SELECT `t`.*, `name`, `wname` FROM `kz_map_top` `t`
 JOIN `unr_players` `p` ON `p`.`id` = `t`.`player`

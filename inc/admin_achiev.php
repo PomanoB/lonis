@@ -22,13 +22,8 @@ if ($act == "edit") {
 	
 	if (strlen($name) > 0) {
 		$q = "UPDATE `unr_achiev` 
-		SET `name` = '$name', `description` = '$descr', `count` = $count, `type` = '$type'
+		SET `count` = $count, `type` = '$type'
 		WHERE `id` = $id";
-	}
-	else {
-		$q = "DELETE `unr_achiev`, `unr_players_achiev` 
-			FROM `unr_achiev`, `unr_players_achiev` 
-			WHERE `unr_achiev`.`id` = $id AND `unr_players_achiev`.`achievId` = $id";
 	}
 	mysqli_query($db, $q);
 }
@@ -44,10 +39,8 @@ if ($act == "add") {
 
 	if(mysqli_query($db, $q)) {
 		$insert = mysqli_insert_id($db);
-		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'name', 'ru')");
-		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'desc', 'ru')");
-		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'name', 'en')");
-		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `ltype`, `lang`) VALUES ($insert, 'desc', 'en')");
+		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `lang`) VALUES ($insert, 'ru')");
+		mysqli_query($db, "INSERT INTO `unr_achiev_lang` (`achievid`, `lang`) VALUES ($insert, 'en')");
 	}
 }
 else
@@ -83,9 +76,7 @@ while($row = mysqli_fetch_assoc($r)) {
 }
 
 // Achiev Lang
-$q = "SELECT * FROM `unr_achiev_lang` LEFT JOIN `unr_achiev` 
-	ON `unr_achiev`.`id` = `unr_achiev_lang`.`achievid` 
-	ORDER BY `unr_achiev`.`type`, `count`, `lang`, `ltype` DESC";
+$q = "SELECT * FROM `achiev` ORDER BY `type`, `count`, `lang`";
 $r = mysqli_query($db, $q);
 
 $lasttype = "";

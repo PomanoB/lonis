@@ -41,7 +41,7 @@
 						<td><input value="{$achiev.type}" name="type" type="text" class="col_type" /></td>
 						<td><input value="{$achiev.count}" name="count" type="text" class="col_count" /></td>
 						<td><input value="{$achiev.name}" name="name" type="text" class="col_name" disabled /></td>
-						<td><input value="{$achiev.description}" name="descr" type="text" class="col_descr" disabled /></td>
+						<td><input value="{$achiev.desc}" name="descr" type="text" class="col_descr" disabled /></td>
 						
 						
 						<td >
