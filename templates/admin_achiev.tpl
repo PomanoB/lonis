@@ -62,8 +62,7 @@
 					<tr class="title">
 						<td>{$langs.Name}</td>
 						<td>{$langs.Language}</td>
-						<td>{$langs.Type}</td>
-						<td>{$langs.Description}</td>
+						<td>{$langs.Type} - {$langs.Description}</td>
 						<td>#</td>
 					</tr>		
 {foreach from=$achievs_lang item=alang}
@@ -72,8 +71,10 @@
 					<tr id="{$alang.type}">
 						<td align="right">{if $alang.part}&nbsp;{else}{$alang.type} ({$alang.count}){/if}</td>
 						<td>{if $alang.part2}&nbsp;{else}{$alang.lang}{/if}</td>
-						<td align="right">{$alang.ltype}</td>
-						<td><input value="{$alang.value}" name="value" type="text" class="col_desc" /></td>
+						<td>
+							<input value="{$alang.name}" name="name" type="text" class="col_name" />
+							<input value="{$alang.desc}" name="desc" type="text" class="col_desc" />
+						</td>
 						<td >
 							<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="editlang" alt="{$langs.Update}">
 							<input name="lid" type="hidden" value="{$alang.lid}" />

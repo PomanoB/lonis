@@ -22,7 +22,7 @@ CREATE TEMPORARY TABLE `demos` (
 
 -- https://cosy-climbing.net/demos.txt --
 
-LOAD DATA LOCAL INFILE 'files/demos_cc.txt'
+LOAD DATA LOCAL INFILE 'demos/demos_cc.txt'
 INTO TABLE `demos` CHARACTER SET 'UTF8' FIELDS TERMINATED BY ' ' IGNORE 1 LINES
 (`map`, `time`, @ignored, @ignored, @ignored, `country`, `player`);
 
@@ -39,7 +39,7 @@ FROM `demos`;
 -- http://xtreme-jumps.eu/demos.txt --
 
 DELETE FROM `demos`;
-LOAD DATA LOCAL INFILE 'files/demos_xj.txt'
+LOAD DATA LOCAL INFILE 'demos/demos_xj.txt'
 INTO TABLE `demos` CHARACTER SET 'UTF8' FIELDS TERMINATED BY ' ' IGNORE 1 LINES
 (`map`, `time`,`player`, `country`);
 
@@ -53,10 +53,10 @@ SELECT
 	'xj' AS `comm`
 FROM `demos`;
 
--- http//kzru.one/demos.txt --
+-- http://kzru.one/demos.txt --
 
 DELETE FROM `demos`;
-LOAD DATA LOCAL INFILE 'files/demos_kzru.txt'
+LOAD DATA LOCAL INFILE 'demos/demos_kzru.txt'
 INTO TABLE `demos` CHARACTER SET 'UTF8' FIELDS TERMINATED BY ' ' IGNORE 1 LINES
 (`map`, `time`, `player`);
 
@@ -68,6 +68,23 @@ SELECT
 	IF(`player` = 'n/a', NULL, `player`) AS `player`,
 	'ru' AS `country`,
 	'kzru' AS `comm` 
+FROM `demos`;
+
+-- http://kz-rush.ru/demos.txt --
+
+DELETE FROM `demos`;
+LOAD DATA LOCAL INFILE 'demos/demos_kz-rush.txt'
+INTO TABLE `demos` CHARACTER SET 'UTF8' FIELDS TERMINATED BY ' ' IGNORE 1 LINES
+(`map`, `time`,`player`, `country`);
+
+INSERT INTO `kz_map_rec` (`map`, `mappath`, `time`,`player`, `country`, `comm`)
+SELECT 
+	IF(LOCATE("[", `map`), LEFT(`map`, LOCATE("[", `map`)-1), `map`) AS `map`,
+	MID(`map`, LOCATE("[", `map`), LOCATE("]", `map`)) AS `mappath`, 
+	IF(`time` = 0, NULL, `time`) AS `time`,
+	IF(`player` = 'n/a', NULL, `player`) AS `player`,
+	IF(`country` = 'n-a' , NULL, `country`) AS `country`,
+	'kz-rush' AS `comm`
 FROM `demos`;
 
 DROP TABLE IF EXISTS `demos`;

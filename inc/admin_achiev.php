@@ -58,11 +58,12 @@ if ($act == "delete") {
 		$message = $langs["Confirm"];
 }
 if ($act == "editlang") {
-	$value = slashes($_POST["value"]);		
+	$name = slashes($_POST["name"]);
+	$desc = slashes($_POST["desc"]);	
 	
 	$lid = $_POST["lid"];
 	
-	$q = "UPDATE `unr_achiev_lang` SET `value` = '$value' WHERE `lid` = $lid";
+	$q = "UPDATE `unr_achiev_lang` SET `name` = '$name', `desc` = '$desc' WHERE `lid` = $lid";
 	mysqli_query($db, $q);
 }
 

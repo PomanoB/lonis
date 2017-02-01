@@ -16,9 +16,7 @@
 			&nbsp;<img src="{$baseUrl}/img/download_map.png" title="{$langs.Download}" alt="{$langs.Download}">
 		</a>
 	</div>
-	{/if}
-	
-	{if isset($maprec)}
+
 	<div>
 		<p><table>
 		{foreach from=$maprec item=rec}
@@ -42,12 +40,14 @@
 {/if}
 	
 	<div class="err_message">{$message}</div><br>
-	
+
+	{if $total}	
 	<div>
 		<a href="{$baseUrl}/kreedz/{$map}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
 		<a href="{$baseUrl}/kreedz/{$map}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
 		<a href="{$baseUrl}/kreedz/{$map}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
 	</div>
+	{/if}
 
 	<p>&nbsp;{$pages.output}</p>
 			
