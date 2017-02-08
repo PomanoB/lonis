@@ -73,7 +73,7 @@ FROM `demos`;
 -- http://kz-rush.ru/demos.txt --
 
 DELETE FROM `demos`;
-LOAD DATA LOCAL INFILE 'demos/demos_kz-rush.txt'
+LOAD DATA LOCAL INFILE 'demos/demos_rush.txt'
 INTO TABLE `demos` CHARACTER SET 'UTF8' FIELDS TERMINATED BY ' ' IGNORE 1 LINES
 (`map`, `time`,`player`, `country`);
 

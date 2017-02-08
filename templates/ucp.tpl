@@ -14,10 +14,10 @@
 				<td align="right"><label for="name">{$langs.Name}</label>: </td>
 				<td><input type="text" class="bigform" name="name" id="name" value="{$user.name|escape}" /></td>
 			</tr>
-			{if isset($user.steam_id_64)}
+			{if $user.steam_id_64}
 			<tr>
 				<td align="right"><label for="steam_id">{$langs.SteamID}</label>: </td>
-				<td><input type="text" class="bigform" name="steam_id" id="steam_id" value="{$user.steam_id}" placeholder="{$langs.SteamID}" {if isset($user.steam_id_64)}readonly{/if}/></td>
+				<td><input type="text" class="bigform" name="steam_id" id="steam_id" value="{$user.steam_id}" placeholder="{$langs.SteamID}" readonly/></td>
 			</tr>
 			{else}
 			<tr>
@@ -30,8 +30,9 @@
 			</tr>
 			<tr>
 				<td align="right"><label for="steam_id">{$langs.SteamID}</label>: </td>
-				<td><input type="text" class="bigform" name="steam_id" id="steam_id" value="{$user.steam_id}" placeholder="{$langs.SteamID}" {if isset($user.steam_id_64)}readonly{/if}/></td>
+				<td><input type="text" class="bigform" name="steam_id" id="steam_id" value="{$user.steam_id}" placeholder="{$langs.SteamID}"/></td>
 			</tr>
+			{* // Choose auth
 			<tr>
 				<td align="right"><label for="authType">{$langs.AuthType}</label>: </td>
 				<td>
@@ -42,8 +43,9 @@
 					</select>
 				</td>
 			</tr>
+			*}
 			{/if}
-
+		
 		{foreach from=$addFlags item=flag}
 			<tr>
 				<td align="right"><label for="{$flag.flag}">{$flag.lang}</label></td>

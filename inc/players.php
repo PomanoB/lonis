@@ -32,10 +32,12 @@ if(isset($player["id"])) {
 	$r = mysqli_query($db, $q);
 	$player["mapCompleted"] = mysqli_result($r, 0);
 	
-	$znak = strpos($player["name"], "?");
-	$player["name_url"] = $znak===false ? rawurlencode($player["name"]) : "unrid{$player["id"]}";
+	$player["name_url"] = url_replace($player["name"]);
 	
 	$player["onlineTimes"] = time_elasped($player["onlineTime"]);
+	
+	if(!$player["steam_id_64"])
+		$player["steam_id_64"] = getSteamId64($player["steam_id"]);
 }
 else {
 	if($name) $_POST["search"] = $name;

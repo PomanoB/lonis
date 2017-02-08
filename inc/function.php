@@ -290,7 +290,7 @@ function getSteamId($steamId64) {
 
 // STEAM_0:0:00000000 to SteamId64
 function getSteamId64($steamId) {
-	if(strpos("STEAM_0:", $steamId) === false)
+	if(strpos($steamId, "STEAM_0:") === false)
 		return 0;
 	
 	$bit = explode(":", str_replace("STEAM_0:", "", $steamId));
