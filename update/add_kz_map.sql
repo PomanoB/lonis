@@ -1,17 +1,9 @@
--- --------------------------------------------------------
--- Хост:                         127.0.0.1
--- Версия сервера:               5.7.16-log - MySQL Community Server (GPL)
--- Операционная система:         Win64
--- HeidiSQL Версия:              9.4.0.5144
--- --------------------------------------------------------
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Дамп структуры для таблица lonis.kz_map
 DROP TABLE IF EXISTS `kz_map`;
 CREATE TABLE IF NOT EXISTS `kz_map` (
   `mapname` varchar(64) NOT NULL,
@@ -24,7 +16,6 @@ CREATE TABLE IF NOT EXISTS `kz_map` (
   PRIMARY KEY (`mapname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы lonis.kz_map: ~4 742 rows (приблизительно)
 /*!40000 ALTER TABLE `kz_map` DISABLE KEYS */;
 INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`, `locked`) VALUES
 	('!zzl_superjump!', 0, NULL, NULL, NULL, NULL, 0),
@@ -952,7 +943,7 @@ INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`, `l
 	('deathrun_death_hard', 0, NULL, NULL, 'Estonia Sky^', '29.07.2013', 0),
 	('deathrun_ghoztlightz', 3, NULL, NULL, 'Estonia Sky^', '28.04.2013', 0),
 	('deathrun_ghoztlightz_ez', 0, NULL, NULL, 'Estonia Sky^', '03.06.2013', 0),
-	('deathrun_impasable', 0, NULL, NULL, 'Argentina [T]incho', '22.07.2013', 0),
+	('deathrun_impasable', 3, NULL, NULL, 'Argentina [T]incho', '22.07.2013', 0),
 	('deathrun_inthetetris', 0, NULL, NULL, 'Argentina [T]incho', '03.03.2014', 0),
 	('deathrun_laserspace', 0, NULL, NULL, 'Argentina [T]incho', '02.04.2012', 0),
 	('deathrun_ng_oui_final', 3, NULL, NULL, NULL, '18.08.2014', 0),
@@ -1037,6 +1028,9 @@ INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`, `l
 	('dyd_bhop', 3, 'bhop', NULL, 'Russia dydka', '12.03.2012', 0),
 	('dyd_booster', 0, NULL, NULL, 'Russia dydka', '31.07.2016', 0),
 	('dyd_brick', 3, 'climb', NULL, 'Russia dydka', '31.07.2016', 0),
+	('dyd_cosy_cupbhop_ez', 1, 'Bhop', NULL, 'Russia dydka', '15.01.2017', 0),
+	('dyd_cosy_cuplongjump_ez', 1, 'Longjumps', NULL, 'Russia dydka', '15.01.2017', 0),
+	('dyd_cosy_cuplongjump_h', 3, 'Longjumps', NULL, 'Russia dydka', '15.01.2017', 0),
 	('dyd_ebfun', 0, NULL, NULL, 'Russia dydka', '03.10.2011', 0),
 	('dyd_eb_hour', 0, NULL, NULL, 'Russia dydka', '04.03.2015', 0),
 	('dyd_forgebhop', 0, 'bhop', NULL, 'Russia dydka', '17.08.2011', 0),
@@ -1228,6 +1222,7 @@ INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`, `l
 	('gbc_script_bgn_ez', 1, 'climb', NULL, 'Brazil Gorbachev_x, Brazil .script', '05.09.2016', 0),
 	('gbc_script_block_h', 0, NULL, NULL, 'Brazil Gorbachev_x, Brazil .script', '05.09.2016', 0),
 	('gbc_script_creepy_h', 3, 'climb', NULL, 'Brazil Gorbachev_x, Brazil .script', '05.09.2016', 0),
+	('gbc_script_mimic_h', 3, 'climb', NULL, 'Brazil, Gorbachev_x and .script', '15.01.2017', 0),
 	('gbc_towers', 0, NULL, NULL, 'Brazil Gorbachev_x', '11.10.2015', 0),
 	('gbc_towers2', 1, 'climb', NULL, 'Brazil Gorbachev_x', '05.09.2016', 0),
 	('gnk_brickbhop', 0, 'bhop', NULL, 'Bulgaria genkoftw', '24.10.2010', 0),
@@ -1250,11 +1245,6 @@ INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`, `l
 	('guess_where', 0, NULL, NULL, 'Russia the_sergei', '18.07.2015', 0),
 	('gulp_fastblock', 0, NULL, NULL, 'United States Gulp', '16.09.2015', 0),
 	('gulp_imperial', 0, NULL, NULL, 'United States Gulp', '26.07.2015', 0),
-	('gx_dust_night', 0, NULL, NULL, NULL, NULL, 0),
-	('gx_fun_yellowy2', 0, NULL, NULL, NULL, NULL, 0),
-	('gx_knife_fight', 0, NULL, NULL, NULL, NULL, 0),
-	('gx_knife_fight2', 0, NULL, NULL, NULL, NULL, 0),
-	('gx_knife_fight_fixed', 0, NULL, NULL, NULL, NULL, 0),
 	('haf_bhuepf', 0, NULL, NULL, 'Germany hafner', '05.08.2009', 0),
 	('haf_blocksch', 0, NULL, NULL, 'Germany hafner', '05.08.2009', 0),
 	('haf_ronny', 0, NULL, NULL, 'Germany hafner', '05.08.2009', 0),
@@ -1854,6 +1844,7 @@ INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`, `l
 	('ksz_climblongjumps', 0, NULL, NULL, 'Romania Keo', '14.06.2013', 0),
 	('ksz_climbmetal', 0, NULL, NULL, 'Romania Keo', '02.04.2016', 0),
 	('ksz_confused', 0, NULL, NULL, 'Romania Keo', '02.04.2016', 0),
+	('ksz_cosy_cupspeed', 1, 'Speedmap', NULL, 'Romania Keo', '15.01.2017', 0),
 	('ksz_countryhops', 0, NULL, NULL, 'Romania Keo', '22.08.2011', 0),
 	('ksz_cratespeed', 0, NULL, NULL, 'Romania Keo', '25.01.2013', 0),
 	('ksz_cubic', 0, NULL, NULL, 'Romania Keo', '16.09.2013', 0),
@@ -3565,7 +3556,7 @@ INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`, `l
 	('muj_cheetah', 1, 'climb', NULL, 'Russia muJik', '17.03.2016', 0),
 	('muj_cheetah2', 1, 'climb', NULL, 'Russia muJik', '27.09.2016', 0),
 	('muj_dom', 0, NULL, NULL, NULL, NULL, 0),
-	('muj_floppytown_ez', 1, 'climb', NULL, 'Russia muJik', '17.03.2016', 0),
+	('muj_floppytown_ez', 2, 'climb', NULL, 'Russia muJik', '17.03.2016', 0),
 	('muj_floppytown_h', 3, 'climb', NULL, 'Russia muJik', '27.09.2016', 0),
 	('muj_floppytown_m', 3, 'climb', NULL, 'Russia muJik', '17.03.2016', 0),
 	('muj_floppytown_x', 4, 'climb', NULL, 'Russia muJik', '27.09.2016', 0),
@@ -3597,6 +3588,8 @@ INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`, `l
 	('nik_short_and_random', 0, NULL, NULL, 'Sweden nikita', '02.06.2014', 0),
 	('nik_xtreme', 3, NULL, NULL, NULL, NULL, 0),
 	('nks_bhop', 2, 'bhop', NULL, 'Finland knblz', '27.09.2016', 0),
+	('nks_cosy_cupbhop_h', 3, 'Bhop', NULL, 'Finland Niukkis', '15.01.2017', 0),
+	('nks_cosy_cupclimb_h', 3, 'Climb', NULL, 'Finland Niukkis', '15.01.2017', 0),
 	('nks_labyrinthian', 2, 'bhop', NULL, 'Finland Niukkis', '27.09.2016', 0),
 	('nks_planetary', 2, 'bhop', NULL, 'Finland Niukkis', '27.09.2016', 0),
 	('nks_serenity', 1, 'exit', NULL, 'Finland Niukkis', '17.12.2016', 0),
@@ -4432,7 +4425,7 @@ INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`, `l
 	('stay_2012_kz', 0, NULL, NULL, 'China stay', '23.01.2012', 0),
 	('stay_2013_kz', 0, NULL, NULL, 'China stay', '03.02.2013', 0),
 	('stay_kz_bhop_elite', 0, NULL, NULL, NULL, NULL, 0),
-	('stay_kz_bhop_hell', 0, 'bhop', NULL, NULL, NULL, 0),
+	('stay_kz_bhop_hell', 3, 'bhop', NULL, NULL, NULL, 0),
 	('stb_brokenblock_h', 3, NULL, NULL, 'Bulgaria st@mbeto.', '30.11.2012', 0),
 	('stb_caveblock_x', 3, NULL, NULL, 'Bulgaria st@mbeto.', '30.11.2012', 0),
 	('stb_junglehill_h', 3, NULL, NULL, 'Bulgaria st@mbeto.', '30.11.2012', 0),
@@ -4448,7 +4441,7 @@ INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`, `l
 	('steel_hb_juhx', 0, NULL, NULL, 'India S+33LBoDy', '05.05.2014', 0),
 	('steel_jumpbug', 0, NULL, NULL, NULL, NULL, 0),
 	('Steel_lostvalley', 0, NULL, NULL, 'India S+33LBoDy', '12.08.2014', 0),
-	('Steel_lostvalley2', 0, NULL, NULL, 'India S+33LBoDy', '12.08.2014', 0),
+	('Steel_lostvalley2', 3, NULL, NULL, 'India S+33LBoDy', '12.08.2014', 0),
 	('Steel_slide_dark', 0, 'slide', NULL, 'India S+33LBoDy', '06.08.2014', 0),
 	('steel_whitebhop', 0, 'bhop', NULL, 'India S+33LBoDy', '06.08.2014', 0),
 	('steel_whitebhop2', 0, 'bhop', NULL, 'India S+33LBoDy', '06.08.2014', 0),
@@ -4477,6 +4470,8 @@ INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`, `l
 	('super_rmbrick', 1, 'exit', NULL, 'Russia SuPer', '17.12.2016', 0),
 	('super_smk_1337', 1, 'climb', NULL, 'Denmark SmK1337, Russia Super', '16.08.2016', 0),
 	('super_smk_block', 1, 'climb', NULL, 'Denmark SmK1337, Russia Super', '16.08.2016', 0),
+	('svn_cosy_cupslide', 1, 'Slide', NULL, 'United States SilverNinja', '15.01.2017', 0),
+	('svn_cosy_cupslide2', 3, 'Slide', NULL, 'United States SilverNinja', '15.01.2017', 0),
 	('svn_edarkjump', 3, NULL, NULL, 'United States SilverNinja', '02.03.2014', 0),
 	('svn_powerbhop', 0, 'bhop', NULL, NULL, NULL, 0),
 	('sxj_ascension', 0, NULL, NULL, 'Spain yeans', '24.09.2012', 0),
@@ -4536,7 +4531,7 @@ INSERT INTO `kz_map` (`mapname`, `diff`, `type`, `sc`, `authors`, `date_old`, `l
 	('trc_climbgarden', 0, NULL, NULL, NULL, NULL, 0),
 	('trC_climbgarden2', 0, NULL, NULL, 'Russia tranCyfast', '29.03.2011', 0),
 	('trC_climbgarden_FXC', 0, NULL, NULL, 'Russia tranCyfast', '26.04.2013', 0),
-	('trC_cursed_route', 0, NULL, NULL, 'Russia tranCyfast', '13.07.2011', 0),
+	('trC_cursed_route', 3, NULL, NULL, 'Russia tranCyfast', '13.07.2011', 0),
 	('trC_darkcity', 0, NULL, NULL, 'Russia tranCyfast', '29.03.2011', 0),
 	('trC_equilotica', 0, NULL, NULL, 'Russia tranCyfast', '05.04.2011', 0),
 	('trC_minecraft_hop_valley_v1_afk', 0, NULL, NULL, NULL, NULL, 0),
