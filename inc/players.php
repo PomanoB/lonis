@@ -45,10 +45,14 @@ else {
 	$page = isset($_GET["page"]) && $_GET["page"] ? $_GET["page"] : 0;
 	$order = isset($_GET["order"]) && $_GET["order"] ? $_GET["order"] : "";
 	$sort = isset($_GET["sort"]) && $_GET["sort"] ? $_GET["sort"] : "";
-
-	$search = isset($_POST["search"]) && $_POST["search"] ? $_POST["search"] : "";
-
-	if(isset($_GET["search"]) && $_GET["search"]) $search = $_GET["search"];
+	
+	$search = "";
+	if(isset($_POST["search"]) && $_POST["search"])
+		$search = $_POST["search"];
+	else 
+	if(isset($_GET["search"]) && $_GET["search"])
+		$search = $_GET["search"];
+	
 	$ssearch = slashes($search);
 
 	$where = $search ? "AND `name` LIKE '%$ssearch%'" : "";

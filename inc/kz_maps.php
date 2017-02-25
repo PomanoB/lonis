@@ -19,10 +19,13 @@ $type = isset($_GET["type"]) && isset($types[$_GET["type"]]) ? $_GET["type"] : '
 $rec = isset($_GET["rec"]) && $_GET["rec"] ? $_GET["rec"] : 'rec';
 $page = isset($_GET["page"]) && $_GET["page"] ? $_GET["page"] : 0;
 
-$search = isset($_POST["search"]) ? $_POST["search"] : "";
-//if($search) header("Location: $baseUrl/kreedz/maps/$search");
+$search = "";
+if(isset($_POST["search"]) && $_POST["search"])
+	$search = $_POST["search"];
+else 
+if(isset($_GET["search"]) && $_GET["search"])
+	$search = $_GET["search"];
 
-if(isset($_GET["search"]) && $_GET["search"]) $search = $_GET["search"];
 $ssearch = slashes($search);
 
 $like = $rec=="norec" ? "mapname" : "map";

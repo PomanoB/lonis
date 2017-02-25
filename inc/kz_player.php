@@ -27,10 +27,12 @@ else {
 		$r_top1 = mysqli_query($db, $q);
 		$map_top1 = mysqli_num_rows($r_top1);
 	}
-	else {	
-		$q = " SELECT * FROM `kz_map_tops1` 
-				RIGHT JOIN (SELECT `mapname` FROM `kz_map` WHERE NOT EXISTS 
-					(SELECT * FROM `kz_map_tops` WHERE `name`='{$name}' AND `mapname`=`map`)) AS m ON `map`=`mapname`";
+	else {
+		$q = "SELECT * FROM `kz_map` 
+				LEFT JOIN `kz_map_tops1` ON `kz_map_tops1`.`map` = `kz_map`.`mapname` 
+					WHERE `mapname` NOT IN ( 
+						SELECT DISTINCT `map` FROM `kz_map_top` WHERE `player` = ( 
+							SELECT id FROM `unr_players` WHERE `name` = '{$name}'));";
 		$r_norec = mysqli_query($db, $q);
 		$map_norec = mysqli_num_rows($r_norec);
 	}

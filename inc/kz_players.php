@@ -4,10 +4,13 @@ $type = isset($_GET["type"]) && isset($types[$_GET["type"]]) ? $_GET["type"] : '
 $sort = isset($_GET["sort"]) && $_GET["sort"]!="" ? $_GET["sort"] : "all";
 $page = isset($_GET["page"]) && $_GET["page"] ? $_GET["page"] : 0;
 
-$search = isset($_POST["search"]) ? $_POST["search"] : "";
-//if($search) header("Location: $baseUrl/kreedz/players/$search");
-
-if(isset($_GET["search"]) && $_GET["search"]) $search = slashes($_GET["search"]);
+$search = "";
+if(isset($_POST["search"]) && $_POST["search"])
+	$search = $_POST["search"];
+else 
+if(isset($_GET["search"]) && $_GET["search"])
+	$search = $_GET["search"];
+	
 $ssearch = slashes($search);
 
 $where = $search ? "AND `name` LIKE '%$ssearch%'" : "";
