@@ -75,7 +75,7 @@ else {
 			$img = 'img/country/'.strtolower($row["country"]).'.png';
 			$row["countryImg"] = file_exists($docRoot."/".$img) ? $img : "";
 			
-			if(!$row["steam_id_64"])
+			if(!$row["steam_id_64"] && isset($row["steam_id"]))
 				$row["steam_id_64"] = getSteamId64($row["steam_id"]);
 	
 			$avatar = getAvatar($row["steam_id_64"], $row["email"], "avatarIcon");
