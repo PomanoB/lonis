@@ -49,6 +49,7 @@ $conf_def = array (
 	'avatarIcon' => 32,
 	'avatarMedium' => 80,
 	'avatarFull' => 150,
+	'steamAvatar' => 0,
 	'cookieKey' => "cc1f891423db1ee24498e76f3b107bbe",
 	'menuStart' => 'home'
 );
@@ -66,9 +67,10 @@ $conf_type = array (
 	'achievPlayersPerPage' => 'number',
 	'server_update' => 'number',
 	'servers_autoupdate' => 'number',	
-	'avatarSize_Icon' => 'number',
-	'avatarSize_Medium' => 'number',
-	'avatarSize_Full' => 'number',
+	'avatarIcon' => 'number',
+	'avatarMedium' => 'number',
+	'avatarFull' => 'number',
+	'steamAvatar' => 'number',
 	'cookieKey' => "text",
 	'menuStart' => 'text'
 );

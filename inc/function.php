@@ -325,7 +325,7 @@ function getAvatar($steam_id_64, $email, $size) {
 	$avatar["link"] = "http://www.gravatar.com";
 	$avatar["img"] = $avatar["link"]."/avatar/".md5($email)."?d=wavatar&s={$gsize}";
 
-	if($steam_id_64) {
+	if($steam_id_64 && $conf["steamAvatar"]) {
 		$avatar["link"] = "http://steamcommunity.com/profiles/{$steam_id_64}/";
 		$steamAvatar = getSteamInfo($steam_id_64, $size);
 		if(strpos($steamAvatar, ".jpg")) $avatar["img"] = $steamAvatar;

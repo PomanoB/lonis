@@ -12,30 +12,28 @@ $sort = (isset($_GET["sort"]) && $_GET["sort"]!="") ? $_GET["sort"] : "num";
 $rec = (isset($_GET["rec"]) && $_GET["rec"]!="") ? $_GET["rec"] : "rec";
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 
-if(isset($_GET["name"])) {
-	$name = url_replace($_GET["name"], BACK);
-	$where = "`name` = '".slashes($name)."'";
-}
-else {
-	$id = isset($_GET["id"]) ? $_GET["id"] : 0;
-	$where = "`id` = {$id}";
-}
+$name = isset($_GET["name"]) ? url_replace($_GET["name"], BACK) : "";
+$id = isset($_GET["id"]) ? $_GET["id"] : 0;
 
-$q = "SELECT `id`, `steam_id`, `email` FROM `unr_players` WHERE {$where}";
+$q = "SELECT `id`, `name`, `steam_id`, `email` FROM `unr_players` 
+		WHERE `id` = {$id} OR `name` = '".slashes($name)."'";
 $r = mysqli_query($db, $q);
-$id = mysqli_result($r, 0, 0);
-$steam_id_64 = getSteamId64(mysqli_result($r, 0, 1));
-$email = mysqli_result($r, 0, 2);
+$player = mysqli_fetch_assoc($r);
+
+$id = isset($player["id"]) ? $player["id"] : $id;
+$name = isset($player["name"]) ? $player["name"] : $name;
+$steam_id_64 = getSteamId64($player["steam_id"]);
+$email = $player["email"];
 	
 $avatar = getAvatar($steam_id_64, $email, "avatarMedium");
+$name_url = url_replace($name);
 
-$rname = url_replace($name);
 if($rec!="norec") {
-	$q = "SELECT * FROM `kz_map_tops` WHERE `player` = '{$id}' {$types[$type]} GROUP BY `map` ORDER BY `map`";	
+	$q = "SELECT * FROM `kz_map_tops` WHERE `player` = '{$player["id"]}' {$types[$type]} GROUP BY `map` ORDER BY `map`";	
 	$r_num = mysqli_query($db, $q);
 	$map_num = mysqli_num_rows($r_num);
 
-	$q = "SELECT * FROM `kz_map_tops1` WHERE `player` = '{$id}' {$types[$type]}";
+	$q = "SELECT * FROM `kz_map_tops1` WHERE `player` = '{$player["id"]}' {$types[$type]}";
 	$r_top1 = mysqli_query($db, $q);
 	$map_top1 = mysqli_num_rows($r_top1);
 }
@@ -50,7 +48,7 @@ else {
 
 $total = $rec=="norec" ? $map_norec : ($sort=="top1" ? $map_top1 : $map_num);
 
-$name_url = url_replace($name);
+
 $pages = generate_page($page, $total, $mapsPerPage, "$baseUrl/{$name_url}/kreedz/$type/page%page%/$rec/$sort");
 
 if($total) {

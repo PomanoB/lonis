@@ -1,7 +1,7 @@
 	<div class="wrapper">
 		<div class="titles left_block">
 			{$langs.player} {if isset($name)} :: <i>{$name}</i>{/if}</i>
-			{if !$cs}<a href="{$baseUrl}/{$rname}"><img src="{$baseUrl}/img/menu/players.png"></a>{/if}
+			{if !$cs}<a href="{$baseUrl}/{$name_url}"><img src="{$baseUrl}/img/menu/players.png"></a>{/if}
 		</div>
 		<div class="right_block" align="center">
 			{if isset($avatar)}

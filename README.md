@@ -4,6 +4,10 @@ Web registartion and statistic for Counter Strike 1.6 version 2.0.5
 -------------------
 -- Version 2.0.5 -- 
 -------------------
+Changelog: 27.02.2017 00:20
+- Fix vars &id=
+- Add Cvar avatarSteam = 0 (1/0)
+
 Changelog: 26.02.2017 20:40
 - Add function getAvatar(); (avatar from Gravatar.com or Steam)
 - Add choose player from &Id
