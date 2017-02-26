@@ -21,18 +21,19 @@ $types = array(
 	'all' => ''
 );
 
-$map = isset($_GET["map"]) ? slashes($_GET["map"]) : '';
+$map = isset($_GET["map"]) ? $_GET["map"] : '';
 $type = (isset($_GET["type"]) && isset($types[$_GET["type"]])) ? $_GET["type"] : 'all';
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 
-$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `map` = '{$map}'";
+$wmap = slashes($map);
+$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `map` = '{$wmap}'";
 $r = mysqli_query($db, $q);
 
 $found = mysqli_result($r, 0);
 
 if($map)
 	$q = "SELECT `t`.* FROM `kz_map_tops` `t`
-				JOIN (SELECT `map`, `player`, min(`time`) as `time` FROM `kz_map_top` WHERE `map` = '{$map}' GROUP BY `player`) AS `tmp`
+				JOIN (SELECT `map`, `player`, min(`time`) as `time` FROM `kz_map_top` WHERE `map` = '{$wmap}' GROUP BY `player`) AS `tmp`
 				ON `t`.`map` = `tmp`.`map` AND `t`.`player` = `tmp`.`player` AND `t`.`time` = `tmp`.`time`
 				WHERE 1 {$types[$type]} GROUP BY `player`  ORDER BY `time`";
 else
@@ -47,13 +48,11 @@ $pages = generate_page($page, $total, $playersPerPage, "$baseUrl/kreedz/$map/$ty
 if($total) {
 	if($map) {
 		$img_file = "{$docRoot}/img/cstrike/{$map}.jpg";
-		$mapimage = "{$docRoot}/img/mapimage.jpg";
 		$imgmap = "{$baseUrl}/img/noimage.jpg";
 		
 		$imgmap = file_exists("{$docRoot}/img/noimage.jpg") ? $imgmap : "";
 		if(file_exists($img_file)) {
-			file_put_contents($mapimage, file_get_contents($img_file));
-			$imgmap = "{$baseUrl}/img/mapimage.jpg";
+			$imgmap = "{$baseUrl}/img/cstrike/{$map}.jpg";
 		}
 
 		$q = "SELECT * FROM `kz_map_rec` `r`, `kz_comm` `c` WHERE `map` = '{$map}' AND `name` = `comm` ORDER BY `sort`";	

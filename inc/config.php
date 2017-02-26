@@ -46,9 +46,9 @@ $conf_def = array (
 	'achievPlayersPerPage' => 10,
 	'server_update' => 60 * 30,
 	'servers_autoupdate' => 1,	
-	'avatarSize_Icon' => 24,
-	'avatarSize_Medium' => 80,
-	'avatarSize_Full' => 150,
+	'avatarIcon' => 32,
+	'avatarMedium' => 80,
+	'avatarFull' => 150,
 	'cookieKey' => "cc1f891423db1ee24498e76f3b107bbe",
 	'menuStart' => 'home'
 );
@@ -125,7 +125,7 @@ $parseRules = array(
 	"/^kreedz\/duels\/(page([0-9]+))?/" => "index.php?action=kz_duels&page=%2%",
 	"/^kreedz\/players\/(pro|noob|all)?(\/page([0-9]+))?(\/(all|top1))?(\/)?(.*)?/" => "index.php?action=kz_players&type=%1%&page=%3%&sort=%5%&search=%7%",
 	"/^kreedz\/maps\/(pro|noob|all)?(\/page([0-9]+))?(\/(norec|rec))?(\/)?(.*)?/" => "index.php?action=kz_maps&type=%1%&page=%3%&rec=%5%&search=%7%",
-	"/^kreedz\/([0-9a-zA-Z_!]+)?(\/(pro|noob|all))?(\/page([0-9]+)?)?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
+	"/^kreedz\/(.*)?(\/(pro|noob|all))?(\/page([0-9]+)?)?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(num|top1))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
 	
 	"/^(.*)/" => "index.php?action=players&name=%1%",

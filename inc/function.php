@@ -54,7 +54,7 @@ function parse_match($uri, $rules) {
 			$href[] = $value;
 		}
 	}
-	
+
 	if(isset($match[0]) && isset($href[0])) {
 		foreach($match[0] as $key=>$v) {
 			foreach($v as $value) {
@@ -317,6 +317,23 @@ function getSteamInfo($steamId64, $key) {
 	return $str;
 }
 
+// Avatar: gravatar.com or Steam
+function getAvatar($steam_id_64, $email, $size) {
+	global $conf;
+	$gsize = isset($conf[$size]) ? $conf[$size] : "";
+	
+	$avatar["link"] = "http://www.gravatar.com";
+	$avatar["img"] = $avatar["link"]."/avatar/".md5($email)."?d=wavatar&s={$gsize}";
+
+	if($steam_id_64) {
+		$avatar["link"] = "http://steamcommunity.com/profiles/{$steam_id_64}/";
+		$steamAvatar = getSteamInfo($steam_id_64, $size);
+		if(strpos($steamAvatar, ".jpg")) $avatar["img"] = $steamAvatar;
+	}
+	
+	return $avatar;
+}
+	
 // Generate pages
 function generate_page($page, $total, $perpage, $pageUrl) {
 	$page = isset($page) ? abs((int)$page) : 1;

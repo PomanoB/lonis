@@ -4,6 +4,15 @@ Web registartion and statistic for Counter Strike 1.6 version 2.0.5
 -------------------
 -- Version 2.0.5 -- 
 -------------------
+Changelog: 26.02.2017 20:40
+- Add function getAvatar(); (avatar from Gravatar.com or Steam)
+- Add choose player from &Id
+- Fix maps image
+- Fix Font in kz_duels
+- Add Avatar on kz_player page
+- Edit config vars (update/add_config.sql)
+- Fix Submenu SQL (update/add_langs.sql)
+
 Changelog: 26.02.2017 16:20
 - Add SubMenu function
 - Disable Main menu on Flag &cs=1

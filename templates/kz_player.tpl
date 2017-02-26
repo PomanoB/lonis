@@ -1,6 +1,19 @@
-	<p><div class="titles">{$langs.player} {if isset($name)} :: <i>{$name}</i>{/if}
-		<a href="{$baseUrl}/{$rname}"><img src="{$baseUrl}/img/menu/players.png"></a>
-	</div><br>
+	<div class="wrapper">
+		<div class="titles left_block">
+			{$langs.player} {if isset($name)} :: <i>{$name}</i>{/if}</i>
+			{if !$cs}<a href="{$baseUrl}/{$rname}"><img src="{$baseUrl}/img/menu/players.png"></a>{/if}
+		</div>
+		<div class="right_block" align="center">
+			{if isset($avatar)}
+				<a href="{$avatar.link}" target="_blank">
+					<img src="{$avatar.img}" oncontextmenu="return false;" /><br>
+				</a>
+			{/if}
+			<p>
+		</div>
+	</div>
+	
+	<br><br>
 
 {if $name}
 	{if $rec != "norec"}

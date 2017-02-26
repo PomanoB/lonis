@@ -1,17 +1,9 @@
--- --------------------------------------------------------
--- Хост:                         127.0.0.1
--- Версия сервера:               5.7.16-log - MySQL Community Server (GPL)
--- Операционная система:         Win64
--- HeidiSQL Версия:              9.4.0.5144
--- --------------------------------------------------------
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Дамп структуры для таблица lonis.config
 DROP TABLE IF EXISTS `config`;
 CREATE TABLE IF NOT EXISTS `config` (
   `id` int(3) unsigned NOT NULL,
@@ -20,7 +12,6 @@ CREATE TABLE IF NOT EXISTS `config` (
   `type` varchar(16) NOT NULL DEFAULT 'text'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы lonis.config: ~17 rows (приблизительно)
 /*!40000 ALTER TABLE `config` DISABLE KEYS */;
 INSERT INTO `config` (`id`, `var`, `value`, `type`) VALUES
 	(1, 'timezone', 'Europe/Moscow', 'text'),
@@ -35,9 +26,9 @@ INSERT INTO `config` (`id`, `var`, `value`, `type`) VALUES
 	(10, 'achievPlayersPerPage', '10', 'number'),
 	(11, 'server_update', '1800', 'number'),
 	(12, 'servers_autoupdate', '1', 'number'),
-	(13, 'avatarSize_Icon', '24', 'number'),
-	(14, 'avatarSize_Medium', '80', 'number'),
-	(15, 'avatarSize_Full', '150', 'number'),
+	(13, 'avatarIcon', '32', 'number'),
+	(14, 'avatarMedium', '80', 'number'),
+	(15, 'avatarFull', '150', 'number'),
 	(16, 'cookieKey', 'cc1f891423db1ee24498e76f3b107bbe', 'text'),
 	(17, 'menuStart', 'home', 'text');
 /*!40000 ALTER TABLE `config` ENABLE KEYS */;

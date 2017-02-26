@@ -14,14 +14,20 @@ $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 
 if(isset($_GET["name"])) {
 	$name = url_replace($_GET["name"], BACK);
-	$r = mysqli_query($db, "SELECT `id` FROM `unr_players` WHERE `name` = '{$name}'");
-	$id = mysqli_result($r, 0);
+	$where = "`name` = '".slashes($name)."'";
 }
 else {
 	$id = isset($_GET["id"]) ? $_GET["id"] : 0;
-	$r = mysqli_query($db, "SELECT `name` FROM `unr_players` WHERE `id` = {$id}");
-	$name = mysqli_result($r, 0);
+	$where = "`id` = {$id}";
 }
+
+$q = "SELECT `id`, `steam_id`, `email` FROM `unr_players` WHERE {$where}";
+$r = mysqli_query($db, $q);
+$id = mysqli_result($r, 0, 0);
+$steam_id_64 = getSteamId64(mysqli_result($r, 0, 1));
+$email = mysqli_result($r, 0, 2);
+	
+$avatar = getAvatar($steam_id_64, $email, "avatarMedium");
 
 $rname = url_replace($name);
 if($rec!="norec") {

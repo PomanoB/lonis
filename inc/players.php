@@ -19,9 +19,6 @@ if(isset($player["id"])) {
 	$img = "img/country/".strtolower($player["countryCode"]).".png";
 	$player["countryImg"] = file_exists($img) ? $img : "";
 	
-	$player["avatarLink"] = "http://www.gravatar.com";
-	$player["avatar"] = $player["avatarLink"]."/avatar/".md5($player["email"])."?d=wavatar&s={$avatarSize_Full}";
-	
 	$player["lastTime"] = date('d.m.Y G:i:s', $player["lastTime"]);
 	
 	$q = "SELECT COUNT(*) FROM `unr_players_achiev`, `unr_achiev` WHERE `achievId` = `id` AND `count` = `progress` AND `playerId` = {$player["id"]}";
@@ -38,6 +35,10 @@ if(isset($player["id"])) {
 	
 	if(!$player["steam_id_64"])
 		$player["steam_id_64"] = getSteamId64($player["steam_id"]);
+	
+	$avatar = getAvatar($player["steam_id_64"], $player["email"], "avatarFull");
+	$player["avatar"] = $avatar["img"];
+	$player["avatarLink"] = $avatar["link"];
 }
 else {
 	if($name) $_POST["search"] = $name;
@@ -74,8 +75,12 @@ else {
 			$img = 'img/country/'.strtolower($row["country"]).'.png';
 			$row["countryImg"] = file_exists($docRoot."/".$img) ? $img : "";
 			
-			$row["avatarLink"] = "http://www.gravatar.com";
-			$row["avatar"] = $row["avatarLink"]."/avatar/".md5($row["email"])."?d=wavatar&s={$avatarSize_Icon}";
+			if(!$row["steam_id_64"])
+				$row["steam_id_64"] = getSteamId64($row["steam_id"]);
+	
+			$avatar = getAvatar($row["steam_id_64"], $row["email"], "avatarIcon");
+			$row["avatar"] = $avatar["img"];
+			$row["avatarLink"] = $avatar["link"];
 			
 			$row["name_url"] = url_replace($row["name"]);
 			

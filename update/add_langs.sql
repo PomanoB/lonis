@@ -1,26 +1,18 @@
--- --------------------------------------------------------
--- Хост:                         127.0.0.1
--- Версия сервера:               5.7.16-log - MySQL Community Server (GPL)
--- Операционная система:         Win64
--- HeidiSQL Версия:              9.4.0.5144
--- --------------------------------------------------------
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Дамп структуры для таблица lonis.langs
+DROP TABLE IF EXISTS `langs`;
 CREATE TABLE IF NOT EXISTS `langs` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `lang` varchar(2) NOT NULL,
   `var` varchar(64) NOT NULL,
   `value` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=373 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=375 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы lonis.langs: ~352 rows (приблизительно)
 /*!40000 ALTER TABLE `langs` DISABLE KEYS */;
 INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(1, 'ru', 'ThemeNotFound', 'тема не существует'),
@@ -382,7 +374,9 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(369, 'en', 'regActivate', 'Activation link sent to your e-mail'),
 	(370, 'ru', 'regActivate', 'Ссылка для активации отправлена на e-mail'),
 	(371, 'en', 'ResetPassword', 'Reset Password'),
-	(372, 'ru', 'ResetPassword', 'Произведен сброс пароля');
+	(372, 'ru', 'ResetPassword', 'Произведен сброс пароля'),
+	(373, 'en', 'kreedz', 'Kreedz'),
+	(374, 'ru', 'kreedz', 'Прыжки');
 /*!40000 ALTER TABLE `langs` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

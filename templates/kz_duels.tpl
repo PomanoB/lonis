@@ -1,5 +1,9 @@
-<p><h2>{$langs.kz_duels}</h2>
-
+<div class="wrapper">
+	<div class="titles left_block">{$langs.kz_duels}</div>
+	<div class="right_block" align="center">
+	</div>
+</div><br>
+	
 <p>&nbsp;{$pages.output}
 
 <div style="padding:10px;">
