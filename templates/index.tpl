@@ -18,14 +18,14 @@
 			<div class="center-wrapper">
 				<div class="tabbed" id="menu-tabs">
 					<div class="menu" >
-				{foreach from=$menu item=i}
+			{if !$cs}
+				{foreach from=$menu.main item=i}
 						<div class="item">
 							<a title="{$i.name}" href="{$baseUrl}{$i.url}">
 								<img src="{$baseUrl}/img/menu/{$i.action}.png" alt="{$i.name}" title="{$i.name}" /><text>&nbsp;{$i.name}</text>
 							</a>
 						</div>
 				{/foreach}
-
 
 				{if !$user}
 						<div class="item">
@@ -41,12 +41,12 @@
 						</div>		
 				{/if}
 					</div>
-					
+			{/if}		
+				{if $parent}
 					<div class="clearer">&nbsp;</div>
-					
-			{if $admin}
-					<div class="adminmenu">
-					{foreach from=$menuAdmin item=i}
+			
+					<div class="submenu">
+					{foreach from=$menu[$parent] item=i}
 						<div class="item">
 							<a title="{$i.name}" href="{$baseUrl}{$i.url}">
 								<img src="{$baseUrl}/img/menu/{$i.action}.png"><text>&nbsp;{$i.name}</text>
@@ -54,7 +54,21 @@
 						</div>
 					{/foreach}
 					</div>
-			{/if}
+				{/if}
+				
+				{if $admin}				
+					<div class="clearer">&nbsp;</div>
+
+					<div class="adminmenu">
+					{foreach from=$menu.admin item=i}
+						<div class="item">
+							<a title="{$i.name}" href="{$baseUrl}{$i.url}">
+								<img src="{$baseUrl}/img/menu/{$i.action}.png"><text>&nbsp;{$i.name}</text>
+							</a>
+						</div>
+					{/foreach}
+					</div>
+				{/if}
 				</div>
 			</div>
 			<div class="clearer">&nbsp;</div>

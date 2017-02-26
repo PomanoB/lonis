@@ -2,12 +2,10 @@
 
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE IF NOT EXISTS `menu` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `lvl` int(2) unsigned NOT NULL DEFAULT '0',
   `num` int(2) unsigned NOT NULL DEFAULT '0',
-  `admin` tinyint(1) NOT NULL DEFAULT '0',
-  `action` varchar(16) NOT NULL,
-  PRIMARY KEY (`id`)
+  `parent` varchar(16) DEFAULT NULL,
+  `mname` varchar(16) NOT NULL,
+  `action` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `kz_comm`;

@@ -1,16 +1,20 @@
 DELETE FROM `menu`;
-INSERT INTO `menu` (`id`, `lvl`, `num`, `admin`, `action`) VALUES
-	(1, 1, 1, 0, 'home'),
-	(2, 1, 3, 0, 'servers'),
-	(3, 1, 4, 0, 'players'),
-	(4, 1, 5, 0, 'achiev'),
-	(5, 1, 6, 0, 'kz_players'),
-	(6, 1, 7, 0, 'kz_maps'),
-	(7, 1, 8, 0, 'kz_duels'),
-	(8, 1, 1, 1, 'admin_servers'),
-	(9, 1, 2, 1, 'admin_langs'),
-	(10, 1, 3, 1, 'admin_achiev'),
-	(11, 1, 4, 1, 'admin_players');
+INSERT INTO `menu` (`num`, `parent`, `mname`, `action`) VALUES
+	(10, 'main', 'home', 'home'),
+	(30, 'main', 'servers', 'servers'),
+	(40, 'main', 'players', 'players'),
+	(50, 'main', 'achiev', 'achiev'),
+	(61, 'kreedz', 'kz_players', 'kz_players'),
+	(60, 'main', 'kreedz', 'kz_players'),
+	(62, 'kreedz', 'kz_maps', 'kz_maps'),
+	(63, 'kreedz', 'kz_duels', 'kz_duels'),
+	(91, 'admin', 'admin_servers', 'admin_servers'),
+	(92, 'admin', 'admin_langs', 'admin_langs'),
+	(93, 'admin', 'admin_achiev', 'admin_achiev'),
+	(94, 'admin', 'admin_players', 'admin_players'),
+	(68, 'kreedz', '', 'kz_player'),
+	(69, 'kreedz', '', 'kz_map'),
+	(64, 'kreedz', '', 'kz_longjump');
 	
 DELETE FROM `kz_comm`;
 INSERT INTO `kz_comm` (`sort`, `name`, `fullname`, `url`, `image`, `download`, `mapinfo`) VALUES

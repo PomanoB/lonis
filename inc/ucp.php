@@ -28,6 +28,8 @@ if(isset($_SESSION["steamId64"])) {
 	}
 	
 	unset($_SESSION["steamId64"]);
+	
+	header("Location: $baseUrl/ucp/");
 }
 	
 if($act=="logout") {

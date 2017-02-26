@@ -126,10 +126,11 @@ if(!$errno) {
 		}
 	}
 	
-	$menus = getMenus($db, $lang);
-	$menu = $menus["normal"];
-	$menuAdmin = $menus["admin"];
+	// Read Menu
+	$menu = getMenus($db, $lang);
+	$parent = getMenuParent($db, $action);
 	
+	// If Admin
 	$user = isset($_SESSION["user_$cookieKey"]) ? $_SESSION["user_$cookieKey"] : 0;
 	$admin = $user ? mysqli_result(mysqli_query($db, "SELECT `webadmin` FROM `unr_players` WHERE `id` = '{$user["id"]}'"), 0) : 0;	
 }
@@ -146,14 +147,13 @@ foreach($conf as $key=>$value) {
 	
 // CS Style
 $cs = isset($_SESSION["cs_$cookieKey"]) ? $_SESSION["cs_$cookieKey"] : $cs;
-assign('cs', $cs);
 
 if(isset($_GET["cs"])) { 
-	$cs = $_GET["cs_$cookieKey"];
+	$cs = $_GET["cs"];
 	$_SESSION["cs_$cookieKey"] = $cs;
 }
 if(isset($_POST["cs"])) {
-	$cs = $_POST["cs_$cookieKey"];
+	$cs = $_POST["cs"];
 	$_SESSION["cs_$cookieKey"] = $cs;
 }
 
@@ -171,6 +171,8 @@ $cake = mt_rand(1, 5);
 // Include
 if(file_exists("inc/$action.php"))
 	include "inc/$action.php";
+else
+	header("Location: {$baseUrl}");
 
 // All assign
 foreach($GLOBALS as $key=>$value) $smarty->assign($key, $value);

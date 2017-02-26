@@ -48,26 +48,26 @@ function getConfigType($db) {
 }
 	
 // Get Menus from DB
-function getMenus($db, $lang) {
+function getMenus($db, $lang, $parent = "") {
 	global $actionList;
 	
-	$q = "SELECT `l`.`value` as `name`, `action` FROM `menu` `m` LEFT JOIN `langs` `l` ON `action` = `var` 
-			WHERE `admin` = 0 AND `lang`='{$lang}' AND `lvl` = 1 ORDER BY `num`";
+	$where = $parent ? "AND `parent` = '{$parent}'" : "";
+	
+	$q = "SELECT `l`.`value` as `name`, `action`, `mname`, `parent` FROM `menu` `m` 
+				LEFT JOIN `langs` `l` ON `mname` = `var` 
+					WHERE `lang`='{$lang}' {$where} ORDER BY `num`";
 	$r = mysqli_query($db, $q);
 	while($row = mysqli_fetch_assoc($r)) {
-		$row["url"] = $actionList[$row["action"]];
-		$menu["normal"][] = $row;
-	}
-
-	$q = "SELECT `l`.`value` as `name`, `action` FROM `menu` `m` LEFT JOIN `langs` `l` ON `action` = `var` 
-			WHERE `admin` = 1 AND `lang`='{$lang}' AND `lvl` = 1 ORDER BY `num`";
-	$r = mysqli_query($db, $q);
-	while($row = mysqli_fetch_assoc($r)) {
-		$row["url"] = $actionList[$row["action"]];
-		$menu["admin"][] = $row;
+		$row["url"] = isset($actionList[$row["action"]]) ? $actionList[$row["action"]] : "";
+		$menu[$row["parent"]][] = $row;
 	}
 	
 	return $menu;
+}
+
+function getMenuParent($db, $action) {
+	$r = mysqli_query($db, "SELECT `parent` FROM `menu` WHERE `action`='{$action}' AND `parent` <> 'main'");
+	return mysqli_result($r, 0);
 }
 
 // Get Themes from DB

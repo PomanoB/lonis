@@ -1,5 +1,5 @@
 	<p><div class="titles">{$langs.player} {if isset($name)} :: <i>{$name}</i>{/if}
-		<a href="{$baseUrl}/{$player.name}"><img src="{$baseUrl}/img/menu/players.png"></a>
+		<a href="{$baseUrl}/{$rname}"><img src="{$baseUrl}/img/menu/players.png"></a>
 	</div><br>
 
 {if $name}
