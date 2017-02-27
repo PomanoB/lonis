@@ -4,7 +4,8 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-CREATE TABLE IF NOT EXISTS `kz_records_ljs` (
+DROP TABLE IF EXISTS `kz_ljs_recs`;
+CREATE TABLE IF NOT EXISTS `kz_ljs_recs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `plname` varchar(32) NOT NULL,
   `distance` varchar(8) NOT NULL,
@@ -17,8 +18,8 @@ CREATE TABLE IF NOT EXISTS `kz_records_ljs` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
-/*!40000 ALTER TABLE `kz_records_ljs` DISABLE KEYS */;
-INSERT INTO `kz_records_ljs` (`id`, `plname`, `distance`, `block`, `prestrafe`, `speed`, `type`, `country`, `comm`) VALUES
+/*!40000 ALTER TABLE `kz_ljs_recs` DISABLE KEYS */;
+INSERT INTO `kz_ljs_recs` (`id`, `plname`, `distance`, `block`, `prestrafe`, `speed`, `type`, `country`, `comm`) VALUES
 	(1, 'DeathClaw', '258.027', '257', '275.238', '343.053', 'lj', 'ru', 'kzru'),
 	(2, 'Rub1', '257.489', '257', '275.81', '343.028', 'lj', 'ru', 'kzru'),
 	(3, 'bEN', '257.249', '257', '274.714', '341.712', 'lj', 'ru', 'kzru'),
@@ -68,8 +69,25 @@ INSERT INTO `kz_records_ljs` (`id`, `plname`, `distance`, `block`, `prestrafe`, 
 	(47, 'akseon', '248.325', '248', '299.840', '356.076', 'bj', 'ru', 'xj'),
 	(48, 'vLy', '248.130', '248', '299.654', '355.155', 'bj', 'cn', 'xj'),
 	(49, 'lrs', '248.304', '247', '299.470', '356.408', 'bj', 'sw', 'xj'),
-	(50, 'N1k1t1Ch^', '247.993', '247', '299.304', '355.006', 'bj', 'lv', '"xj"');
-/*!40000 ALTER TABLE `kz_records_ljs` ENABLE KEYS */;
+	(50, 'N1k1t1Ch^', '247.993', '247', '299.304', '355.006', 'bj', 'lv', 'xj');
+/*!40000 ALTER TABLE `kz_ljs_recs` ENABLE KEYS */;
+
+DROP TABLE IF EXISTS `kz_ljs_type`;
+CREATE TABLE IF NOT EXISTS `kz_ljs_type` (
+  `sort` int(3) unsigned NOT NULL DEFAULT '0',
+  `name` varchar(8) NOT NULL,
+  `fullname` varchar(32) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*!40000 ALTER TABLE `kz_ljs_type` DISABLE KEYS */;
+INSERT INTO `kz_ljs_type` (`sort`, `name`, `fullname`) VALUES
+	(5, 'bj', 'BunnyHopJump'),
+	(2, 'cj', 'CountJump'),
+	(3, 'dcj', 'Double CountJump'),
+	(4, 'hj', 'HighJump'),
+	(1, 'lj', 'LongJump');
+/*!40000 ALTER TABLE `kz_ljs_type` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

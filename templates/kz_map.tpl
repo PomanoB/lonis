@@ -1,7 +1,7 @@
 		
 {if $map}
 	<div class="wrapper">
-		<div class="titles left_block">{$langs.Map} <i>{$map|escape:html}</i></div>
+		<div class="titles left_block">{$langs[$parent]} :: {$langs.Map} :: <i>{$map|escape:html}</i></div>
 		<div class="right_block" align="center">
 			{if isset($imgmap)}
 				<img src="{$imgmap}" oncontextmenu="return false;" /><br>
@@ -12,7 +12,7 @@
 	
 	{if isset($maprec)}
 
-	<div>
+	<div class="table-list">
 		{foreach from=$maprec item=rec}
 			{if $rec.part}<p><b><a href="{$rec.url}" target="_blank">{$rec.fullname}</a></b>:{/if}
 			<b>{$rec.mappath}</b> {$rec.time} <i>{$rec.player}</i> <img src="{$baseUrl}/img/country/{$rec.country}.png">;
@@ -25,17 +25,17 @@
 	</div><br>
 {/if}
 	
-	{if isset($message)}<div class="err_message">{$message}</div><br>{/if}
+	{if $message}<div class="err_message">{$message}</div>{/if}
 
 	{if $total}	
-	<div>
+	<div  class="table-list">
 		<a href="{$baseUrl}/kreedz/{$map}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
 		<a href="{$baseUrl}/kreedz/{$map}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
 		<a href="{$baseUrl}/kreedz/{$map}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
 	</div>
 	{/if}
 
-	<p>&nbsp;{$pages.output}</p>
+	<div class="table-list">&nbsp;{$pages.output}</div></p>
 			
 	<table class="table-list">
 		<tr class="title" >

@@ -54,7 +54,7 @@ clintmo_bhopwarehouse 20.8 noxeR sk 6
 clintmo_dday 144.85 Hardbitter ru 7
 clintmo_falling 78.37 Bunkka ru 8
 clintmo_longjumper[e] 58.95 Toffifee ru 9
-clintmo_longjumper[h] 29.58 Mrjuice ar 10
+clintmo_longjumper[h] 29.56 soniizin br 10
 clintmo_longjumper[x] 5.55 Ranma kr 11
 clintmo_pentablock 226.27 pizza^ us 12
 cl_gloom 298.69 shooting-star cz 729
@@ -90,9 +90,9 @@ fof_axn_scroll_killa 64.31 badgamer be 636
 fof_chillbhop 62.05 noxeR sk 754
 fof_utopia 99.14 buh ar 569
 fo_h0pbl0ck 222.22 Toffifee ru 13
-fu_bhop 149.68 kQbmig dk 734
+fu_bhop 149.66 Hardbitter ru 734
 fu_darkhop 158.47 Mrjuice ar 833
-fu_replayhop 248.85 Aguslash ar 832
+fu_replayhop 231.13 Hardbitter ru 832
 fu_sane 412.59 shooting-star cz 830
 imao_darkcavern 136.68 Toffifee ru 566
 ins_air 72.24 R4D14710N br 810
@@ -107,7 +107,7 @@ j2s_sandland 159.02 Toffifee ru 409
 j2s_westbl0ck 154.54 Bibika ru 302
 j2s_westbl0ck2[easy] 240.27 shooting-star cz 696
 j2s_westbl0ck2[hard] 238.11 LEWLY se 697
-jagkz_breezeclimb 73.13 kQbmig dk 735
+jagkz_breezeclimb 73.01 MetamorPhose^_x cn 735
 jagkz_natal 70.16 shNz bg 795
 kkz_texture 124.66 Toffifee ru 618
 klz_sherbrooke 168.35 DiLo cn 847
@@ -176,11 +176,11 @@ kzro_gohome 356.53 Toffifee ru 792
 kzro_mountainsein 363.33 neXt. pl 698
 kzro_nightcamp 152.5 PU9maker cz 753
 kzro_raincliff 107.03 shNz bg 614
-kzro_smalltemple 74.13 Memories ar 488
+kzro_smalltemple 72.67 Memories ar 488
 kzru_bear 314.76 YRagoN92 cn 831
 kzru_pharaonrun 98 soniizin br 537
 kzru_spacehop 256.94 Toffifee ru 527
-kzru_sun5hine 79.47 shNz bg 543
+kzru_sun5hine 79.18 lambdaaa kr 543
 kzsca_bagdad 79.3 shNz bg 627
 kzsca_brickvalley 124.26 shNz bg 399
 kzsca_broken 238.01 Gene it 555
@@ -202,7 +202,7 @@ kzsca_watertemple 139.48 DizZy tw 639
 kzsca_watertemple2 212.2 LEWLY se 680
 kzse_ancienthopez 85.25 shNz bg 362
 kzse_bhopblock 12.33 kzz1lla qa 352
-kzse_bhopblock[full] 0 n/a n-a 866
+kzse_bhopblock[full] 335.95 MobaI cn 866
 kzse_valleycliff 147.83 shNz bg 351
 kzsk_communityblock 1038 shooting-star cz 671
 kztd_endo_pipeline 136.74 memek pl 714
@@ -281,9 +281,9 @@ kz_cg_nightcastle 324.39 rOboTaa cn 475
 kz_cg_palmcliff 158.45 Toffifee ru 298
 kz_cg_pianoclimb 127.12 shooting-star cz 260
 kz_cg_rats 165.16 scmb bg 296
-kz_cg_rivacliff 104.79 hrznnn bg 261
+kz_cg_rivacliff 104.78 MEfro ru 261
 kz_cg_tower 122.2 Toffifee ru 275
-kz_cg_treeoflife 318.91 LEWLY se 592
+kz_cg_treeoflife 318.18 fykseN cz 592
 kz_cg_venice 80.2 shNz bg 503
 kz_cg_wigbl0ck 131.5 spr1n ee 262
 kz_cg_xtremedesert 190.09 shNz bg 297
@@ -362,7 +362,7 @@ kz_fairy_island[+secret] 10.14 kzz1lla qa 381
 kz_fairy_island[-secret] 195.6 shooting-star cz 382
 kz_faw_cathedral_e 99.93 shooting-star cz 76
 kz_faw_cathedral_h 104.85 shooting-star cz 77
-kz_fl_secret_temple2 219.63 Toffifee ru 778
+kz_fl_secret_temple2 217.76 neXt. pl 778
 kz_forgotten 284.47 shooting-star cz 599
 kz_fortress 648.59 shooting-star cz 485
 kz_ghat 64.37 shooting-star cz 602
@@ -384,7 +384,7 @@ kz_highlands 197.59 kzz1lla qa 484
 kz_hop 177.15 Nukk ru 82
 kz_hopez 163.45 shNz bg 83
 kz_hypercube 362.64 shooting-star cz 770
-kz_icemountain 397.67 Toffifee ru 414
+kz_icemountain 384.67 Memories ar 414
 kz_ins_ancientgardens 390.1 Poter kr 600
 kz_ins_bhoptown 164.64 kzz1lla qa 807
 kz_ins_industryrun 162.75 rOboTaa cn 806
@@ -392,7 +392,7 @@ kz_ins_insilio 899.16 Aguslash ar 786
 kz_ins_trainrun 140.37 hrznnn bg 805
 kz_j2s_cupblock 140.84 Toffifee ru 332
 kz_j2s_darktower 66.07 surRendi br 277
-kz_j2s_darktower[full] 153.81 rawe ar 856
+kz_j2s_darktower[full] 139.6 AeonFlux ru 856
 kz_j2s_icevalley 128.79 LEWLY se 278
 kz_j2s_icevalley[-boost] 183.22 Toffifee ru 820
 kz_j2s_nightcanyon 119.19 Toffifee ru 295
@@ -414,7 +414,7 @@ kz_kzdk_covebhop 105.65 shNz bg 415
 kz_kzdk_delianshop 122.63 Bibika ru 457
 kz_kzdk_digger 222.77 rOboTaa cn 407
 kz_kzdk_docks 136.3 shooting-star cz 431
-kz_kzdk_droughthop 133.06 Bibika ru 424
+kz_kzdk_droughthop 132.79 lambdaaa kr 424
 kz_kzdk_junglezone2 252.97 shooting-star cz 396
 kz_kzdk_kosovo 85.37 rOboTaa cn 432
 kz_kzdk_megablock 498.4 fykseN cz 587
@@ -429,7 +429,7 @@ kz_kzfr_alexandrie 276.26 Toffifee ru 369
 kz_kzfr_bhopaztec 20.98 badgamer be 237
 kz_kzfr_bhopdwarf 14.32 pruno fr 238
 kz_kzfr_bhopspace 0.59 Skizo_ hu 240
-kz_kzfr_bhopspace[-md] 0 n/a n-a 857
+kz_kzfr_bhopspace[-md] 16.36 AeonFlux ru 857
 kz_kzfr_bhopwaterrace 36.99 badgamer be 239
 kz_kzfr_caterpillar 449.19 cahz0r ro 370
 kz_kzfr_darktree 261.61 kropeq pl 223
@@ -449,7 +449,7 @@ kz_kzfr_statueofliberty 275.76 pizza^ us 90
 kz_kzfr_tibet 406.95 shooting-star cz 91
 kz_kzfr_treeclimb 410.86 fykseN cz 92
 kz_kzfr_vache_and_cow 261.38 shooting-star cz 251
-kz_kzhu_jail 109.93 fykseN cz 510
+kz_kzhu_jail 109.58 shooting-star cz 510
 kz_kzj_tech 149.53 kzz1lla qa 497
 kz_kzlt_dementia[+tranquillity] 183.1 LEWLY se 533
 kz_kzlt_dementia[-tranquillity] 131.97 shNz bg 532
@@ -551,7 +551,7 @@ kz_man_madness[hard] 108.62 aloprando br 126
 kz_man_nasa 78.62 rampL bg 127
 kz_man_nasa[-md] 258.38 sooshka ca 860
 kz_man_neighbourhood 120.38 shooting-star cz 128
-kz_man_neighbourhood[-md] 0 n/a n-a 861
+kz_man_neighbourhood[-md] 333.4 kocmonabt ru 861
 kz_man_owtcity 193.7 Toffifee ru 129
 kz_man_redrock 327.35 shooting-star cz 130
 kz_man_riverside 295.14 shooting-star cz 131
@@ -563,7 +563,7 @@ kz_man_trippin 278.62 Memories ar 136
 kz_man_ultrablock 140.17 LEWLY se 137
 kz_man_urbanjump 261.92 shooting-star cz 138
 kz_mathland 146.62 Cupe ar 139
-kz_megabhop 91.65 Dolphin ru 285
+kz_megabhop 91.34 lambdaaa kr 285
 kz_megabhop_hard 91.67 shNz bg 292
 kz_memphisblock 279.19 patchouli cn 660
 kz_midnight 59.87 Toffifee ru 279
@@ -587,10 +587,10 @@ kz_plop 360.99 shooting-star cz 146
 kz_px_eaglecliff 90.54 chinakungfu cn 147
 kz_radium 260.93 lrs se 767
 kz_rambo_xen 31.13 koukouz be 148
-kz_rambo_xen[-md] 350.84 Toffifee ru 862
+kz_rambo_xen[-md] 342.63 xiyangyang cn 862
 kz_rang_maze[+maze] 215.77 aloprando br 149
 kz_rang_maze[-maze] 196.24 Toffifee ru 150
-kz_rd_giganticwall 388.54 PU9maker cz 356
+kz_rd_giganticwall 381.22 neXt. pl 356
 kz_rd_oldmine 273.15 PU9maker cz 310
 kz_real_adventure_b01 578.9 Flibo fi 151
 kz_real_caverns 339.7 shooting-star cz 152
@@ -613,8 +613,8 @@ kz_sk_proclimbing 364.16 PU9maker cz 159
 kz_sola 80.08 shNz bg 317
 kz_space 6 Bunkka ru 476
 kz_space2 23.43 emmalahana ar 571
-kz_space2[-md] 0 n/a n-a 863
-kz_space[-md] 210.37 Sharks cn 864
+kz_space2[-md] 128.96 SAJKEE ba 863
+kz_space[-md] 155.33 k1ngwAy cn 864
 kz_spain 182.64 Toffifee ru 403
 kz_starwars_deeja 134.43 KeltA fi 402
 kz_stb_mystic 172.77 Toffifee ru 828
@@ -628,7 +628,7 @@ kz_summercliff2 293.4 Toffifee ru 695
 kz_synergy 123.31 shNz bg 608
 kz_synergy_x 223.72 patchouli cn 607
 kz_synergy_x2 705.04 round ru 685
-kz_tbt_nonentity 213.87 throttle by 693
+kz_tbt_nonentity 203.16 shooting-star cz 693
 kz_templejourney 260.17 LEWLY se 545
 kz_to0nride 239.47 Toffifee ru 253
 kz_tomb 428.32 patchouli cn 360
@@ -680,7 +680,7 @@ k_ice 131.04 lambdaaa kr 797
 k_obscurity 1539.47 throttle by 803
 k_sun 301.18 klinch bg 775
 k_under 137.12 noxeR sk 808
-lico_valley 472.54 PU9maker cz 427
+lico_valley 466.81 fykseN cz 427
 mto_desolate2 115.94 shNz bg 584
 mto_desolate_h 158.52 LEWLY se 565
 mto_greencave 152.06 shNz bg 528
@@ -690,13 +690,13 @@ muj_dom 789.12 Toffifee ru 844
 muj_to_qui 243.72 nike se 849
 nfs_longjump 25.35 Mrjuice ar 176
 nfs_longjumpez 24.82 Mrjuice ar 177
-nks_pupu 1865.69 DiLo cn 873
+nks_pupu 446.5 Toffifee ru 873
 nobkz_mst_honduras 770.93 R300K cn 690
 nobkz_mst_honduras_h 2957.3 lrs se 798
 ph_k_after 197.62 zenkz br 700
 po_roboclimb 107.62 Cupe ar 179
 prochallenge2_bhop 153.73 Toffifee ru 839
-prochallenge2_bhop_hard 339.35 Aguslash ar 840
+prochallenge2_bhop_hard 284.41 Toffifee ru 840
 prochallenge2_longjump 121.1 memek pl 841
 prochallenge2_mix 1220.03 throttle by 842
 prochallenge2_mix_ez 410.29 Toffifee ru 845
@@ -707,7 +707,7 @@ prochallenge_longjump 94.53 DeathClaw ru 597
 prochallenge_precision 174.93 shooting-star cz 598
 prochallenge_speed 146.71 shooting-star cz 549
 px_pharoah 113.79 shooting-star cz 178
-qsk_azure 341.32 GoDfreee ru 634
+qsk_azure 211.01 shooting-star cz 634
 qsk_fractured 298.29 kropeq pl 692
 qsk_qube 276.05 pizza^ us 672
 radon_asylum 646.53 shooting-star cz 701

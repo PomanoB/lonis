@@ -1,6 +1,6 @@
 	<div class="wrapper">		
 		<div class="titles left_block">
-			{$langs.kz_records} ({$total})
+			{$langs[$parent]} :: {$langs.kz_records} ({$total})
 		</div>
 {if !$cs}
 		<div class="right_block">
@@ -11,18 +11,20 @@
 			</form>
 		</div>
 {/if}
-	</div><br>
+	</div><br><br>
 	
 	<div>
-		<p><div class="err_message">{$message}</div>
+		<div class="err_message">{$message}</div>
 		
-		<p>&nbsp;{$pages.output}
+		<div class="table-list">&nbsp;{$pages.output}</div>
 		
+		<br>
 		<table class="table-list">
 			<tr class="title">
 				<td>{$langs.Map}</td>
 				<td>{$langs.WorldRecord}</td>
 				<td>{$langs.RuRecord} {if $comm_countryImg}<img src="{$baseUrl}/{$comm_countryImg}" />{/if}</td>
+				<td>{$langs.kz_records} {$langs.servers} </td>
 	{if $admin==1}
 				<td	>#</td>
 	{/if}
@@ -32,8 +34,9 @@
 	{foreach from=$maps item=map}
 			<tr class="list">
 				<td><a href="{$baseUrl}/kreedz/{$map.map}/">{$map.map}{$map.mappath}</a></td>
-				<td>{$map.wr_time} {$map.wr_player} {if $map.wr_countryImg}<img src="{$baseUrl}/{$map.wr_countryImg}" />{/if}</td>
-				<td>{$map.comm_time} {$map.comm_player}</td>
+				<td>{$map.wr_time} <i>{$map.wr_player}</i> {if $map.wr_countryImg}<img src="{$baseUrl}/{$map.wr_countryImg}" />{/if}</td>
+				<td>{$map.comm_time} <i>{$map.comm_player}</i></td>
+				<td>{$map.top_time} <i>{$map.top_player}</i></td>
 	{if $admin==1}
 				<form action="" method="post">			
 				<td>

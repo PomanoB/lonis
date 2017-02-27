@@ -6,7 +6,7 @@
 	</div>
 	
 	{if isset($rows)}
-	<p>&nbsp;{$pages.output}
+	<div class="table-list">&nbsp;{$pages.output}</div>
 	
 	<div style="padding:10px;">
 		{foreach from=$rows item=player}
@@ -34,7 +34,7 @@
 		</div>
 		
 	{if isset($rows)}
-		<p>&nbsp;{$pages.output}
+		<div class="table-list">&nbsp;{$pages.output}</div>
 		
 	{foreach from=$rows item=player}
 		<div class="achiev">
@@ -55,7 +55,7 @@
 
 	{if isset($rows)}
 	<div style="padding:10px;">
-	<p>&nbsp;{$pages.output}
+	<div class="table-list">&nbsp;{$pages.output}</div>
 		
 	{foreach from=$rows item=achiev}
 		<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
@@ -87,7 +87,7 @@
 	</div>
 	
 	{if isset($rows)}
-	<p>&nbsp;{$pages.output}
+	<div class="table-list">&nbsp;{$pages.output}</div>
 	
 	<table>
 	{foreach from=$rows item=achiev}

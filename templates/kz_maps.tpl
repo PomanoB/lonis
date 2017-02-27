@@ -1,6 +1,6 @@
 	<div class="wrapper">		
 		<div class="titles left_block">
-			{$langs.kz_maps} ({$total})
+			{$langs[$parent]} :: {$langs.kz_maps} ({$total})
 		</div>
 {if !$cs}
 		<div class="right_block">
@@ -11,15 +11,15 @@
 			</form>
 		</div>
 {/if}
-	</div><br>
+	</div><br><br>
 	
 	<div>
 {if $rec=="norec"}				
-		<p><div>
+		<div>
 			<b>{$langs.kznorec}</b> :: <a href="{$baseUrl}/kreedz/maps/{$type}/{$search}">{$langs.kzrec}</a>
 		</div>
 		
-		<p>&nbsp;{$pages.output}
+		<div class="table-list">&nbsp;{$pages.output}</div>
 		
 		<div>
 			<table class="table-list">
@@ -36,16 +36,18 @@
 			</table>
 		</div>
 {else}
-		<p><div>
+		<div class="table-list">
 			<a href="{$baseUrl}/kreedz/maps/pro/{$rec}/{$search}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
 			<a href="{$baseUrl}/kreedz/maps/noob/{$rec}/{$search}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
 			<a href="{$baseUrl}/kreedz/maps/all/{$rec}/{$search}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
 			:: <a href="{$baseUrl}/kreedz/maps/{$type}/norec/{$search}">{$langs.kznorec}</a>
-		</div>
-		<p><div class="err_message">{$message}</div>
+		</div><br>
 		
-		<p>&nbsp;{$pages.output}
+		<div class="err_message">{$message}</div>
 		
+		<div class="table-list">&nbsp;{$pages.output}</div>
+		
+		<br>
 		<table class="table-list">
 			<tr class="title">
 				<td>{$langs.Map}</td>

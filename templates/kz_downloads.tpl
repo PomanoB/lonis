@@ -1,7 +1,6 @@
-
 	<div class="wrapper">		
 		<div class="titles left_block">
-			{$langs.kz_downloads} ({$langs.kznum}: {$total}) 
+			{$langs[$parent]} :: {$langs.kz_downloads} ({$total}) 
 		</div>
 {if !$cs}
 		<div class="right_block">
@@ -12,22 +11,21 @@
 			</form>
 		</div>
 {/if}
-	</div><br>
-	
-	<div>
+	</div><br><br>
 
-	<p><div class="err_message">{$message}</div>
+	<div class="err_message">{$message}</div>
 	
-	<p>&nbsp;{$pages.output}
+	<div class="table-list">&nbsp;{$pages.output}</div>
 	
+	<br>
 	<table class="table-list">
 		<tr class="title">
 			<td>{$langs.Map}</td>
-			<td>Сложность *</td>
-			<td>Тип *</td>
-			<td>Автор *</td>
-			<td>Дата *</td>
-			<td>Скачать *</td>
+			<td>{$langs.difficulty}</td>
+			<td>{$langs.Type}</td>
+			<td>{$langs.authors}</td>
+			<td>{$langs.Date}</td>
+			<td>{$langs.Download}</td>
 {if $admin==1}
 			<td	>#</td>
 {/if}
@@ -64,4 +62,3 @@
 {/foreach}
 {/if}
 	</table>
-	</div>

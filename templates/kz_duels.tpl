@@ -1,10 +1,10 @@
 <div class="wrapper">
-	<div class="titles left_block">{$langs.kz_duels}</div>
+	<div class="titles left_block">{$langs[$parent]} :: {$langs.kz_duels}</div>
 	<div class="right_block" align="center">
 	</div>
-</div><br>
+</div><br><br>
 	
-<p>&nbsp;{$pages.output}
+<div class="table-list">&nbsp;{$pages.output}</div>
 
 <div style="padding:10px;">
 	<table class="table-list">

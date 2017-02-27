@@ -2,8 +2,16 @@
 Web registartion and statistic for Counter Strike 1.6 version 2.0.6
 
 -------------------
--- Version 2.0.5 -- 
+-- Version 2.0.6 -- 
 -------------------
+Changelog: 27.02.2017 15:20
+- Add LJ Record page
+- Fix func timed();
+- Add compare on kz_records page 
+- Fix style for all pager (border spacing)
+- Update sql files: tbl_menu, tbl_langs, tbl_kz_ljs
+- Update table `kz_records` (4347 maps).
+
 Changelog: 27.02.2017 11:30
 - Change names: achiev->achievs, kz_map_rec->kz_records
 - Change names SQL file
@@ -12,7 +20,7 @@ Changelog: 27.02.2017 11:30
 - Add kz_longjumps page (Coming Soon)
 - Fix records on kz_map page
 - Change Accaunt and Admin menu Style (from DB)
-- Fix href "/kreedz/{$mapname}/"
+- Fix href "/kreedz/{$mapname}/" all pages
 
 -------------------
 -- Version 2.0.5 -- 

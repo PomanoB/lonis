@@ -9,7 +9,10 @@
 		<script type="text/javascript" src="{$baseUrl}/templates/js/jquery.min.js"></script>
 		<script type="text/javascript" src="{$baseUrl}/templates/js/main.js"></script>
 		<script type="text/javascript" src="{$baseUrl}/templates/js/{$action}.js"></script>
-		<title>{$langs.Title}{if isset($langs[$action])} :: {$langs[$action]}{/if}</title>
+		<title>
+			{$langs.Title} {if isset($langs[$parent])} :: {$langs[$parent]}{/if}
+			{if isset($langs[$action])} :: {$langs[$action]}{/if}
+		</title>
 	</head>
 	
 	<body>
@@ -19,7 +22,7 @@
 				<div class="tabbed" id="menu-tabs">
 					
 			{if !$cs}
-					<div class="menu" >
+					<div class="menu">
 				{foreach from=$menu.main item=i}
 					{if $i.mname=='admin' && $admin==0} {continue} {/if}
 						<div class="item">

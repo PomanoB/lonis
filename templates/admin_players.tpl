@@ -10,7 +10,7 @@
 	</div>
 {/if}
 	
-	<p>&nbsp;{$pages.output}
+	<div class="table-list">&nbsp;{$pages.output}</div>
 				
 	<div class="error_message">{$message}</div>
 	

@@ -31,8 +31,9 @@ INSERT INTO `menu` (`num`, `parent`, `mname`, `action`) VALUES
 	(64, 'kreedz', 'kz_longjumps', 'kz_longjumps'),
 	(70, 'main', 'account', 'ucp'),
 	(65, 'kreedz', 'kz_records', 'kz_records'),
-	(66, 'kreedz', 'kz_downloads', 'kz_downloads'),
-	(90, 'main', 'admin', 'admin_players');
+	(67, 'kreedz', 'kz_downloads', 'kz_downloads'),
+	(90, 'main', 'admin', 'admin_players'),
+	(66, 'kreedz', 'kz_ljs_recs', 'kz_ljs_recs');
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

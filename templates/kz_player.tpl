@@ -1,6 +1,6 @@
 	<div class="wrapper">
 		<div class="titles left_block">
-			{$langs.player} {if isset($name)} :: <i>{$name}</i>{/if}</i>
+			{$langs[$parent]} :: {$langs.player} {if isset($name)} :: <i>{$name}</i>{/if}</i>
 			{if !$cs}<a href="{$baseUrl}/{$name_url}"><img src="{$baseUrl}/img/menu/players.png"></a>{/if}
 		</div>
 		<div class="right_block" align="center">
@@ -11,28 +11,31 @@
 			{/if}
 			<p>
 		</div>
-	</div>
-	
-	<br><br>
+	</div><br><br>
 
 {if $name}
 	{if $rec != "norec"}
+	<div class="table-list">
 		<a href="{$baseUrl}/{$name_url}/kreedz/pro/{$rec}/{$sort}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
 		<a href="{$baseUrl}/{$name_url}/kreedz/noob/{$rec}/{$sort}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
 		<a href="{$baseUrl}/{$name_url}/kreedz/all/{$rec}/{$sort}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
 		:: <a href="{$baseUrl}/{$name_url}/kreedz/{$type}/norec">{$langs.kznorec}</a>
 		
-		<p><a href="{$baseUrl}/{$name_url}/kreedz/all/{$rec}/num" {if $sort == "num"}style="font-weight:bold;"{else}{/if}>{$langs.kznum}:</a> {$map_num} 
+		<br><a href="{$baseUrl}/{$name_url}/kreedz/all/{$rec}/num" {if $sort == "num"}style="font-weight:bold;"{else}{/if}>{$langs.kznum}:</a> {$map_num} 
 		:: 
 		<a href="{$baseUrl}/{$name_url}/kreedz/all/{$rec}/top1" {if $sort == "top1"}style="font-weight:bold;"{else}{/if}>{$langs.kztop1}:</a> {$map_top1}
+	</div><br>
 	{else}
+	<div class="table-list">
 		<b>{$langs.kznorec}</b> :: <a href="{$baseUrl}/{$name_url}/kreedz/{$type}">{$langs.kzrec}</a>
 		
-		<p><b>{$langs.kznum}</b>: {$map_norec}
+		<br><b>{$langs.kznum}</b>: {$map_norec}
+	</div><br>
 	{/if}	
 	
-		<p>&nbsp;{$pages.output}
+		<div class="table-list">&nbsp;{$pages.output}</div>
 		
+		<br>
 		<table class="table-list">
 			<tr class="title">
 				<td>{$langs.Map}</td>

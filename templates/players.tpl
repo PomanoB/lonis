@@ -60,7 +60,7 @@
 	{/if}
 	</div><br>
 
-	<p>&nbsp;{$pages.output}
+	<div class="table-list">&nbsp;{$pages.output}</div>
 	
 	<div style="padding:10px;">
 		<table class="table-list">

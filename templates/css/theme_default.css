@@ -109,7 +109,8 @@ legend {
 	line-height: 1.7em;
 	empty-cells: show; 
 	border-collapse: collapse;
-	width: 100%;
+	width: 97%;
+	margin: 0 auto;
 }
 
 .table-list .list td {

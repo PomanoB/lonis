@@ -31,9 +31,11 @@ $where = $search ? "AND `r1`.`map` LIKE '%$ssearch%'" : "";
 
 $q = "SELECT `r1`.`map` `map`, `r1`.`mappath`,
 			`r1`.`time` `wr_time`, `r1`.`player` `wr_player`, `r1`.`country` `wr_country`,
-			`r2`.`time` `comm_time`, `r2`.`player` `comm_player`, `r2`.`country` `comm_country`
+			`r2`.`time` `comm_time`, `r2`.`player` `comm_player`, `r2`.`country` `comm_country`,
+			`t`.`time` `top_time`, `t`.`name` `top_player`
 	FROM `kz_records` `r1` 
 		LEFT JOIN (SELECT * FROM `kz_records` WHERE comm='{$community}') `r2` ON r1.map=r2.map AND r1.mappath=r2.mappath
+		LEFT JOIN `kz_map_tops1` `t` ON r1.map=t.map AND `go_cp` = 0
 	WHERE (r1.comm='xj' OR r1.comm='cc' OR r1.comm IS NULL) {$where} ORDER BY `r1`.`map`";
 $r = mysqli_query($db, $q);
 $total = mysqli_num_rows($r);
@@ -50,6 +52,7 @@ if ($total) {
 	foreach($rows_limit as $row) {
 		$row["wr_time"] = timed($row["wr_time"], 2);
 		$row["comm_time"] = timed($row["comm_time"], 2);
+		$row["top_time"] = timed($row["top_time"], 2);
 		
 		$img = "img/country/{$row["wr_country"]}.png";
 		$row["wr_countryImg"] = file_exists($img) ? $img : "";

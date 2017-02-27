@@ -58,7 +58,7 @@
 	{/if}
 {else}
 
-	<p>&nbsp;{$pages.output}
+	<div class="table-list">&nbsp;{$pages.output}</div>
 	
 	<p><table class="table-list">
 		<tr class="title">

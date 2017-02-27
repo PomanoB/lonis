@@ -94,6 +94,9 @@ function parse_urls($url) {
 
 // Time format ##:##.##
 function timed($ftime, $pad=0) {
+	if(!$ftime)
+		return "";
+	
 	$min = floor($ftime/60);
 	$sec = $ftime%60;
 	$ms = $ftime * pow(10,$pad) % pow(10,$pad);
@@ -102,7 +105,6 @@ function timed($ftime, $pad=0) {
 	$ms = str_pad($ms, $pad, '0');
 	if ($ms < pow(10,$pad-1) && $ms!=0) $ms = '0'.$ms;
 	
-
 	return $min.':'.$sec.'.'.$ms;
 }
 

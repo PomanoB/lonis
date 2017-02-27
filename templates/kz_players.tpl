@@ -1,5 +1,5 @@
 			<div class="wrapper">		
-				<div class="titles left_block">{$langs.kz_players}</div>
+				<div class="titles left_block">{$langs[$parent]} :: {$langs.kz_players}</div>
 		{if !$cs}
 				<div class=" right_block">
 					<form action="" method="post" id="search_map_form" class="">
@@ -9,19 +9,18 @@
 					</form>
 				</div>
 		{/if}
-			</div>
+			</div><br><br>
 			
-			<br><br>
-			<div>
+			<div class="table-list">
 				<a href="{$baseUrl}/kreedz/players/pro/{$sort}/{$search}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
 				<a href="{$baseUrl}/kreedz/players/noob/{$sort}/{$search}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
 				<a href="{$baseUrl}/kreedz/players/all/{$sort}/{$search}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
 				::
 				<a href="{$baseUrl}/kreedz/players/{$type}/all/{$search}" {if $sort == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kznum}</a>
 				<a href="{$baseUrl}/kreedz/players/{$type}/top1/{$search}" {if $sort == "top1"}style="font-weight:bold;"{else}{/if}>{$langs.kztop1}</a>
-			</div>
+			</div><br>
 			
-			<p>&nbsp;{$pages.output}
+			<div class="table-list">&nbsp;{$pages.output}</div>
 			<div style="padding:10px;">
 				<table class="table-list">
 					<tr class="title">

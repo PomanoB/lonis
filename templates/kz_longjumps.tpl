@@ -1,7 +1,3 @@
-<div class="wrapper">
-	<div class="titles left_block">{$langs.kz_longjumps} (В разработке)</div>
-	<div class="right_block" align="center">
+	<div class="titles" align="center">
+		{$langs[$parent]} :: {$langs.kz_longjumps} (В разработке) 
 	</div>
-</div><br>
-	
-<p>
