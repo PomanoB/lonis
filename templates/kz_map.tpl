@@ -8,29 +8,15 @@
 			{/if}
 			<p>
 		</div>
-	</div>
+	</div><br>
 	
 	{if isset($maprec)}
-	<div style="padding-left: 20px;">
-		<a href="{$download_url}" alt="{$langs.Download} {$map}">
-			&nbsp;<img src="{$baseUrl}/img/download_map.png" title="{$langs.Download}" alt="{$langs.Download}">
-		</a>
-	</div>
 
 	<div>
-		<p><table>
 		{foreach from=$maprec item=rec}
-			<tr>
-				<td align="right"><b><a href="{$rec.url}" target="_blank">{$rec.fullname}</a></b>:</td>
-				<td>
-					{$rec.mappath} {$rec.time} {$rec.player} 
-					{if $rec.countryImg}
-						<img src="{$baseUrl}/{$rec.countryImg}" title="{$rec.country}" alt="{$rec.country}" />
-					{/if}
-				</td>
-			</tr>
+			{if $rec.part}<p><b><a href="{$rec.url}" target="_blank">{$rec.fullname}</a></b>:{/if}
+			<b>{$rec.mappath}</b> {$rec.time} <i>{$rec.player}</i> <img src="{$baseUrl}/img/country/{$rec.country}.png">;
 		{/foreach}
-		</table>
 	</div>
 	{/if}
 {else}	
@@ -39,7 +25,7 @@
 	</div><br>
 {/if}
 	
-	<div class="err_message">{$message}</div><br>
+	{if isset($message)}<div class="err_message">{$message}</div><br>{/if}
 
 	{if $total}	
 	<div>

@@ -1,15 +1,16 @@
 -- Tables --
 
-DROP TABLE IF EXISTS `kz_map_rec`;
-CREATE TABLE `kz_map_rec` (
+DROP TABLE IF EXISTS `kz_records`;
+CREATE TABLE `kz_records` (
 	`id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`map` VARCHAR(64) NOT NULL,
 	`mappath` VARCHAR(16) NULL DEFAULT NULL,
 	`time` DECIMAL(10,2) NULL DEFAULT NULL,
 	`player` VARCHAR(32) NULL DEFAULT NULL,
-	`country` VARCHAR(8) NULL DEFAULT NULL,
+	`country` VARCHAR(2) NULL DEFAULT NULL,
 	`comm` VARCHAR(8) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`, `map`)
+	PRIMARY KEY (`id`),
+	INDEX `map` (`map`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `demos`;
@@ -26,7 +27,7 @@ LOAD DATA LOCAL INFILE 'demos/demos_cc.txt'
 INTO TABLE `demos` CHARACTER SET 'UTF8' FIELDS TERMINATED BY ' ' IGNORE 1 LINES
 (`map`, `time`, @ignored, @ignored, @ignored, `country`, `player`);
 
-INSERT INTO `kz_map_rec` (`map`, `mappath`, `time`,`player`, `country`, `comm`)
+INSERT INTO `kz_records` (`map`, `mappath`, `time`,`player`, `country`, `comm`)
 SELECT 
 	IF(LOCATE("[", `map`), LEFT(`map`, LOCATE("[", `map`)-1), `map`) AS `map`,
 	MID(`map`, LOCATE("[", `map`), LOCATE("]", `map`)) AS `mappath`, 
@@ -43,7 +44,7 @@ LOAD DATA LOCAL INFILE 'demos/demos_xj.txt'
 INTO TABLE `demos` CHARACTER SET 'UTF8' FIELDS TERMINATED BY ' ' IGNORE 1 LINES
 (`map`, `time`,`player`, `country`);
 
-INSERT INTO `kz_map_rec` (`map`, `mappath`, `time`,`player`, `country`, `comm`)
+INSERT INTO `kz_records` (`map`, `mappath`, `time`,`player`, `country`, `comm`)
 SELECT 
 	IF(LOCATE("[", `map`), LEFT(`map`, LOCATE("[", `map`)-1), `map`) AS `map`,
 	MID(`map`, LOCATE("[", `map`), LOCATE("]", `map`)) AS `mappath`, 
@@ -60,7 +61,7 @@ LOAD DATA LOCAL INFILE 'demos/demos_kzru.txt'
 INTO TABLE `demos` CHARACTER SET 'UTF8' FIELDS TERMINATED BY ' ' IGNORE 1 LINES
 (`map`, `time`, `player`);
 
-INSERT INTO `kz_map_rec` (`map`, `mappath`, `time`,`player`, `country`, `comm`)
+INSERT INTO `kz_records` (`map`, `mappath`, `time`,`player`, `country`, `comm`)
 SELECT 
 	IF(LOCATE("[", `map`), LEFT(`map`, LOCATE("[", `map`)-1), `map`) AS `map`,
 	MID(`map`, LOCATE("[", `map`), LOCATE("]", `map`)) AS `mappath`, 
@@ -77,7 +78,7 @@ LOAD DATA LOCAL INFILE 'demos/demos_rush.txt'
 INTO TABLE `demos` CHARACTER SET 'UTF8' FIELDS TERMINATED BY ' ' IGNORE 1 LINES
 (`map`, `time`,`player`, `country`);
 
-INSERT INTO `kz_map_rec` (`map`, `mappath`, `time`,`player`, `country`, `comm`)
+INSERT INTO `kz_records` (`map`, `mappath`, `time`,`player`, `country`, `comm`)
 SELECT 
 	IF(LOCATE("[", `map`), LEFT(`map`, LOCATE("[", `map`)-1), `map`) AS `map`,
 	MID(`map`, LOCATE("[", `map`), LOCATE("]", `map`)) AS `mappath`, 

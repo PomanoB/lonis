@@ -55,21 +55,20 @@ if($total) {
 			$imgmap = "{$baseUrl}/img/cstrike/{$map}.jpg";
 		}
 
-		$q = "SELECT * FROM `kz_map_rec` `r`, `kz_comm` `c` WHERE `map` = '{$map}' AND `name` = `comm` ORDER BY `sort`";	
+		$q = "SELECT * FROM `kz_records` `r`, `kz_comm` `c` WHERE `map` = '{$map}' AND `name` = `comm` ORDER BY `sort`, `mappath`";	
 		$r_rec = mysqli_query($db, $q);
 		
 		$maprec = array();
+		$lastcomm = "";
 		while($row = mysqli_fetch_assoc($r_rec)) {
-			$row["download_url"] = str_replace("%map%", $map, $row["download"]);
+			
+			$row['part'] = $row["comm"]==$lastcomm ? 0 : 1;
+			$lastcomm = $row["comm"];
 			
 			$row["time"] = timed($row["time"], 2);
 			
-			$img = "img/country/{$row["country"]}.png";
-			$row["countryImg"] = file_exists($img) ? $img : "";
-		
 			$maprec[] = $row;	
 		}
-		$download_url = isset($maprec[0]["download_url"]) ? $maprec[0]["download_url"] : "";
 	}
 	
 	// List

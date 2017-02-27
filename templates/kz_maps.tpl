@@ -62,7 +62,7 @@
 	{if isset($maps)}
 	{foreach from=$maps item=map}
 			<tr class="list">
-				<td><a href="{$baseUrl}/kreedz/{$map.mapname}">{$map.mapname}</a></td>
+				<td><a href="{$baseUrl}/kreedz/{$map.mapname}/">{$map.mapname}</a></td>
 				<td><a href="{$baseUrl}/{$map.name_url}/kreedz">{$map.name|escape}</a></td>
 				<td>{$map.time}</td>
 				<td class="{if $map.go_cp==0}color_nogc{/if}">{$map.cp}</td>

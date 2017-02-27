@@ -18,7 +18,7 @@
 {foreach from=$rows item=duel}
 		<tr class="list">
 			<td>
-				<a href="{$baseUrl}/kreedz/{$duel.map}">{$duel.map}</a>
+				<a href="{$baseUrl}/kreedz/{$duel.map}/">{$duel.map}</a>
 			</td>
 			<td>
 				<a href="{$baseUrl}/{$duel.winnerName_url}/kreedz/">{$duel.winnerName|escape}</a>

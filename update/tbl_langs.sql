@@ -11,18 +11,18 @@ CREATE TABLE IF NOT EXISTS `langs` (
   `var` varchar(64) NOT NULL,
   `value` varchar(256) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=375 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=383 DEFAULT CHARSET=utf8;
 
 /*!40000 ALTER TABLE `langs` DISABLE KEYS */;
 INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(1, 'ru', 'ThemeNotFound', 'тема не существует'),
 	(2, 'ru', 'Main', 'Главная'),
 	(3, 'ru', 'home', 'Начало'),
-	(4, 'ru', 'achiev', 'Достижения'),
+	(4, 'ru', 'achievs', 'Достижения'),
 	(5, 'ru', 'account', 'Аккаунт'),
 	(6, 'ru', 'logout', 'Выйти'),
 	(7, 'ru', 'Title', 'Lonis'),
-	(8, 'ru', 'admin_achiev', 'Настройка достижений'),
+	(8, 'ru', 'admin_achievs', 'Настройка достижений'),
 	(9, 'ru', 'admin_langs', 'Словарь'),
 	(10, 'ru', 'RegErrors', 'Произошли следующие ошибки:'),
 	(11, 'ru', 'NotInputNick', 'Вы не ввели ник!'),
@@ -95,8 +95,8 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(78, 'ru', 'achievCompleted', 'Выполнил достижений'),
 	(79, 'ru', 'MapCompleted', 'Прошёл KZ карт'),
 	(80, 'ru', 'kz_duels', 'KZ Дуэль'),
-	(81, 'ru', 'kz_maps', 'KZ карты'),
-	(82, 'ru', 'kz_players', 'KZ игроки'),
+	(81, 'ru', 'kz_maps', 'KZ Карты'),
+	(82, 'ru', 'kz_players', 'KZ Игроки'),
 	(83, 'ru', 'Winner', 'Победитель'),
 	(84, 'ru', 'Looser', 'Проигравший'),
 	(85, 'ru', 'WinnerPoint', 'Очков победителя'),
@@ -159,11 +159,11 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(143, 'en', 'ThemeNotFound', 'Theme not found'),
 	(144, 'en', 'Main', 'Main'),
 	(145, 'en', 'home', 'Home'),
-	(146, 'en', 'achiev', 'Achievs'),
+	(146, 'en', 'achievs', 'Achievs'),
 	(147, 'en', 'account', 'Account'),
 	(148, 'en', 'logout', 'Logout'),
 	(149, 'en', 'Title', 'Lonis'),
-	(150, 'en', 'admin_achiev', 'Setup achiev'),
+	(150, 'en', 'admin_achievs', 'Setup achiev'),
 	(151, 'en', 'admin_langs', 'Dictonaries'),
 	(152, 'en', 'RegErrors', 'Failed with the following error:'),
 	(153, 'en', 'NotInputNick', 'You did not enter nick!'),
@@ -376,7 +376,13 @@ INSERT INTO `langs` (`id`, `lang`, `var`, `value`) VALUES
 	(371, 'en', 'ResetPassword', 'Reset Password'),
 	(372, 'ru', 'ResetPassword', 'Произведен сброс пароля'),
 	(373, 'en', 'kreedz', 'Kreedz'),
-	(374, 'ru', 'kreedz', 'Прыжки');
+	(374, 'ru', 'kreedz', 'Прыжки'),
+	(377, 'en', 'kz_longjumps', 'KZ Longjumps'),
+	(378, 'ru', 'kz_longjumps', 'KZ Longjumps'),
+	(379, 'en', 'kz_records', 'KZ Records'),
+	(380, 'ru', 'kz_records', 'KZ Рекорды'),
+	(381, 'en', 'kz_downloads', 'Downloads'),
+	(382, 'ru', 'kz_downloads', 'Скачать');
 /*!40000 ALTER TABLE `langs` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

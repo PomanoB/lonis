@@ -1,10 +1,10 @@
-		<div class="title">{$langs.admin_achiev}</div>
+		<div class="title">{$langs.admin_achievs}</div>
 		<div class="error_message">{$message}</div>
 			
 		<div class="tabs">
 		   <input type="radio" id="tab-1" name="tab-group-achiev" checked>
-			<label for="tab-1"><strong>{$langs.achiev}</strong></label>
-			::
+			<label for="tab-1"><strong>{$langs.achievs}</strong></label>
+			::	
 		   <input type="radio" id="tab-2" name="tab-group-achiev">
 			<label for="tab-2"><strong>{$langs.Language}</strong></label>
 			

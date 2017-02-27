@@ -68,7 +68,7 @@
 				<td>&nbsp;</td>
 				<td><a href="{$baseUrl}/players/name/page{$pages.page}/{$search}">{$langs.player}</a></td>
 				<td><a href="{$baseUrl}/players/country/page{$pages.page}/{$search}">{$langs.Country}</a></td>
-				<td><a href="{$baseUrl}/players/achiev-desc/page{$pages.page}/{$search}">{$langs.achiev}</a></td>
+				<td><a href="{$baseUrl}/players/achiev-desc/page{$pages.page}/{$search}">{$langs.achievCompleted}</a></td>
 				<td>{$langs.MapCompleted}</td>
 			</tr>
 		{if isset($rows)}

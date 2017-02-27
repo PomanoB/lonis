@@ -1,21 +1,3 @@
-DELETE FROM `menu`;
-INSERT INTO `menu` (`num`, `parent`, `mname`, `action`) VALUES
-	(10, 'main', 'home', 'home'),
-	(30, 'main', 'servers', 'servers'),
-	(40, 'main', 'players', 'players'),
-	(50, 'main', 'achiev', 'achiev'),
-	(61, 'kreedz', 'kz_players', 'kz_players'),
-	(60, 'main', 'kreedz', 'kz_players'),
-	(62, 'kreedz', 'kz_maps', 'kz_maps'),
-	(63, 'kreedz', 'kz_duels', 'kz_duels'),
-	(91, 'admin', 'admin_servers', 'admin_servers'),
-	(92, 'admin', 'admin_langs', 'admin_langs'),
-	(93, 'admin', 'admin_achiev', 'admin_achiev'),
-	(94, 'admin', 'admin_players', 'admin_players'),
-	(68, 'kreedz', '', 'kz_player'),
-	(69, 'kreedz', '', 'kz_map'),
-	(64, 'kreedz', '', 'kz_longjump');
-	
 DELETE FROM `kz_comm`;
 INSERT INTO `kz_comm` (`sort`, `name`, `fullname`, `url`, `image`, `download`, `mapinfo`) VALUES
 	(2, 'cc', 'Cosy Climbing', 'https://cosy-climbing.net', 'https://cosy-climbing.net/img/maps/%map%.png', 'https://cosy-climbing.net/files/maps/%map%.rar', 'https://cosy-climbing.net/search.php?q=%map%&in=&ex=&ep=&be=%map%&t=all&r=0&s=Search&adv=0'),

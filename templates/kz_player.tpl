@@ -45,7 +45,7 @@
 	{if $total}
 	{foreach from=$maps key=key item=map}
 			<tr class="list">
-				<td><a href="{$baseUrl}/kreedz/{$map.map}">{$map.map}</a></td>
+				<td><a href="{$baseUrl}/kreedz/{$map.map}/">{$map.map}</a></td>
 				{if $rec=="norec"}<td><a href="{$baseUrl}/{$map.name_url}/kreedz">{$map.name|escape}</a></td>{/if}
 				<td>{$map.time}</td>
 				<td class="{if $map.go_cp==0}color_nogc{/if}">{$map.cp}</td>

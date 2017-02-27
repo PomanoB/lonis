@@ -17,31 +17,20 @@
 		<div id="network">
 			<div class="center-wrapper">
 				<div class="tabbed" id="menu-tabs">
-					<div class="menu" >
+					
 			{if !$cs}
+					<div class="menu" >
 				{foreach from=$menu.main item=i}
+					{if $i.mname=='admin' && $admin==0} {continue} {/if}
 						<div class="item">
 							<a title="{$i.name}" href="{$baseUrl}{$i.url}">
-								<img src="{$baseUrl}/img/menu/{$i.action}.png" alt="{$i.name}" title="{$i.name}" /><text>&nbsp;{$i.name}</text>
+								<img src="{$baseUrl}/img/menu/{$i.action}.png" alt="{$i.name}" /><text>&nbsp;{$i.name}</text>
 							</a>
 						</div>
 				{/foreach}
-
-				{if !$user}
-						<div class="item">
-							<a title="{$langs.login}" href="{$baseUrl}/ucp/">
-								<img src="{$baseUrl}/img/menu/login.png" alt="{$langs.login}" title="{$langs.login}" /><text>&nbsp;{$langs.login}</text>
-							</a>
-						</div>
-				{else}
-						<div class="item">
-							<a title="{{$langs.account}}" href="{$baseUrl}/ucp/">
-								<img src="{$baseUrl}/img/menu/account.png" alt="{{$langs.account}}" title="{{$langs.account}}" /><text>&nbsp;{$langs.account}</text>
-							</a>
-						</div>		
-				{/if}
 					</div>
-			{/if}		
+			{/if}
+			
 				{if $parent}
 					<div class="clearer">&nbsp;</div>
 			
@@ -56,19 +45,6 @@
 					</div>
 				{/if}
 				
-				{if $admin}				
-					<div class="clearer">&nbsp;</div>
-
-					<div class="adminmenu">
-					{foreach from=$menu.admin item=i}
-						<div class="item">
-							<a title="{$i.name}" href="{$baseUrl}{$i.url}">
-								<img src="{$baseUrl}/img/menu/{$i.action}.png"><text>&nbsp;{$i.name}</text>
-							</a>
-						</div>
-					{/foreach}
-					</div>
-				{/if}
 				</div>
 			</div>
 			<div class="clearer">&nbsp;</div>

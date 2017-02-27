@@ -1,5 +1,18 @@
 # lonis
-Web registartion and statistic for Counter Strike 1.6 version 2.0.5
+Web registartion and statistic for Counter Strike 1.6 version 2.0.6
+
+-------------------
+-- Version 2.0.5 -- 
+-------------------
+Changelog: 27.02.2017 11:30
+- Change names: achiev->achievs, kz_map_rec->kz_records
+- Change names SQL file
+- Add kz_downloads page
+- Add kz_records page
+- Add kz_longjumps page (Coming Soon)
+- Fix records on kz_map page
+- Change Accaunt and Admin menu Style (from DB)
+- Fix href "/kreedz/{$mapname}/"
 
 -------------------
 -- Version 2.0.5 -- 

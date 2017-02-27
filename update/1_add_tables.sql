@@ -1,13 +1,5 @@
 -- TABLES --
 
-DROP TABLE IF EXISTS `menu`;
-CREATE TABLE IF NOT EXISTS `menu` (
-  `num` int(2) unsigned NOT NULL DEFAULT '0',
-  `parent` varchar(16) DEFAULT NULL,
-  `mname` varchar(16) NOT NULL,
-  `action` varchar(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 DROP TABLE IF EXISTS `kz_comm`;
 CREATE TABLE IF NOT EXISTS `kz_comm` (
 	`sort` INT(10) NOT NULL,
