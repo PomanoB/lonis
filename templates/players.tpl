@@ -58,7 +58,7 @@
 			</form>
 		</div>
 	{/if}
-	</div><br>
+	</div><br><br>
 
 	<div class="table-list">&nbsp;{$pages.output}</div>
 	

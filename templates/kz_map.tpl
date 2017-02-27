@@ -22,7 +22,7 @@
 {else}	
 	<div class="wrapper">
 		<div class="titles left_block">{$langs.lastRecKZ}</div>
-	</div><br>
+	</div><br><br>
 {/if}
 	
 	{if $message}<div class="err_message">{$message}</div>{/if}
@@ -65,7 +65,7 @@
 				{/if}
 			</td>	
 		{else}
-			<td><a href="{$baseUrl}/kreedz/{$player.map}">{$player.map}</a></td>
+			<td><a href="{$baseUrl}/kreedz/{$player.map}/">{$player.map}</a></td>
 		{/if}
 			<td>
 				<a href="{$baseUrl}/{$player.name_url}/kreedz">{$player.name|escape}</a>

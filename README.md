@@ -4,6 +4,10 @@ Web registartion and statistic for Counter Strike 1.6 version 2.0.6
 -------------------
 -- Version 2.0.6 -- 
 -------------------
+Changelog: 27.02.2017 23:23
+- Add KZ Longjumps page (uq_jumpstats_2.42)
+- Fix some bugs
+
 Changelog: 27.02.2017 15:20
 - Add LJ Record page
 - Fix func timed();

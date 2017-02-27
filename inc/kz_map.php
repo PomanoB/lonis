@@ -45,7 +45,10 @@ $total = mysqli_num_rows($r);
 
 $pages = generate_page($page, $total, $playersPerPage, "$baseUrl/kreedz/$map/$type/page%page%");
 
-if($total) {
+if(!$total) {
+	header("Location: {$baseUrl}/kreedz/maps/");
+}
+else {
 	if($map) {
 		$img_file = "{$docRoot}/img/cstrike/{$map}.jpg";
 		$imgmap = "{$baseUrl}/img/noimage.jpg";

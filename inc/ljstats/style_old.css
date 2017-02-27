@@ -1,0 +1,99 @@
+body{
+background:#232323;
+color:#cfcbc2;
+}
+.tbl{
+font-family:sans-serif;
+font-size:12px;
+margin:0 auto;
+background-color:#22697B;
+}
+a{
+color:#70A401;
+text-decoration:none;
+}
+a:hover{
+color:red;
+}
+a:visited{
+color:#70A401;
+}
+a:visited:hover{
+color:red;
+}
+.orange{
+color: orange;
+}
+.red{
+color: red;
+font-weight:bold;
+}
+.green_top{
+color:#393;
+font-weight:bold;
+}
+.orange_top{
+color: orange;
+font-weight:bold;
+}
+.red_top{
+color: red;
+font-weight:bold;
+}
+.selected_green{
+background-color: #9c9;
+}
+.tbl_navig{
+background-color:#232323;
+margin: 0 auto;
+text-align: center;
+font-family:sans-serif;
+font-size:12px;
+}
+.nrow{
+background-color:#2f3030;
+}
+.jt_class{
+color:yellow;
+font-weight:bold;
+width: 150px;
+}
+.center_bold{
+text-align:center;
+margin:0 auto;
+font-weight:bold;
+}
+.center{
+text-align:center;
+margin:0 auto;
+}
+.tr_colored{
+background-color:#52697B;
+}
+.width_20{
+width: 20px;
+}
+.width_200{
+width: 200px;
+}
+.width_325{
+width: 325px;
+}
+.width_350{
+width: 350px;
+}
+.inline{
+display: inline-block;
+}
+.jshintbox {
+position:absolute;
+display:none;
+visibility:hidden;
+width:240px;
+border:1px solid #000000;
+background-color:#FFFFDD;
+color:#000000;
+padding:2px;
+font-family:verdana,arial, helvetica, sans-serif;
+font-size:10px;
+}
