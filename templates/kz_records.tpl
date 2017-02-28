@@ -16,7 +16,7 @@
 	<div>
 		<div class="err_message">{$message}</div>
 		
-		<div class="table-list">&nbsp;{$pages.output}</div>
+		{$pages.output}
 		
 		<br>
 		<table class="table-list">

@@ -344,15 +344,16 @@ function generate_page($page, $total, $perpage, $pageUrl) {
 	$page = ($page > $totalPages) ? 1 : $page;
 	$start = ($page - 1) * $perpage;
 	
-	$output = "";
+	$output = '<div class="page_wrapper">';
 	if ($totalPages > 1) {
-		if ($page > 2) $output .= "<a href=".str_replace("%page%", 1, $pageUrl).">1</a> ";
-		if ($page > 1) $output .= "<a href=".str_replace("%page%", ($page - 1), $pageUrl).">".($page - 1)."</a> ";
-		$output .= "<b>{$page}</b> ";
-		if ($page < $totalPages) $output .= "<a href=".str_replace("%page%", ($page + 1), $pageUrl).">".($page+1)."</a> ";
-		if ($page < $totalPages - 1) $output .= "<a href=".str_replace("%page%", ($totalPages), $pageUrl).">".($totalPages)."</a> ";
+		if ($page > 2) $output .= '<div class="page_num"><a href='.str_replace("%page%", 1, $pageUrl).'>1</a></div>';
+		if ($page > 1) $output .= '<div class="page_num"><a href='.str_replace("%page%", ($page - 1), $pageUrl).'>'.($page - 1).'</a></div>';
+		$output .= '<div class="page_num">'.$page.'</div>';
+		if ($page < $totalPages) $output .= '<div class="page_num"><a href='.str_replace("%page%", ($page + 1), $pageUrl).'>'.($page+1).'</a></div>';
+		if ($page < $totalPages - 1) $output .= '<div class="page_num"><a href='.str_replace("%page%", ($totalPages), $pageUrl).'>'.($totalPages).'</a></div>';
 	}
-		
+	$output .= '</div>';
+	
 	$pages["page"] = $page;
 	$pages["totalPages"] = $totalPages;
 	$pages["start"] = $start;

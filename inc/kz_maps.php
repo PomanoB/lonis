@@ -34,6 +34,7 @@ $where = $search ? "AND `$like` LIKE '%$ssearch%'" : "";
 if($rec=="norec") {
 	$q = "SELECT * FROM `kz_map` `m` LEFT JOIN `kz_map_tops1` `t` ON `t`.`map` = `m`.`mapname` 
 			WHERE `id` IS NULL {$where} ORDER By `mapname`";
+	$mapsPerPage = $mapsNorecPerPage;
 }
 else {
 	$q = "SELECT `t`.`map` `mapname`, `t`.* FROM `kz_map_tops1` `t` WHERE 1 {$types[$type]} {$where} ORDER BY `map`";

@@ -72,7 +72,7 @@
 		</div><br>
 		{if isset($message.msg)}<div style="padding: 5px; color: red;">{$message.msg}</div><br>{/if}
 		<div align="center" style="">
-			<div style="display: inline-block; vertical-align: top; background: #f5f5f5; padding: 10px; margin: 10px; border-radius: 20px;">
+			<div class="auth_wrapper">
 				<h2>{$langs.login}</h2>
 				<p>
 				<form action="" method="post">
@@ -96,7 +96,7 @@
 				</form>
 			</div>
 			
-			<div style="display: inline-block; vertical-align: top; background: #f5f5f5; padding: 10px; margin: 10px; border-radius: 20px;">
+			<div class="auth_wrapper">
 				<h2>{$langs.regTitle}</h2>
 				<p>
 				<form action="" method="post">

@@ -132,7 +132,7 @@ if(!$errno) {
 	
 	// If Admin
 	$user = isset($_SESSION["user_$cookieKey"]) ? $_SESSION["user_$cookieKey"] : 0;
-	$admin = $user ? mysqli_result(mysqli_query($db, "SELECT `webadmin` FROM `unr_players` WHERE `id` = '{$user["id"]}'"), 0) : 0;	
+	$admin = $user ? mysqli_result(mysqli_query($db, "SELECT `webadmin` FROM `unr_players` WHERE `id` = '{$user["id"]}'"), 0) : 0;
 }
 	
 // Set locale

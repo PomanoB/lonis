@@ -4,11 +4,12 @@
 		</div>
 {if !$cs}
 		<div class="right_block">
-			<form action="" method="post">
-				<input type="text" name="addr" value="{if isset($addr)}{$addr}{/if}" placeholder="{$langs.Check} {$langs.IP}" />
-				<input type="image" name="picture" src="{$baseUrl}/img/find.png" title="{$langs.Check} {$langs.IP}" alt="{$langs.Check} {$langs.IP}"/>
-			</form>
-			&nbsp;
+			<div id="search">
+				<form action="" method="post">
+					<input type="text" name="addr" value="{if isset($addr)}{$addr}{/if}" placeholder="{$langs.Check} {$langs.IP}" />
+					<button title="{$langs.Check} {$langs.IP}" alt="{$langs.Check} {$langs.IP}"/>
+				</form>
+			</div>
 		</div>
 {/if}
 	</div><br>
@@ -21,7 +22,7 @@
 		<p><table id="servers">
 			<tr style="vertical-align: top;">
 				<td width="400" align="center">	
-					{if isset($info.img)}<img src="{$info.img}" id="mapimg" oncontextmenu="return false;" >{/if}
+					{if isset($info.img)}<img class="map_image" src="{$info.img}" id="mapimg" oncontextmenu="return false;" >{/if}
 					<table class="sinfo" align="center">
 						<tr><td class="th" width="100">{$langs.IP}</td><td>{$info.ip}</td></tr>
 						<tr><td class="th">{$langs.Name}</td><td>{$info.name}</td>
@@ -58,7 +59,7 @@
 	{/if}
 {else}
 
-	<div class="table-list">&nbsp;{$pages.output}</div>
+	{$pages.output}
 	
 	<p><table class="table-list">
 		<tr class="title">

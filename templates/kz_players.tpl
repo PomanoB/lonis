@@ -2,11 +2,7 @@
 				<div class="titles left_block">{$langs[$parent]} :: {$langs.kz_players}</div>
 		{if !$cs}
 				<div class=" right_block">
-					<form action="" method="post" id="search_map_form" class="">
-						<input type="text" name="search" id="search" value="{if isset($search)}{$search}{/if}" placeholder="{$langs.Search}"/ >
-						<input type="image" name="picture" src="{$baseUrl}/img/find.png" alt="{$langs.Search}"/>
-						&nbsp;
-					</form>
+					{$form_search}
 				</div>
 		{/if}
 			</div><br><br>
@@ -20,8 +16,8 @@
 				<a href="{$baseUrl}/kreedz/players/{$type}/top1/{$search}" {if $sort == "top1"}style="font-weight:bold;"{else}{/if}>{$langs.kztop1}</a>
 			</div><br>
 			
-			<div class="table-list">&nbsp;{$pages.output}</div>
-			<div style="padding:10px;">
+			{$pages.output}
+			
 				<table class="table-list">
 					<tr class="title">
 						<td width="30" align="center">№</td>
@@ -46,4 +42,3 @@
 	{/foreach}
 	{/if}
 				</table>
-			</div>

@@ -4,7 +4,7 @@
 	</div>
 </div><br><br>
 	
-<div class="table-list">&nbsp;{$pages.output}</div>
+{$pages.output}
 
 <div style="padding:10px;">
 	<table class="table-list">

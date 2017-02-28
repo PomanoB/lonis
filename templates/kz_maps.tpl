@@ -4,37 +4,47 @@
 		</div>
 {if !$cs}
 		<div class="right_block">
-			<form action="" method="post" id="search_map_form">
-				<input type="text" name="search" id="search" value="{if isset($search)}{$search}{/if}" placeholder="{$langs.Search}"/>
-				<input type="image" name="picture" src="{$baseUrl}/img/find.png" title="{$langs.Search}" alt="{$langs.Search}" />
-				&nbsp;
-			</form>
+			{$form_search}
 		</div>
 {/if}
 	</div><br><br>
 	
 	<div>
-{if $rec=="norec"}				
-		<div>
-			<b>{$langs.kznorec}</b> :: <a href="{$baseUrl}/kreedz/maps/{$type}/{$search}">{$langs.kzrec}</a>
-		</div>
-		
-		<div class="table-list">&nbsp;{$pages.output}</div>
-		
-		<div>
-			<table class="table-list">
-				<tr class="title">
-					<td>{$langs.Map}</td>
-				</tr>
-	{if isset($maps)}
-	{foreach from=$maps key=key item=map}
-				<tr class="list">
-					<td><a href="{$baseUrl}/kreedz/{$map.mapname}">{$map.mapname}</a></td>
-				</tr>
-	{/foreach}
+{if $rec=="norec"}	
+			<div class="table-list">
+				<b>{$langs.kznorec}</b> :: <a href="{$baseUrl}/kreedz/maps/{$type}/{$search}">{$langs.kzrec}</a>
+			</div>
+			
+			{$pages.output}
+			
+	{if !isset($style)}
+			<ul class='map-list'>
+		{if isset($maps)}
+		{foreach from=$maps key=key item=map}	
+				<li class="map-list-item" title="{$map.mapname}">
+						<span class="map-diff 0"></span>
+						<img src="{$baseUrl}/img/cstrike/{$map.mapname}.jpg" alt="" title="{$map.mapname}"
+						onerror="this.src='{$baseUrl}/img/noimage.jpg'".>{$map.mapname}
+				</li>
+		{/foreach}
+		{/if}
+			</ul>
+	{else}	
+			<div>
+				<table class="table-list">
+					<tr class="title">
+						<td>{$langs.Map}</td>
+					</tr>
+		{if isset($maps)}
+		{foreach from=$maps key=key item=map}
+					<tr class="list">
+						<td><a href="{$baseUrl}/kreedz/{$map.mapname}">{$map.mapname}</a></td>
+					</tr>
+		{/foreach}
+		{/if}
+				</table>
+			</div>
 	{/if}
-			</table>
-		</div>
 {else}
 		<div class="table-list">
 			<a href="{$baseUrl}/kreedz/maps/pro/{$rec}/{$search}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
@@ -45,9 +55,8 @@
 		
 		<div class="err_message">{$message}</div>
 		
-		<div class="table-list">&nbsp;{$pages.output}</div>
+		{$pages.output}
 		
-		<br>
 		<table class="table-list">
 			<tr class="title">
 				<td>{$langs.Map}</td>

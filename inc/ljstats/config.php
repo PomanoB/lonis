@@ -16,6 +16,7 @@ $mysql['blocks_table'] = 'uq_block_tops'; // mysql block tops table name
 $admins = array(
 );
 
+$config['config_other'] = 1; // load config from config_other.php
 $config['per_page'] = 10; // entries per page for stats
 $config['default_jt'] = 'lj'; // default jump type
 $config['default_lang'] = 'Russian'; // statistics language

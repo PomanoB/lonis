@@ -10,6 +10,8 @@ if(file_exists($config_path)) {
 	if(isset($dbconf['mysql_db'])) $mysql['db'] = $dbconf['mysql_db'];
 }
 
-if(isset($dbconf['uq_admin']) && isset($dbconf['uq_admin']))
-	$admins[$dbconf['uq_admin']] = $dbconf['uq_password'];
+if(isset($dbconf['admin_user']) && isset($dbconf['admin_password'])) {
+	$adminx[$dbconf['admin_user']] = $dbconf['admin_password'];
+	$admins = array_merge($admins, $adminx);
+}
 ?>

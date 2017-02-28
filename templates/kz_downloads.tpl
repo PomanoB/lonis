@@ -4,18 +4,14 @@
 		</div>
 {if !$cs}
 		<div class="right_block">
-			<form action="" method="post" id="search_map_form">
-				<input type="text" name="search" id="search" value="{if isset($search)}{$search}{/if}" placeholder="{$langs.Search}"/>
-				<input type="image" name="picture" src="{$baseUrl}/img/find.png" title="{$langs.Search}" alt="{$langs.Search}" />
-				&nbsp;
-			</form>
+			{$form_search}
 		</div>
 {/if}
 	</div><br><br>
 
 	<div class="err_message">{$message}</div>
 	
-	<div class="table-list">&nbsp;{$pages.output}</div>
+	{$pages.output}
 	
 	<br>
 	<table class="table-list">
@@ -25,7 +21,7 @@
 			<td>{$langs.Type}</td>
 			<td>{$langs.authors}</td>
 			<td>{$langs.Date}</td>
-			<td>{$langs.Download}</td>
+			<td></td>
 {if $admin==1}
 			<td	>#</td>
 {/if}
@@ -35,14 +31,14 @@
 {foreach from=$maps item=map}
 		<tr class="list">
 			<td><a href="{$baseUrl}/kreedz/{$map.mapname}/">{$map.mapname}</a></td>
-			<td>{$diff[$map.diff]}</td>
+			<td>{$map.diff_name}</td>
 			<td>{$map.type}</td>
 			<td>{$map.authors}</td>
 			<td>{$map.date_old}</td>
 			<td>
 				{if $map.download_url}
 				<a href="{$map.download_url}" alt="{$langs.Download} {$map}">
-				&nbsp;<img src="{$baseUrl}/img/download_map.png" title="{$langs.Download}" alt="{$langs.Download}">
+				&nbsp;<img src="{$baseUrl}/img/download.png" title="{$langs.Download}" alt="{$langs.Download}">
 				</a>
 				{/if}
 			</td>

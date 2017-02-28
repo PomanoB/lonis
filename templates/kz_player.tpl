@@ -33,7 +33,7 @@
 	</div><br>
 	{/if}	
 	
-		<div class="table-list">&nbsp;{$pages.output}</div>
+		{$pages.output}
 		
 		<br>
 		<table class="table-list">

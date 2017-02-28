@@ -4,7 +4,7 @@ define("START_TIME", microtime(true));
 ini_set('display_errors',0);
 error_reporting(0);
 include 'config.php';
-include "config_other.php";
+if($config["config_other"]) include "config_other.php";
 $data = copy_and_init();
 require 'lang/'.$config['default_lang'].'.php';
 session_start();

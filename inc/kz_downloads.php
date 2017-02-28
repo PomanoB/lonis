@@ -28,7 +28,7 @@ if(isset($_GET["search"]) && $_GET["search"])
 $ssearch = slashes($search);
 $where = $search ? "AND `mapname` LIKE '%$ssearch%'" : "";
 
-$q = "SELECT * FROM `kz_map` LEFT JOIN `kz_comm` ON `comm`=`name` WHERE 1 {$where} ORDER BY `mapname`";
+$q = "SELECT * FROM `kz_map` LEFT JOIN `kz_comm` ON `comm`=`name` LEFT JOIN `kz_diff` `d` ON `d`.`id`=`diff` WHERE 1 {$where} ORDER BY `mapname`";
 $r = mysqli_query($db, $q);
 $total = mysqli_num_rows($r);
 

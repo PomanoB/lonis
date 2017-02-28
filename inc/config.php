@@ -30,6 +30,9 @@ $dbconf_def = array (
 	'mysql_host' => 'localhost',
 	'mysql_db' => 'lonis',
 	'mysql_prefix' => 'lonis_',
+	
+	'admin_user' => 'admin',
+	'admin_password' => 'lonis',
 );
 
 // Default config	
@@ -41,6 +44,7 @@ $conf_def = array (
 	'activateTime' => 60 * 60 * 24 * 3,
 	'playerPerPage' => 15,
 	'mapsPerPage' => 15,
+	'mapsNorecPerPage' => 24,
 	'playersPerPage' => 15,
 	'achievPerPage' => 50,
 	'achievPlayersPerPage' => 10,
@@ -62,6 +66,7 @@ $conf_type = array (
 	'activateTime' => 'number',
 	'playerPerPage' => 'number',
 	'mapsPerPage' => 'number',
+	'mapsNorecPerPage' => 'number',
 	'playersPerPage' => 'number',
 	'achievPerPage' => 'number',
 	'achievPlayersPerPage' => 'number',

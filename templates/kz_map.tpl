@@ -4,11 +4,11 @@
 		<div class="titles left_block">{$langs[$parent]} :: {$langs.Map} :: <i>{$map|escape:html}</i></div>
 		<div class="right_block" align="center">
 			{if isset($imgmap)}
-				<img src="{$imgmap}" oncontextmenu="return false;" /><br>
+				<img class="map_image" src="{$imgmap}" oncontextmenu="return false;" /><br>
 			{/if}
 			<p>
 		</div>
-	</div><br>
+	</div><br><br>
 	
 	{if isset($maprec)}
 
@@ -35,7 +35,7 @@
 	</div>
 	{/if}
 
-	<div class="table-list">&nbsp;{$pages.output}</div></p>
+	{$pages.output}</p>
 			
 	<table class="table-list">
 		<tr class="title" >

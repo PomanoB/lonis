@@ -1,31 +1,31 @@
 {if $act=="achievs"}
-	<p><div class="titles">
+	<p><div class="titles" align="center">
 		<a href="{$baseUrl}/achiev/">{$langs.achievs}</a>
 		::
 		{$langs.achiev_players}
-	</div>
-	
+	</div><br>
 	{if isset($rows)}
-	<div class="table-list">&nbsp;{$pages.output}</div>
+	{$pages.output}
 	
-	<div style="padding:10px;">
-		{foreach from=$rows item=player}
+	<div class="achiev_wrapper" align="center">
+	{foreach from=$rows item=player}
 		<div class="achiev">
 			<b><a href="{$baseUrl}/{$player.name}/achiev/">{$player.name|escape}</a></b>
 			<br />
 			<span>{$langs.achievPlayerTotal} {$player.achiev_total}</span>
 		</div>
-		{/foreach}
+	{/foreach}
 	</div>
+	
 	{/if}	
 {else}
 {if $aname && $aname!=""}
 
-	<p><div class="titles">
+	<p><div class="titles" align="center">
 		{$langs.achievs}
 	</div>
 	
-	<div style="padding:10px;">
+	<div class="achiev_wrapper" align="center">
 		<p></p>
 		<div class="achiev achiev_completed">
 			<b>{$achiev.name}</b>
@@ -34,7 +34,7 @@
 		</div>
 		
 	{if isset($rows)}
-		<div class="table-list">&nbsp;{$pages.output}</div>
+		{$pages.output}
 		
 	{foreach from=$rows item=player}
 		<div class="achiev">
@@ -49,14 +49,12 @@
 	
 {elseif $name && $name!=""}
 
-	<p><div class="titles">
+	<p><div class="titles" align="center">
 		{$langs.achievs} :: <i>{$name|escape}</i>
-	</div>
+	</div><br>
 
 	{if isset($rows)}
-	<div style="padding:10px;">
-	<div class="table-list">&nbsp;{$pages.output}</div>
-		
+	<div class="achiev_wrapper" align="center">	
 	{foreach from=$rows item=achiev}
 		<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
 			<b><a href="{$baseUrl}/achiev/{$achiev.name}">{$achiev.name}</a></b>
@@ -82,38 +80,40 @@
 	
 {else}
 
-	<p><div class="titles">
+	<p><div class="titles" align="center">
 		{$langs.achievs} :: <a href="{$baseUrl}/achievs/">{$langs.achiev_players}</a>
 	</div>
 	
 	{if isset($rows)}
-	<div class="table-list">&nbsp;{$pages.output}</div>
+	{$pages.output}
 	
-	<table>
-	{foreach from=$rows item=achiev}
-		<tr>
-			<td style="width:65px;">
-		{if file_exists($achiev.aId)}
-				<img src="{$baseUrl}/img/achiev/{$achiev.aId}.png" />
-		{else}
-				<img src="{$baseUrl}/img/achiev/dead_from_sky.png" />
-		{/if}
-			</td>
-			<td>
-				<div class="achiev" style="padding: 0px;">
-					<div style="background-color: #464647; width: {$achiev.completed}%;overflow: visible;">
-						<div style="width: 550px;padding: 10px;">
-							<span style="float:right;margin-top:10px;margin-right:20px">{$achiev.completed}%</span>
-							<b><a href="{$baseUrl}/achiev/{$achiev.name}">{$achiev.name}</a></b>
-							<br />
-							<span style="width:450px;display: inline-block;">{$achiev.desc}</span>
+	<div class="achiev_wrapper" align="center">
+		<table>
+		{foreach from=$rows item=achiev}
+			<tr>
+				<td style="width:65px;">
+			{if file_exists($achiev.aId)}
+					<img src="{$baseUrl}/img/achiev/{$achiev.aId}.png" />
+			{else}
+					<img src="{$baseUrl}/img/achiev/dead_from_sky.png" />
+			{/if}
+				</td>
+				<td>
+					<div class="achiev" style="padding: 0px;">
+						<div style="background-color: #464647; width: {$achiev.completed}%;overflow: visible;">
+							<div style="width: 550px;padding: 10px;">
+								<span style="float:right;margin-top:10px;margin-right:20px">{$achiev.completed}%</span>
+								<b><a href="{$baseUrl}/achiev/{$achiev.name}">{$achiev.name}</a></b>
+								<br />
+								<span style="width:450px;display: inline-block;">{$achiev.desc}</span>
+							</div>
 						</div>
 					</div>
-				</div>
-			</td>
-		</tr>
-	{/foreach}
-	</table>	
-	{/if}
+				</td>
+			</tr>
+		{/foreach}
+		</table>	
+		{/if}
+	</div>
 {/if}
 {/if}

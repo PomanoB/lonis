@@ -40,8 +40,8 @@ header {
     display: inline-block;	
 }
 
-.titles { 
-	font-size: 24px; 
+.titles {
+	font: 24pt Counter-Strike;
 	font-weight: bold;
 }
 
@@ -106,4 +106,75 @@ div .inline {
 	display: block; 
 	padding: 5px; 
 	border: 0px solid #aaa; 
+}
+
+.map_image{width:140px; border-radius:5px}
+
+.map-list{width:90%; text-align:center;margin:0 auto;padding:0}
+.map-list-item{width:143px;text-align:center;text-overflow:ellipsis;overflow:hidden;display:inline-block;font-weight:normal;white-space:nowrap;position:relative}
+.map-list-item .map-diff{position:absolute;display:inline-block;right:10px;top:10px;width:25px;height:16px;font-size:11px;line-height:16px;border-radius:5px}
+.map-diff .death {color:white;background:red;font-weight:bold}
+.map-diff .extreme {color:white;background:red}
+.map-diff .hard {color:black;background:#ffb100}
+.map-diff .medium {background:#cce7fa;color:black}
+.map-diff .easy {background:#cfc;color:black}
+.map-diff .unknown {color:black;background:white;opacity:.4}
+.map-list-item a{color:#0074CE;padding:5px;text-decoration:none;display:inline-block;overflow:hidden;width:120px;text-overflow:ellipsis}
+.map-list-item img{width:140px;height:105px;display:block;margin:0 auto;margin-bottom:5px;border-radius:5px;border:1px solid gray;box-sizing:border-box}
+.map-list-item img:hover{border:1px solid #FFA200}
+
+* {box-sizing: border-box;}
+#search form {
+  position: relative;
+  width: 200px;
+  margin: 0 auto;
+}
+#search input {
+  width: 100%;
+  height: 32px;
+  padding-left: 10px;
+  border: 2px solid #171717;
+  border-radius: 5px;
+  outline: none;
+  background: #F9F9FA;
+  color: #171717;
+}
+#search button {
+  position: absolute; 
+  top: 0;
+  right: 0px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #171717;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+#search button:before {
+  content: "\f002";
+  font-family: FontAwesome;
+  font-size: 14px;
+  color: #F9F9DA;
+}
+
+.page_wrapper {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.page_num {
+ width:28px;
+ height:28px;
+ display:inline-block;
+ border-radius:14px;
+ -moz-border-radius:14px;
+ -webkit-border-radius:14px;
+ -khtml-border-radius:14px;
+ font-size:11px; 
+ color:#fff;
+ font-weight: bold;
+ line-height:28px;
+ text-align:center;
+ background:#000;
+ margin-right: 5px;
 }
