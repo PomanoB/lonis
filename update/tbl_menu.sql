@@ -14,26 +14,26 @@ CREATE TABLE IF NOT EXISTS `menu` (
 
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
 INSERT INTO `menu` (`num`, `parent`, `mname`, `action`) VALUES
-	(10, 'main', 'home', 'home'),
-	(30, 'main', 'servers', 'servers'),
-	(40, 'main', 'players', 'players'),
-	(50, 'main', 'achievs', 'achievs'),
-	(61, 'kreedz', 'kz_players', 'kz_players'),
-	(60, 'main', 'kreedz', 'kz_players'),
-	(62, 'kreedz', 'kz_maps', 'kz_maps'),
-	(63, 'kreedz', 'kz_duels', 'kz_duels'),
-	(92, 'admin', 'admin_servers', 'admin_servers'),
-	(92, 'admin', 'admin_langs', 'admin_langs'),
-	(93, 'admin', 'admin_achievs', 'admin_achievs'),
-	(91, 'admin', 'admin_players', 'admin_players'),
-	(68, 'kreedz', '', 'kz_player'),
-	(69, 'kreedz', '', 'kz_map'),
-	(64, 'kreedz', 'kz_longjumps', 'kz_longjumps'),
-	(70, 'main', 'account', 'ucp'),
-	(65, 'kreedz', 'kz_records', 'kz_records'),
-	(67, 'kreedz', 'kz_downloads', 'kz_downloads'),
-	(90, 'main', 'admin', 'admin_players'),
-	(66, 'kreedz', 'kz_ljs_recs', 'kz_ljs_recs');
+	(10, 'Main', 'Home', 'home'),
+	(30, 'Main', 'Servers', 'servers'),
+	(40, 'Main', 'Players', 'players'),
+	(50, 'Main', 'Achievs', 'achiev'),
+	(61, 'Kreedz', 'Players', 'kz_players'),
+	(60, 'Main', 'Kreedz', 'kz_players'),
+	(62, 'Kreedz', 'Maps', 'kz_maps'),
+	(63, 'Kreedz', 'Duels', 'kz_duels'),
+	(92, 'Admin', 'Servers', 'admin_servers'),
+	(92, 'Admin', 'Langs', 'admin_langs'),
+	(93, 'Admin', 'Achievs', 'admin_achievs'),
+	(91, 'Admin', 'Players', 'admin_players'),
+	(68, 'Kreedz', '', 'kz_player'),
+	(69, 'Kreedz', '', 'kz_map'),
+	(64, 'Kreedz', 'Longjumps', 'kz_longjumps'),
+	(70, 'Main', 'Account', 'ucp'),
+	(65, 'Kreedz', 'Records', 'kz_records'),
+	(67, 'Kreedz', 'Archive', 'kz_downloads'),
+	(90, 'Main', 'Admin', 'admin_players'),
+	(66, 'Kreedz', 'LJ Records', 'kz_ljs_recs');
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
