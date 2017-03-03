@@ -35,7 +35,9 @@ $dbconf_def = array (
 	'admin_password' => 'lonis',
 );
 
-// Default config	
+// Default config
+// achievAvatar: img, fa, gravatar;
+// avatarD: 404, mm, identicon, monsterid, wavatar, retro, blank
 $conf_def = array (
 	'timezone' => 'Europe/Moscow',
 	'charset' => 'utf-8',
@@ -48,12 +50,14 @@ $conf_def = array (
 	'playersPerPage' => 15,
 	'achievPerPage' => 50,
 	'achievPlayersPerPage' => 10,
+	'achievAvatar' => 'gravatar',
 	'server_update' => 60 * 30,
 	'servers_autoupdate' => 1,	
 	'avatarIcon' => 32,
 	'avatarMedium' => 80,
 	'avatarFull' => 150,
-	'steamAvatar' => 0,
+	'avatarD' => 'wavatar', 
+	'steamAvatar' => 1, 
 	'cookieKey' => "cc1f891423db1ee24498e76f3b107bbe",
 	'menuStart' => 'home'
 );
@@ -101,6 +105,7 @@ $actionList  = array (
 	"admin_players" => "/admin/players/",
 	"servers" => "/servers/",
 	"players" => "/players/",
+	"achiev" => "/achiev/",
 	"achievs" => "/achievs/",
 	"kz_players" => "/kreedz/players/",
 	"kz_maps" => "/kreedz/maps/",
@@ -142,62 +147,5 @@ $parseRules = array(
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(num|top1))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
 	
 	"/^(.*)/" => "index.php?action=players&name=%1%",
-);
-
-// Langs
-$langs = array(
-	"Title" => "Lonis",
-	"ThemeNotFound" => "Theme not found",
-	"logout" => "Logout",
-	"login" => "Login",
-	"Error" => "Error",
-	"UserNotFound" => "Not found user entered data!",
-	"Name" => "Name",
-	"Password" => "Password",
-	"Update" => "Update",
-	"Current" => "Current",
-	"setup" => "Setup config",
-	"Save" => "Save",
-	"Saved" => "Saved",
-	"Reset" => "Reset",
-	"ResetDef" => "Reset to default",
-	"Confirm" => "Confirmed action",
-	"timezone" => "Time zone",
-	"charset" => "Charset",
-	"mysql_user" => "User db",
-	"mysql_password" => "Password db",
-	"mysql_host" => "Host db",
-	"mysql_db" => "Database",
-	"mysql_prefix" => "Prefix db",
-	"server_name" => "Server Name",
-	"activateTime" => "Activation time e-mail",
-	"baseUrl" => "Url site",
-	"gravatarSize" => "Avatar size",
-	"playerPerPage" => "Players per page",
-	"mapsPerPage" => "Maps per page",
-	"playersPerPage" => "Players per page KZ",
-	"achievPerPage" => "Achiev per page",
-	"achievPlayersPerPage" => "Achiev Players per page",	
-	"server_update" => "Timer updated servers",
-	"servers_autoupdate" => "Auto Update servers",
-	"cookieKey" => "Cookie Key",
-	"email" => "E-mail",	
-	"setupGeneral" => "General setting",
-	"setupDb" => "Database",
-	"Generate" => "Generate",
-	"setupLang" => "Languages",
-	"DbTitle" => "Working with database",
-	"Base" => "DB",
-	"Tables" => "Tables",
-	"Data" => "Data",
-	"Create" => "Create",
-	"Delete" => "Delete",
-	"Save" => "Save",
-	"Add" => "Add",
-	"Clear" => "Clear",
-	"Edit" => "Edit",
-	"DbNotConnect" => "Not connection to database",
-	"DbNotTablesFile" => "File with tables not found",
-	"DbNotDataFile" => "File with data not found",
 );
 ?>

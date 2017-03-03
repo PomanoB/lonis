@@ -1,6 +1,6 @@
 	<div class="titles" align="center">
 		{! {$langs[$parent]} }
-		<p>.: {$langs.kz_ljs_recs} :. 
+		<p>.: {langs('LJ Records')} :. 
 	</div>
 	
 	<div>
@@ -27,11 +27,11 @@
 			</tr>		
 			<tr class="title">
 				<td width="30" align="center">№</td>
-				<td>{$langs.Name}</td>
-				<td>{$langs.distance}</td>
-				<td>{$langs.block}</td>
-				<td>{$langs.prestarfe}</td>
-				<td>{$langs.speed}</td>
+				<td>{langs('Name')}</td>
+				<td>{langs('Distance')}</td>
+				<td>{langs('Block')}</td>
+				<td>{langs('Prestrafe')}</td>
+				<td>{langs('Speed')}</td>
 			</tr>
 		{/if}
 		

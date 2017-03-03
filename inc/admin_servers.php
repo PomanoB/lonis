@@ -42,16 +42,28 @@ if ($act == "delete") {
 		$message = $langs["Confirm"];
 }
 
-assign('message', $message);
+
+$page = isset($_GET["page"]) && $_GET["page"] ? $_GET["page"] : 0;
+
+$search = isset($_GET["search"]) && $_GET["search"] ? $_GET["search"] : "";
+$ssearch = slashes($search);
+$where = $search ? "AND `addres` LIKE '%$ssearch%' OR `name` LIKE '%$ssearch%'" : "";
 
 // Servser
-$r = mysqli_query($db, "SELECT * FROM `servers`");
+$q = "SELECT * FROM `servers` WHERE 1 {$where}";
+$r = mysqli_query($db, $q);
+$total = mysqli_num_rows($r);
 
-$servers = array();
-while($row = mysqli_fetch_assoc($r)) {
-	$servers[] = $row;
+$pages = generate_page($page, $total, $playerPerPage, "{$baseUrl}/admin/langs/page%page%/{$search}");	
+
+if ($total) {
+	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playerPerPage);
+
+	$players = array();
+	foreach($rows_limit as $row) {
+		$servers[] = $row;
+	}
 }
-assign('servers', $servers);
 
 // Servser Mod
 $r = mysqli_query($db, "SELECT * FROM `servers_mod`");
@@ -60,6 +72,5 @@ $mod = array();
 while($row = mysqli_fetch_assoc($r)) {
 	$mod[] = $row;
 }
-assign('mod', $mod);
 
 ?>

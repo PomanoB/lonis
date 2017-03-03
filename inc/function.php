@@ -14,6 +14,16 @@ function assign($vname, $var = "") {
 	$smarty->assign($vname, $var);
 }
 
+// langs
+function langs($var) {
+	global $langs;
+	
+	if(!isset($langs[$var]))
+		return $var;
+	
+	return $langs[$var];
+}
+
 // slashes
 function slashes($str) {
 	return get_magic_quotes_gpc() ? $str : addslashes($str);
@@ -319,18 +329,34 @@ function getSteamInfo($steamId64, $key) {
 	return $str;
 }
 
-// Avatar: gravatar.com or Steam
+// Avatar: Folder or gravatar.com or Steam
 function getAvatar($steam_id_64, $email, $size) {
-	global $conf;
-	$gsize = isset($conf[$size]) ? $conf[$size] : "";
+	global $conf, $baseUrl;
 	
-	$avatar["link"] = "http://www.gravatar.com";
-	$avatar["img"] = $avatar["link"]."/avatar/".md5($email)."?d=wavatar&s={$gsize}";
+	if(!file_exists("img/players/")) mkdir("img/players/");
 
-	if($steam_id_64 && $conf["steamAvatar"]) {
-		$avatar["link"] = "http://steamcommunity.com/profiles/{$steam_id_64}/";
-		$steamAvatar = getSteamInfo($steam_id_64, $size);
-		if(strpos($steamAvatar, ".jpg")) $avatar["img"] = $steamAvatar;
+	$avatar["size"] = isset($conf[$size]) ? $conf[$size] : "";
+	
+	$avatar_file = "img/players/{$steam_id_64}.jpg";
+	if(file_exists($avatar_file)) {
+		$avatar["img"] = $baseUrl."/".$avatar_file;
+	}
+	else {
+		$avatar["img"] = "http://gravatar.com/avatar/".md5($email)."?d={$conf['avatarD']}&s={$avatar["size"]}";
+		
+		if($steam_id_64 && $conf["steamAvatar"]) {
+			$steamAvatar = getSteamInfo($steam_id_64, "avatarFull");
+			if(strpos($steamAvatar, ".jpg"))  {
+				if(getimagesize($steamAvatar))
+					$avatar["img"] = $steamAvatar;
+			}
+			
+			if(isset($avatar["img"]))
+				file_put_contents($avatar_file, file_get_contents($avatar["img"]));
+		}
+		else {
+			
+		}
 	}
 	
 	return $avatar;

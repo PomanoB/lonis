@@ -1,64 +1,63 @@
-			<center>
-			<div class="titles">{$langs.admin_langs}</div>
-			<div class="error_message">{$message}</div>
+<div align="center">		
+	<div class="wrapper">		
+		<div class="titles left_block">{langs('Players')}</div>
+		<div class=" right_block">
+			{$form_search}
+		</div>
+	</div><br><br>
 			
-			<div id="lang">				
-					<form action="#{$langs.var}" method="post">	
-					<table class="" width="80%">
-						<tr class="title">
-							<td>{$langs.setupLang}</td>
-							<td>{$langs.Var}</td>
-							<td>{$langs.Value}</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="">
-								<select class="bigform" name="langx">
-								<option class="bigform" value="" selected></option>
-								{foreach from=$lang_list item=lang}
-									<option value="{$lang}">{$lang}</option>
-								{/foreach}
-								</select>
-							</td>
-							<td><input class="bigform" name="var" type="text" /></td>
-							<td><input class="bigform" name="value" type="text" /></td>
-							<td align="center"><input type="image" src="{$baseUrl}/img/add.png" name="act" value="add" alt="{$langs.Add}"></td>
-						</tr>
-					</table>
-					</form>
-					<br>
-					
-					<table class="table-list form_login">
-						<tr class="title">
-							<td>{$langs.Var}</td>
-							<td>{$langs.Value}</td>
-							<td></td>
-						</tr>
-		{foreach name=lang from=$lang_row key=l item=i}
-						<form action="#{$l}" method="post">
-						<tr id="{$l}">
-							<td class="info">
-								<label>{$l}:</label>
-							</td>
-							<td width="80%" align="center">
-			{foreach from=$i key=n item=t}
-								<b>{$n}</b> <input class="bigform2" size="45" type="text" name="{$l}_{$n}" id="{$l}_{$n}" value="{$t|escape}"/>
-			{/foreach}																					
-							</td>
-							<td>
-								<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="edit" alt="{$langs.Update}">
-								<input type="hidden" name="confirm" value="0" />
-								<input type="checkbox" name="confirm" value="1" />
-								<input type="image" src="{$baseUrl}/img/delete.png" name="act" value="delete" alt="{$langs.Delete}">
-								<input name="var" type="hidden" value="{$l}" />
-							</td>
-						</tr>
-						</form>
-		{/foreach}
-					</table>						
-				</div>
-			</div>
-			</center>
+	{$pages.output}
+	
+	<div class="error_message">{$message}</div>
+
+	<div id="lang">				
+			<table class="" width="80%">
+				<form action="#{langs('var')}" method="post">	
+				<tr>
+					<td class="">
+						<select class="bigform" name="langkey">
+						{foreach from=$lang_list item=l}
+							<option value="{$l}">{$l}</option>
+						{/foreach}
+						</select>
+					</td>
+					<td><input class="bigform" name="var" type="text" /></td>
+					<td><input class="bigform" name="value" type="text" /></td>
+					<td><button class="fa fa-plus" name="act" value="add" title="{langs('Add')}"></button></td>
+				</tr>
+				</form>
+				<tr class="title">
+					<td>{langs('Lang')}</td>
+					<td>{langs('Var')}</td>
+					<td>{langs('Value')}</td>
+					<td></td>
+				</tr>		
+	{foreach name=lang from=$rows item=row}
+				<form action="" method="post">
+				<tr>
+					<td class="">
+						<select class="bigform" name="langkey">
+						{foreach from=$lang_list item=l}
+							<option value="{$l}" {if $l==$row.lang}selected{/if}>{$l}</option>
+						{/foreach}
+						</select>
+					</td>
+					<td><input class="bigform" name="var" type="text" value="{$row.var}"/></td>
+					<td><input class="bigform" name="value" type="text" value="{$row.value}"/></td>
+					<td>
+						<button class="fa fa-pencil-square-o" name="act" value="edit" title="{langs('Update')}"></button>
+						<input type="hidden" name="confirm" value="0" />
+						<input type="checkbox" name="confirm" value="1" />
+						<button class="fa fa-trash-o" name="act" value="delete" title="{langs('Delete')}"></button>
+						<input name="id" type="hidden" value="{$row.id}" />
+					</td>
+				</tr>
+				</form>
+	{/foreach}
+			</table>						
+		</div>
+	</div>
+</div>
 
 
 

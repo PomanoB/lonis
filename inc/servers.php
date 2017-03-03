@@ -4,7 +4,7 @@ if(isset($_POST["addr"])) {
 	$addr = $_POST["addr"];
 	header("Location: {$baseUrl}/servers/$addr");
 }
-include 'hlds.php';
+include 'plugins/hlds.php';
 $server = new hlds();
 
 $addr = isset($_GET["addr"]) ?  $_GET["addr"] : "";
@@ -46,9 +46,10 @@ else {
 		foreach($rows_limit as $row) {
 			$id = $row['id'];
 			
-			if($servers_autoupdate) {
-				$update = strtotime($row['update']);
-				
+			$update = strtotime($row['update']." ".$timezone);
+			$row["updatef"] = strftime("%d.%m %H:%M", $update);
+			
+			if(!$vip) {
 				if(time()-$update > $server_update) {
 					if($server->connect($row["addres"])) {
 						$info = $server->info();
@@ -65,15 +66,16 @@ else {
 							SET `name` = '{$row['name']}', 
 								`map` = '{$row['map']}', 
 								`players` = {$row['players']}, 
-								`max_players` = {$row['max_players']}, 
+								`max_players` = {$row['max_players']},
+								`update` = NOW()
 							WHERE `id` = {$id}";
 					mysqli_query($db, $q);
 					
-					$row["update"] = time();
+					$row["update"] = strftime("%d.%m %H:%M", time());
 				}
 			}
 			
-			$row["update"] = strftime("%d.%m %H:%M", $row["update"]);
+			
 			
 			$rows[] = $row;
 		}

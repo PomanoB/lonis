@@ -1,9 +1,28 @@
 # lonis
-Web registartion and statistic for Counter Strike 1.6 version 2.0.6
+Web registartion and statistic for Counter Strike 1.6 version 2.0.7
+
+-------------------
+-- Version 2.0.7 -- 
+-------------------
+Changelog: 03.02.2017 23:30
+- *** Add New Languages System ***
+- Add Iconic font
+- Repace all icon to AwesoneFont
+- Add Search on Approved Pages
+- Add Search in url: ?search=%words%
+- Add SteamAvatar Cached
+- Add Avatar and Gravatar:identicon on Achievs page
+- Add plugins: wavatar, wp_identicon, wp_monsterid
+- Fix timezone in Servers module
 
 -------------------
 -- Version 2.0.6 -- 
 -------------------
+Changelog: 01.02.2017 00:00
+- Change style on all pages
+- Add table kz_diff and change data in kz_map
+- Add other php script: generate_page and pinger
+
 Changelog: 27.02.2017 00:30
 - Add KZ Longjumps page (uq_jumpstats_2.42)
 - Fix some bugs

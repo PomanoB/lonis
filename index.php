@@ -11,6 +11,11 @@ $starttime = microtime(true);
 
 session_start();
 
+// Base URL
+$baseSite = str_replace("/index.php", "", $_SERVER["PHP_SELF"]);
+$baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseSite}";
+$docRoot = $_SERVER['DOCUMENT_ROOT'].$baseSite;
+
 define('IN_KZ_TOP', 1);
 
 include "inc/config.php";
@@ -27,9 +32,6 @@ foreach($conf as $key=>$value) {
 // Timezone
 date_default_timezone_set($timezone);
 
-// Base URL
-$baseSite = str_replace("/index.php", "", $_SERVER["PHP_SELF"]);
-
 // Parse URI
 $uri = str_replace($baseSite."/", "", $_SERVER["REQUEST_URI"]);
 if($uri!="") {
@@ -39,10 +41,6 @@ if($uri!="") {
 	}
 	$_GET = $url["uri"];
 }
-
-$baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseSite}";
-
-$docRoot = $_SERVER['DOCUMENT_ROOT'].$baseSite;
 
 // Debug trace
 //print_p();
@@ -107,8 +105,8 @@ if(!$errno) {
 			$lang = $lang_def;
 	}
 	
-	$dblangs = getLangs($db, $lang);
-	$langs = array_replace($langs, $dblangs);	
+	$langs = getLangs($db, $lang);
+	//$langs = array_replace($langs, $dblangs);	
 	
 	// Read themes
 	$themeselect = getThemes($db, $lang);
@@ -127,7 +125,7 @@ if(!$errno) {
 	}
 	
 	// Read Menu
-	$menu = getMenus($db, $lang);
+	$menu = getMenus($db);
 	$parent = getMenuParent($db, $action);
 	
 	// If Admin

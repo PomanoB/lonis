@@ -1,10 +1,15 @@
 <?php
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 
-$q = "SELECT *,
-	(SELECT `name` FROM `unr_players` WHERE `id` = `player1`) AS `name1`,
-	(SELECT `name` FROM `unr_players` WHERE `id` = `player2`) AS `name2`
-	FROM `kz_duel`";
+$search = isset($_GET["search"]) && $_GET["search"] ? $_GET["search"] : "";
+$ssearch = slashes($search);
+
+$where = $search ? "AND `map` LIKE '%$ssearch%' OR `pl1`.`name` LIKE '%$ssearch%' OR `pl2`.`name` LIKE '%$ssearch%'" : "";
+
+$q = "SELECT `d`.*, `pl1`.`name` `name1`, `pl2`.`name` `name2` FROM `kz_duel` `d`
+		LEFT JOIN `unr_players` `pl1` ON `pl1`.`id` = `player1`
+		LEFT JOIN `unr_players` `pl2` ON `pl2`.`id` = `player2`
+		WHERE 1 {$where}";
 $r = mysqli_query($db, $q);
 $total = mysqli_num_rows($r);
 

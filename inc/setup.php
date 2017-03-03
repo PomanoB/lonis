@@ -62,7 +62,7 @@ if (isset($_SESSION["setting_user"])) {
 		$conflist[$var]["type"] = $input_type[$var];
 		$conflist[$var]["err"] = isset($fld_err[$var]) ? 1 : 0;
 		$conflist[$var]["name"] = $var;
-		$conflist[$var]["desc"] = $langs["$var"];
+		$conflist[$var]["desc"] = langs($var);
 		$conflist[$var]["text"] = $input_type[$var]!="password" ?  $value : "";
 	}
 	

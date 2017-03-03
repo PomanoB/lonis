@@ -7,6 +7,13 @@ $message = array();
 $act = isset($_GET["act"]) ? $_GET["act"] : "";
 $act = isset($_POST["act"]) ? $_POST["act"] : $act;
 
+if(isset($avatarUpdate)) {
+	$avatar_file = "img/players/{$steam_id_64}.jpg";
+	if(!file_exists($avatar_file)) {
+		unlink($avatar_file);
+	}
+}
+
 if(isset($_SESSION["steamId64"])) {
 	$steamId64 = $_SESSION["steamId64"];
 	$steamId = getSteamId($steamId64);
@@ -38,7 +45,7 @@ if($act=="logout") {
 }
 else
 if($act=="steam") {
-	include 'lightopenid.php';
+	include 'plugins/lightopenid.php';
 	$openid = new LightOpenID();
 
 	if(!$openid->mode) {
@@ -64,7 +71,12 @@ if($act=="steam") {
 if(isset($_SESSION["user_$cookieKey"])) {
 	$user = $_SESSION["user_$cookieKey"];
 	$r = mysqli_query($db, "SELECT * FROM `unr_players` WHERE `id`= {$user["id"]} LIMIT 1");
-	if ($row = mysqli_fetch_assoc($r)) $user = $row;
+	if ($player = mysqli_fetch_assoc($r)) {
+		$steam_id_64 = getSteamId64($player["steam_id"]);
+		$avatar = getAvatar($steam_id_64, $player["email"], "avatarFull");
+		$player["avatar"] = $avatar["img"];
+		$player["avatarSize"] = $avatar["size"];
+	}
 
 	$addFlags = array();
 	if (isset($_POST["name"]) && $_POST["name"] != '') {
@@ -120,7 +132,7 @@ if(isset($_SESSION["user_$cookieKey"])) {
 		{
 			$addFlags[$i]["flag"] = $key;
 			$addFlags[$i]["lang"] = $lang;
-			$addFlags[$i]["checked"] = (strstr($user["amxx_flags"], $value) == FALSE ? 0 : 1);
+			$addFlags[$i]["checked"] = (strstr($player["amxx_flags"], $value) == FALSE ? 0 : 1);
 			$i++;
 		}
 	}
@@ -228,4 +240,5 @@ if (isset($_POST["login_user"]) && isset($_POST["login_password"])) {
 		}	
 	}
 }
+
 ?>

@@ -48,16 +48,15 @@ function getConfigType($db) {
 }
 	
 // Get Menus from DB
-function getMenus($db, $lang, $parent = "") {
-	global $actionList;
+function getMenus($db, $parent = "") {
+	global $actionList, $langs;
 	
 	$where = $parent ? "AND `parent` = '{$parent}'" : "";
 	
-	$q = "SELECT `l`.`value` as `name`, `action`, `mname`, `parent` FROM `menu` `m` 
-				LEFT JOIN `langs` `l` ON `mname` = `var` 
-					WHERE `lang`='{$lang}' {$where} ORDER BY `num`";
+	$q = "SELECT * FROM `menu` {$where} WHERE `mname` <> '' ORDER BY `num`";
 	$r = mysqli_query($db, $q);
 	while($row = mysqli_fetch_assoc($r)) {
+		$row["name"] = 	isset($langs[$row["mname"]]) ? $langs[$row["mname"]] : $row["mname"];
 		$row["url"] = isset($actionList[$row["action"]]) ? $actionList[$row["action"]] : "";
 		$menu[$row["parent"]][] = $row;
 	}
@@ -102,6 +101,11 @@ function getLang($db) {
 // Get Langs from DB
 function getLangs($db, $lang) {
 	$dblangs = array();
+	$r = mysqli_query($db, "SELECT var FROM `langs` GROUP BY var");
+	while($row = mysqli_fetch_array($r)) {
+		$dblangs[$row["var"]] = $row["var"];
+	}
+	
 	$r = mysqli_query($db, "SELECT * FROM `langs` WHERE `lang`='{$lang}'");
 	while($row = mysqli_fetch_array($r)) {
 		$dblangs[$row["var"]] = $row["value"];

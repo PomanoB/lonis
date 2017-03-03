@@ -19,14 +19,9 @@ if (isset($_SESSION["user_$cookieKey"]) && $admin == 1) {
 
 $page = isset($_GET["page"]) && $_GET["page"] ? $_GET["page"] : 0;
 
-$search = "";
-if(isset($_POST["search"]) && $_POST["search"])
-	$search = $_POST["search"];
-else 
-if(isset($_GET["search"]) && $_GET["search"])
-	$search = $_GET["search"];
-
+$search = isset($_GET["search"]) && $_GET["search"] ? $_GET["search"] : "";
 $ssearch = slashes($search);
+
 $where = $search ? "AND `r1`.`map` LIKE '%$ssearch%'" : "";
 
 $q = "SELECT `r1`.`map` `map`, `r1`.`mappath`,

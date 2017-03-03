@@ -38,7 +38,7 @@ if(isset($player["id"])) {
 	
 	$avatar = getAvatar($player["steam_id_64"], $player["email"], "avatarFull");
 	$player["avatar"] = $avatar["img"];
-	$player["avatarLink"] = $avatar["link"];
+	$player["avatarSize"] = $avatar["size"];
 }
 else {
 	if($name) $_POST["search"] = $name;
@@ -47,13 +47,7 @@ else {
 	$order = isset($_GET["order"]) && $_GET["order"] ? $_GET["order"] : "";
 	$sort = isset($_GET["sort"]) && $_GET["sort"] ? $_GET["sort"] : "";
 	
-	$search = "";
-	if(isset($_POST["search"]) && $_POST["search"])
-		$search = $_POST["search"];
-	else 
-	if(isset($_GET["search"]) && $_GET["search"])
-		$search = $_GET["search"];
-	
+	$search = isset($_GET["search"]) && $_GET["search"] ? $_GET["search"] : "";
 	$ssearch = slashes($search);
 
 	$where = $search ? "AND `name` LIKE '%$ssearch%'" : "";
@@ -80,7 +74,7 @@ else {
 	
 			$avatar = getAvatar($row["steam_id_64"], $row["email"], "avatarIcon");
 			$row["avatar"] = $avatar["img"];
-			$row["avatarLink"] = $avatar["link"];
+			$row["avatarSize"] = $avatar["size"];
 			
 			$row["name_url"] = url_replace($row["name"]);
 			

@@ -3,21 +3,9 @@ if (!(isset($_SESSION["user_$cookieKey"]) && $admin == 1)) {
 	header('Location: '.$baseUrl);
 }
 
-$search = $where = "";
-if (isset($_POST["search"]) && $_POST["search"] !='') {
-	$search = slashes($_POST["search"]);
-	
-	header("Location: $baseUrl/admin/players/$search");
-}
-
-if (isset($_GET["search"]) && $_GET["search"] != '') {
-	$nsearch = slashes($_GET["search"]);
-	$search = $_GET["search"];
-	
-	$where = "AND `name` LIKE '%$nsearch%'";
-}
-
-
+$search = isset($_GET["search"]) && $_GET["search"] ? $_GET["search"] : "";
+$ssearch = slashes($search);
+$where = $search ? "AND `name` LIKE '%$ssearch%'" : "";
 
 $act = isset($_POST["act"]) ? $_POST["act"] : "";
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;

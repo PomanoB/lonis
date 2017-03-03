@@ -1,12 +1,10 @@
 	<div class="wrapper">		
 		<div class="titles left_block">
-			{$langs[$parent]} :: {$langs.kz_downloads} ({$total}) 
+			{langs($parent)} :: {langs('Archive')} ({$total}) 
 		</div>
-{if !$cs}
 		<div class="right_block">
 			{$form_search}
 		</div>
-{/if}
 	</div><br><br>
 
 	<div class="err_message">{$message}</div>
@@ -16,11 +14,11 @@
 	<br>
 	<table class="table-list">
 		<tr class="title">
-			<td>{$langs.Map}</td>
-			<td>{$langs.difficulty}</td>
-			<td>{$langs.Type}</td>
-			<td>{$langs.authors}</td>
-			<td>{$langs.Date}</td>
+			<td>{langs('Map')}</td>
+			<td>{langs('Difficulty')}</td>
+			<td>{langs('Type')}</td>
+			<td>{langs('Authors')}</td>
+			<td>{langs('Date')}</td>
 			<td></td>
 {if $admin==1}
 			<td	>#</td>
@@ -36,20 +34,16 @@
 			<td>{$map.authors}</td>
 			<td>{$map.date_old}</td>
 			<td>
-				{if $map.download_url}
-				<a href="{$map.download_url}" alt="{$langs.Download} {$map}">
-				&nbsp;<img src="{$baseUrl}/img/download.png" title="{$langs.Download}" alt="{$langs.Download}">
-				</a>
-				{/if}
+			{if $map.download_url}
+				<a class="fa fa-download" href="{$map.download_url}" alt="{langs('Download')} {$map}"></a>
+			{/if}
 			</td>
 {if $admin==1}
 			<form action="" method="post">			
 			<td>
 				<input type="hidden" name="confirm" value="0">
 				<input type="checkbox" name="confirm" value="1">
-				<button class="but" name="act" value="delete">
-					<img src="{$baseUrl}/img/delete.png" border=0 alt="{$langs.Delete}">
-				</button>
+				<button class="fa fa-trash-o" name="act" value="delete" title="{langs('Delete')}"></button>
 				<input name="delmap" type="hidden" value="{$map.map}" />
 			</td>
 			</form>

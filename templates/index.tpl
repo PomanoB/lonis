@@ -1,7 +1,7 @@
 {capture name=search assign=form_search}
 	<div id="search">
-		<form action="" method="post">
-			<input type="text" name="search" id="search" value="{if isset($search)}{$search}{/if}" placeholder="{$langs.Search}"/><button>
+		<form action="" method="get">
+			<input type="text" name="search" id="search" value="{if isset($search)}{$search}{/if}" placeholder="{langs('Search')}"/><button>
 		</form>
 	</div>
 {/capture}
@@ -12,6 +12,7 @@
 		<meta charset="UTF-8">
 		<link rel="shortcut icon" href="{$baseUrl}/img/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/font-awesome.css"/>
+		<link rel="stylesheet" href="{$baseUrl}/templates/css/iconic-font.css"/>
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/default.css">
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/theme_{$theme}.css">
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/{$action}.css">
@@ -20,8 +21,8 @@
 		<script type="text/javascript" src="{$baseUrl}/templates/js/default.js"></script>
 		<script type="text/javascript" src="{$baseUrl}/templates/js/{$action}.js"></script>
 		<title>
-			{$langs.Title} {if isset($langs[$parent])} :: {$langs[$parent]}{/if}
-			{if isset($langs[$action])} :: {$langs[$action]}{/if}
+			Lonis {if isset($langs[$parent])} :: {langs($parent)} {/if}
+			{if isset($langs[$action])} :: {langs($action)}{/if}
 		</title>
 	</head>
 	
@@ -33,8 +34,8 @@
 				
 		{if !$cs}
 				<div class="centered">
-			{foreach from=$menu.main item=i}
-				{if $i.mname=='admin' && $admin==0} {continue} {/if}
+			{foreach from=$menu["Main"] item=i}
+				{if $i.mname=="Admin" && $admin==0} {continue} {/if}
 					<div class="item">
 						<a title="{$i.name}" href="{$baseUrl}{$i.url}">
 							<img src="{$baseUrl}/img/menu/{$i.action}.png" alt="{$i.name}" /><text>&nbsp;{$i.name}</text>

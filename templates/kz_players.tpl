@@ -1,19 +1,17 @@
 			<div class="wrapper">		
-				<div class="titles left_block">{$langs[$parent]} :: {$langs.kz_players}</div>
-		{if !$cs}
+				<div class="titles left_block">{langs($parent)} :: {langs('Players')}</div>
 				<div class=" right_block">
 					{$form_search}
 				</div>
-		{/if}
 			</div><br><br>
 			
 			<div class="table-list">
-				<a href="{$baseUrl}/kreedz/players/pro/{$sort}/{$search}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
-				<a href="{$baseUrl}/kreedz/players/noob/{$sort}/{$search}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
-				<a href="{$baseUrl}/kreedz/players/all/{$sort}/{$search}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
+				<a href="{$baseUrl}/kreedz/players/pro/{$sort}/{$search}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{langs('Pro')}</a>
+				<a href="{$baseUrl}/kreedz/players/noob/{$sort}/{$search}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{langs('Noob')}</a>
+				<a href="{$baseUrl}/kreedz/players/all/{$sort}/{$search}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{langs('All')}</a>
 				::
-				<a href="{$baseUrl}/kreedz/players/{$type}/all/{$search}" {if $sort == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kznum}</a>
-				<a href="{$baseUrl}/kreedz/players/{$type}/top1/{$search}" {if $sort == "top1"}style="font-weight:bold;"{else}{/if}>{$langs.kztop1}</a>
+				<a href="{$baseUrl}/kreedz/players/{$type}/all/{$search}" {if $sort == "all"}style="font-weight:bold;"{else}{/if}>{langs('Total')}</a>
+				<a href="{$baseUrl}/kreedz/players/{$type}/top1/{$search}" {if $sort == "top1"}style="font-weight:bold;"{else}{/if}>{langs('First')}</a>
 			</div><br>
 			
 			{$pages.output}
@@ -21,9 +19,9 @@
 				<table class="table-list">
 					<tr class="title">
 						<td width="30" align="center">№</td>
-						<td>{$langs.player}</td>
-						<td>{if $sort=="all"}{$langs.kznum}{else}{$langs.kztop1}{/if}</td>
-						<td>{if $sort=="all"}{$langs.kztop1}{else}{$langs.kznum}{/if}</td>
+						<td>{langs('Player')}</td>
+						<td>{if $sort=="all"}{langs('Total')}{else}{langs('First')}{/if}</td>
+						<td>{if $sort=="all"}{langs('First')}{else}{langs('Total')}{/if}</td>
 					</tr>
 	{if isset($players)}
 	{foreach from=$players item=player}

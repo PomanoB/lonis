@@ -1,6 +1,7 @@
 <div class="wrapper">
-	<div class="titles left_block">{$langs[$parent]} :: {$langs.kz_duels}</div>
+	<div class="titles left_block">{langs($parent)} :: {langs('Duels')}</div>
 	<div class="right_block" align="center">
+		{$form_search}
 	</div>
 </div><br><br>
 	
@@ -9,11 +10,11 @@
 <div style="padding:10px;">
 	<table class="table-list">
 		<tr class="title">
-			<td>{$langs.Map}</td>
-			<td>{$langs.Winner}</td>
-			<td>{$langs.Looser}</td>
-			<td>{$langs.WinnerPoint}</td>
-			<td>{$langs.LooserPoint}</td>
+			<td>{langs('Map')}</td>
+			<td>{langs('Winner')}</td>
+			<td>{langs('Looser')}</td>
+			<td>{langs('Winner Point')}</td>
+			<td>{langs('Looser Point')}</td>
 		</tr>
 {foreach from=$rows item=duel}
 		<tr class="list">

@@ -1,11 +1,9 @@
 <div align="center">		
 	<div class="wrapper">		
-		<div class="titles left_block">{$langs.players}</div>
-{if !$cs}
+		<div class="titles left_block">{langs('Players')}</div>
 		<div class=" right_block">
 			{$form_search}
 		</div>
-{/if}
 	</div><br><br>
 			
 	{$pages.output}
@@ -21,18 +19,15 @@
 				<td><input class="bigform " name="email" type="text" /></td>
 				<td align="center"><input name="active" type="checkbox"/></td>
 				<td align="center"><input name="webadmin" type="checkbox"/></td>
-				
-				<td align="center">
-					<input type="image" src="{$baseUrl}/img/add.png" name="act" value="add" alt="{$langs.Add}">
-				</td>
+				<td  align="center"><button class="fa fa-plus" name="act" value="add" title="{langs('Add')}"></button></td>
 			</tr>
 		</form>
 			<tr class="title">
-				<td>{$langs.player}</td>
-				<td>{$langs.Password}</td>
-				<td>{$langs.Email}</td>
-				<td>{$langs.Active}</td>
-				<td>{$langs.Admin}</td>
+				<td>{langs('Player')}</td>
+				<td>{langs('Password')}</td>
+				<td>{langs('E-mail')}</td>
+				<td>{langs('Active')}</td>
+				<td>{langs('Admin')}</td>
 				<td>#</td>
 			</tr>
 		{foreach from=$players item=player}
@@ -45,12 +40,11 @@
 				<td align="center"><input name="webadmin" type="checkbox" {if $player.webadmin==1}checked{/if}/></td>
 				
 				<td align="center">
-					<input type="image" src="{$baseUrl}/img/edit.png" name="act" value="edit" alt="{$langs.Update}">
+					<button class="fa fa-pencil-square-o" name="act" value="edit" title="{langs('Update')}"></button>
 					<input type="hidden" name="confirm" value="0" />
 					<input type="checkbox" name="confirm" value="1" />
-					<input type="image" src="{$baseUrl}/img/delete.png" name="act" value="delete" alt="{$langs.Delete}">
+					<button class="fa fa-trash-o" name="act" value="delete" title="{langs('Delete')}"></button>
 					<input name="id" type="hidden" value="{$player.id}" />
-
 				</td>
 			</tr>
 			</form>

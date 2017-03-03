@@ -1,7 +1,7 @@
 		
 {if $map}
 	<div class="wrapper">
-		<div class="titles left_block">{$langs[$parent]} :: {$langs.Map} :: <i>{$map|escape:html}</i></div>
+		<div class="titles left_block">{langs($parent)} :: {langs('Map')} :: <i>{$map|escape:html}</i></div>
 		<div class="right_block" align="center">
 			{if isset($imgmap)}
 				<img class="map_image" src="{$imgmap}" oncontextmenu="return false;" /><br>
@@ -21,7 +21,7 @@
 	{/if}
 {else}	
 	<div class="wrapper">
-		<div class="titles left_block">{$langs.lastRecKZ}</div>
+		<div class="titles left_block">{langs('Last Records on Kreedz')}</div>
 	</div><br><br>
 {/if}
 	
@@ -29,9 +29,9 @@
 
 	{if $total}	
 	<div  class="table-list">
-		<a href="{$baseUrl}/kreedz/{$map}/pro" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
-		<a href="{$baseUrl}/kreedz/{$map}/noob" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
-		<a href="{$baseUrl}/kreedz/{$map}/all" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
+		<a href="{$baseUrl}/kreedz/{$map}/pro/" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{langs('Pro')}</a>
+		<a href="{$baseUrl}/kreedz/{$map}/noob/" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{langs('Noob')}</a>
+		<a href="{$baseUrl}/kreedz/{$map}/all/" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{langs('All')}</a>
 	</div>
 	{/if}
 
@@ -42,13 +42,13 @@
 		{if $map}
 			<td width="30" align="center">№</td>
 		{else}
-			<td>{$langs.Map}</td>
+			<td>{langs('Map')}</td>
 		{/if}
-			<td>{$langs.player}</td>
-			<td>{$langs.Time}</td>
-			<td>{$langs.Cp}</td>
-			<td>{$langs.GoCp}</td>
-			<td>{$langs.Weapon}</td>
+			<td>{langs('Player')}</td>
+			<td>{langs('Time')}</td>
+			<td>{langs('Checkpoints')}</td>
+			<td>{langs('Teleports')}</td>
+			<td>{langs('Weapon')}</td>
 	{if $admin==1}
 			<td>#</td>
 	{/if}
@@ -81,9 +81,7 @@
 			<td>
 				<input type="hidden" name="confirm" value="0">
 				<input type="checkbox" name="confirm" value="1">
-				<button class="but" name="act" value="delete">
-					<img src="{$baseUrl}/img/delete.png" border=0 alt="{$langs.Delete}">
-				</button>
+				<button class="fa fa-trash-o" name="act" value="delete" title="{langs('Delete')}"></button>
 				<input name="id" type="hidden" value="{$player.id}" />
 			</td>
 			</form>

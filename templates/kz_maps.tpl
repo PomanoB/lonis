@@ -1,18 +1,16 @@
 	<div class="wrapper">		
 		<div class="titles left_block">
-			{$langs[$parent]} :: {$langs.kz_maps} ({$total})
+			{langs($parent)} :: {langs('Maps')} ({$total})
 		</div>
-{if !$cs}
 		<div class="right_block">
 			{$form_search}
 		</div>
-{/if}
 	</div><br><br>
 	
 	<div>
 {if $rec=="norec"}	
 			<div class="table-list">
-				<b>{$langs.kznorec}</b> :: <a href="{$baseUrl}/kreedz/maps/{$type}/{$search}">{$langs.kzrec}</a>
+				<b>{langs('Not jumped')}</b> :: <a href="{$baseUrl}/kreedz/maps/{$type}/{$search}">{langs('Passed')}</a>
 			</div>
 			
 			{$pages.output}
@@ -33,7 +31,7 @@
 			<div>
 				<table class="table-list">
 					<tr class="title">
-						<td>{$langs.Map}</td>
+						<td>{langs('Map')}</td>
 					</tr>
 		{if isset($maps)}
 		{foreach from=$maps key=key item=map}
@@ -47,10 +45,10 @@
 	{/if}
 {else}
 		<div class="table-list">
-			<a href="{$baseUrl}/kreedz/maps/pro/{$rec}/{$search}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{$langs.kzpro}</a>
-			<a href="{$baseUrl}/kreedz/maps/noob/{$rec}/{$search}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{$langs.kznoob}</a>
-			<a href="{$baseUrl}/kreedz/maps/all/{$rec}/{$search}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{$langs.kzall}</a>
-			:: <a href="{$baseUrl}/kreedz/maps/{$type}/norec/{$search}">{$langs.kznorec}</a>
+			<a href="{$baseUrl}/kreedz/maps/pro/{$rec}/{$search}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{langs('Pro')}</a>
+			<a href="{$baseUrl}/kreedz/maps/noob/{$rec}/{$search}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{langs('Noob')}</a>
+			<a href="{$baseUrl}/kreedz/maps/all/{$rec}/{$search}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{langs('All')}</a>
+			:: <a href="{$baseUrl}/kreedz/maps/{$type}/norec/{$search}">{langs('Not jumped')}</a>
 		</div><br>
 		
 		<div class="err_message">{$message}</div>
@@ -59,12 +57,12 @@
 		
 		<table class="table-list">
 			<tr class="title">
-				<td>{$langs.Map}</td>
-				<td>{$langs.player}</td>
-				<td>{$langs.Time}</td>
-				<td>{$langs.Cp}</td>
-				<td>{$langs.GoCp}</td>
-				<td>{$langs.Weapon}</td>
+				<td>{langs('Map')}</td>
+				<td>{langs('Player')}</td>
+				<td>{langs('Time')}</td>
+				<td>{langs('Checkpoints')}</td>
+				<td>{langs('Teleports')}</td>
+				<td>{langs('Weapon')}</td>
 	{if $admin==1}
 				<td	>#</td>
 	{/if}
@@ -86,9 +84,7 @@
 				<td>
 					<input type="hidden" name="confirm" value="0">
 					<input type="checkbox" name="confirm" value="1">
-					<button class="but" name="act" value="delete">
-						<img src="{$baseUrl}/img/delete.png" border=0 alt="{$langs.Delete}">
-					</button>
+					<button class="fa fa-trash-o" name="act" value="delete" title="{langs('Delete')}"></button>
 					<input name="delmap" type="hidden" value="{$map.map}" />
 				</td>
 				</form>
