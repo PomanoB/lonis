@@ -90,6 +90,10 @@ if(!$errno) {
 	$langselect = getLang($db);
 	
 	// Read language 
+	if(isset($_GET["lang"]) && $_GET["lang"]) {
+		$lang = $_GET["lang"];
+		$_SESSION["unr_lang_$cookieKey"] = $lang;
+	}
 	if (isset($_POST["lang"])) {
 		$lang = $_POST["lang"];
 		$_SESSION["unr_lang_$cookieKey"] = $lang;
@@ -104,9 +108,6 @@ if(!$errno) {
 		else
 			$lang = $lang_def;
 	}
-	
-	if(isset($_GET["lang"]) && $_GET["lang"])
-		$lang = $_GET["lang"];
 	
 	$langs = getLangs($db, $lang);
 	//$langs = array_replace($langs, $dblangs);	

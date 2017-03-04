@@ -14,7 +14,6 @@
 	</div><br><br>
 	
 	{if isset($maprec)}
-
 	<div class="table-list">
 		{foreach from=$maprec item=rec}
 			{if $rec.part}<p><b><a href="{$rec.url}" target="_blank">{$rec.fullname}</a></b>:{/if}
@@ -31,13 +30,11 @@
 	
 	{if $message}<div class="err_message">{$message}</div>{/if}
 
-	{if $total}	
 	<div  class="table-list">
-		<a href="{$baseUrl}/kreedz/{$map}/pro/" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{langs('Pro')}</a>
-		<a href="{$baseUrl}/kreedz/{$map}/noob/" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{langs('Noob')}</a>
-		<a href="{$baseUrl}/kreedz/{$map}/all/" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{langs('All')}</a>
+		<a href="{$baseUrl}/kreedz/pro/{$map}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{langs('Pro')}</a>
+		<a href="{$baseUrl}/kreedz/noob/{$map}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{langs('Noob')}</a>
+		<a href="{$baseUrl}/kreedz/all/{$map}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{langs('All')}</a>
 	</div>
-	{/if}
 
 	{$pages.output}</p>
 			
@@ -57,7 +54,7 @@
 			<td>#</td>
 	{/if}
 		</tr>
-{if $total}
+
 {foreach from=$players item=player}
 		<tr class="list">
 		{if $map}
@@ -96,5 +93,5 @@
 		</tr>
 {foreachelse}
 {/foreach}
-{/if}
+
 	</table>

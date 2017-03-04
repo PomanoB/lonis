@@ -4,6 +4,11 @@ Web registartion and statistic for Counter Strike 1.6 version 2.0.7
 -------------------
 -- Version 2.0.7 -- 
 -------------------
+Changelog: 04.03.2017 16:41
+- Fix Language session
+- Fix Last Record on Kreedz
+- Fix line: Pro Noob All
+
 Changelog: 04.03.2017 16:12
 - Add url addres: &lang=%lang%
 - Autosize in CS mode.

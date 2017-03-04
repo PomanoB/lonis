@@ -37,12 +37,12 @@ if($map)
 				ON `t`.`map` = `tmp`.`map` AND `t`.`player` = `tmp`.`player` AND `t`.`time` = `tmp`.`time`
 				WHERE 1 {$types[$type]} GROUP BY `player`  ORDER BY `time`";
 else
-	$q = "SELECT * FROM `kz_map_tops` WHERE 1 {$types[$type]} ORDER BY `time_add` DESC, `map` LIMIT 0, 10";
+	$q = "SELECT * FROM `kz_map_tops` WHERE 1 {$types[$type]} ORDER BY `time_add` DESC, `map` LIMIT 0, 100";
 
 $r = mysqli_query($db, $q);
 $total = mysqli_num_rows($r);
 
-$pages = generate_page($page, $total, $playersPerPage, "$baseUrl/kreedz/$map/$type/page%page%");
+$pages = generate_page($page, $total, $playersPerPage, "$baseUrl/kreedz/$type/page%page%/$map");
 
 if($map) {
 	$smap = slashes($map);

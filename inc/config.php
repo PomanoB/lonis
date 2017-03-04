@@ -147,7 +147,7 @@ $parseRules = array(
 	"/^kreedz\/records\/ljs\/?(.*)?/" => "index.php?action=kz_ljs_recs&comm=%1%",
 	"/^kreedz\/records\/?(page([0-9]+))?(\/(.*))?/" => "index.php?action=kz_records&page=%2%&search=%4%",
 	"/^kreedz\/downloads\/?(page([0-9]+))?(\/)?(.*)?/" => "index.php?action=kz_downloads&page=%2%&search=%4%",
-	"/^kreedz\/([^\/]+)\/?(pro|noob|all)?(\/page([0-9]+))?/" => "index.php?action=kz_map&map=%1%&type=%2%&page=%4%",
+	"/^kreedz\/?(pro|noob|all)?(\/page([0-9]+))?(\/)?([^\/]+)?/" => "index.php?action=kz_map&type=%1%&page=%3%&map=%5%",
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(num|top1))?/" =>
  "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
 	
