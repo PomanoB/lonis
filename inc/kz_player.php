@@ -51,24 +51,22 @@ $total = $rec=="norec" ? $map_norec : ($sort=="top1" ? $map_top1 : $map_num);
 
 $pages = generate_page($page, $total, $mapsPerPage, "$baseUrl/{$name_url}/kreedz/$type/page%page%/$rec/$sort");
 
-if($total) {
-	$r = $rec=="norec" ? $r_norec : ($sort=="top1" ? $r_top1 : $r_num);
+$r = $rec=="norec" ? $r_norec : ($sort=="top1" ? $r_top1 : $r_num);
+
+$rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
+
+$maps = array();
+foreach($rows_limit as $row) {
+	if(isset($row["mapname"]))
+		$row["map"] = $row["mapname"];
 	
-	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
+	if(isset($row["time"]))
+	$row["time"] = timed($row["time"], 5);
 	
-	$maps = array();
-	foreach($rows_limit as $row) {
-		if(isset($row["mapname"]))
-			$row["map"] = $row["mapname"];
+	$row["name_url"] = isset($row["name"]) ? url_replace($row["name"]) : "";
+	
+	if(!isset($row["weapon"])) $row["weapon"] = 0;
 		
-		if(isset($row["time"]))
-		$row["time"] = timed($row["time"], 5);
-		
-		$row["name_url"] = isset($row["name"]) ? url_replace($row["name"]) : "";
-		
-		if(!isset($row["weapon"])) $row["weapon"] = 0;
-			
-		$maps[] = $row;
-	}
+	$maps[] = $row;
 }
 ?>

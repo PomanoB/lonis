@@ -61,6 +61,7 @@
 					<td align="right"><label for="{$flag.flag}">{$flag.lang}</label></td>
 					<td><input type="checkbox" name="{$flag.flag}" {if $flag.checked}checked="checked"{/if} /></td>
 				</tr>
+			{foreachelse}
 			{/foreach}
 				<tr>
 					<td align="center" colspan="2"><br><h2>{langs('Personal Data')}</h2></td>

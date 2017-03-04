@@ -21,6 +21,7 @@
 		{foreach from=$maprec item=rec}
 			{if $rec.part}<p><b><a href="{$rec.url}" target="_blank">{$rec.fullname}</a></b>:{/if}
 			<b>{$rec.mappath}</b> {$rec.time} <i>{$rec.player}</i> <img src="{$baseUrl}/img/country/{$rec.country}.png">;
+		{foreachelse}
 		{/foreach}
 	</div>
 	{/if}
@@ -70,7 +71,12 @@
 				{/if}
 			</td>	
 		{else}
-			<td><a href="{$baseUrl}/kreedz/{$player.map}/">{$player.map}</a></td>
+			<td>
+				<a href="{$baseUrl}/kreedz/{$player.map}/">{$player.map}</a>
+				{for $i=0 to $player.ddot-1}
+				&nbsp;<i class="fa fa-circle diff-dot" style="color: {$player.dcolor};" title="{$player.dname}"></i>
+				{/for}	
+			</td>
 		{/if}
 			<td>
 				<a href="{$baseUrl}/{$player.name_url}/kreedz">{$player.name|escape}</a>
@@ -92,6 +98,7 @@
 			</form>
 {/if}
 		</tr>
+{foreachelse}
 {/foreach}
 {/if}
 	</table>

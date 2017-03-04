@@ -251,6 +251,7 @@ function mysqli_result($res, $row, $field=0) {
 // Mysql: LIMIT $start, $perpage
 function mysqli_fetch_limit($r, $start, $perpage) {
 	$i=0;
+	$rows_limit = array();
 	while($rows = mysqli_fetch_assoc($r)) {
 		$i++;
 		if($i>($start+$perpage)) break;

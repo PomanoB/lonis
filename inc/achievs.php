@@ -2,21 +2,6 @@
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 $act = isset($_GET["act"]) ? $_GET["act"] : "";
 
-/*
-$achievImage = "";
-switch($conf["achievAvatar"]) {
-	case "gravatar": 
-		$src = 'http://gravatar.com/avatar/{$achiev.img}?d=idention&s=60';
-		$achievImage = '<img src='.$src.' width="60" height="60"/>';
-	case "fa":
-		$achievImage = '<i class="fa fa-4x {$achiev.icon}">';
-	case "img":
-		$src = "{$baseUrl}/img/achiev/{$achiev["id"]}.png";
-		if(!file_exists($src)) $src = "{$baseUrl}/img/achiev/0.png";
-		$achievImage = '<img src='.$src.' width="60" height="60"/>';		
-}
-*/
-
 // url=/achievs/
 if($act=="achievs") {
 	$q = "SELECT * FROM (SELECT steam_id_64, email, `id` AS `plid`, `name`, 
@@ -27,17 +12,15 @@ if($act=="achievs") {
 	$total = mysqli_num_rows($r);
 	
 	$pages = generate_page($_GET["page"], $total, $achievPlayersPerPage, "$baseUrl/achievs/page%page%");
-
-	if ($total) {
-		$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPlayersPerPage);
+	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPlayersPerPage);
+	
+	$rows = array();
+	foreach($rows_limit as $player) {						
+		$avatar = getAvatar($player["steam_id_64"], $player["email"], "avatarMedium");
+		$player["avatar"] = $avatar["img"];
+		$player["avatarSize"] = $avatar["size"];
 			
-		foreach($rows_limit as $player) {						
-			$avatar = getAvatar($player["steam_id_64"], $player["email"], "avatarMedium");
-			$player["avatar"] = $avatar["img"];
-			$player["avatarSize"] = $avatar["size"];
-				
-			$rows[] = $player;
-		}
+		$rows[] = $player;
 	}
 }
 else { // url=/achiev/%aname%
@@ -73,19 +56,17 @@ else { // url=/achiev/%aname%
 			
 			$aname_url = urlencode($aname);
 			$pages = generate_page($page, $total, $achievPlayersPerPage, "$baseUrl/achiev/page%page%/$aname_url");
-		
-			if($total) {
-				$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPlayersPerPage);
+			$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPlayersPerPage);
+			
+			$rows = array();
+			foreach($rows_limit as $player) {
+				$player["plname_url"] = url_replace($player["plname"]);
 				
-				foreach($rows_limit as $player) {
-					$player["plname_url"] = url_replace($player["plname"]);
-					
-					$avatar = getAvatar($player["steam_id_64"], $player["email"], "avatarMedium");
-					$player["avatar"] = $avatar["img"];
-					$player["avatarSize"] = $avatar["size"];
-					
-					$rows[] = $player;
-				}
+				$avatar = getAvatar($player["steam_id_64"], $player["email"], "avatarMedium");
+				$player["avatar"] = $avatar["img"];
+				$player["avatarSize"] = $avatar["size"];
+				
+				$rows[] = $player;
 			}
 		}
 	}
@@ -103,20 +84,18 @@ else { // url=/achiev/%aname%
 		
 		$name_url = urlencode($name);
 		$pages = generate_page($page, $total, $achievPerPage, "{$baseUrl}/{$name_url}/achiev/page%page%/");
+		$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPerPage);	
 
-		if($total) {
-			$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPerPage);
+		$rows = array();
+		foreach($rows_limit as $achiev) {
+			if ($achiev["count"] != 1 && $achiev["count"] != $achiev["progress"])
+				$achiev["width"] = $achiev["progress"] * 100 / $achiev["count"];
 			
-			foreach($rows_limit as $achiev) {
-				if ($achiev["count"] != 1 && $achiev["count"] != $achiev["progress"])
-					$achiev["width"] = $achiev["progress"] * 100 / $achiev["count"];
-				
-				$achiev["img"] = "{$baseUrl}/img/achiev/{$achiev["id"]}.png";
-				if(!file_exists("img/achiev/{$achiev["id"]}.png"))
-					$achiev["img"] = "{$baseUrl}/img/achiev/0.png";
-				
-				$rows[] = $achiev;
-			}
+			$achiev["img"] = "{$baseUrl}/img/achiev/{$achiev["id"]}.png";
+			if(!file_exists("img/achiev/{$achiev["id"]}.png"))
+				$achiev["img"] = "{$baseUrl}/img/achiev/0.png";
+			
+			$rows[] = $achiev;
 		}
 	}
 	else { // url=/achiev/
@@ -134,20 +113,18 @@ else { // url=/achiev/%aname%
 		$total = mysqli_num_rows($r);
 
 		$pages = generate_page($page, $total, $achievPerPage, "$baseUrl/achiev/page%page%/");
+		$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPerPage);
 
-		if($total) {
-			$rows_limit = mysqli_fetch_limit($r, $pages["start"], $achievPerPage);
-
-			foreach($rows_limit as $achiev) {
-				$achiev["completed"] = floor($achiev["completed"]*100)/100;
-				
-				$achiev["img"] = "{$baseUrl}/img/achiev/{$achiev["aId"]}.png";
-				if(!file_exists("img/achiev/{$achiev["aId"]}.png"))
-					$achiev["img"] = "{$baseUrl}/img/achiev/0.png";
-				
-				$rows[] = $achiev;
-			}		
-		}
+		$rows = array();
+		foreach($rows_limit as $achiev) {
+			$achiev["completed"] = floor($achiev["completed"]*100)/100;
+			
+			$achiev["img"] = "{$baseUrl}/img/achiev/{$achiev["aId"]}.png";
+			if(!file_exists("img/achiev/{$achiev["aId"]}.png"))
+				$achiev["img"] = "{$baseUrl}/img/achiev/0.png";
+			
+			$rows[] = $achiev;
+		}		
 	}
 }
 ?>

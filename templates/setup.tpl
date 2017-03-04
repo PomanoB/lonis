@@ -10,7 +10,6 @@
 		<div id="setup">
 		  <form action="" method="post">
 			<table class="form_login">
-	{if isset($conflist)}
 	{foreach from=$conflist item=conf}
 				<tr>
 					<td class="info">
@@ -20,8 +19,8 @@
 						<input size="30" type="text" class="form_login" name="fld_{$conf.name}" id="{$conf.name}" value="{$conf.text}"/>
 					</td>
 				</tr>
+	{foreachelse}
 	{/foreach}
-	{/if}
 			</table>
 			
 			<div id="">

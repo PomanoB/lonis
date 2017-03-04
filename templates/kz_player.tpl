@@ -45,7 +45,6 @@
 				<td>{langs('Teleports')}</td>
 				<td>{langs('Weapon')}</td>
 			</tr>
-	{if $total}
 	{foreach from=$maps key=key item=map}
 			<tr class="list">
 				<td>
@@ -62,8 +61,8 @@
 					<img src="{$baseUrl}/img/weapons/{$map.weapon}.gif" alt="{$map.wname}" />
 				</td>
 			</tr>
+	{foreachelse}
 	{/foreach}
-	{/if}
 		</table>
 {else}
 	

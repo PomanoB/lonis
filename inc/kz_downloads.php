@@ -33,15 +33,12 @@ $r = mysqli_query($db, $q);
 $total = mysqli_num_rows($r);
 
 $pages = generate_page($page, $total, $mapsPerPage, "$baseUrl/kreedz/downloads/page%page%/$search");
+$rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
 
-if ($total) {
-	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
+$maps = array();
+foreach($rows_limit as $row) {
+	$row["download_url"] = str_replace("%map%", $row["mapname"], $row["download"]);
 	
-	$maps = array();
-	foreach($rows_limit as $row) {
-		$row["download_url"] = str_replace("%map%", $row["mapname"], $row["download"]);
-		
-		$maps[] = $row;
-	}
+	$maps[] = $row;
 }
 ?>

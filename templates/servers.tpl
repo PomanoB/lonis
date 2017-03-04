@@ -82,6 +82,7 @@
 			<td><i>{$serv.updatef}</i></td>
 			<td>{if $serv.vip==1}<img src="{$baseUrl}/img/vip.png" title="VIP" alt="VIP"/>{/if}</td>
 		</tr>
+	{foreachelse}
 	{/foreach}
 	</table>
 {/if}

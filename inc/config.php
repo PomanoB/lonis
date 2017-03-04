@@ -31,12 +31,12 @@ $dbconf_def = array (
 	'mysql_db' => 'lonis',
 	'mysql_prefix' => 'lonis_',
 	
-	'uq_mysql_host' = 'localhost',
-	'uq_mysql_user' = 'lonis',
-	'uq_mysql_password' = 'lonis',
-	'uq_mysql_db' = 'lonis',
-	'uq_admin_user' = "admin",
-	'uq_admin_password' = "lonis",
+	'uq_mysql_host' => 'localhost',
+	'uq_mysql_user' => 'lonis',
+	'uq_mysql_password' => 'lonis',
+	'uq_mysql_db' => 'lonis',
+	'uq_admin_user' => "admin",
+	'uq_admin_password' => "lonis",
 );
 
 // Default config
@@ -50,7 +50,7 @@ $conf_def = array (
 	'activateTime' => 60 * 60 * 24 * 3,
 	'playerPerPage' => 15,
 	'mapsPerPage' => 15,
-	'mapsNorecPerPage' => 24,
+	'mapsNorecPerPage' => 25,
 	'playersPerPage' => 15,
 	'achievPerPage' => 50,
 	'achievPlayersPerPage' => 10,
@@ -116,7 +116,7 @@ $actionList  = array (
 	"kz_duels" => "/kreedz/duels/",
 	"kz_longjumps" => "/kreedz/longjumps/",
 	"kz_records" => "/kreedz/records/",
-	"kz_ljs_recs" => "/kreedz/records/ljs",
+	"kz_ljs_recs" => "/kreedz/records/ljs/",
 	"kz_downloads" => "/kreedz/downloads/",
 	"ucp" => "/ucp/",
 	"steam" => "/steam/",
@@ -144,11 +144,12 @@ $parseRules = array(
 	"/^kreedz\/players\/(pro|noob|all)?(\/page([0-9]+))?(\/(all|top1))?(\/)?(.*)?/" => "index.php?action=kz_players&type=%1%&page=%3%&sort=%5%&search=%7%",
 	"/^kreedz\/maps\/(pro|noob|all)?(\/page([0-9]+))?(\/(norec|rec))?(\/)?(.*)?/" => "index.php?action=kz_maps&type=%1%&page=%3%&rec=%5%&search=%7%",
 	"/^kreedz\/longjumps/" => "index.php?action=kz_longjumps",
-	"/^kreedz\/records\/ljs/" => "index.php?action=kz_ljs_recs",
+	"/^kreedz\/records\/ljs\/?(.*)?/" => "index.php?action=kz_ljs_recs&comm=%1%",
 	"/^kreedz\/records\/?(page([0-9]+))?(\/(.*))?/" => "index.php?action=kz_records&page=%2%&search=%4%",
 	"/^kreedz\/downloads\/?(page([0-9]+))?(\/)?(.*)?/" => "index.php?action=kz_downloads&page=%2%&search=%4%",
-	"/^kreedz\/([^\/]+)\/?((pro|noob|all))?(\/page([0-9]+))?/" => "index.php?action=kz_map&map=%1%&type=%3%&page=%5%",
-	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(num|top1))?/" => "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
+	"/^kreedz\/([^\/]+)\/?(pro|noob|all)?(\/page([0-9]+))?/" => "index.php?action=kz_map&map=%1%&type=%2%&page=%4%",
+	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(num|top1))?/" =>
+ "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
 	
 	"/^(.*)/" => "index.php?action=players&name=%1%",
 );

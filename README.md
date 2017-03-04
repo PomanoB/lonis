@@ -4,6 +4,12 @@ Web registartion and statistic for Counter Strike 1.6 version 2.0.7
 -------------------
 -- Version 2.0.7 -- 
 -------------------
+Changelog: 04.03.2017 13:37
+- Fix All SQL tables
+- Fix massive arrays in all scripts (check's empty data)
+- Add {foreachelse} on all pages
+- Edit LJ Records page
+
 Changelog: 04.03.2017 3:14
 - #main set width to 1024px 
 - Add achiev image, disable Gravatar (colored bad)

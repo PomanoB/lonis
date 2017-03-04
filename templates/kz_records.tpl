@@ -26,7 +26,6 @@
 	{/if}
 			</tr>
 
-	{if isset($maps)}
 	{foreach from=$maps item=map}
 			<tr class="list">
 				<td><a href="{$baseUrl}/kreedz/{$map.map}/">{$map.map}{$map.mappath}</a></td>
@@ -46,7 +45,7 @@
 				</form>
 	{/if}			
 			</tr>
+	{foreachelse}
 	{/foreach}
-	{/if}
 		</table>
 	</div>

@@ -21,8 +21,7 @@
 		<script type="text/javascript" src="{$baseUrl}/templates/js/default.js"></script>
 		<script type="text/javascript" src="{$baseUrl}/templates/js/{$action}.js"></script>
 		<title>
-			Lonis {if isset($langs[$parent])} :: {langs($parent)} {/if}
-			{if isset($langs[$action])} :: {langs($action)}{/if}
+			:: Lonis ::
 		</title>
 	</head>
 	
@@ -34,6 +33,7 @@
 				
 		{if !$cs}
 				<div class="centered">
+			{if isset($menu["Main"])}
 			{foreach from=$menu["Main"] item=i}
 				{if $i.mname=="Admin" && $admin==0} {continue} {/if}
 					<div class="item">
@@ -41,7 +41,9 @@
 							<img src="{$baseUrl}/img/menu/{$i.action}.png" alt="{$i.name}" /><text>&nbsp;{$i.name}</text>
 						</a>
 					</div>
+			{foreachelse}
 			{/foreach}
+			{/if}
 				</div>
 		{/if}
 		
@@ -58,6 +60,7 @@
 							<img src="{$baseUrl}/img/menu/{$i.action}.png"><text>&nbsp;{$i.name}</text>
 						</a>
 					</div>
+				{foreachelse}
 				{/foreach}
 				</div>
 			{/if}
@@ -90,6 +93,7 @@
 				<div class="left_block">
 					{foreach from=$menu_footer key=key item=href}
 						<a href="{$href}" style="margin-left:50px;" target="_blank">{$key}</a>
+					{foreachelse}
 					{/foreach}
 				</div>
 				<div class="right_block">
@@ -100,6 +104,7 @@
 						<select id="lang" name="lang" onchange="document.getElementById('langForm').submit();">
 						{foreach from=$langselect key=key item=desc}
 							<option value="{$key}" {if $lang==$key}selected{/if}>{$desc}</option>
+						{foreachelse}
 						{/foreach}
 						</select>
 					</form>
@@ -108,6 +113,7 @@
 						<select style="margin-left:50px;" id="theme" name="theme" onchange="document.getElementById('themeForm').submit();">
 						{foreach from=$themeselect key=key item=desc}
 							<option value="{$key}" {if $theme==$key}selected{/if}>{$desc}</option>
+						{foreachelse}
 						{/foreach}
 						</select>
 					</form>

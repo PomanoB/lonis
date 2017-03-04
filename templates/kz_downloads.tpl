@@ -25,7 +25,6 @@
 {/if}
 		</tr>
 
-{if isset($maps)}
 {foreach from=$maps item=map}
 		<tr class="list">
 			<td>
@@ -54,6 +53,6 @@
 			</form>
 {/if}			
 		</tr>
+{foreachelse}
 {/foreach}
-{/if}
 	</table>

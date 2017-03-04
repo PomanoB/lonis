@@ -30,6 +30,7 @@
 			<td class="th_numeric">{$duel.winnerPoints}</td>
 			<td class="th_numeric">{$duel.looserPoints}</td>
 		<tr>
+{foreachelse}
 {/foreach}
 	</table>
 </div>

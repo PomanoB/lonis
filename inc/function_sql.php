@@ -50,6 +50,7 @@ function getConfigType($db) {
 // Get Menus from DB
 function getMenus($db, $parent = "") {
 	global $actionList, $langs;
+	$menu = array();
 	
 	$where = $parent ? "AND `parent` = '{$parent}'" : "";
 	
@@ -72,6 +73,8 @@ function getMenuParent($db, $action) {
 // Get Themes from DB
 function getThemes($db, $lang) {
 	global $theme, $cstheme;
+	$themeselect = array();
+	
 	$q = "SELECT * FROM `themes` LEFT JOIN `themes_lang` ON `themes`.`id` = `themesid` WHERE `lang` = '{$lang}'";
 	$r = mysqli_query($db, $q);
 	while($row = mysqli_fetch_array($r)) {
@@ -86,6 +89,7 @@ function getThemes($db, $lang) {
 
 function getLang($db) {
 	global $lang_def;
+	$langselect = array();
 	
 	$r = mysqli_query($db, "SELECT * FROM `lang` WHERE `use` = 1 ORDER BY `name` ");
 	while($row = mysqli_fetch_array($r)) {

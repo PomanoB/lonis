@@ -17,28 +17,26 @@ $r = mysqli_query($db, $q);
 
 $total = mysqli_num_rows($r);
 $pages = generate_page($page, $total, $playersPerPage, "$baseUrl/kreedz/players/$type/page%page%/$sort/$search");
+$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playersPerPage);
 
-if($total) {
-	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playersPerPage);
+$number = $pages["start"]+1;
 
-	$number = $pages["start"]+1;
-	$players = array();
-	foreach($rows_limit as $row) {
-		$row["number"] = $number++;
-		
-		if($sort=="top1" ) {
-			$row["col1"] = $row["top1"];
-			$row["col2"] = $row["all"];
-		}
-		else {
-			$row["col1"] = $row["all"];
-			$row["col2"] = $row["top1"];			
-		}
-		
-		$row["name_url"] = url_replace($row["name"]);
-		
-		$players[] = $row;
+$players = array();
+foreach($rows_limit as $row) {
+	$row["number"] = $number++;
+	
+	if($sort=="top1" ) {
+		$row["col1"] = $row["top1"];
+		$row["col2"] = $row["all"];
 	}
+	else {
+		$row["col1"] = $row["all"];
+		$row["col2"] = $row["top1"];			
+	}
+	
+	$row["name_url"] = url_replace($row["name"]);
+	
+	$players[] = $row;
 }
 
 ?>

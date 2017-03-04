@@ -4,9 +4,9 @@
 		::
 		{langs('Achievs players')}
 	</div><br>
+	
 	{if isset($rows)}
 	{$pages.output}
-	
 	
 	<div class="achiev_wrapper" align="center">
 	<table>
@@ -23,6 +23,7 @@
 				</div>
 			</td>
 		</tr>
+	{foreachelse}
 	{/foreach}
 	</table>
 	</div>
@@ -68,6 +69,7 @@
 				</div>
 			</td>
 		</tr>
+	{foreachelse}
 	{/foreach}
 	</table>
 	</div>
@@ -110,6 +112,7 @@
 				</div>
 			</td>
 		</tr>
+	{foreachelse}
 	{/foreach}
 	</table>
 	</div>
@@ -119,9 +122,8 @@
 
 	<p><div class="titles" align="center">
 		{langs('Achievs')} :: <a href="{$baseUrl}/achievs/">{langs('Achievs players')}</a>
-	</div>
+	</div><br>
 	
-	{if isset($rows)}
 	{$pages.output}
 	
 	<div class="achiev_wrapper" align="center">
@@ -146,9 +148,9 @@
 					</div>
 				</td>
 			</tr>
+		{foreachelse}
 		{/foreach}
 		</table>	
-		{/if}
 	</div>
 {/if}
 {/if}

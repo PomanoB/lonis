@@ -62,9 +62,8 @@
 			<td><a href="{$baseUrl}/players/name/page{$pages.page}/{$search}">{langs('Player')}</a></td>
 			<td><a href="{$baseUrl}/players/country/page{$pages.page}/{$search}">{langs('Country')}</a></td>
 			<td><a href="{$baseUrl}/players/achiev-desc/page{$pages.page}/{$search}">{langs('Fulfilled achievements')}</a></td>
-			<td>{langs('Went KZ maps')}</td>
+			<td><a href="#">{langs('Went KZ maps')}</a></td>
 		</tr>
-	{if isset($rows)}
 	{foreach from=$rows item=player}
 		<tr class="list">
 			<td>
@@ -86,7 +85,7 @@
 				<a href="{$baseUrl}/{$player.name_url}/kreedz">{$player.mapCompleted}</a>
 			</td>
 		</tr>
+	{foreachelse}
 	{/foreach}
-	{/if}
 	</table>
 {/if}

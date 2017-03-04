@@ -44,54 +44,49 @@ $total = mysqli_num_rows($r);
 
 $pages = generate_page($page, $total, $playersPerPage, "$baseUrl/kreedz/$map/$type/page%page%");
 
-if(!$total) {
-	header("Location: {$baseUrl}/kreedz/maps/");
+if($map) {
+	$smap = slashes($map);
+	$q = "SELECT * FROM `kz_map` LEFT JOIN `kz_comm` ON `comm`=`name` 
+			LEFT JOIN `kz_diff` `d` ON `d`.`id`=`diff` 
+			WHERE `mapname` = '{$smap}' ORDER BY `mapname` LIMIT 1";
+	$rr = mysqli_query($db, $q);
+	$mapinfo = mysqli_fetch_assoc($rr);
+	
+	$img_file = "{$docRoot}/img/cstrike/{$map}.jpg";
+	$imgmap = "{$baseUrl}/img/noimage.jpg";
+	
+	$imgmap = file_exists("{$docRoot}/img/noimage.jpg") ? $imgmap : "";
+	if(file_exists($img_file)) {
+		$imgmap = "{$baseUrl}/img/cstrike/{$map}.jpg";
+	}
+	
+	$q = "SELECT * FROM `kz_records` `r`, `kz_comm` `c` WHERE `map` = '{$map}' AND `name` = `comm` ORDER BY `sort`, `mappath`";	
+	$r_rec = mysqli_query($db, $q);
+	
+	$maprec = array();
+	$lastcomm = "";
+	while($row = mysqli_fetch_assoc($r_rec)) {
+		
+		$row['part'] = $row["comm"]==$lastcomm ? 0 : 1;
+		$lastcomm = $row["comm"];
+		
+		$row["time"] = timed($row["time"], 2);
+		
+		$maprec[] = $row;	
+	}
 }
-else {
-	if($map) {
-		$smap = slashes($map);
-		$q = "SELECT * FROM `kz_map` LEFT JOIN `kz_comm` ON `comm`=`name` 
-				LEFT JOIN `kz_diff` `d` ON `d`.`id`=`diff` 
-				WHERE `mapname` = '{$smap}' ORDER BY `mapname` LIMIT 1";
-		$rr = mysqli_query($db, $q);
-		$mapinfo = mysqli_fetch_assoc($rr);
-		
-		$img_file = "{$docRoot}/img/cstrike/{$map}.jpg";
-		$imgmap = "{$baseUrl}/img/noimage.jpg";
-		
-		$imgmap = file_exists("{$docRoot}/img/noimage.jpg") ? $imgmap : "";
-		if(file_exists($img_file)) {
-			$imgmap = "{$baseUrl}/img/cstrike/{$map}.jpg";
-		}
-		
-		$q = "SELECT * FROM `kz_records` `r`, `kz_comm` `c` WHERE `map` = '{$map}' AND `name` = `comm` ORDER BY `sort`, `mappath`";	
-		$r_rec = mysqli_query($db, $q);
-		
-		$maprec = array();
-		$lastcomm = "";
-		while($row = mysqli_fetch_assoc($r_rec)) {
-			
-			$row['part'] = $row["comm"]==$lastcomm ? 0 : 1;
-			$lastcomm = $row["comm"];
-			
-			$row["time"] = timed($row["time"], 2);
-			
-			$maprec[] = $row;	
-		}
-	}
+
+// List
+$i=0;
+$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playersPerPage);
+
+$number = $pages["start"]+1;
+$players = array();
+foreach($rows_limit as $row) {
+	$row["time"] = timed($row["time"], 5);
+	$row["number"] = $number++;
 	
-	// List
-	$i=0;
-	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playersPerPage);
-	
-	$number = $pages["start"]+1;
-	$players = array();
-	foreach($rows_limit as $row) {
-		$row["time"] = timed($row["time"], 5);
-		$row["number"] = $number++;
-		
-		$row["name_url"] = url_replace($row["name"]);
-		$players[] = $row;
-	}
+	$row["name_url"] = url_replace($row["name"]);
+	$players[] = $row;
 }
 ?>

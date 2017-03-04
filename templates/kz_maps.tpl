@@ -17,7 +17,6 @@
 			
 	{if !isset($style)}
 			<ul class='map-list'>
-		{if isset($maps)}
 		{foreach from=$maps key=key item=map}	
 				<li class="map-list-item" title="{$map.mapname}">
 						{for $i=0 to $map.ddot-1}
@@ -26,8 +25,8 @@
 						<img src="{$baseUrl}/img/cstrike/{$map.mapname}.jpg" alt="" title="{$map.mapname}"
 						onerror="this.src='{$baseUrl}/img/noimage.jpg'".>{$map.mapname}
 				</li>
+		{foreachelse}
 		{/foreach}
-		{/if}
 			</ul>
 	{else}	
 			<div>
@@ -35,7 +34,6 @@
 					<tr class="title">
 						<td>{langs('Map')}</td>
 					</tr>
-		{if isset($maps)}
 		{foreach from=$maps key=key item=map}
 					<tr class="list">
 						<td>
@@ -45,8 +43,8 @@
 							{/for}
 						</td>
 					</tr>
+		{foreachelse}
 		{/foreach}
-		{/if}
 				</table>
 			</div>
 	{/if}

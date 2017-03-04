@@ -48,6 +48,7 @@
 				</td>
 			</tr>
 			</form>
+		{foreachelse}
 		{/foreach}
 		</table>
 	</div>

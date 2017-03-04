@@ -60,11 +60,11 @@ else {
 
 	$pages = generate_page($page, $total, $playerPerPage, "{$baseUrl}/players/{$order}-{$sort}/page%page%/{$search}");
 
+	$rows = array();
 	if($total) {
 		$i=0;
 		$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playerPerPage);
 		
-		$rows = array();
 		foreach($rows_limit as $row) {
 			$img = 'img/country/'.strtolower($row["country"]).'.png';
 			$row["countryImg"] = file_exists($docRoot."/".$img) ? $img : "";

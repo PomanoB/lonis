@@ -38,18 +38,15 @@ $r = mysqli_query($db, $q);
 $total = mysqli_num_rows($r);
 
 $pages = generate_page($page, $total, $mapsPerPage, "$baseUrl/kreedz/maps/$type/page%page%/$rec/$search");
+$rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
 
-if ($total) {
-	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
+$maps = array();
+foreach($rows_limit as $row) {
+	$row["time"] = timed($row["time"], 2);
 	
-	$maps = array();
-	foreach($rows_limit as $row) {
-		$row["time"] = timed($row["time"], 2);
-		
-		if(isset($row["name"])) $row["name_url"] = url_replace($row["name"]);
-		
-		$maps[] = $row;
-	}
+	if(isset($row["name"])) $row["name_url"] = url_replace($row["name"]);
+	
+	$maps[] = $row;
 }
 
 ?>

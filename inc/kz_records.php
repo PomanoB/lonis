@@ -39,21 +39,19 @@ $pages = generate_page($page, $total, $mapsPerPage, "$baseUrl/kreedz/records/pag
 
 $img = "img/country/{$country}.png";
 $comm_countryImg = file_exists($img) ? $img : "";
-		
-if ($total) {
-	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
+
+$rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
 	
-	$maps = array();
-	foreach($rows_limit as $row) {
-		$row["wr_time"] = timed($row["wr_time"], 2);
-		$row["comm_time"] = timed($row["comm_time"], 2);
-		$row["top_time"] = timed($row["top_time"], 2);
-		
-		$img = "img/country/{$row["wr_country"]}.png";
-		$row["wr_countryImg"] = file_exists($img) ? $img : "";
-		
-		$maps[] = $row;
-	}
+$maps = array();
+foreach($rows_limit as $row) {
+	$row["wr_time"] = timed($row["wr_time"], 2);
+	$row["comm_time"] = timed($row["comm_time"], 2);
+	$row["top_time"] = timed($row["top_time"], 2);
+	
+	$img = "img/country/{$row["wr_country"]}.png";
+	$row["wr_countryImg"] = file_exists($img) ? $img : "";
+	
+	$maps[] = $row;
 }
 
 ?>
