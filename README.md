@@ -4,6 +4,10 @@ Web registartion and statistic for Counter Strike 1.6 version 2.0.7
 -------------------
 -- Version 2.0.7 -- 
 -------------------
+Changelog: 04.03.2017 16:12
+- Add url addres: &lang=%lang%
+- Autosize in CS mode.
+
 Changelog: 04.03.2017 15:15
 - Edit difficulty on maps pages
 

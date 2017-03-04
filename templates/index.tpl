@@ -26,7 +26,7 @@
 	</head>
 	
 	<body>
-	<div id="main">
+	<div id="main" {if !$cs}style="width:1024px;"{/if}>
 	{if $action!="setup"}
 		<div id="network">
 			<div class="tabbed wrap" id="menu-tabs">

@@ -105,6 +105,9 @@ if(!$errno) {
 			$lang = $lang_def;
 	}
 	
+	if(isset($_GET["lang"]) && $_GET["lang"])
+		$lang = $_GET["lang"];
+	
 	$langs = getLangs($db, $lang);
 	//$langs = array_replace($langs, $dblangs);	
 	
