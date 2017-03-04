@@ -4,7 +4,14 @@ Web registartion and statistic for Counter Strike 1.6 version 2.0.7
 -------------------
 -- Version 2.0.7 -- 
 -------------------
-Changelog: 03.02.2017 23:30
+Changelog: 04.03.2017 3:14
+- #main set width to 1024px 
+- Add achiev image, disable Gravatar (colored bad)
+- Add uq_ cvars in config.ini
+- Add difficulty dots and color on approved kz pages
+- Update SQL: tbl_kz_diff, tbl_kz_map, tbl_servers, last_add_view
+
+Changelog: 03.03.2017 23:30
 - *** Add New Languages System ***
 - Add Iconic font
 - Repace all icon to AwesoneFont
@@ -18,7 +25,7 @@ Changelog: 03.02.2017 23:30
 -------------------
 -- Version 2.0.6 -- 
 -------------------
-Changelog: 01.02.2017 00:00
+Changelog: 01.03.2017 00:00
 - Change style on all pages
 - Add table kz_diff and change data in kz_map
 - Add other php script: generate_page and pinger

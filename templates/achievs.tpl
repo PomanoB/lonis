@@ -13,7 +13,7 @@
 	{foreach from=$rows item=player}
 		<tr>
 			<td>
-				<img src="{$player.avatar}" width="60" height="60" class="image_c" alt="{$player.plname|escape}" />
+				<img src="{$player.avatar}" width="50" height="50" class="image_c" alt="{$player.plname|escape}" />
 			</td>
 			<td>
 				<div class="achiev">
@@ -38,9 +38,9 @@
 	<table>
 		<tr>
 			<td>
-				<img src="http://gravatar.com/avatar/{md5($achiev.id)}?d=identicon&s=60" />
+				{*<img src="http://gravatar.com/avatar/{md5($achiev.id)}?d=identicon&s=60" />*}
 				{*<i class="fa fa-4x {$achiev.icon}">*}
-				{*<img src="{$achiev.img}" width="60" height="60"/>*}
+				<img src="{$achiev.img}" width="50" height="50" style="border-radius:10px;" />
 			</td>
 			<td>
 				<div class="achiev achiev_completed">
@@ -58,7 +58,7 @@
 	{foreach from=$rows item=player}
 		<tr>
 			<td>
-				<img src="{$player.avatar}" width="60" height="60" class="image_c" alt="{$player.plname|escape}" />
+				<img src="{$player.avatar}" width="50" height="50" class="image_c" alt="{$player.plname|escape}" />
 			</td>
 			<td>
 				<div class="achiev">
@@ -85,9 +85,9 @@
 	{foreach from=$rows item=achiev}
 		<tr>
 			<td>
-				<img src="http://gravatar.com/avatar/{md5($achiev.id)}?d=identicon&s=50" />
+				{*<img src="http://gravatar.com/avatar/{md5($achiev.id)}?d=identicon&s=50" />*}
 				{*<i class="fa fa-4x {$achiev.icon}">*}
-				{*<img src="{$achiev.img}" width="60" height="60"/>*}
+				<img src="{$achiev.img}" width="50" height="50" style="border-radius:10px;" />
 			</td>
 			<td>
 				<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
@@ -129,9 +129,9 @@
 		{foreach from=$rows item=achiev}
 			<tr>
 				<td>
-					<img src="http://gravatar.com/avatar/{md5($achiev.aId)}?d=identicon&s=50" />
+					{*<img src="http://gravatar.com/avatar/{md5($achiev.aId)}?d=identicon&s=50" />*}
 					{*<i class="fa fa-4x {$achiev.icon}">*}
-					{*<img src="{$achiev.img}" width="60" height="60"/>*}
+					<img src="{$achiev.img}" width="50" height="50" style="border-radius:10px;" />
 				</td>
 				<td>
 					<div class="achiev" style="padding: 0px;">

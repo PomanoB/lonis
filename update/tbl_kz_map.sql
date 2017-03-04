@@ -4,29 +4,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-DROP TABLE IF EXISTS `kz_diff`;
-CREATE TABLE IF NOT EXISTS `kz_diff` (
-  `id` int(11) unsigned NOT NULL,
-  `diff_name` varchar(32) DEFAULT NULL,
-  `diff_sname` varchar(2) DEFAULT NULL,
-  `dot` int(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*!40000 ALTER TABLE `kz_diff` DISABLE KEYS */;
-INSERT INTO `kz_diff` (`id`, `diff_name`, `diff_sname`, `dot`) VALUES
-	(0, 'Unknown', '?', 0),
-	(1, 'Easy', 'E', 1),
-	(2, 'Easy-Medium', 'E+', 2),
-	(3, 'Medium', 'M', 1),
-	(4, 'Medium-Hard', 'M+', 2),
-	(5, 'Hard', 'H', 1),
-	(6, 'Hard-Extreme', 'H+', 2),
-	(7, 'Extreme', 'E', 1),
-	(8, 'Extreme-Death', 'E+', 2),
-	(9, 'Death', 'D', 3);
-/*!40000 ALTER TABLE `kz_diff` ENABLE KEYS */;
-
 DROP TABLE IF EXISTS `kz_map`;
 CREATE TABLE IF NOT EXISTS `kz_map` (
   `mapname` varchar(64) NOT NULL,

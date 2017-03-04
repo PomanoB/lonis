@@ -1,6 +1,6 @@
 	<div class="wrapper">		
 		<div class="titles left_block">
-			{langs($parent)} :: {langs('Maps')} ({$total})
+			{langs('Maps')} ({$total})
 		</div>
 		<div class="right_block">
 			{$form_search}
@@ -20,7 +20,9 @@
 		{if isset($maps)}
 		{foreach from=$maps key=key item=map}	
 				<li class="map-list-item" title="{$map.mapname}">
-						<span class="map-diff 0"></span>
+						{for $i=0 to $map.ddot-1}
+							<i class="fa fa-circle diff-dot" style="color: {$map.dcolor};" title="{$map.dname}"></i>
+						{/for}
 						<img src="{$baseUrl}/img/cstrike/{$map.mapname}.jpg" alt="" title="{$map.mapname}"
 						onerror="this.src='{$baseUrl}/img/noimage.jpg'".>{$map.mapname}
 				</li>
@@ -36,7 +38,12 @@
 		{if isset($maps)}
 		{foreach from=$maps key=key item=map}
 					<tr class="list">
-						<td><a href="{$baseUrl}/kreedz/{$map.mapname}">{$map.mapname}</a></td>
+						<td>
+							<a href="{$baseUrl}/kreedz/{$map.mapname}">{$map.mapname}</a>
+							{for $i=0 to $map.ddot-1}
+								<i class="fa fa-circle diff-dot" style="color: {$map.dcolor};" title="{$map.dname}"></i>
+							{/for}
+						</td>
 					</tr>
 		{/foreach}
 		{/if}
@@ -71,7 +78,12 @@
 	{if isset($maps)}
 	{foreach from=$maps item=map}
 			<tr class="list">
-				<td><a href="{$baseUrl}/kreedz/{$map.mapname}/">{$map.mapname}</a></td>
+				<td>
+					<a href="{$baseUrl}/kreedz/{$map.mapname}/">{$map.mapname}</a>
+					{for $i=0 to $map.ddot-1}
+						<i class="fa fa-circle diff-dot" style="color: {$map.dcolor};" title="{$map.dname}"></i>
+					{/for}
+				</td>
 				<td><a href="{$baseUrl}/{$map.name_url}/kreedz">{$map.name|escape}</a></td>
 				<td>{$map.time}</td>
 				<td class="{if $map.go_cp==0}color_nogc{/if}">{$map.cp}</td>

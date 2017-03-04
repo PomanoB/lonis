@@ -1,6 +1,6 @@
 	<div class="wrapper">		
 		<div class="titles left_block">
-			{langs($parent)} :: {langs('Archive')} ({$total}) 
+			{langs('Archive')} ({$total}) 
 		</div>
 		<div class="right_block">
 			{$form_search}
@@ -28,14 +28,19 @@
 {if isset($maps)}
 {foreach from=$maps item=map}
 		<tr class="list">
-			<td><a href="{$baseUrl}/kreedz/{$map.mapname}/">{$map.mapname}</a></td>
-			<td>{$map.diff_name}</td>
+			<td>
+				<a href="{$baseUrl}/kreedz/{$map.mapname}/">{$map.mapname}</a>
+				{for $i=0 to $map.ddot-1}
+					<i class="fa fa-circle diff-dot" style="color: {$map.dcolor};" title="{$map.dname}"></i>
+				{/for}
+			</td>
+			<td>{$map.dname}</td>
 			<td>{$map.type}</td>
 			<td>{$map.authors}</td>
 			<td>{$map.date_old}</td>
 			<td>
 			{if $map.download_url}
-				<a class="fa fa-download" href="{$map.download_url}" alt="{langs('Download')} {$map}"></a>
+				<a class="fa fa-download" href="{$map.download_url}" alt="{langs('Download')} {$map.mapname}"></a>
 			{/if}
 			</td>
 {if $admin==1}

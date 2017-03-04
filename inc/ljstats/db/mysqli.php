@@ -10,9 +10,9 @@ class DBClass {
 	
 	function connect($mysql) {
 		if ($mysql['persistent'])
-			$this->link_id = mysqli_connect('p:'.$mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db'], $mysql['port']);
+			$this->link_id = @mysqli_connect('p:'.$mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db'], $mysql['port']);
 		else
-			$this->link_id = mysqli_connect($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db'], $mysql['port']);
+			$this->link_id = @mysqli_connect($mysql['host'], $mysql['user'], $mysql['pass'], $mysql['db'], $mysql['port']);
 
 		if (!$this->link_id)
 			die('Unable to connect to MySQL and select database. MySQL reported: '.mysqli_connect_error().'<br/>'. __FILE__ .':'. __LINE__);

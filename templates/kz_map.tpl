@@ -1,7 +1,12 @@
 		
 {if $map}
 	<div class="wrapper">
-		<div class="titles left_block">{langs($parent)} :: {langs('Map')} :: <i>{$map|escape:html}</i></div>
+		<div class="titles left_block">
+			{langs('Map')} :: <i>{$map|escape:html}</i>
+			{for $i=0 to $mapinfo.ddot-1}
+				&nbsp;<i class="fa fa-circle" style="color: {$mapinfo.dcolor};" title="{$mapinfo.dname}"></i>
+			{/for}			
+		</div>
 		<div class="right_block" align="center">
 			{if isset($imgmap)}
 				<img class="map_image" src="{$imgmap}" oncontextmenu="return false;" /><br>

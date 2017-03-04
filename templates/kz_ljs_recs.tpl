@@ -1,5 +1,4 @@
 	<div class="titles" align="center">
-		{! {$langs[$parent]} }
 		<p>.: {langs('LJ Records')} :. 
 	</div>
 	

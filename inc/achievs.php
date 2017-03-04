@@ -55,7 +55,7 @@ else { // url=/achiev/%aname%
 			$id = $achiev["id"];
 			
 			$achiev["img"] = "{$baseUrl}/img/achiev/{$achiev["id"]}.png";
-			if(!file_exists($achiev["img"]))
+			if(!file_exists("img/achiev/{$achiev["id"]}.png"))
 				$achiev["img"] = "{$baseUrl}/img/achiev/0.png";
 			
 			$q = "SELECT steam_id_64, email, `p`.`id` AS `plid`, `p`.`name` AS `plname`, 
@@ -112,7 +112,7 @@ else { // url=/achiev/%aname%
 					$achiev["width"] = $achiev["progress"] * 100 / $achiev["count"];
 				
 				$achiev["img"] = "{$baseUrl}/img/achiev/{$achiev["id"]}.png";
-				if(!file_exists($achiev["img"]))
+				if(!file_exists("img/achiev/{$achiev["id"]}.png"))
 					$achiev["img"] = "{$baseUrl}/img/achiev/0.png";
 				
 				$rows[] = $achiev;
@@ -142,7 +142,7 @@ else { // url=/achiev/%aname%
 				$achiev["completed"] = floor($achiev["completed"]*100)/100;
 				
 				$achiev["img"] = "{$baseUrl}/img/achiev/{$achiev["aId"]}.png";
-				if(!file_exists($achiev["img"]))
+				if(!file_exists("img/achiev/{$achiev["aId"]}.png"))
 					$achiev["img"] = "{$baseUrl}/img/achiev/0.png";
 				
 				$rows[] = $achiev;

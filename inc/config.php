@@ -25,14 +25,18 @@ $dirs = array(
 	
 // Mysql DB config
 $dbconf_def = array (
-	'mysql_user' => 'lonis',
-	'mysql_password' => '',
 	'mysql_host' => 'localhost',
+	'mysql_user' => 'lonis',
+	'mysql_password' => 'lonis',
 	'mysql_db' => 'lonis',
 	'mysql_prefix' => 'lonis_',
 	
-	'admin_user' => 'admin',
-	'admin_password' => 'lonis',
+	'uq_mysql_host' = 'localhost',
+	'uq_mysql_user' = 'lonis',
+	'uq_mysql_password' = 'lonis',
+	'uq_mysql_db' = 'lonis',
+	'uq_admin_user' = "admin",
+	'uq_admin_password' = "lonis",
 );
 
 // Default config

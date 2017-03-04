@@ -1,5 +1,5 @@
 <div class="wrapper">
-	<div class="titles left_block">{langs($parent)} :: {langs('Duels')}</div>
+	<div class="titles left_block">{langs('Duels')}</div>
 	<div class="right_block" align="center">
 		{$form_search}
 	</div>

@@ -1,6 +1,6 @@
 	<div class="wrapper">		
 		<div class="titles left_block">
-			{langs($parent)} :: {langs('Records')} ({$total})
+			{langs('Records')} ({$total})
 		</div>
 {if !$cs}
 		<div class="right_block">

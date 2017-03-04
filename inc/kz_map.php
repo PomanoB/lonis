@@ -30,7 +30,7 @@ $q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `map` = '{$wmap}'";
 $r = mysqli_query($db, $q);
 
 $found = mysqli_result($r, 0);
-
+	
 if($map)
 	$q = "SELECT `t`.* FROM `kz_map_tops` `t`
 				JOIN (SELECT `map`, `player`, min(`time`) as `time` FROM `kz_map_top` WHERE `map` = '{$wmap}' GROUP BY `player`) AS `tmp`
@@ -40,7 +40,6 @@ else
 	$q = "SELECT * FROM `kz_map_tops` WHERE 1 {$types[$type]} ORDER BY `time_add` DESC, `map` LIMIT 0, 10";
 
 $r = mysqli_query($db, $q);
-	
 $total = mysqli_num_rows($r);
 
 $pages = generate_page($page, $total, $playersPerPage, "$baseUrl/kreedz/$map/$type/page%page%");
@@ -50,6 +49,13 @@ if(!$total) {
 }
 else {
 	if($map) {
+		$smap = slashes($map);
+		$q = "SELECT * FROM `kz_map` LEFT JOIN `kz_comm` ON `comm`=`name` 
+				LEFT JOIN `kz_diff` `d` ON `d`.`id`=`diff` 
+				WHERE `mapname` = '{$smap}' ORDER BY `mapname` LIMIT 1";
+		$rr = mysqli_query($db, $q);
+		$mapinfo = mysqli_fetch_assoc($rr);
+		
 		$img_file = "{$docRoot}/img/cstrike/{$map}.jpg";
 		$imgmap = "{$baseUrl}/img/noimage.jpg";
 		
@@ -57,7 +63,7 @@ else {
 		if(file_exists($img_file)) {
 			$imgmap = "{$baseUrl}/img/cstrike/{$map}.jpg";
 		}
-
+		
 		$q = "SELECT * FROM `kz_records` `r`, `kz_comm` `c` WHERE `map` = '{$map}' AND `name` = `comm` ORDER BY `sort`, `mappath`";	
 		$r_rec = mysqli_query($db, $q);
 		
