@@ -28,10 +28,8 @@
 {foreach from=$maps item=map}
 		<tr class="list">
 			<td>
+				<i class="fa fa-circle diff-dot" style="color: {$map.dcolor};" title="{$map.dname}"></i>
 				<a href="{$baseUrl}/kreedz/{$map.mapname}/">{$map.mapname}</a>
-				{for $i=0 to $map.ddot-1}
-					<i class="fa fa-circle diff-dot" style="color: {$map.dcolor};" title="{$map.dname}"></i>
-				{/for}
 			</td>
 			<td>{$map.dname}</td>
 			<td>{$map.type}</td>

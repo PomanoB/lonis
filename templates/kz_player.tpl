@@ -48,10 +48,8 @@
 	{foreach from=$maps key=key item=map}
 			<tr class="list">
 				<td>
+					<i class="fa fa-circle diff-dot" style="color: {$map.dcolor};" title="{$map.dname}"></i>
 					<a href="{$baseUrl}/kreedz/{$map.map}/">{$map.map}</a>
-					{for $i=0 to $map.ddot-1}
-						<i class="fa fa-circle diff-dot" style="color: {$map.dcolor};"></i>
-					{/for}
 				</td>
 				{if $rec=="norec"}<td><a href="{$baseUrl}/{$map.name_url}/kreedz">{$map.name|escape}</a></td>{/if}
 				<td>{$map.time}</td>

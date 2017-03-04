@@ -4,6 +4,9 @@ Web registartion and statistic for Counter Strike 1.6 version 2.0.7
 -------------------
 -- Version 2.0.7 -- 
 -------------------
+Changelog: 04.03.2017 15:15
+- Edit difficulty on maps pages
+
 Changelog: 04.03.2017 13:37
 - Fix All SQL tables
 - Fix massive arrays in all scripts (check's empty data)

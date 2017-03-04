@@ -191,8 +191,7 @@ CREATE TABLE IF NOT EXISTS `kz_map_top` (
   KEY `weapon` (`weapon`),
   KEY `map` (`map`),
   KEY `player` (`player`),
-  KEY `time` (`time`),
-  FULLTEXT KEY `map_f` (`map`)
+  KEY `time` (`time`)
 ) ENGINE=InnoDB AUTO_INCREMENT=276814 DEFAULT CHARSET=utf8;
 
 DROP VIEW IF EXISTS `kz_map_top1`;

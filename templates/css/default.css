@@ -94,12 +94,6 @@ div .inline {
 .map-list{width:90%; text-align:center;margin:0 auto;padding:0}
 .map-list-item{width:143px;text-align:center;text-overflow:ellipsis;overflow:hidden;display:inline-block;font-weight:normal;white-space:nowrap;position:relative}
 .map-list-item .map-diff{position:absolute;display:inline-block;right:10px;top:10px;width:25px;height:16px;font-size:11px;line-height:16px;border-radius:5px}
-.map-diff .death {color:white;background:red;font-weight:bold}
-.map-diff .extreme {color:white;background:red}
-.map-diff .hard {color:black;background:#ffb100}
-.map-diff .medium {background:#cce7fa;color:black}
-.map-diff .easy {background:#cfc;color:black}
-.map-diff .unknown {color:black;background:white;opacity:.4}
 .map-list-item a{color:#0074CE;padding:5px;text-decoration:none;display:inline-block;overflow:hidden;width:120px;text-overflow:ellipsis}
 .map-list-item img{width:140px;height:105px;display:block;margin:0 auto;margin-bottom:5px;border-radius:5px;border:1px solid gray;box-sizing:border-box}
 .map-list-item img:hover{border:1px solid #FFA200}
@@ -160,4 +154,4 @@ div .inline {
 	margin-right: 5px;
 }
 
-.diff-dot {font-size:7px; vertical-align: top; padding-top:4px; }
+.diff-dot {font-size:8px; vertical-align: top; padding-top:4px; }

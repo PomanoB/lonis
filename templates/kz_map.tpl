@@ -3,9 +3,7 @@
 	<div class="wrapper">
 		<div class="titles left_block">
 			{langs('Map')} :: <i>{$map|escape:html}</i>
-			{for $i=0 to $mapinfo.ddot-1}
-				&nbsp;<i class="fa fa-circle" style="color: {$mapinfo.dcolor};" title="{$mapinfo.dname}"></i>
-			{/for}			
+			&nbsp;<i class="fa fa-circle" style="color: {$mapinfo.dcolor};" title="{$mapinfo.dname}"></i>		
 		</div>
 		<div class="right_block" align="center">
 			{if isset($imgmap)}
@@ -72,10 +70,8 @@
 			</td>	
 		{else}
 			<td>
+				<i class="fa fa-circle diff-dot" style="color: {$player.dcolor};" title="{$player.dname}"></i>
 				<a href="{$baseUrl}/kreedz/{$player.map}/">{$player.map}</a>
-				{for $i=0 to $player.ddot-1}
-				&nbsp;<i class="fa fa-circle diff-dot" style="color: {$player.dcolor};" title="{$player.dname}"></i>
-				{/for}	
 			</td>
 		{/if}
 			<td>
