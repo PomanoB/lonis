@@ -37,9 +37,9 @@ else {
 	$r = mysqli_query($db, $q);
 	$total = mysqli_num_rows($r);
 	
-	$pages = generate_page($page, $total, 15, "$baseUrl/servers/$addr");
+	$pagess = generate_page($page, $total, 15, "$baseUrl/servers/$addr");
 
-	$rows_limit = mysqli_fetch_limit($r, $pages["start"], 15);
+	$rows_limit = mysqli_fetch_limit($r, $pagess["start"], 15);
 	
 	$servers = array();
 	foreach($rows_limit as $row) {

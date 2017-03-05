@@ -57,7 +57,7 @@
 	{/if}
 {else}
 
-	{$pages.output}
+	{$pagess.output}
 	
 	<table class="table-list">
 		<tr class="title">
