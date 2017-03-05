@@ -526,7 +526,7 @@ SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 DROP VIEW IF EXISTS `achiev`;
 DROP TABLE IF EXISTS `achiev`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `achiev` AS select `a`.`id` AS `id`,`a`.`type` AS `type`,`a`.`count` AS `count`,`a`.`icon` AS `icon`,`al`.`lid` AS `lid`,`al`.`achievid` AS `achievid`,`al`.`lang` AS `lang`,`al`.`name` AS `name`,`al`.`desc` AS `desc` from (`unr_achiev` `a` join `unr_achiev_lang` `al`) where (`a`.`id` = `al`.`achievid`);
+CREATE VIEW `achiev` AS select `a`.`id` AS `id`,`a`.`type` AS `type`,`a`.`count` AS `count`,`a`.`icon` AS `icon`,`al`.`lid` AS `lid`,`al`.`achievid` AS `achievid`,`al`.`lang` AS `lang`,`al`.`name` AS `name`,`al`.`desc` AS `desc` from (`unr_achiev` `a` join `unr_achiev_lang` `al`) where (`a`.`id` = `al`.`achievid`);
 
 DROP VIEW IF EXISTS `kz_map_best`;
 DROP TABLE IF EXISTS `kz_map_best`;
@@ -534,23 +534,23 @@ CREATE ALGORITHM=TEMPTABLE DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 
 DROP VIEW IF EXISTS `kz_map_top1`;
 DROP TABLE IF EXISTS `kz_map_top1`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `kz_map_top1` AS select `t`.`id` AS `id`,`t`.`map` AS `map`,`t`.`player` AS `player`,`t`.`time` AS `time`,`t`.`cp` AS `cp`,`t`.`go_cp` AS `go_cp`,`t`.`weapon` AS `weapon`,`t`.`time_add` AS `time_add`,`d`.`dname` AS `dname`,`d`.`ddot` AS `ddot`,`d`.`dcolor` AS `dcolor` from (((`kz_map_top` `t` join `kz_map_top_min` on(((`t`.`map` = `kz_map_top_min`.`minmap`) and (`t`.`time` = `kz_map_top_min`.`mintime`)))) left join `kz_map` `m` on((`m`.`mapname` = `t`.`map`))) left join `kz_diff` `d` on((`m`.`diff` = `d`.`id`)));
+CREATE VIEW `kz_map_top1` AS select `t`.`id` AS `id`,`t`.`map` AS `map`,`t`.`player` AS `player`,`t`.`time` AS `time`,`t`.`cp` AS `cp`,`t`.`go_cp` AS `go_cp`,`t`.`weapon` AS `weapon`,`t`.`time_add` AS `time_add`,`d`.`dname` AS `dname`,`d`.`ddot` AS `ddot`,`d`.`dcolor` AS `dcolor` from (((`kz_map_top` `t` join `kz_map_top_min` on(((`t`.`map` = `kz_map_top_min`.`minmap`) and (`t`.`time` = `kz_map_top_min`.`mintime`)))) left join `kz_map` `m` on((`m`.`mapname` = `t`.`map`))) left join `kz_diff` `d` on((`m`.`diff` = `d`.`id`)));
 
 DROP VIEW IF EXISTS `kz_map_tops`;
 DROP TABLE IF EXISTS `kz_map_tops`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `kz_map_tops` AS select `t`.`id` AS `id`,`t`.`map` AS `map`,`t`.`player` AS `player`,`t`.`time` AS `time`,`t`.`cp` AS `cp`,`t`.`go_cp` AS `go_cp`,`t`.`weapon` AS `weapon`,`t`.`time_add` AS `time_add`,`p`.`name` AS `name`,`w`.`wname` AS `wname`,`d`.`dname` AS `dname`,`d`.`ddot` AS `ddot`,`d`.`dcolor` AS `dcolor` from ((((`kz_map_top` `t` join `unr_players` `p` on((`p`.`id` = `t`.`player`))) join `weapons` `w` on((`w`.`id` = `t`.`weapon`))) left join `kz_map` `m` on((`m`.`mapname` = `t`.`map`))) left join `kz_diff` `d` on((`m`.`diff` = `d`.`id`)));
+CREATE VIEW `kz_map_tops` AS select `t`.`id` AS `id`,`t`.`map` AS `map`,`t`.`player` AS `player`,`t`.`time` AS `time`,`t`.`cp` AS `cp`,`t`.`go_cp` AS `go_cp`,`t`.`weapon` AS `weapon`,`t`.`time_add` AS `time_add`,`p`.`name` AS `name`,`w`.`wname` AS `wname`,`d`.`dname` AS `dname`,`d`.`ddot` AS `ddot`,`d`.`dcolor` AS `dcolor` from ((((`kz_map_top` `t` join `unr_players` `p` on((`p`.`id` = `t`.`player`))) join `weapons` `w` on((`w`.`id` = `t`.`weapon`))) left join `kz_map` `m` on((`m`.`mapname` = `t`.`map`))) left join `kz_diff` `d` on((`m`.`diff` = `d`.`id`)));
 
 DROP VIEW IF EXISTS `kz_map_tops1`;
 DROP TABLE IF EXISTS `kz_map_tops1`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `kz_map_tops1` AS select `t`.`id` AS `id`,`t`.`map` AS `map`,`t`.`player` AS `player`,`t`.`time` AS `time`,`t`.`cp` AS `cp`,`t`.`go_cp` AS `go_cp`,`t`.`weapon` AS `weapon`,`t`.`time_add` AS `time_add`,`p`.`name` AS `name`,`w`.`wname` AS `wname`,`d`.`dname` AS `dname`,`d`.`ddot` AS `ddot`,`d`.`dcolor` AS `dcolor` from (((((`kz_map_top` `t` join `kz_map_top_min` on(((`t`.`map` = `kz_map_top_min`.`minmap`) and (`t`.`time` = `kz_map_top_min`.`mintime`)))) join `unr_players` `p` on((`p`.`id` = `t`.`player`))) left join `weapons` `w` on((`w`.`id` = `t`.`weapon`))) left join `kz_map` `m` on((`m`.`mapname` = `t`.`map`))) left join `kz_diff` `d` on((`m`.`diff` = `d`.`id`)));
+CREATE VIEW `kz_map_tops1` AS select `t`.`id` AS `id`,`t`.`map` AS `map`,`t`.`player` AS `player`,`t`.`time` AS `time`,`t`.`cp` AS `cp`,`t`.`go_cp` AS `go_cp`,`t`.`weapon` AS `weapon`,`t`.`time_add` AS `time_add`,`p`.`name` AS `name`,`w`.`wname` AS `wname`,`d`.`dname` AS `dname`,`d`.`ddot` AS `ddot`,`d`.`dcolor` AS `dcolor` from (((((`kz_map_top` `t` join `kz_map_top_min` on(((`t`.`map` = `kz_map_top_min`.`minmap`) and (`t`.`time` = `kz_map_top_min`.`mintime`)))) join `unr_players` `p` on((`p`.`id` = `t`.`player`))) left join `weapons` `w` on((`w`.`id` = `t`.`weapon`))) left join `kz_map` `m` on((`m`.`mapname` = `t`.`map`))) left join `kz_diff` `d` on((`m`.`diff` = `d`.`id`)));
 
 DROP VIEW IF EXISTS `kz_map_top_min`;
 DROP TABLE IF EXISTS `kz_map_top_min`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `kz_map_top_min` AS select `t`.`map` AS `minmap`,min(`t`.`time`) AS `mintime` from `kz_map_top` `t` group by `t`.`map`;
+CREATE VIEW `kz_map_top_min` AS select `t`.`map` AS `minmap`,min(`t`.`time`) AS `mintime` from `kz_map_top` `t` group by `t`.`map`;
 
 DROP VIEW IF EXISTS `players`;
 DROP TABLE IF EXISTS `players`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `players` AS select `p`.`id` AS `id`,`p`.`name` AS `name`,`p`.`lastIp` AS `lastIp`,`p`.`email` AS `email`,`p`.`steam_id_64` AS `steam_id_64`,`p`.`country` AS `country`,`l`.`country_name` AS `countryName`,`l`.`locale_code` AS `lang`,(select count(0) from (`unr_players_achiev` `pa` join `unr_achiev` `a`) where ((`pa`.`achievId` = `a`.`id`) and (`a`.`count` = `pa`.`progress`) and (`pa`.`playerId` = `p`.`id`))) AS `achiev` from (`unr_players` `p` left join `geoip_locations` `l` on((`p`.`country` = `l`.`country_iso_code`)));
+CREATE VIEW `players` AS select `p`.`id` AS `id`,`p`.`name` AS `name`,`p`.`lastIp` AS `lastIp`,`p`.`email` AS `email`,`p`.`steam_id_64` AS `steam_id_64`,`p`.`country` AS `country`,`l`.`country_name` AS `countryName`,`l`.`locale_code` AS `lang`,(select count(0) from (`unr_players_achiev` `pa` join `unr_achiev` `a`) where ((`pa`.`achievId` = `a`.`id`) and (`a`.`count` = `pa`.`progress`) and (`pa`.`playerId` = `p`.`id`))) AS `achiev` from (`unr_players` `p` left join `geoip_locations` `l` on((`p`.`country` = `l`.`country_iso_code`)));
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

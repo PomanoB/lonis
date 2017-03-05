@@ -96,7 +96,6 @@ div .inline {
 .map-list-item .map-diff{position:absolute;display:inline-block;right:10px;top:10px;width:25px;height:16px;font-size:11px;line-height:16px;border-radius:5px}
 .map-list-item a{color:#0074CE;padding:5px;text-decoration:none;display:inline-block;overflow:hidden;width:120px;text-overflow:ellipsis}
 .map-list-item img{width:140px;height:105px;display:block;margin:0 auto;margin-bottom:5px;border-radius:5px;border:1px solid gray;box-sizing:border-box}
-.map-list-item img:hover{border:1px solid #FFA200}
 
 * {box-sizing: border-box;}
 #search form {
@@ -138,20 +137,54 @@ div .inline {
 }
 
 .page_num {
-	width:28px;
-	height:28px;
+	width:30px;
+	height:30px;
 	display:inline-block;
-	border-radius:14px;
+	border-radius:15px;
 	-moz-border-radius:14px;
 	-webkit-border-radius:14px;
 	-khtml-border-radius:14px;
 	font-size:11px; 
-	color:#fff;
+	color:#000;
 	font-weight: bold;
-	line-height:28px;
+	line-height:26px;
 	text-align:center;
-	background:#000;
+	background:#fff;
 	margin-right: 5px;
+	border:#000 2px solid;
+	vertical-align: middle;
 }
 
 .diff-dot {font-size:8px; vertical-align: top; padding-top:4px; }
+
+.sing_steam {
+	width: 80%;
+	padding: 5px;
+	margin: 5px 0 5px; 
+	font-size: 16px;
+	font-weight: bold;
+	border: 2px solid #000; 
+	border-radius:10px;
+	color: #fff;
+	background-color: #090;
+}
+.sing_steam a:link, 
+.sing_steam a:visited,
+.sing_steam a:active {
+	color: #fff;
+}
+
+.sing_steam a:hover {
+	color: #000;
+}
+
+.sing_steam .caption {
+	display: inline-block; 
+	text-align: right; 
+	padding-right: 10px;
+}
+
+.sing_steam .icon {
+	display: inline-block;
+	color: #000;
+}

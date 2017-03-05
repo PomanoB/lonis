@@ -16,26 +16,28 @@
 	
 	{$pages.output}
 	
-		<table class="table-list">
-			<tr class="title">
-				<td width="30" align="center">№</td>
-				<td>{langs('Player')}</td>
-				<td>{if $sort=="all"}{langs('Total')}{else}{langs('First')}{/if}</td>
-				<td>{if $sort=="all"}{langs('First')}{else}{langs('Total')}{/if}</td>
-			</tr>
-{foreach from=$players item=player}
-			<tr class="list">
-				<td align="center">
-					{if $player.number<4}
-						<img src="{$baseUrl}/img/top{$player.number}.png" width="22" height="16" title="{$player.number}" alt="{$player.number}" />
-					{else}
-						{$player.number}
-					{/if}
-				</td>
-				<td><a href="{$baseUrl}/{$player.name_url}/kreedz">{$player.name|escape}</a></td>
-				<td>{$player.col1}</td>
-				<td>{$player.col2}</td>
-			<tr>
-{foreachelse}
-{/foreach}
-		</table>
+	<table class="table-list">
+		<tr class="title">
+			<td width="30" align="center">№</td>
+			<td>{langs('Player')}</td>
+			<td>{if $sort=="all"} {langs('Total')} {else} {langs('First')} {/if}</td>
+			<td>{if $sort=="all"} {langs('First')} {else} {langs('Total')} {/if}</td>
+		</tr>
+	{$num = $pages.start}
+	{foreach from=$rows item=row}
+		{$num=$num+1}
+		<tr class="list">
+			<td align="center">
+				{if $num<4}
+					<i class="fa fa-trophy" style="color: {$cup_color[$num]};" title="{$num}" alt="{$num}"></i>
+				{else}
+					{$num}
+				{/if}
+			</td>
+			<td><a href="{$baseUrl}/{url_replace($row.name)}/kreedz">{$row.name|escape}</a></td>
+			<td>{if $sort=="all"} {$row.all} {else} {$row.top1} {/if}</td>
+			<td>{if $sort=="all"} {$row.top1} {else} {$row.all} {/if}</td>
+		<tr>
+	{foreachelse}
+	{/foreach}
+	</table>

@@ -6,21 +6,24 @@
 			&nbsp;<i class="fa fa-circle" style="color: {$mapinfo.dcolor};" title="{$mapinfo.dname}"></i>		
 		</div>
 		<div class="right_block" align="center">
-			{if isset($imgmap)}
-				<img class="map_image" src="{$imgmap}" oncontextmenu="return false;" /><br>
+			{if file_exists("img/cstrike/{$map}.jpg")}
+				<img class="map_image" src="{$baseUrl}/img/cstrike/{$map}.jpg" alt="" title="{$map}" oncontextmenu="return false;">
+			{else}
+				<i class="fa fa-picture-o" style="font-size: 9em; color: grey;"></i><br>
 			{/if}
 			<p>
 		</div>
-	</div><br><br>
+	</div><br>
 	
 	{if isset($maprec)}
 	<div class="table-list">
 		{foreach from=$maprec item=rec}
-			{if $rec.part}<p><b><a href="{$rec.url}" target="_blank">{$rec.fullname}</a></b>:{/if}
-			<b>{$rec.mappath}</b> {$rec.time} <i>{$rec.player}</i> <img src="{$baseUrl}/img/country/{$rec.country}.png">;
+			{if $rec.part}<br><b><a href="{$rec.url}" target="_blank">{$rec.fullname}</a></b>:{/if}
+			<b>{$rec.mappath}</b> {$rec.time} <i>{$rec.player}</i>&nbsp;
+			<span class="flags flag-{strtolower($rec.country)}" title="{$rec.country}" alt="">&nbsp;</span>
 		{foreachelse}
 		{/foreach}
-	</div>
+	</div><br>
 	{/if}
 {else}	
 	<div class="wrapper">
@@ -34,9 +37,9 @@
 		<a href="{$baseUrl}/kreedz/pro/{$map}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{langs('Pro')}</a>
 		<a href="{$baseUrl}/kreedz/noob/{$map}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{langs('Noob')}</a>
 		<a href="{$baseUrl}/kreedz/all/{$map}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{langs('All')}</a>
-	</div>
+	</div><br>
 
-	{$pages.output}</p>
+	{$pages.output}
 			
 	<table class="table-list">
 		<tr class="title" >
@@ -50,48 +53,50 @@
 			<td>{langs('Checkpoints')}</td>
 			<td>{langs('Teleports')}</td>
 			<td>{langs('Weapon')}</td>
-	{if $admin==1}
-			<td>#</td>
-	{/if}
+		{if $admin==1}
+				<td>#</td>
+		{/if}
 		</tr>
 
-{foreach from=$players item=player}
+	{$num = $pages.start}
+	{foreach from=$maps item=row}
+		{$num=$num+1}
 		<tr class="list">
 		{if $map}
 			<td align="center">
-				{if $player.number<4}
-					<img src="{$baseUrl}/img/top{$player.number}.png" width="22" height="16" title="{$player.number}" alt="{$player.number}" />
+				{if $num<4}
+					<i class="fa fa-trophy" style="color: {$cup_color[$num]};" title="{$num}" alt="{$num}"></i>
 				{else}
-					{$player.number}
+					{$num}
 				{/if}
 			</td>	
 		{else}
 			<td>
-				<i class="fa fa-circle diff-dot" style="color: {$player.dcolor};" title="{$player.dname}"></i>
-				<a href="{$baseUrl}/kreedz/{$player.map}/">{$player.map}</a>
+				<i class="fa fa-circle diff-dot" style="color: {$row.dcolor};" title="{$row.dname}"></i>
+				<a href="{$baseUrl}/kreedz/{$row.map}/">{$row.map}</a>
 			</td>
 		{/if}
 			<td>
-				<a href="{$baseUrl}/{$player.name_url}/kreedz">{$player.name|escape}</a>
+				<a href="{$baseUrl}/{url_replace($row.name)}/kreedz">{$row.name|escape}</a>
 			</td>
-			<td>{$player.time}</td>
-			<td class="{if $player.go_cp==0}color_nogc{/if}">{$player.cp}</td>
-			<td class="{if $player.go_cp==0}color_nogc{/if}">{$player.go_cp}</td>
-			<td class="{if $player.wname != 'USP' && $player.wname != 'KNIFE'}color_wpn{/if}">
-				<img src="{$baseUrl}/img/weapons/{$player.weapon}.gif" alt="{$player.wname}" />
+			<td>{timed($row.time, 5)}</td>
+			<td class="{if $row.go_cp==0}color_nogc{/if}">{$row.cp}</td>
+			<td class="{if $row.go_cp==0}color_nogc{/if}">{$row.go_cp}</td>
+			<td class="{if $row.wname != 'USP' && $row.wname != 'KNIFE'}color_wpn{/if}">
+				<div class="wpn wpn-{$row.weapon}">&nbsp;</div>
 			</td>
-{if $admin==1}
+		{if $admin==1}
 			<form action="" method="post">			
 			<td>
 				<input type="hidden" name="confirm" value="0">
 				<input type="checkbox" name="confirm" value="1">
 				<button class="fa fa-trash-o" name="act" value="delete" title="{langs('Delete')}"></button>
-				<input name="id" type="hidden" value="{$player.id}" />
+				<input name="id" type="hidden" value="{$row.id}" />
 			</td>
 			</form>
-{/if}
+		{/if}
 		</tr>
-{foreachelse}
-{/foreach}
+	{foreachelse}
+	{/foreach}
 
 	</table>

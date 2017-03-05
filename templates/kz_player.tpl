@@ -45,18 +45,18 @@
 				<td>{langs('Teleports')}</td>
 				<td>{langs('Weapon')}</td>
 			</tr>
-	{foreach from=$maps key=key item=map}
+	{foreach from=$maps item=row}
 			<tr class="list">
 				<td>
-					<i class="fa fa-circle diff-dot" style="color: {$map.dcolor};" title="{$map.dname}"></i>
-					<a href="{$baseUrl}/kreedz/{$map.map}/">{$map.map}</a>
+					<i class="fa fa-circle diff-dot" style="color: {$row.dcolor};" title="{$row.dname}"></i>
+					<a href="{$baseUrl}/kreedz/{$row.map}/">{$row.map}</a>
 				</td>
-				{if $rec=="norec"}<td><a href="{$baseUrl}/{$map.name_url}/kreedz">{$map.name|escape}</a></td>{/if}
-				<td>{$map.time}</td>
-				<td class="{if $map.go_cp==0}color_nogc{/if}">{$map.cp}</td>
-				<td class="{if $map.go_cp==0}color_nogc{/if}">{$map.go_cp}</td>
-				<td class="{if $map.wname != 'USP' && $map.wname != 'KNIFE'}color_wpn{/if}">
-					<img src="{$baseUrl}/img/weapons/{$map.weapon}.gif" alt="{$map.wname}" />
+				{if $rec=="norec"}<td><a href="{$baseUrl}/{$row.name_url}/kreedz">{$row.name|escape}</a></td>{/if}
+				<td>{$row.time}</td>
+				<td class="{if $row.go_cp==0}color_nogc{/if}">{$row.cp}</td>
+				<td class="{if $row.go_cp==0}color_nogc{/if}">{$row.go_cp}</td>
+				<td class="{if $row.wname != 'USP' && $row.wname != 'KNIFE'}color_wpn{/if}">
+					<div class="wpn wpn-{$row.weapon}">&nbsp;</div>
 				</td>
 			</tr>
 	{foreachelse}

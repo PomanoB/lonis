@@ -81,9 +81,11 @@
 {else}
 	<div align="center">	
 		<div class="titles">
-		{langs('Authorization')} :: <a href="{$baseUrl}/steam/"><img src='{$baseUrl}/img/sits_small_{$lang}.png'></a>
+			{langs('Authorization')}
 		</div><br>
+		
 		{if isset($message.msg)}<div style="padding: 5px; color: red;">{$message.msg}</div><br>{/if}
+		
 		<div align="center" style="">
 			<div class="auth_wrapper">
 				<h2>{langs('Login')}</h2>
@@ -107,6 +109,14 @@
 						<button name="act" value="login">{langs('Login')}</button>
 					</div>
 				</form>
+				<div class="sing_steam">
+					<div class="caption">
+						<a href="{$baseUrl}/steam/">{langs("Sing in through<br>STEAM")}</a>
+					</div>
+					<div class="icon">
+						<i class="fa fa-steam-square fa-3x"></i>
+					</div>
+				</div>
 			</div>
 			
 			<div class="auth_wrapper">

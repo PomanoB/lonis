@@ -59,31 +59,23 @@ else {
 	$total = mysqli_num_rows($r);
 
 	$pages = generate_page($page, $total, $playerPerPage, "{$baseUrl}/players/{$order}-{$sort}/page%page%/{$search}");
-
-	$rows = array();
-	if($total) {
-		$i=0;
-		$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playerPerPage);
-		
-		foreach($rows_limit as $row) {
-			$img = 'img/country/'.strtolower($row["country"]).'.png';
-			$row["countryImg"] = file_exists($docRoot."/".$img) ? $img : "";
-			
-			if(!$row["steam_id_64"] && isset($row["steam_id"]))
-				$row["steam_id_64"] = getSteamId64($row["steam_id"]);
 	
-			$avatar = getAvatar($row["steam_id_64"], $row["email"], "avatarIcon");
-			$row["avatar"] = $avatar["img"];
-			$row["avatarSize"] = $avatar["size"];
-			
-			$row["name_url"] = url_replace($row["name"]);
-			
-			$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `player` = {$row["id"]}";
-			$r = mysqli_query($db, $q);
-			$row["mapCompleted"] = mysqli_result($r, 0);
+	$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playerPerPage);
+	
+	$players = array(); $i=0;
+	foreach($rows_limit as $row) {
+		if(!$row["steam_id_64"] && isset($row["steam_id"]))
+			$row["steam_id_64"] = getSteamId64($row["steam_id"]);
+
+		$avatar = getAvatar($row["steam_id_64"], $row["email"], "avatarIcon");
+		$row["avatar"] = $avatar["img"];
+		$row["avatarSize"] = $avatar["size"];
 		
-			$rows[] = $row;
-		}
+		$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `player` = {$row["id"]}";
+		$r = mysqli_query($db, $q);
+		$row["mapCompleted"] = mysqli_result($r, 0);
+	
+		$players[] = $row;
 	}
 }
 

@@ -11,9 +11,10 @@
 	</div>
 	
 	<table class="" align="center" width="80%">
+
 {foreach from=$jumps item=j}
 	{if $lasttype!=$j.type}
-	{$i=0}
+	{$num=0}
 		<tr>
 			<td class="titles" align="center" colspan="6">
 				<i>{$j.type_name}</i> <img src="{$baseUrl}/img/longjumps/{$j.type}.png"><br><br>
@@ -29,14 +30,13 @@
 		</tr>
 	{/if}
 	{$lasttype = $j.type}
-	
 		<tr align="left">
 			<td>
-			{$i=$i+1}
-			{if $i<4}
-				<img src="{$baseUrl}/img/top{$i}.png" width="22" height="16" title="{$i}" alt="{$i}" />
+			{$num=$num+1}
+			{if $num<4}
+				<i class="fa fa-trophy" style="color: {$cup_color[$num]};" title="{$num}" alt="{$num}"></i>
 			{else}
-				{$i}
+				{$num}
 			{/if}
 			</td>
 			<td>{$j.plname}</td>

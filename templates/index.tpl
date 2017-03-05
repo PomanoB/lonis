@@ -12,11 +12,13 @@
 		<meta charset="UTF-8">
 		<link rel="shortcut icon" href="{$baseUrl}/img/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/font-awesome.css"/>
-		<link rel="stylesheet" href="{$baseUrl}/templates/css/iconic-font.css"/>
-		<link rel="stylesheet" href="{$baseUrl}/templates/css/default.css">
-		<link rel="stylesheet" href="{$baseUrl}/templates/css/theme_{$theme}.css">
-		<link rel="stylesheet" href="{$baseUrl}/templates/css/{$action}.css">
-
+		<link rel="stylesheet" href="{$baseUrl}/templates/css/cs-weapons.css"/>
+		<link rel="stylesheet" href="{$baseUrl}/templates/css/flags.css"/>
+		
+		<link rel="stylesheet" href="{$baseUrl}/templates/css/default.css"/>
+		<link rel="stylesheet" href="{$baseUrl}/templates/css/theme_{$theme}.css"/>
+		<link rel="stylesheet" href="{$baseUrl}/templates/css/{$action}.css"/>
+		
 		<script type="text/javascript" src="{$baseUrl}/templates/js/jquery.min.js"></script>
 		<script type="text/javascript" src="{$baseUrl}/templates/js/default.js"></script>
 		<script type="text/javascript" src="{$baseUrl}/templates/js/{$action}.js"></script>
@@ -100,7 +102,7 @@
 				{if !$errno}
 					{if !$cs}
 					<form method="post" id="langForm" style="padding:7px 8px 0 0; margin:0; display:inline;" action="">
-						<img src="{$baseUrl}/img/country/{$lang}.png">
+						<div class="flags flag-{$lang}" title="$lang" alt="">&nbsp;</div>
 						<select id="lang" name="lang" onchange="document.getElementById('langForm').submit();">
 						{foreach from=$langselect key=key item=desc}
 							<option value="{$key}" {if $lang==$key}selected{/if}>{$desc}</option>

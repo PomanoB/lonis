@@ -10,7 +10,7 @@
 				</form>
 			</div>
 		</div>
-	</div><br>
+	</div><br><br>
 	
 	<center>
 {if $addr && $addr!="vip"}
@@ -59,7 +59,7 @@
 
 	{$pages.output}
 	
-	<p><table class="table-list">
+	<table class="table-list">
 		<tr class="title">
 			<td>{langs('Name')}</td>
 			<td>{langs('Type')}</td>
@@ -67,23 +67,21 @@
 			<td>{langs('Map')}</td>
 			<td>{langs('Players')}</td>
 			<td>{langs('Time')}</td>
-			<td>&nbsp;</td>
 		{if $admin}
 			<td></td>
 		{/if}
 		</tr>
-	{foreach from=$rows key=key item=serv}
+	{foreach from=$servers item=row}
 		<tr class="list">
-			<td>{$serv.name}</td>			
-			<td>{$serv.modname}</td>
-			<td><a href='{$baseUrl}/servers/{$serv.addres}'><b>{$serv.addres}</b></a></td>
-			<td>{$serv.map}</td>			
-			<td>{if $serv.max_players}{$serv.players} / {$serv.max_players}{/if}</td>
-			<td><i>{$serv.updatef}</i></td>
-			<td>{if $serv.vip==1}<img src="{$baseUrl}/img/vip.png" title="VIP" alt="VIP"/>{/if}</td>
+			<td>{if $row.vip==1}<i class="fa fa-star" style="color: gold;" title="VIP" alt="VIP"/></i> {/if}{$row.name}</td>			
+			<td>{$row.modname}</td>
+			<td><a href='{$baseUrl}/servers/{$row.addres}'><b>{$row.addres}</b></a></td>
+			<td>{$row.map}</td>			
+			<td>{if $row.max_players}{$row.players} / {$row.max_players}{/if}</td>
+			<td><i>{$row.updatef}</i></td>
 		</tr>
 	{foreachelse}
 	{/foreach}
 	</table>
 {/if}
-	</center><br>
+	</center>

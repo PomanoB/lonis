@@ -9,11 +9,11 @@
 			<label for="tab-2"><strong>{langs('Language')}</strong></label>
 			
 			<div>
-				<table id="achiev_admin" width="50%">
+				<table id="achiev_admin">
 				<form action="" method="post">
 					<tr>
-						<td><input class="bigform" name="type" type="text" class="col_type"/></td>
-						<td><input class="bigform" name="count" type="text" class="col_count"/></td>
+						<td width="250px;"><input class="bigform" name="type" type="text" class="col_type"/></td>
+						<td width="150px;"><input class="bigform" name="count" type="text" class="col_count"/></td>
 						<td><button class="fa fa-plus" name="act" value="add" title="{langs('Add')}"></button></td>
 					</tr>
 				</form>

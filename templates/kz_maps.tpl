@@ -17,10 +17,14 @@
 			
 	{if !isset($style)}
 			<ul class='map-list'>
-		{foreach from=$maps key=key item=map}	
-				<li class="map-list-item" title="{$map.mapname}">
-						<img src="{$baseUrl}/img/cstrike/{$map.mapname}.jpg" alt="" title="{$map.mapname}"
-						onerror="this.src='{$baseUrl}/img/noimage.jpg'".>{$map.mapname}
+		{foreach from=$maps key=key item=row}	
+				<li class="map-list-item" title="{$row.mapname}">
+						{if file_exists("img/cstrike/{$row.mapname}.jpg")}
+							<img src="{$baseUrl}/img/cstrike/{$row.mapname}.jpg" alt="" title="{$row.mapname}" oncontextmenu="return false;">
+						{else}
+							<i class="fa fa-picture-o" style="font-size: 9em; color: grey;"></i><br>
+						{/if}
+						{$row.mapname}
 				</li>
 		{foreachelse}
 		{/foreach}
@@ -31,11 +35,11 @@
 					<tr class="title">
 						<td>{langs('Map')}</td>
 					</tr>
-		{foreach from=$maps key=key item=map}
+		{foreach from=$maps key=key item=row}
 					<tr class="list">
 						<td>
-							<i class="fa fa-circle diff-dot" style="color: {$map.dcolor};" title="{$map.dname}"></i>
-							<a href="{$baseUrl}/kreedz/{$map.mapname}">{$map.mapname}</a>
+							<i class="fa fa-circle diff-dot" style="color: {$row.dcolor};" title="{$row.dname}"></i>
+							<a href="{$baseUrl}/kreedz/{$row.mapname}">{$row.mapname}</a>
 						</td>
 					</tr>
 		{foreachelse}
@@ -68,19 +72,18 @@
 	{/if}
 			</tr>
 
-	{if isset($maps)}
-	{foreach from=$maps item=map}
+	{foreach from=$maps item=row}
 			<tr class="list">
 				<td>
-					<i class="fa fa-circle diff-dot" style="color: {$map.dcolor};" title="{$map.dname}"></i>
-					<a href="{$baseUrl}/kreedz/{$map.mapname}/">{$map.mapname}</a>
+					<i class="fa fa-circle diff-dot" style="color: {$row.dcolor};" title="{$row.dname}"></i>
+					<a href="{$baseUrl}/kreedz/{$row.mapname}/">{$row.mapname}</a>
 				</td>
-				<td><a href="{$baseUrl}/{$map.name_url}/kreedz">{$map.name|escape}</a></td>
-				<td>{$map.time}</td>
-				<td class="{if $map.go_cp==0}color_nogc{/if}">{$map.cp}</td>
-				<td class="{if $map.go_cp==0}color_nogc{/if}">{$map.go_cp}</td>
-				<td class="{if $map.wname != 'USP' && $map.wname != 'KNIFE'}color_wpn{/if}">
-					<img src="{$baseUrl}/img/weapons/{$map.weapon}.gif" alt="{$map.wname}" />
+				<td><a href="{$baseUrl}/{url_replace($row.name)}/kreedz">{$row.name|escape}</a></td>
+				<td>{timed($row.time, 2)}</td>
+				<td class="{if $row.go_cp==0}color_nogc{/if}">{$row.cp}</td>
+				<td class="{if $row.go_cp==0}color_nogc{/if}">{$row.go_cp}</td>
+				<td class="{if $row.wname != 'USP' && $row.wname != 'KNIFE'}color_wpn{/if}">
+					<div class="wpn wpn-{$row.weapon}">&nbsp;</div>
 				</td>
 	{if $admin==1}
 				<form action="" method="post">			
@@ -88,13 +91,13 @@
 					<input type="hidden" name="confirm" value="0">
 					<input type="checkbox" name="confirm" value="1">
 					<button class="fa fa-trash-o" name="act" value="delete" title="{langs('Delete')}"></button>
-					<input name="delmap" type="hidden" value="{$map.map}" />
+					<input name="delmap" type="hidden" value="{$row.map}" />
 				</td>
 				</form>
 	{/if}			
 			</tr>
+	{foreachelse}
 	{/foreach}
-	{/if}
 		</table>
 {/if}
 	</div>

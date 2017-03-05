@@ -8,13 +8,6 @@ $theme = "default";
 $cstheme = "default";
 $menuStart = "home";
 
-// Where SQL
-$types = array(
-	'pro' => 'AND `go_cp` = 0 AND (`weapon` = 16 OR `weapon` = 29)',
-	'noob' => 'AND (`go_cp` != 0 OR (`weapon` != 16 AND `weapon` != 29))',
-	'all' => ''
-);
-
 // Dirs
 $dirs = array(
 	'template_dir' => 'templates/',
@@ -99,6 +92,16 @@ $menu_footer = array(
 	'Jeronimo' => 'http://leopold-soft.narod.ru',
 );
 
+// Other
+$cup_color = array(1=>"gold", 2=>"saddlebrown", 3=>"silver");
+
+// Where SQL
+$types = array(
+	'pro' => 'AND `go_cp` = 0 AND (`weapon` = 16 OR `weapon` = 29)',
+	'noob' => 'AND (`go_cp` != 0 OR NOT (`weapon` = 16 OR `weapon` = 29))',
+	'all' => ''
+);
+
 // Action List
 $actionList  = array (
 	"error" => "/error/",
@@ -153,4 +156,5 @@ $parseRules = array(
 	
 	"/^(.*)/" => "index.php?action=players&name=%1%",
 );
+
 ?>

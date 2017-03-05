@@ -42,10 +42,6 @@ $rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
 
 $maps = array();
 foreach($rows_limit as $row) {
-	$row["time"] = timed($row["time"], 2);
-	
-	if(isset($row["name"])) $row["name_url"] = url_replace($row["name"]);
-	
 	$maps[] = $row;
 }
 

@@ -15,12 +15,6 @@ if (isset($_SESSION["user_$cookieKey"]) && $admin == 1) {
 	}
 }
 
-$types = array(
-	'pro' => 'AND `go_cp` = 0 AND (`weapon` = 16 OR `weapon` = 29)',
-	'noob' => 'AND (`go_cp` != 0 OR (`weapon` != 16 AND `weapon` != 29))',
-	'all' => ''
-);
-
 $map = isset($_GET["map"]) ? $_GET["map"] : '';
 $type = (isset($_GET["type"]) && isset($types[$_GET["type"]])) ? $_GET["type"] : 'all';
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
@@ -66,7 +60,6 @@ if($map) {
 	$maprec = array();
 	$lastcomm = "";
 	while($row = mysqli_fetch_assoc($r_rec)) {
-		
 		$row['part'] = $row["comm"]==$lastcomm ? 0 : 1;
 		$lastcomm = $row["comm"];
 		
@@ -80,13 +73,8 @@ if($map) {
 $i=0;
 $rows_limit = mysqli_fetch_limit($r, $pages["start"], $playersPerPage);
 
-$number = $pages["start"]+1;
-$players = array();
+$maps = array();
 foreach($rows_limit as $row) {
-	$row["time"] = timed($row["time"], 5);
-	$row["number"] = $number++;
-	
-	$row["name_url"] = url_replace($row["name"]);
-	$players[] = $row;
+	$maps[] = $row;
 }
 ?>

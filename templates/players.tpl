@@ -64,25 +64,23 @@
 			<td><a href="{$baseUrl}/players/achiev-desc/page{$pages.page}/{$search}">{langs('Fulfilled achievements')}</a></td>
 			<td><a href="#">{langs('Went KZ maps')}</a></td>
 		</tr>
-	{foreach from=$rows item=player}
+	{foreach from=$players item=row}
 		<tr class="list">
 			<td>
-				<a href="{$baseUrl}/{$player.name_url}">
-				<img src="{$player.avatar}" width="{$player.avatarSize}" height="{$player.avatarSize}" class="image_c" alt="{$player.name|escape}" /></a>
+				<a href="{$baseUrl}/{url_replace($row.name)}">
+				<img src="{$row.avatar}" width="{$row.avatarSize}" height="{$row.avatarSize}" class="image_c" alt="{$row.name|escape}" /></a>
 			<td>
-				<a href="{$baseUrl}/{$player.name_url}">{$player.name|escape}</a>
+				<a href="{$baseUrl}/{url_replace($row.name)}">{$row.name|escape}</a>
 			</td>
 			<td style="width: 20%;">
-				{if $player.countryImg}
-					<img src="{$baseUrl}/{$player.countryImg}" title="{$player.countryName}" alt="{$player.countryName}" />
-				{/if}
-				{$player.countryName}
+				<div class="flags flag-{strtolower($row.country)}" title="{$row.countryName}" alt="">&nbsp;</div>
+				{$row.countryName}
 			</td>
 			<td>
-				<a href="{$baseUrl}/{$player.name_url}/achiev/">{$player.achiev}</a>
+				<a href="{$baseUrl}/{url_replace($row.name)}/achiev/">{$row.achiev}</a>
 			</td>
 			<td>
-				<a href="{$baseUrl}/{$player.name_url}/kreedz">{$player.mapCompleted}</a>
+				<a href="{$baseUrl}/{url_replace($row.name)}/kreedz">{$row.mapCompleted}</a>
 			</td>
 		</tr>
 	{foreachelse}
