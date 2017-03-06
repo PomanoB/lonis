@@ -495,6 +495,8 @@ CREATE TABLE IF NOT EXISTS `weapons` (
   `id` int(10) unsigned NOT NULL,
   `wname` varchar(16) NOT NULL,
   `fullname` varchar(32) DEFAULT NULL,
+  `info` text,
+  `pspeed` int(3) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

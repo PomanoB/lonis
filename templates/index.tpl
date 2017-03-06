@@ -12,7 +12,7 @@
 		<meta charset="UTF-8">
 		<link rel="shortcut icon" href="{$baseUrl}/img/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/font-awesome.css"/>
-		<link rel="stylesheet" href="{$baseUrl}/templates/css/cs-weapons.css"/>
+		<link rel="stylesheet" href="{$baseUrl}/templates/css/weapons.css"/>
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/flags.css"/>
 		
 		<link rel="stylesheet" href="{$baseUrl}/templates/css/default.css"/>

@@ -4,6 +4,10 @@ Web registartion and statistic for Counter Strike 1.6 version 2.0.7
 -------------------
 -- Version 2.0.7 -- 
 -------------------
+Changelog: 06.03.2017 10:30
+- Update Weapons Images
+- Add Weapons info in SQL
+
 Changelog: 05.03.2017 14:14
 - Fix Servers on Home page
 
