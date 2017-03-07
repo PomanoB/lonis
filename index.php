@@ -1,10 +1,5 @@
 <?php
 
-if(!file_exists("inc/error.php") || !file_exists("templates/error.tpl")) {
-	echo "Error... Die.";
-	die();
-}
-
 error_reporting(E_ALL | E_STRICT);
 
 $starttime = microtime(true);

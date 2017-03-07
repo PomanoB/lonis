@@ -25,7 +25,7 @@ $name = isset($player["name"]) ? $player["name"] : $name;
 $steam_id_64 = getSteamId64($player["steam_id"]);
 $email = $player["email"];
 	
-$avatar = getAvatar($steam_id_64, $email, "avatarMedium");
+$avatar = getAvatar($id, $steam_id_64, $email, "avatarMedium");
 $name_url = url_replace($name);
 
 if($rec!="norec") {

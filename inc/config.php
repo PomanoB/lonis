@@ -9,9 +9,11 @@ $cstheme = "default";
 $menuStart = "home";
 
 // Dirs
+$dtpl = "tpl";
+$dimg = "tpl/img";
 $dirs = array(
-	'template_dir' => 'templates/',
-	'compile_dir' => 'inc/smarty3/templates_c/',
+	'template_dir' => 'tpl/',
+	'compile_dir' => 'inc/smarty3/tplc/',
 	'config_dir' => '',
 	'cache_dir' => 'inc/smarty3/cache/'
 );
@@ -121,18 +123,19 @@ $actionList  = array (
 	"kz_records" => "/kreedz/records/",
 	"kz_ljs_recs" => "/kreedz/records/ljs/",
 	"kz_downloads" => "/kreedz/downloads/",
-	"ucp" => "/ucp/",
+	"account" => "/account/",
 	"steam" => "/steam/",
-	"logout" => "/logout/"
+	"logout" => "/logout/",
+	"avatar" => "/avatar/",	
 );
 
 // The sequence is important
 $parseRules = array(
 	"/^error\/([0-9]+)/" => "index.php?action=error&err=%1%",
 	"/^setup\/(.*)/" => "index.php?action=setup&acts=%1%",
-	"/^ucp\/(.*)/" => "index.php?action=ucp&key=%1%",
-	"/^logout\//" => "index.php?action=ucp&act=logout",
-	"/^steam\//" => "index.php?action=ucp&act=steam",
+	"/^account\/(.*)/" => "index.php?action=account&key=%1%",
+	"/^logout\//" => "index.php?action=account&act=logout",
+	"/^steam\//" => "index.php?action=account&act=steam",
 	"/^home\//" => "index.php?action=home",
 	
 	"/^admin\/([0-9a-zA-Z_!]+)?(\/page([0-9]+))?(\/(.*))?/" => "index.php?action=admin_%1%&page=%3%&search=%5%",

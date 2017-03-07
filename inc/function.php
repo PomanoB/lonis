@@ -313,6 +313,38 @@ function getSteamId64($steamId) {
 	
 	return 0;
 }
+
+// Avatar: Folder or gravatar.com or Steam
+function getAvatar($id, $steam_id_64, $email, $size) {
+	global $conf, $baseUrl, $dimg;
+
+	$avatar["img"] = "";
+	$avatar["size"] = isset($conf[$size]) ? $conf[$size] : "";
+	
+	$path = "{$dimg}/players/{$size}";
+	if(!file_exists($path)) mkdir($path);
+	
+	$avatar_file = "{$path}/{$id}.jpg";
+	if(file_exists($avatar_file)) {
+		$avatar["img"] = $baseUrl."/".$avatar_file;
+	}
+	else {
+		$avatar["img"] = "http://gravatar.com/avatar/".md5($email)."?d={$conf["avatarD"]}&s={$avatar["size"]}";
+		
+		if($steam_id_64 && $conf["steamAvatar"]) {
+			$steamAvatar = getSteamInfo($steam_id_64, $size);
+			if(strpos($steamAvatar, ".jpg"))  {
+				if(getimagesize($steamAvatar))
+					$avatar["img"] = $steamAvatar;
+			}
+		}
+		
+		if(isset($avatar["img"]))
+				file_put_contents($avatar_file, file_get_contents($avatar["img"]));
+	}
+	
+	return $avatar;
+}
 			
 // Get steam_info
 function getSteamInfo($steamId64, $key) {
@@ -328,39 +360,6 @@ function getSteamInfo($steamId64, $key) {
 	$str = isset($str[0]) ? $str[0] : "";
 	
 	return $str;
-}
-
-// Avatar: Folder or gravatar.com or Steam
-function getAvatar($steam_id_64, $email, $size) {
-	global $conf, $baseUrl;
-	
-	if(!file_exists("img/players/")) mkdir("img/players/");
-
-	$avatar["size"] = isset($conf[$size]) ? $conf[$size] : "";
-	
-	$avatar_file = "img/players/{$steam_id_64}.jpg";
-	if(file_exists($avatar_file)) {
-		$avatar["img"] = $baseUrl."/".$avatar_file;
-	}
-	else {
-		$avatar["img"] = "http://gravatar.com/avatar/".md5($email)."?d={$conf['avatarD']}&s={$avatar["size"]}";
-		
-		if($steam_id_64 && $conf["steamAvatar"]) {
-			$steamAvatar = getSteamInfo($steam_id_64, "avatarFull");
-			if(strpos($steamAvatar, ".jpg"))  {
-				if(getimagesize($steamAvatar))
-					$avatar["img"] = $steamAvatar;
-			}
-			
-			if(isset($avatar["img"]))
-				file_put_contents($avatar_file, file_get_contents($avatar["img"]));
-		}
-		else {
-			
-		}
-	}
-	
-	return $avatar;
 }
 	
 // Generate pages

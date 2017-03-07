@@ -20,12 +20,12 @@ if($addr && $addr!="vip") {
 		$info = $server->info();
 		$players = $server->get_players();
 		
-		$img_file = "{$docRoot}/img/{$info['mod']}/{$info['map']}.jpg";
-		$imgmap = "{$baseUrl}/img/noimage.jpg";
+		$img_file = "{$docRoot}/{$dimg}/{$info['mod']}/{$info['map']}.jpg";
+		$imgmap = "{$baseUrl}/{$dimg}/noimage.jpg";
 		
-		$imgmap = file_exists("{$docRoot}/img/noimage.jpg") ? $imgmap : "";
+		$imgmap = file_exists("{$docRoot}/{$dimg}/noimage.jpg") ? $imgmap : "";
 		if(file_exists($img_file)) {
-			$info['img'] = "{$baseUrl}/img/{$info['mod']}/{$info['map']}.jpg";
+			$info['img'] = "{$baseUrl}/{$dimg}/{$info['mod']}/{$info['map']}.jpg";
 		}
 		
 		$addrs = explode(":", $addr);

@@ -16,7 +16,7 @@ if(isset($player["id"])) {
 	$player["countryName"] = $geoip["country"];
 	$player["countryCode"] = $geoip["code"];
 	
-	$img = "img/country/".strtolower($player["countryCode"]).".png";
+	$img = "{$dimg}/country/".strtolower($player["countryCode"]).".png";
 	$player["countryImg"] = file_exists($img) ? $img : "";
 	
 	$player["lastTime"] = date('d.m.Y G:i:s', $player["lastTime"]);
@@ -36,9 +36,7 @@ if(isset($player["id"])) {
 	if(!$player["steam_id_64"])
 		$player["steam_id_64"] = getSteamId64($player["steam_id"]);
 	
-	$avatar = getAvatar($player["steam_id_64"], $player["email"], "avatarFull");
-	$player["avatar"] = $avatar["img"];
-	$player["avatarSize"] = $avatar["size"];
+	$player["avatar"] = getAvatar($player["id"], $player["steam_id_64"], $player["email"], "avatarFull");
 }
 else {
 	if($name) $_POST["search"] = $name;
@@ -67,9 +65,7 @@ else {
 		if(!$row["steam_id_64"] && isset($row["steam_id"]))
 			$row["steam_id_64"] = getSteamId64($row["steam_id"]);
 
-		$avatar = getAvatar($row["steam_id_64"], $row["email"], "avatarIcon");
-		$row["avatar"] = $avatar["img"];
-		$row["avatarSize"] = $avatar["size"];
+		$row["avatar"] = getAvatar($row["id"], $row["steam_id_64"], $row["email"], "avatarIcon");
 		
 		$q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `player` = {$row["id"]}";
 		$r = mysqli_query($db, $q);

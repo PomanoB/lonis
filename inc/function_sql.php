@@ -71,35 +71,34 @@ function getMenuParent($db, $action) {
 }
 
 // Get Themes from DB
-function getThemes($db, $lang) {
-	global $theme, $cstheme;
-	$themeselect = array();
+function getThemes($db) {
+	global $theme;
+	$themes = array();
 	
-	$q = "SELECT * FROM `themes` LEFT JOIN `themes_lang` ON `themes`.`id` = `themesid` WHERE `lang` = '{$lang}'";
+	$q = "SELECT * FROM `themes`";
 	$r = mysqli_query($db, $q);
 	while($row = mysqli_fetch_array($r)) {
-		if($row['default']==1) $theme = $row['theme'];
-		if($row['cs']==1) $cstheme = $row['theme'];
+		if($row['default']==1) $theme = $row['fname'];
 			
-		$themeselect[$row['theme']] = $row["name"];
+		$themes[] = $row;
 	}
 	
-	return $themeselect;
+	return $themes;
 }
 
 function getLang($db) {
 	global $lang_def;
-	$langselect = array();
+	$langs = array();
 	
-	$r = mysqli_query($db, "SELECT * FROM `lang` WHERE `use` = 1 ORDER BY `name` ");
+	$r = mysqli_query($db, "SELECT * FROM `lang` WHERE `use` = 1 ORDER BY `lang` ");
 	while($row = mysqli_fetch_array($r)) {
 		if($row['default']==1)
 			$lang_def = $row['lang'];
 		
-		$langselect[$row['lang']] = $row["name"];
+		$langs[] = $row;
 	}
 	
-	return $langselect;
+	return $langs;
 }
 
 // Get Langs from DB

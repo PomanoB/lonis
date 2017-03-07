@@ -1,5 +1,14 @@
 # lonis
-Web registartion and statistic for Counter Strike 1.6 version 2.0.7
+Web registartion and statistic for Counter Strike 1.6 version 2.0.8
+
+-------------------
+-- Version 2.0.8 -- 
+-------------------
+Changelog: 06.03.2017 19:10
+- Change Other Image to CSS
+- Change path's folder's
+- Fix fonts
+- Add cached all avatars in all sizes
 
 -------------------
 -- Version 2.0.7 -- 

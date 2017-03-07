@@ -1,0 +1,66 @@
+.menu {background-repeat: no-repeat; display: inline-block; width: 24px; height: 24px; }
+.menu-action {background-image:url('../img/menu/menu-action.png');}
+.menu-home {background-image:url('../img/menu/menu-home.png');}
+.menu-servers {background-image:url('../img/menu/menu-servers.png');}
+.menu-players {background-image:url('../img/menu/menu-players.png');}
+.menu-achiev {background-image:url('../img/menu/menu-achiev.png');}
+.menu-kz_players {background-image:url('../img/menu/menu-kz_players.png');}
+.menu-kz_maps {background-image:url('../img/menu/menu-kz_maps.png');}
+.menu-kz_duels {background-image:url('../img/menu/menu-kz_duels.png');}
+.menu-kz_longjumps {background-image:url('../img/menu/menu-kz_longjumps.png');}
+.menu-kz_records {background-image:url('../img/menu/menu-kz_records.png');}
+.menu-kz_ljs_recs {background-image:url('../img/menu/menu-kz_ljs_recs.png');}
+.menu-kz_downloads {background-image:url('../img/menu/menu-kz_downloads.png');}
+.menu-kz_player {background-image:url('../img/menu/menu-kz_player.png');}
+.menu-kz_map {background-image:url('../img/menu/menu-kz_map.png');}
+.menu-account {background-image:url('../img/menu/menu-account.png');}
+.menu-admin_players {background-image:url('../img/menu/menu-admin_players.png');}
+.menu-admin_langs {background-image:url('../img/menu/menu-admin_langs.png');}
+.menu-admin_achievs {background-image:url('../img/menu/menu-admin_achievs.png');}
+.menu-admin_servers {background-image:url('../img/menu/menu-admin_servers.png');}
+.menu-admin {background-image:url('../img/menu/menu-admin.png');}
+
+.wpn {background-repeat: no-repeat; background-size: 3em;}
+.wpn-1, .wpn-p228 {background-image:url('../img/wpn/wpn-1.png');}
+.wpn-3, .wpn-scout {background-image:url('../img/wpn/wpn-3.png');}
+.wpn-4, .wpn-hegrenade {background-image:url('../img/wpn/wpn-4.png');}
+.wpn-5, .wpn-xm1014 {background-image:url('../img/wpn/wpn-5.png');}
+.wpn-6, .wpn-c4 {background-image:url('../img/wpn/wpn-6.png');}
+.wpn-7, .wpn-mac10 {background-image:url('../img/wpn/wpn-7.png');}
+.wpn-8, .wpn-aug {background-image:url('../img/wpn/wpn-8.png');}
+.wpn-9, .wpn-smokegrenade {background-image:url('../img/wpn/wpn-9.png');}
+.wpn-10, .wpn-elite {background-image:url('../img/wpn/wpn-10.png');}
+.wpn-11, .wpn-fiveseven {background-image:url('../img/wpn/wpn-11.png');}
+.wpn-12, .wpn-ump45 {background-image:url('../img/wpn/wpn-12.png');}
+.wpn-13, .wpn-sg550 {background-image:url('../img/wpn/wpn-13.png');}
+.wpn-14, .wpn-galil {background-image:url('../img/wpn/wpn-14.png');}
+.wpn-15, .wpn-famas {background-image:url('../img/wpn/wpn-15.png');}
+.wpn-16, .wpn-usp {background-image:url('../img/wpn/wpn-16.png');}
+.wpn-17, .wpn-glock18 {background-image:url('../img/wpn/wpn-17.png');}
+.wpn-18, .wpn-awp {background-image:url('../img/wpn/wpn-18.png');}
+.wpn-19, .wpn-mp5navy {background-image:url('../img/wpn/wpn-19.png');}
+.wpn-20, .wpn-m249 {background-image:url('../img/wpn/wpn-20.png');}
+.wpn-21, .wpn-m3 {background-image:url('../img/wpn/wpn-21.png');}
+.wpn-22, .wpn-m4a1 {background-image:url('../img/wpn/wpn-22.png');}
+.wpn-23, .wpn-tmp {background-image:url('../img/wpn/wpn-23.png');}
+.wpn-24, .wpn-g3sg1 {background-image:url('../img/wpn/wpn-24.png');}
+.wpn-25, .wpn-flashbang {background-image:url('../img/wpn/wpn-25.png');}
+.wpn-26, .wpn-deagle {background-image:url('../img/wpn/wpn-26.png');}
+.wpn-27, .wpn-sg552 {background-image:url('../img/wpn/wpn-27.png');}
+.wpn-28, .wpn-ak47 {background-image:url('../img/wpn/wpn-28.png');}
+.wpn-29, .wpn-knife {background-image:url('../img/wpn/wpn-29.png');}
+.wpn-30, .wpn-p90 {background-image:url('../img/wpn/wpn-30.png');}
+
+.cake {background-repeat: no-repeat; display: inline-block; width: 100px; height: 100px; }
+.cake-1 {background-image:url('../img/cake/cake-1.png');}
+.cake-2 {background-image:url('../img/cake/cake-2.png');}
+.cake-3 {background-image:url('../img/cake/cake-3.png');}
+.cake-4 {background-image:url('../img/cake/cake-4.png');}
+.cake-5 {background-image:url('../img/cake/cake-5.png');}
+
+.ljs {background-repeat: no-repeat; display: inline-block; width: 100px; height: 30px;}
+.ljs-lj {background-image:url('../img/ljs/ljs-lj.png');}
+.ljs-cj {background-image:url('../img/ljs/ljs-cj.png');}
+.ljs-dcj {background-image:url('../img/ljs/ljs-dcj.png');}
+.ljs-hj {background-image:url('../img/ljs/ljs-hj.png');}
+.ljs-bj {background-image:url('../img/ljs/ljs-bj.png');}

@@ -16,9 +16,7 @@ if($act=="achievs") {
 	
 	$rows = array();
 	foreach($rows_limit as $player) {						
-		$avatar = getAvatar($player["steam_id_64"], $player["email"], "avatarMedium");
-		$player["avatar"] = $avatar["img"];
-		$player["avatarSize"] = $avatar["size"];
+		$player["avatar"] = getAvatar($player["plid"], $player["steam_id_64"], $player["email"], "avatarMedium");
 			
 		$rows[] = $player;
 	}
@@ -35,12 +33,6 @@ else { // url=/achiev/%aname%
 		$achiev = mysqli_fetch_assoc($r);
 		
 		if($achiev) {
-			$id = $achiev["id"];
-			
-			$achiev["img"] = "{$baseUrl}/img/achiev/{$achiev["id"]}.png";
-			if(!file_exists("img/achiev/{$achiev["id"]}.png"))
-				$achiev["img"] = "{$baseUrl}/img/achiev/0.png";
-			
 			$q = "SELECT steam_id_64, email, `p`.`id` AS `plid`, `p`.`name` AS `plname`, 
 				(SELECT COUNT(*) FROM `unr_players_achiev`, `unr_achiev` 
 					WHERE `unr_players_achiev`.`achievId` = `unr_achiev`.`id` 
@@ -50,7 +42,7 @@ else { // url=/achiev/%aname%
 					WHERE `a`.`count` = `pa`.`progress` 
 						AND `p`.`id` = `pa`.`playerId` 
 						AND `pa`.`achievId` = `a`.`id` 
-						AND `a`.`id` = $id";	
+						AND `a`.`id` = {$achiev["id"]}";	
 			$r = mysqli_query($db, $q);
 			$total = mysqli_num_rows($r);
 			
@@ -62,9 +54,7 @@ else { // url=/achiev/%aname%
 			foreach($rows_limit as $player) {
 				$player["plname_url"] = url_replace($player["plname"]);
 				
-				$avatar = getAvatar($player["steam_id_64"], $player["email"], "avatarMedium");
-				$player["avatar"] = $avatar["img"];
-				$player["avatarSize"] = $avatar["size"];
+				$player["avatar"] = getAvatar($player["plid"], $player["steam_id_64"], $player["email"], "avatarMedium");;
 				
 				$rows[] = $player;
 			}
@@ -91,9 +81,9 @@ else { // url=/achiev/%aname%
 			if ($achiev["count"] != 1 && $achiev["count"] != $achiev["progress"])
 				$achiev["width"] = $achiev["progress"] * 100 / $achiev["count"];
 			
-			$achiev["img"] = "{$baseUrl}/img/achiev/{$achiev["id"]}.png";
-			if(!file_exists("img/achiev/{$achiev["id"]}.png"))
-				$achiev["img"] = "{$baseUrl}/img/achiev/0.png";
+			$achiev["img"] = "{$baseUrl}/{$dimg}/achiev/{$achiev["id"]}.png";
+			if(!file_exists("{$dimg}/achiev/{$achiev["id"]}.png"))
+				$achiev["img"] = "{$baseUrl}/{$dimg}/achiev/0.png";
 			
 			$rows[] = $achiev;
 		}
@@ -119,12 +109,18 @@ else { // url=/achiev/%aname%
 		foreach($rows_limit as $achiev) {
 			$achiev["completed"] = floor($achiev["completed"]*100)/100;
 			
-			$achiev["img"] = "{$baseUrl}/img/achiev/{$achiev["aId"]}.png";
-			if(!file_exists("img/achiev/{$achiev["aId"]}.png"))
-				$achiev["img"] = "{$baseUrl}/img/achiev/0.png";
-			
 			$rows[] = $achiev;
 		}		
 	}
+}
+
+// FUNCTION
+function achievImg($id) {
+	global $dimg, $baseUrl;
+	
+	if(!file_exists("{$dimg}/achiev/achiev-{$id}.png"))
+		return "{$baseUrl}/{$dimg}/achiev/achiev-0.png";
+	else
+		return "{$baseUrl}/{$dimg}/achiev/achiev-{$id}.png";
 }
 ?>

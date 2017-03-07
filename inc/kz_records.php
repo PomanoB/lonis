@@ -37,7 +37,7 @@ $total = mysqli_num_rows($r);
 
 $pages = generate_page($page, $total, $mapsPerPage, "$baseUrl/kreedz/records/page%page%/$search");
 
-$img = "img/country/{$country}.png";
+$img = "{$dimg}/country/{$country}.png";
 $comm_countryImg = file_exists($img) ? $img : "";
 
 $rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
@@ -48,7 +48,7 @@ foreach($rows_limit as $row) {
 	$row["comm_time"] = timed($row["comm_time"], 2);
 	$row["top_time"] = timed($row["top_time"], 2);
 	
-	$img = "img/country/{$row["wr_country"]}.png";
+	$img = "{$dimg}/country/{$row["wr_country"]}.png";
 	$row["wr_countryImg"] = file_exists($img) ? $img : "";
 	
 	$maps[] = $row;

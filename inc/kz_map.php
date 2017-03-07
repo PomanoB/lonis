@@ -46,12 +46,12 @@ if($map) {
 	$rr = mysqli_query($db, $q);
 	$mapinfo = mysqli_fetch_assoc($rr);
 	
-	$img_file = "{$docRoot}/img/cstrike/{$map}.jpg";
-	$imgmap = "{$baseUrl}/img/noimage.jpg";
+	$img_file = "{$docRoot}/{$dimg}/cstrike/{$map}.jpg";
+	$imgmap = "{$dimg}/noimage.jpg";
 	
-	$imgmap = file_exists("{$docRoot}/img/noimage.jpg") ? $imgmap : "";
+	$imgmap = file_exists("{$dimg}/noimage.jpg") ? $imgmap : "";
 	if(file_exists($img_file)) {
-		$imgmap = "{$baseUrl}/img/cstrike/{$map}.jpg";
+		$imgmap = "{$baseUrl}/{$dimg}/cstrike/{$map}.jpg";
 	}
 	
 	$q = "SELECT * FROM `kz_records` `r`, `kz_comm` `c` WHERE `map` = '{$map}' AND `name` = `comm` ORDER BY `sort`, `mappath`";	
