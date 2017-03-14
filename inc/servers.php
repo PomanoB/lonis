@@ -37,41 +37,37 @@ else {
 	$r = mysqli_query($db, $q);
 	$total = mysqli_num_rows($r);
 	
-	$pagess = generate_page($page, $total, 15, "$baseUrl/servers/$addr");
+	$pagess = generate_page($page, $total, 10, "$baseUrl/servers/$addr");
 
-	$rows_limit = mysqli_fetch_limit($r, $pagess["start"], 15);
+	$rows_limit = mysqli_fetch_limit($r, $pagess["start"], 10);
 	
 	$servers = array();
 	foreach($rows_limit as $row) {
-		$id = $row['id'];
-		
 		$update = strtotime($row['update']." ".$timezone);
 		$row["updatef"] = strftime("%d.%m %H:%M", $update);
 		
-		if(!$vip) {
-			if(time()-$update > $server_update) {
-				if($server->connect($row["addres"])) {
-					$info = $server->info();
-					if(isset($info))
-						$row = array_replace($row, $info);
-				}
-				else {
-					$row['map'] = "";
-					$row['players'] = 0;
-					$row['max_players'] = 0;
-				}
-				
-				$q = "UPDATE `servers` 
-						SET `name` = '{$row['name']}', 
-							`map` = '{$row['map']}', 
-							`players` = {$row['players']}, 
-							`max_players` = {$row['max_players']},
-							`update` = NOW()
-						WHERE `id` = {$id}";
-				mysqli_query($db, $q);
-				
-				$row["update"] = strftime("%d.%m %H:%M", time());
+		if(time()-$update > $server_update) {
+			if($server->connect($row["addres"])) {
+				$info = $server->info();
+				if(isset($info))
+					$row = array_replace($row, $info);
 			}
+			else {
+				$row['map'] = "";
+				$row['players'] = 0;
+				$row['max_players'] = 0;
+			}
+			
+			$q = "UPDATE `servers` 
+					SET `name` = '{$row['name']}', 
+						`map` = '{$row['map']}', 
+						`players` = {$row['players']}, 
+						`max_players` = {$row['max_players']},
+						`update` = NOW()
+					WHERE `id` = {$row['id']}";
+			mysqli_query($db, $q);
+			
+			$row["update"] = strftime("%d.%m %H:%M", time());
 		}
 
 		$servers[] = $row;

@@ -112,8 +112,8 @@ function timed($ftime, $pad=0) {
 	$ms = $ftime * pow(10,$pad) % pow(10,$pad);
 	if ($min < 10) $min = '0'.$min;
 	if ($sec < 10) $sec = '0'.$sec;
-	$ms = str_pad($ms, $pad, '0');
 	if ($ms < pow(10,$pad-1) && $ms!=0) $ms = '0'.$ms;
+	$ms = str_pad($ms, $pad, '0');
 	
 	return $min.':'.$sec.'.'.$ms;
 }
