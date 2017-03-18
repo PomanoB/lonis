@@ -7,4 +7,4 @@
 
 {include file="servers.tpl"}
 <br>
-{include file="kz_map.tpl"}
+{include file="kreedz_map.tpl"}

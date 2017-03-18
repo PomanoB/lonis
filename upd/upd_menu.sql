@@ -18,22 +18,22 @@ INSERT INTO `menu` (`num`, `parent`, `mname`, `action`) VALUES
 	(30, 'Main', 'Servers', 'servers'),
 	(40, 'Main', 'Players', 'players'),
 	(50, 'Main', 'Achievs', 'achiev'),
-	(61, 'Kreedz', 'Players', 'kz_players'),
-	(60, 'Main', 'Kreedz', 'kz_players'),
-	(62, 'Kreedz', 'Maps', 'kz_maps'),
-	(63, 'Kreedz', 'Duels', 'kz_duels'),
+	(61, 'Kreedz', 'Players', 'kreedz_players'),
+	(60, 'Main', 'Kreedz', 'kreedz_players'),
+	(62, 'Kreedz', 'Maps', 'kreedz_maps'),
+	(63, 'Kreedz', 'Duels', 'kreedz_duels'),
 	(92, 'Admin', 'Servers', 'admin_servers'),
 	(92, 'Admin', 'Langs', 'admin_langs'),
 	(93, 'Admin', 'Achievs', 'admin_achievs'),
 	(91, 'Admin', 'Players', 'admin_players'),
-	(68, 'Kreedz', '', 'kz_player'),
-	(69, 'Kreedz', '', 'kz_map'),
-	(64, 'Kreedz', 'Longjumps', 'kz_longjumps'),
+	(68, 'Kreedz', '', 'kreedz_player'),
+	(69, 'Kreedz', '', 'kreedz_map'),
+	(64, 'Kreedz', 'Longjumps', 'kreedz_longjumps'),
 	(70, 'Main', 'Account', 'account'),
-	(65, 'Kreedz', 'Records', 'kz_records'),
-	(67, 'Kreedz', 'Archive', 'kz_downloads'),
+	(65, 'Kreedz', 'Records', 'kreedz_records'),
+	(67, 'Kreedz', 'Archive', 'kreedz_downloads'),
 	(90, 'Main', 'Admin', 'admin_players'),
-	(66, 'Kreedz', 'LJ Records', 'kz_ljs_recs');
+	(66, 'Kreedz', 'LJ Records', 'kreedz_ljs_recs');
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

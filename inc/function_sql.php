@@ -49,7 +49,7 @@ function getConfigType($db) {
 	
 // Get Menus from DB
 function getMenus($db, $parent = "") {
-	global $actionList, $langs;
+	global $langs;
 	$menu = array();
 	
 	$where = $parent ? "AND `parent` = '{$parent}'" : "";
@@ -58,7 +58,7 @@ function getMenus($db, $parent = "") {
 	$r = mysqli_query($db, $q);
 	while($row = mysqli_fetch_assoc($r)) {
 		$row["name"] = 	isset($langs[$row["mname"]]) ? $langs[$row["mname"]] : $row["mname"];
-		$row["url"] = isset($actionList[$row["action"]]) ? $actionList[$row["action"]] : "";
+		$row["url"] = "/".str_replace("_", "/", $row["action"])."/";
 		$menu[$row["parent"]][] = $row;
 	}
 	

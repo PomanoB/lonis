@@ -4,6 +4,9 @@ Web registartion and statistic for Counter Strike 1.6 version 2.0.8
 -------------------
 -- Version 2.0.8 -- 
 -------------------
+Changelog: 18.03.2017 22:00
+- Change ActionList to Dynamic
+
 Changelog: 14.03.2017 13:00
 - Fix Servers Update on Home Page
 - Fix timed() - first 0 in miliseconds

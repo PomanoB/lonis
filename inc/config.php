@@ -104,31 +104,6 @@ $types = array(
 	'all' => ''
 );
 
-// Action List
-$actionList  = array (
-	"error" => "/error/",
-	"home" => "/home/",
-	"admin_servers" => "/admin/servers/",
-	"admin_langs" => "/admin/langs/",
-	"admin_achievs" => "/admin/achievs/",
-	"admin_players" => "/admin/players/",
-	"servers" => "/servers/",
-	"players" => "/players/",
-	"achiev" => "/achiev/",
-	"achievs" => "/achievs/",
-	"kz_players" => "/kreedz/players/",
-	"kz_maps" => "/kreedz/maps/",
-	"kz_duels" => "/kreedz/duels/",
-	"kz_longjumps" => "/kreedz/longjumps/",
-	"kz_records" => "/kreedz/records/",
-	"kz_ljs_recs" => "/kreedz/records/ljs/",
-	"kz_downloads" => "/kreedz/downloads/",
-	"account" => "/account/",
-	"steam" => "/steam/",
-	"logout" => "/logout/",
-	"avatar" => "/avatar/",	
-);
-
 // The sequence is important
 $parseRules = array(
 	"/^error\/([0-9]+)/" => "index.php?action=error&err=%1%",
@@ -146,16 +121,16 @@ $parseRules = array(
 	"/^achievs\/(page([0-9]+))?/" => "index.php?action=achievs&page=%2%&act=achievs",
 	"/^(.*)\/achiev\/(page([0-9]+))?/" => "index.php?action=achievs&name=%1%&page=%3%",
 	
-	"/^kreedz\/duels\/(page([0-9]+))?/" => "index.php?action=kz_duels&page=%2%",
-	"/^kreedz\/players\/(pro|noob|all)?(\/page([0-9]+))?(\/(all|top1))?(\/)?(.*)?/" => "index.php?action=kz_players&type=%1%&page=%3%&sort=%5%&search=%7%",
-	"/^kreedz\/maps\/(pro|noob|all)?(\/page([0-9]+))?(\/(norec|rec))?(\/)?(.*)?/" => "index.php?action=kz_maps&type=%1%&page=%3%&rec=%5%&search=%7%",
-	"/^kreedz\/longjumps/" => "index.php?action=kz_longjumps",
-	"/^kreedz\/records\/ljs\/?(.*)?/" => "index.php?action=kz_ljs_recs&comm=%1%",
-	"/^kreedz\/records\/?(page([0-9]+))?(\/(.*))?/" => "index.php?action=kz_records&page=%2%&search=%4%",
-	"/^kreedz\/downloads\/?(page([0-9]+))?(\/)?(.*)?/" => "index.php?action=kz_downloads&page=%2%&search=%4%",
-	"/^kreedz\/?(pro|noob|all)?(\/page([0-9]+))?(\/)?([^\/]+)?/" => "index.php?action=kz_map&type=%1%&page=%3%&map=%5%",
+	"/^kreedz\/duels\/(page([0-9]+))?/" => "index.php?action=kreedz_duels&page=%2%",
+	"/^kreedz\/players\/(pro|noob|all)?(\/page([0-9]+))?(\/(all|top1))?(\/)?(.*)?/" => "index.php?action=kreedz_players&type=%1%&page=%3%&sort=%5%&search=%7%",
+	"/^kreedz\/maps\/(pro|noob|all)?(\/page([0-9]+))?(\/(norec|rec))?(\/)?(.*)?/" => "index.php?action=kreedz_maps&type=%1%&page=%3%&rec=%5%&search=%7%",
+	"/^kreedz\/longjumps/" => "index.php?action=kreedz_longjumps",
+	"/^kreedz\/records\/ljs\/?(.*)?/" => "index.php?action=kreedz_ljs_recs&comm=%1%",
+	"/^kreedz\/records\/?(page([0-9]+))?(\/(.*))?/" => "index.php?action=kreedz_records&page=%2%&search=%4%",
+	"/^kreedz\/downloads\/?(page([0-9]+))?(\/)?(.*)?/" => "index.php?action=kreedz_downloads&page=%2%&search=%4%",
+	"/^kreedz\/?(pro|noob|all)?(\/page([0-9]+))?(\/)?([^\/]+)?/" => "index.php?action=kreedz_map&type=%1%&page=%3%&map=%5%",
 	"/^(.*)\/kreedz(\/(pro|noob|all))?(\/page([0-9]+))?(\/(norec|rec))?(\/(num|top1))?/" =>
- "index.php?action=kz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
+ "index.php?action=kreedz_player&name=%1%&type=%3%&page=%5%&rec=%7%&sort=%9%",
 	
 	"/^(.*)/" => "index.php?action=players&name=%1%",
 );
