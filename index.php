@@ -109,17 +109,10 @@ if(!$errno) {
 	
 	// Read themes
 	$themeselect = getThemes($db, $lang);
-
-	if (isset($_POST["theme"]))
-	{
-		if (file_exists('templates/css/theme_'.$_POST["theme"].'.css')) {
+	if (isset($_POST["theme"])) {
+		if (file_exists($dtpl.'/css/theme_'.$_POST["theme"].'.css')) {
 			$theme = $_POST["theme"];
 			$_SESSION["unr_theme_$cookieKey"] = $_POST["theme"];
-		}
-		else {
-			$langTheme1 = $themeselect[$theme];
-			$langTheme2 = $langs["ThemeNotFound"];
-			echo "<script>alert('$langTheme1 $langTheme2')</script>";
 		}
 	}
 	

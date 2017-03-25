@@ -46,6 +46,7 @@ $conf_def = array (
 	'playerPerPage' => 15,
 	'mapsPerPage' => 15,
 	'mapsNorecPerPage' => 25,
+	'newsPerPage' => 15,
 	'playersPerPage' => 15,
 	'achievPerPage' => 50,
 	'achievPlayersPerPage' => 10,
@@ -68,6 +69,7 @@ $conf_type = array (
 	'email' => 'text',
 	'activateTime' => 'number',
 	'playerPerPage' => 'number',
+	'newsPerPage' => 'number',
 	'mapsPerPage' => 'number',
 	'mapsNorecPerPage' => 'number',
 	'playersPerPage' => 'number',
@@ -99,7 +101,7 @@ $cup_color = array(1=>"gold", 2=>"saddlebrown", 3=>"silver");
 
 // Where SQL
 $types = array(
-	'pro' => 'AND `go_cp` = 0 AND (`weapon` = 16 OR `weapon` = 29)',
+	'pro' => 'AND (`go_cp` = 0 AND (`weapon` = 16 OR `weapon` = 29))',
 	'noob' => 'AND (`go_cp` != 0 OR NOT (`weapon` = 16 OR `weapon` = 29))',
 	'all' => ''
 );

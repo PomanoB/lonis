@@ -71,14 +71,14 @@ function getMenuParent($db, $action) {
 }
 
 // Get Themes from DB
-function getThemes($db) {
+function getThemes($db, $lang) {
 	global $theme;
 	$themes = array();
 	
-	$q = "SELECT * FROM `themes`";
+	$q = "SELECT * FROM `themes` LEFT JOIN `themes_lang` ON themesid = themes.id WHERE lang='{$lang}'";
 	$r = mysqli_query($db, $q);
 	while($row = mysqli_fetch_array($r)) {
-		if($row['default']==1) $theme = $row['fname'];
+		if($row['default']==1) $theme = $row['theme'];
 			
 		$themes[] = $row;
 	}

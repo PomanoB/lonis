@@ -111,7 +111,7 @@
 					<form method="post" id="themeForm" style="padding:2px 8px 0 0; margin:0; display:inline;" action="">			
 						<select style="margin-left:50px;" id="theme" name="theme" onchange="document.getElementById('themeForm').submit();">
 						{foreach from=$themeselect item=t}
-							<option value="{$t.fname}" {if $theme==$t.fname}selected{/if}>{$t.tname}</option>
+							<option value="{$t.theme}" {if $theme==$t.theme}selected{/if}>{$t.name}</option>
 						{foreachelse}
 						{/foreach}
 						</select>
