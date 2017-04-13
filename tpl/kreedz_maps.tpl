@@ -9,7 +9,7 @@
 	
 	<div>
 {if $rec=="norec"}	
-			<div class="table-list">
+			<div style="margin: 0 20px;">
 				<b>{langs('Not jumped')}</b> :: <a href="{$baseUrl}/kreedz/maps/{$type}/{$search}">{langs('Passed')}</a>
 			</div>
 			
@@ -31,73 +31,80 @@
 			</ul>
 	{else}	
 			<div>
-				<table class="table-list">
-					<tr class="title">
-						<td>{langs('Map')}</td>
-					</tr>
+				<div class="table list">
+					<div class="tr title">
+						<div>{langs('Map')}</div>
+					</div>
 		{foreach from=$maps key=key item=row}
-					<tr class="list">
-						<td>
+					<div class="tr row">
+						<div>
 							<i class="fa fa-circle diff-dot" style="color: {$row.dcolor};" title="{$row.dname}"></i>
 							<a href="{$baseUrl}/kreedz/{$row.mapname}">{$row.mapname}</a>
-						</td>
-					</tr>
+						</div>
+					</div>
 		{foreachelse}
 		{/foreach}
-				</table>
+				</div>
 			</div>
 	{/if}
 {else}
-		<div class="table-list">
+		<div style="margin: 0 20px;">
 			<a href="{$baseUrl}/kreedz/maps/pro/{$rec}/{$search}" {if $type == "pro"}style="font-weight:bold;"{else}{/if}>{langs('Pro')}</a>
 			<a href="{$baseUrl}/kreedz/maps/noob/{$rec}/{$search}" {if $type == "noob"}style="font-weight:bold;"{else}{/if}>{langs('Noob')}</a>
 			<a href="{$baseUrl}/kreedz/maps/all/{$rec}/{$search}" {if $type == "all"}style="font-weight:bold;"{else}{/if}>{langs('All')}</a>
 			:: <a href="{$baseUrl}/kreedz/maps/{$type}/norec/{$search}">{langs('Not jumped')}</a>
-		</div><br>
+		</div>
 		
 		<div class="err_message">{$message}</div>
 		
 		{$pages.output}
 		
-		<table class="table-list">
-			<tr class="title">
-				<td>{langs('Map')}</td>
-				<td>{langs('Player')}</td>
-				<td>{langs('Time')}</td>
-				<td>{langs('Checkpoints')}</td>
-				<td>{langs('Teleports')}</td>
-				<td>{langs('Weapon')}</td>
+		<div class="table list">
+			<div class="tr title">
+				<div>{langs('Map')}</div>
+				<div>{langs('Player')}</div>
+				<div>{langs('Time')}</div>
+				<div>{langs('Checkpoints')}</div>
+				<div>{langs('Teleports')}</div>
+				<div>{langs('Weapon')}</div>
+				<div></div>
 	{if $admin==1}
-				<td	>#</td>
+				<div></div>
 	{/if}
-			</tr>
+			</div>
 
 	{foreach from=$maps item=row}
-			<tr class="list">
-				<td>
+			<div class="tr row">
+				<div>
 					<i class="fa fa-circle diff-dot" style="color: {$row.dcolor};" title="{$row.dname}"></i>
 					<a href="{$baseUrl}/kreedz/{$row.mapname}/">{$row.mapname}</a>
-				</td>
-				<td><a href="{$baseUrl}/{url_replace($row.name)}/kreedz">{$row.name|escape}</a></td>
-				<td>{timed($row.time, 2)}</td>
-				<td class="{if $row.go_cp==0}color_nogc{/if}">{$row.cp}</td>
-				<td class="{if $row.go_cp==0}color_nogc{/if}">{$row.go_cp}</td>
-				<td class="{if $row.wname != 'USP' && $row.wname != 'KNIFE'}color_wpn{/if}">
+				</div>
+				<div><a href="{$baseUrl}/{url_replace($row.name)}/kreedz">{$row.name|escape}</a></div>
+				<div>{timed($row.time, 2)}</div>
+				<div class="{if $row.go_cp==0}color_nogc{/if}">{$row.cp}</div>
+				<div class="{if $row.go_cp==0}color_nogc{/if}">{$row.go_cp}</div>
+				<div class="{if $row.wname != 'USP' && $row.wname != 'KNIFE'}color_wpn{/if}">
 					<div class="wpn wpn-{$row.weapon}">&nbsp;</div>
-				</td>
+				</div>
+				<div>
+				{if isset($row.download)}
+					<a class="fa fa-download" href="{$row.download}" alt="{langs('Download')} {$row.mapname}"></a>
+				{/if}
+				</div>
 	{if $admin==1}
 				<form action="" method="post">			
-				<td>
+				<div>
 					<input type="hidden" name="confirm" value="0">
 					<input type="checkbox" name="confirm" value="1">
 					<button class="fa fa-trash-o" name="act" value="delete" title="{langs('Delete')}"></button>
 					<input name="delmap" type="hidden" value="{$row.map}" />
-				</td>
+				</div>
+				
 				</form>
 	{/if}			
-			</tr>
+			</div>
 	{foreachelse}
 	{/foreach}
-		</table>
+		</div>
 {/if}
 	</div>

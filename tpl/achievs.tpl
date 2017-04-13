@@ -1,150 +1,108 @@
 {if $act=="achievs"}
-	<p><div class="titles" align="center">
+	
+	<div class="titles" align="center">
 		<a href="{$baseUrl}/achiev/">{langs('Achievs')}</a>
 		::
 		{langs('Achievs players')}
-	</div><br>
+	</div>
 	
-	{if isset($rows)}
-	{$pages.output}
-	
-	<div class="achiev_wrapper" align="center">
-	<table>
+	<div class="achiev_wrapper">
+		<div style="margin: 10px;">
+			{$pages.output}
+		</div>
+
 	{foreach from=$rows item=player}
-		<tr>
-			<td>
-				<img src="{$player.avatar.img}" width="50" height="50" class="image_c" alt="{$player.plname|escape}" />
-			</td>
-			<td>
-				<div class="achiev">
-					<b><a href="{$baseUrl}/{$player.name}/achiev/">{$player.name|escape}</a></b>
-					<br />
-					<span>{langs('Just completed the achievements:')} {$player.achiev_total}</span>
-				</div>
-			</td>
-		</tr>
+		<div class="achiev">
+			<img src="{$player.avatar.img}" width="50" height="50" class="image_c" alt="{$player.plname|escape}" />
+			<b><a href="{$baseUrl}/{$player.name}/achiev/">{$player.name|escape}</a></b>
+			<br />
+			<span>{langs('Just completed the achievements:')} {$player.achiev_total}</span>
+		</div>
 	{foreachelse}
 	{/foreach}
-	</table>
 	</div>
-	{/if}	
 {else}
 {if $aname && $aname!=""}
-
-	<p><div class="titles" align="center">
-		{langs('Achievs')}
-	</div><br>
-	
-	<div class="achiev_wrapper" align="center">
-	<table>
-		<tr>
-			<td>
-				<img src="{achievImg($achiev.id)}" width="50" height="50" style="border-radius:10px;" />
-			</td>
-			<td>
-				<div class="achiev achiev_completed">
-					<b>{$achiev.name}</b>
-					<br />
-					<span>{$achiev.desc}</span>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				{$pages.output}
-			</td>
-		</tr>
+	<div class="achiev_wrapper">
+		<div class="titles">
+			{langs('Achievs')}
+		</div><br>
+		
+		<div class="achiev achiev_completed">
+			<img src="{achievImg($achiev.id)}" />
+			<b>{$achiev.name}</b>
+			<br />
+			<text>{$achiev.desc}</text>
+		</div>
+		
+		<div style="margin: 10px;">
+			{$pages.output}
+		</div>
+		
 	{foreach from=$rows item=player}
-		<tr>
-			<td>
-				<img src="{$player.avatar.img}" width="50" height="50" class="image_c" alt="{$player.plname|escape}" />
-			</td>
-			<td>
-				<div class="achiev">
-					<b><a href="{$baseUrl}/{$player.plname_url}/achiev/">{$player.plname|escape}</a></b>
-					<br />
-					<span>{langs('Just completed the achievements:')} {$player.achiev_total}</span>
-				</div>
-			</td>
-		</tr>
+		<div class="achiev">
+			<img src="{$player.avatar.img}" class="image_c" alt="{$player.plname|escape}" />
+			<b><a href="{$baseUrl}/{$player.plname_url}/achiev/">{$player.plname|escape}</a></b>
+			<br />
+			<span>{langs('Just completed the achievements:')} {$player.achiev_total}</span>
+		</div>
 	{foreachelse}
 	{/foreach}
-	</table>
 	</div>
-
-	
 {elseif $name && $name!=""}
 
-	<p><div class="titles" align="center">
+	<div class="titles" align="center">
 		{langs('Achievs')} :: <i>{$name|escape}</i>
 	</div><br>
 
-	{if isset($rows)}
 	<div class="achiev_wrapper" align="center">	
-	<table>	
 	{foreach from=$rows item=achiev}
-		<tr>
-			<td>
-				<img src="{achievImg($achiev.id)}" width="50" height="50" style="border-radius:10px;" />
-			</td>
-			<td>
-				<div class="achiev{if $achiev.count == $achiev.progress} achiev_completed{/if}">
-					<b><a href="{$baseUrl}/achiev/{$achiev.name}">{$achiev.name}</a></b>
-					<br />
-					<span>{$achiev.desc}</span>
-				{if isset($achiev.width)}
-					<div>
-						<div class="progress_background">
-							<div class="progress_bar" style="width:{$achiev.width}%">
-							</div>
-						</div>
-						<span class="progress_counter">{$achiev.progress}/{$achiev.count}</span>
-					</div>
-				{elseif isset($achiev.unlocked)}
-					<div class="unlocekd_time">
-						{langs('Unlocked')}{$achiev.unlocked|date_format:"%d.%m.%Y %H:%M"}
-					</div>
-				{/if}
-				</div>
-			</td>
-		</tr>
+		<div class="achiev {if $achiev.count == $achiev.progress}achiev_completed{/if}">
+			<img src="{achievImg($achiev.id)}" />
+			<b><a href="{$baseUrl}/achiev/{$achiev.name}">{$achiev.name}</a></b>
+			<br>
+			<text>{$achiev.desc}</text>
+			<br>
+		
+		{if isset($achiev.width)}
+			<div class="progress_background">
+				<div class="progress_bar" style="width:{$achiev.width}%"></div>
+			</div>
+			<span class="progress_counter">{$achiev.progress}/{$achiev.count}</span>
+		{elseif isset($achiev.unlocked)}
+			<div class="unlocekd_time">
+				{langs('Unlocked')}{$achiev.unlocked|date_format:"%d.%m.%Y %H:%M"}
+			</div>
+		{/if}
+		
+		</div>
 	{foreachelse}
 	{/foreach}
-	</table>
 	</div>
-	{/if}
-	
 {else}
-
-	<p><div class="titles" align="center">
+	<div class="titles" align="center">
 		{langs('Achievs')} :: <a href="{$baseUrl}/achievs/">{langs('Achievs players')}</a>
 	</div><br>
 	
-	{$pages.output}
+	<div style="margin: 10px;">
+		{$pages.output}
+	</div>
 	
-	<div class="achiev_wrapper" align="center">
-		<table>
-		{foreach from=$rows item=achiev}
-			<tr>
-				<td>
-					<img src="{achievImg($achiev.aId)}" width="50" height="50" style="border-radius:10px;" />
-				</td>
-				<td>
-					<div class="achiev" style="padding: 0px;">
-						<div style="background-color: #464647; width: {$achiev.completed}%;overflow: visible;">
-							<div style="width: 550px;padding: 10px;">
-								<span style="float:right;margin-top:10px;margin-right:20px">{$achiev.completed}%</span>
-								<b><a href="{$baseUrl}/achiev/{$achiev.name}">{$achiev.name}</a></b>
-								<br />
-								<span style="width:450px;display: inline-block;">{$achiev.desc}</span>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-		{foreachelse}
-		{/foreach}
-		</table>	
+	<div class="achiev_wrapper">
+	{foreach from=$rows item=achiev}
+		<div class="achiev">
+			<img src="{achievImg($achiev.aId)}"/>
+			<b><a href="{$baseUrl}/achiev/{$achiev.name}">{$achiev.name}</a></b>
+			<br />
+			<span style="width:450px;display: inline-block;">{$achiev.desc}</span>
+			
+			<div class="progress_background">
+				<div class="progress_bar" style="width:{$achiev.completed}%"></div>
+			</div>
+			<span class="progress_counter">{$achiev.completed}%</span>
+		</div>
+	{foreachelse}
+	{/foreach}
 	</div>
 {/if}
 {/if}

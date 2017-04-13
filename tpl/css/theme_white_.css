@@ -107,7 +107,7 @@ legend {
 }
 
 /* PLAYERS LIST */
-.table-list  {
+.table  {
 	font-size: 95%;
 	line-height: 1.7em;
 	empty-cells: show; 
@@ -115,7 +115,7 @@ legend {
 	width: 100%;
 }
 
-.table-list .list td {
+.table .list td {
 	padding-left: 4px;
 }
 
@@ -233,7 +233,7 @@ button {
 	font-weight:bold;
 }
 
-.tooltip {
+.tooltipx {
 	background-color:#000;
 	border:1px solid #fff;
 	padding:10px 15px;

@@ -162,6 +162,9 @@ if(file_exists("inc/$action.php"))
 else
 	header("Location: {$baseUrl}");
 
+if(!file_exists("tpl/$action.tpl"))
+	header("Location: {$baseUrl}");	
+
 // All assign
 foreach($GLOBALS as $key=>$value) $smarty->assign($key, $value);
 

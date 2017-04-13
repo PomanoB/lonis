@@ -1,9 +1,20 @@
 # lonis
-Web registartion and statistic for Counter Strike 1.6 version 2.0.8
+Web registartion and statistic for Counter Strike 1.6 version 2.0.9
+
+-------------------
+-- Version 2.0.9 -- 
+-------------------
+Changelog: 13.04.2017 10:30
+- Change table to div
+- EditHome Page.
+- Add Jump Home page
 
 -------------------
 -- Version 2.0.8 -- 
 -------------------
+Changelog: 25.03.2017 22:00
+- Fix themes
+
 Changelog: 18.03.2017 22:00
 - Change ActionList to Dynamic
 

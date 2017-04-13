@@ -119,9 +119,9 @@ if(isset($_SESSION["user_$cookieKey"])) {
 				WHERE `id` = ". $user["id"];
 
 			if (mysqli_query($db, $sql))
-				$message["msg"] = $langs["DataUpdated"];
-			else
-				$message["msg"] = $langs["AlreadyUsed"];
+				$message["msg"] = $langs["Data updated successfully!"];
+			//else
+				//$message["msg"] = $langs["AlreadyUsed"];
 		}
 	}
 	else {   	
@@ -145,15 +145,15 @@ if (isset($_POST["new_nick"]) && isset($_POST["new_password"])) {
 	preg_match("/^[\w_]{6,18}$/", $password, $password_match);
 	preg_match("/^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})$/", $email, $email_match);
 
-	if(!$nick) $message["nick"] = $langs["NotInputNick"];
-	if(!$email) $message["email"] = $langs["NotInputMail"];
-	else if(!isset($email_match[0])) $message["email"] = $langs["WrongEmail"];
-	if(!$password) $message["password"] = $langs["NotInputPassword"];
+	if(!$nick) $message["nick"] = $langs["You did not enter nick!"];
+	if(!$email) $message["email"] = $langs["You have not entered e-mail!"];
+	else if(!isset($email_match[0])) $message["email"] = $langs["Wrong E-mail"];
+	if(!$password) $message["password"] = $langs["You have not entered a password!"];
 	
 	if($act!="reset" && $nick && $email) {
 		$r = mysqli_query($db, "SELECT * FROM `unr_players` WHERE `name`= '$nick' OR `email` = '$email'  LIMIT 1");	
 		if ($row = mysqli_fetch_assoc($r)) {
-			$message["nick"] = $langs["AlreadyUsed"];
+			$message["nick"] = $langs["This player is already exists!"];
 		}
 	}
 		
@@ -169,7 +169,7 @@ if (isset($_POST["new_nick"]) && isset($_POST["new_password"])) {
 				mysqli_query($db, "INSERT INTO `unr_activate` SET `player`= '$player', `key` = '$key', `time` = '$time'");
 				
 				//echo $mail = "From: $server_email <br> To: $email <br> Theme: $server_name <br> {$langs["ActiveMail"]} <br> $baseUrl/account/$key";
-				mail($email, $server_name, "{$langs["ActiveMail"]} \n $baseUrl/account/$key", "From: $server_email");
+				mail($email, $server_name, "{$langs["To activate click on the following link:"]} \n $baseUrl/account/$key", "From: $server_email");
 				
 				$message["reg"] = $langs["regSuccess"]."<br>".$langs["regActivate"];
 			}
@@ -180,10 +180,10 @@ if (isset($_POST["new_nick"]) && isset($_POST["new_password"])) {
 			if($row = mysqli_fetch_assoc($r)) {
 				$player = $row["id"];
 				
-				$message["reg"] = $langs["regActivate"];
+				$message["reg"] = $langs["You have successfully registered!"];
 			}
 			else {
-				$message["reg"] = $langs["UserNotFound"];
+				$message["reg"] = $langs["Player not found"];
 			}			
 		}
 	}
@@ -202,10 +202,10 @@ if (isset($_GET["key"]) && $_GET["key"] != '') {
 		mysqli_query($db, "UPDATE `unr_players` SET `active` = 1 WHERE `id` = $player");
 		mysqli_query($db, "DELETE FROM `unr_activate` WHERE `id` = $id");
 		
-		$message['msg'] = $langs["ActiveSuccess"];
+		$message['msg'] = $langs["Account is successfully activated!"];
 	}
 	else {
-		$message['msg'] = $langs["ActiveError"];
+		$message['msg'] = $langs["Error"];
 	}
 }
 else
@@ -213,8 +213,8 @@ if (isset($_POST["login_user"]) && isset($_POST["login_password"])) {
 	$user = slashes($_POST["login_user"]);
 	$password = slashes($_POST["login_password"]);
 
-	if(!$user) $message["login_user"] = $langs["NotInputNick"];
-	if(!$password) $message["login_password"] = $langs["NotInputPassword"];
+	if(!$user) $message["login_user"] = $langs["You did not enter nick!"];
+	if(!$password) $message["login_password"] = $langs["You have not entered a password!"];
 	
 	preg_match("/^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})$/", $user, $email_match);
 	
@@ -230,11 +230,11 @@ if (isset($_POST["login_user"]) && isset($_POST["login_password"])) {
 			$player = $row["player"];
 			$r = mysqli_query($db, "SELECT * FROM `unr_activate` WHERE `player`= '$player'");
 			if ($row = mysqli_fetch_assoc($r)) {
-				$message["login"] = $langs["InActive"];
+				$message["login"] = $langs["Account inactive!"];
 			}
 		}
 		else {
-			$message["login"] = $langs["UserNotFound"];
+			$message["login"] = $langs["Player not found"];
 		}	
 	}
 }

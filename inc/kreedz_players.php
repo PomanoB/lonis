@@ -16,9 +16,9 @@ $q = "SELECT `name`, `all`, `top1` FROM `unr_players` `p`
 $r = mysqli_query($db, $q);
 $total = mysqli_num_rows($r);
 
-$pages = generate_page($page, $total, $playersPerPage, "$baseUrl/kreedz/players/$type/page%page%/$sort/$search");
+$pages_plr = generate_page($page, $total, $playersPerPage, "$baseUrl/kreedz/players/$type/page%page%/$sort/$search");
 
-$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playersPerPage);
+$rows_limit = mysqli_fetch_limit($r, $pages_plr["start"], $playersPerPage);
 
 $rows = array();
 foreach($rows_limit as $row) {

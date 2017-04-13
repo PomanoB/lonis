@@ -19,6 +19,9 @@ $map = isset($_GET["map"]) ? $_GET["map"] : '';
 $type = (isset($_GET["type"]) && isset($types[$_GET["type"]])) ? $_GET["type"] : 'all';
 $page = isset($_GET["page"]) ? $_GET["page"] : 0;
 
+$search = isset($_GET["search"]) && $_GET["search"] ? $_GET["search"] : "";
+if($search) header("Location: {$baseUrl}/kreedz/maps/?search={$search}");
+
 $wmap = slashes($map);
 $q = "SELECT COUNT(DISTINCT `map`) FROM `kz_map_top` WHERE `map` = '{$wmap}'";
 $r = mysqli_query($db, $q);
@@ -36,7 +39,7 @@ else
 $r = mysqli_query($db, $q);
 $total = mysqli_num_rows($r);
 
-$pages = generate_page($page, $total, $playersPerPage, "$baseUrl/kreedz/$type/page%page%/$map");
+$pages = generate_page($page, $total, $mapsPerPage, "$baseUrl/kreedz/$type/page%page%/$map");
 
 if($map) {
 	$smap = slashes($map);
@@ -71,7 +74,7 @@ if($map) {
 
 // List
 $i=0;
-$rows_limit = mysqli_fetch_limit($r, $pages["start"], $playersPerPage);
+$rows_limit = mysqli_fetch_limit($r, $pages["start"], $mapsPerPage);
 
 $maps = array();
 foreach($rows_limit as $row) {

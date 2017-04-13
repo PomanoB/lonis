@@ -12,45 +12,45 @@
 	{$pages.output}
 	
 	<br>
-	<table class="table-list">
-		<tr class="title">
-			<td>{langs('Map')}</td>
-			<td>{langs('Difficulty')}</td>
-			<td>{langs('Type')}</td>
-			<td>{langs('Authors')}</td>
-			<td>{langs('Date')}</td>
-			<td></td>
+	<div class="table list">
+		<div class="tr title">
+			<div>{langs('Map')}</div>
+			<div>{langs('Difficulty')}</div>
+			<div>{langs('Type')}</div>
+			<div>{langs('Authors')}</div>
+			<div>{langs('Date')}</div>
+			<div></div>
 {if $admin==1}
-			<td	>#</td>
+			<div	>#</div>
 {/if}
-		</tr>
+		</div>
 
 {foreach from=$maps item=map}
-		<tr class="list">
-			<td>
+		<div class="tr row">
+			<div>
 				<i class="fa fa-circle diff-dot" style="color: {$map.dcolor};" title="{$map.dname}"></i>
 				<a href="{$baseUrl}/kreedz/{$map.mapname}/">{$map.mapname}</a>
-			</td>
-			<td>{$map.dname}</td>
-			<td>{$map.type}</td>
-			<td>{$map.authors}</td>
-			<td>{$map.date_old}</td>
-			<td>
+			</div>
+			<div>{$map.dname}</div>
+			<div>{$map.type}</div>
+			<div>{$map.authors}</div>
+			<div>{$map.date_old}</div>
+			<div>
 			{if $map.download_url}
 				<a class="fa fa-download" href="{$map.download_url}" alt="{langs('Download')} {$map.mapname}"></a>
 			{/if}
-			</td>
+			</div>
 {if $admin==1}
 			<form action="" method="post">			
-			<td>
+			<div>
 				<input type="hidden" name="confirm" value="0">
 				<input type="checkbox" name="confirm" value="1">
 				<button class="fa fa-trash-o" name="act" value="delete" title="{langs('Delete')}"></button>
 				<input name="delmap" type="hidden" value="{$map.map}" />
-			</td>
+			</div>
 			</form>
 {/if}			
-		</tr>
+		</div>
 {foreachelse}
 {/foreach}
-	</table>
+	</div>

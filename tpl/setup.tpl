@@ -1,4 +1,4 @@
-	<div class="title">
+	<div class="tr title">
 		{langs('Setting')} :: 
 		{if isset($_SESSION.setting_user)}<a href="{$baseUrl}/setup/logout">{langs('Logout')}</a>{else}{langs('Login')}{/if} 
 	</div>
@@ -9,19 +9,19 @@
 	<div align="center">
 		<div id="setup">
 		  <form action="" method="post">
-			<table class="form_login">
+			<div class="form_login">
 	{foreach from=$conflist item=conf}
-				<tr>
-					<td class="info">
+				<div>
+					<div class="info">
 						<label {if $conf.err}style="color: red;"{/if} for="{$conf.name}">{$conf.desc}</label>
-					</td>
-					<td>
+					</div>
+					<div>
 						<input size="30" type="text" class="form_login" name="fld_{$conf.name}" id="{$conf.name}" value="{$conf.text}"/>
-					</td>
-				</tr>
+					</div>
+				</div>
 	{foreachelse}
 	{/foreach}
-			</table>
+			</div>
 			
 			<div id="">
 				<button name="act" value="save">{langs('Save')}</button> <button name="act" value="reset">{langs('Reset to default')}</button>
@@ -52,16 +52,16 @@
 {else}
 	<div class="login">
 	  <form action="" method="post">
-		<table class="form_login">
-			<tr>
-				<td class="info"><label for="setting_user">{langs('Name')}</label></td>
-				<td><input type="text" class="bigform" name="setting_user" id="setting_user" /></td>
-			</tr>
-			<tr>
-				<td class="info"><label for="setting_password">{langs('Password')}</label></td>
-				<td><input type="password" class="bigform" name="setting_password" id="setting_password" /></td>
-			</tr>
-		</table>
+		<div class="form_login">
+			<div>
+				<div class="info"><label for="setting_user">{langs('Name')}</label></div>
+				<div><input type="text" class="bigform" name="setting_user" id="setting_user" /></div>
+			</div>
+			<div>
+				<div class="info"><label for="setting_password">{langs('Password')}</label></div>
+				<div><input type="password" class="bigform" name="setting_password" id="setting_password" /></div>
+			</div>
+		</div>
 		<div class="login">
 			<button name="acts" value="login">{langs('Login')}</button>
 		</div>

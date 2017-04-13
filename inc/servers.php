@@ -33,7 +33,9 @@ if($addr && $addr!="vip") {
 	}
 }
 else {
-	$q = "SELECT * FROM `servers` LEFT JOIN `servers_mod` ON `mod` = `mid` WHERE 1 {$vip} ORDER BY `name`";	
+	$q = "SELECT * FROM `servers` 
+		LEFT JOIN `servers_mod` ON `mod` = `mid` WHERE 1 {$vip} 
+		ORDER BY `vip` DESC, `name`";	
 	$r = mysqli_query($db, $q);
 	$total = mysqli_num_rows($r);
 	

@@ -11,51 +11,51 @@
 	<div class="error_message">{$message}</div>
 
 	<div id="lang">				
-			<table class="" width="80%">
+			<div class="" width="80%">
 				<form action="#{langs('var')}" method="post">	
-				<tr>
-					<td class="">
+				<div>
+					<div class="">
 						<select class="bigform" name="langkey">
 						{foreach from=$lang_list item=l}
 							<option value="{$l}">{$l}</option>
 						{/foreach}
 						</select>
-					</td>
-					<td><input class="bigform" name="var" type="text" /></td>
-					<td><input class="bigform" name="value" type="text" /></td>
-					<td><button class="fa fa-plus" name="act" value="add" title="{langs('Add')}"></button></td>
-				</tr>
+					</div>
+					<div><input class="bigform" name="var" type="text" /></div>
+					<div><input class="bigform" name="value" type="text" /></div>
+					<div><button class="fa fa-plus" name="act" value="add" title="{langs('Add')}"></button></div>
+				</div>
 				</form>
-				<tr class="title">
-					<td>{langs('Lang')}</td>
-					<td>{langs('Var')}</td>
-					<td>{langs('Value')}</td>
-					<td></td>
-				</tr>		
+				<div class="tr title">
+					<div>{langs('Lang')}</div>
+					<div>{langs('Var')}</div>
+					<div>{langs('Value')}</div>
+					<div></div>
+				</div>		
 	{foreach name=lang from=$rows item=row}
 				<form action="" method="post">
-				<tr>
-					<td class="">
+				<div>
+					<div class="">
 						<select class="bigform" name="langkey">
 						{foreach from=$lang_list item=l}
 							<option value="{$l}" {if $l==$row.lang}selected{/if}>{$l}</option>
 						{/foreach}
 						</select>
-					</td>
-					<td><input class="bigform" name="var" type="text" value="{$row.var}"/></td>
-					<td><input class="bigform" name="value" type="text" value="{$row.value}"/></td>
-					<td>
+					</div>
+					<div><input class="bigform" name="var" type="text" value="{$row.var}"/></div>
+					<div><input class="bigform" name="value" type="text" value="{$row.value}"/></div>
+					<div>
 						<button class="fa fa-pencil-square-o" name="act" value="edit" title="{langs('Update')}"></button>
 						<input type="hidden" name="confirm" value="0" />
 						<input type="checkbox" name="confirm" value="1" />
 						<button class="fa fa-trash-o" name="act" value="delete" title="{langs('Delete')}"></button>
 						<input name="id" type="hidden" value="{$row.id}" />
-					</td>
-				</tr>
+					</div>
+				</div>
 				</form>
 	{foreachelse}
 	{/foreach}
-			</table>						
+			</div>						
 		</div>
 	</div>
 </div>

@@ -91,9 +91,9 @@ $additional_flags = array(
 
 // Menu footer
 $menu_footer = array(
-	'Gm# Staff' => 'http://klan-hub.ru',
-	'PomanoB' => 'http://klan-hub.ru/index.php?page=feedback',
-	'Jeronimo' => 'http://leopold-soft.narod.ru',
+	'Gm# Staff' => '',
+	'PomanoB' => 'http://klan-hub.ru',
+	'Jeronimo' => 'http://jeronimo.pw',
 );
 
 // Other
@@ -123,11 +123,12 @@ $parseRules = array(
 	"/^achievs\/(page([0-9]+))?/" => "index.php?action=achievs&page=%2%&act=achievs",
 	"/^(.*)\/achiev\/(page([0-9]+))?/" => "index.php?action=achievs&name=%1%&page=%3%",
 	
+	"/^kreedz\/home/" => "index.php?action=kreedz_home",
 	"/^kreedz\/duels\/(page([0-9]+))?/" => "index.php?action=kreedz_duels&page=%2%",
 	"/^kreedz\/players\/(pro|noob|all)?(\/page([0-9]+))?(\/(all|top1))?(\/)?(.*)?/" => "index.php?action=kreedz_players&type=%1%&page=%3%&sort=%5%&search=%7%",
 	"/^kreedz\/maps\/(pro|noob|all)?(\/page([0-9]+))?(\/(norec|rec))?(\/)?(.*)?/" => "index.php?action=kreedz_maps&type=%1%&page=%3%&rec=%5%&search=%7%",
 	"/^kreedz\/longjumps/" => "index.php?action=kreedz_longjumps",
-	"/^kreedz\/records\/ljs\/?(.*)?/" => "index.php?action=kreedz_ljs_recs&comm=%1%",
+	"/^kreedz\/ljsrecs\/?(.*)?/" => "index.php?action=kreedz_ljsrecs&comm=%1%",
 	"/^kreedz\/records\/?(page([0-9]+))?(\/(.*))?/" => "index.php?action=kreedz_records&page=%2%&search=%4%",
 	"/^kreedz\/downloads\/?(page([0-9]+))?(\/)?(.*)?/" => "index.php?action=kreedz_downloads&page=%2%&search=%4%",
 	"/^kreedz\/?(pro|noob|all)?(\/page([0-9]+))?(\/)?([^\/]+)?/" => "index.php?action=kreedz_map&type=%1%&page=%3%&map=%5%",
