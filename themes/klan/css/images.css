@@ -1,0 +1,86 @@
+.wpn {background-repeat: no-repeat; background-size: 3em;}
+.wpn-1, .wpn-p228 {background-image:url('../img/wpn/wpn-1.png');}
+.wpn-3, .wpn-scout {background-image:url('../img/wpn/wpn-3.png');}
+.wpn-4, .wpn-hegrenade {background-image:url('../img/wpn/wpn-4.png');}
+.wpn-5, .wpn-xm1014 {background-image:url('../img/wpn/wpn-5.png');}
+.wpn-6, .wpn-c4 {background-image:url('../img/wpn/wpn-6.png');}
+.wpn-7, .wpn-mac10 {background-image:url('../img/wpn/wpn-7.png');}
+.wpn-8, .wpn-aug {background-image:url('../img/wpn/wpn-8.png');}
+.wpn-9, .wpn-smokegrenade {background-image:url('../img/wpn/wpn-9.png');}
+.wpn-10, .wpn-elite {background-image:url('../img/wpn/wpn-10.png');}
+.wpn-11, .wpn-fiveseven {background-image:url('../img/wpn/wpn-11.png');}
+.wpn-12, .wpn-ump45 {background-image:url('../img/wpn/wpn-12.png');}
+.wpn-13, .wpn-sg550 {background-image:url('../img/wpn/wpn-13.png');}
+.wpn-14, .wpn-galil {background-image:url('../img/wpn/wpn-14.png');}
+.wpn-15, .wpn-famas {background-image:url('../img/wpn/wpn-15.png');}
+.wpn-16, .wpn-usp {background-image:url('../img/wpn/wpn-16.png');}
+.wpn-17, .wpn-glock18 {background-image:url('../img/wpn/wpn-17.png');}
+.wpn-18, .wpn-awp {background-image:url('../img/wpn/wpn-18.png');}
+.wpn-19, .wpn-mp5navy {background-image:url('../img/wpn/wpn-19.png');}
+.wpn-20, .wpn-m249 {background-image:url('../img/wpn/wpn-20.png');}
+.wpn-21, .wpn-m3 {background-image:url('../img/wpn/wpn-21.png');}
+.wpn-22, .wpn-m4a1 {background-image:url('../img/wpn/wpn-22.png');}
+.wpn-23, .wpn-tmp {background-image:url('../img/wpn/wpn-23.png');}
+.wpn-24, .wpn-g3sg1 {background-image:url('../img/wpn/wpn-24.png');}
+.wpn-25, .wpn-flashbang {background-image:url('../img/wpn/wpn-25.png');}
+.wpn-26, .wpn-deagle {background-image:url('../img/wpn/wpn-26.png');}
+.wpn-27, .wpn-sg552 {background-image:url('../img/wpn/wpn-27.png');}
+.wpn-28, .wpn-ak47 {background-image:url('../img/wpn/wpn-28.png');}
+.wpn-29, .wpn-knife {background-image:url('../img/wpn/wpn-29.png');}
+.wpn-30, .wpn-p90 {background-image:url('../img/wpn/wpn-30.png');}
+
+.cake {background-repeat: no-repeat; display: inline-block; width: 100px; height: 100px; }
+
+.ljs {background-repeat: no-repeat; display: inline-block; width: 100px; height: 30px;}
+
+@font-face {
+    font-family: 'IcoMoon-Free';
+    src: url('../fonts/IcoMoon-Free.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+.icon-menu {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'IcoMoon-Free' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    
+    /* Enable Ligatures ================ */
+    letter-spacing: 0;
+    -webkit-font-feature-settings: "liga";
+    -moz-font-feature-settings: "liga=1";
+    -moz-font-feature-settings: "liga";
+    -ms-font-feature-settings: "liga" 1;
+    -o-font-feature-settings: "liga";
+    font-feature-settings: "liga";
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.icon-action:before {content: '';} 
+.icon-home:before {content: '\ home';}
+.icon-servers:before {content: '\ rate3';}
+.icon-players:before {content: '\ users';}
+.icon-achiev:before {content: '\ rocket';}
+.icon-kreedz_last:before {content: '\ accessibility';}
+.icon-kreedz_players:before {content: '\ cup';}
+.icon-kreedz_maps:before {content: '\ map';} 
+.icon-kreedz_duels:before {content: '\ tree';} 
+.icon-kreedz_longjumps:before {content: '\ wysiwyg10';} 
+.icon-kreedz_records:before {content: '\ earth';} 
+.icon-kreedz_ljsrecs:before {content: '\ sphere';} 
+.icon-kreedz_downloads:before {content: '\ download2';} 
+.icon-kreedz_player:before {content: '\ user';} 
+.icon-kreedz_map:before {content: '\ map2';} 
+.icon-account:before {content: '\ user-tie';} 
+.icon-admin_players:before {content: '\ lock';} 
+.icon-admin_langs:before {content: '\ spelling';} 
+.icon-admin_achievs:before {content: '\ rocket';} 
+.icon-admin_servers:before {content: '\ rate2';} 
+.icon-admin:before {content: '\ e98f';}
+

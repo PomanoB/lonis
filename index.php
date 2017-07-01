@@ -1,28 +1,42 @@
 <?php
 
 error_reporting(E_ALL | E_STRICT);
-
+set_time_limit(240);
 $starttime = microtime(true);
 
 session_start();
 
 // Base URL
 $baseSite = str_replace("/index.php", "", $_SERVER["PHP_SELF"]);
-$baseUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseSite}";
+$bUrl = "http://{$_SERVER["HTTP_HOST"]}{$baseSite}";
 $docRoot = $_SERVER['DOCUMENT_ROOT'].$baseSite;
 
-define('IN_KZ_TOP', 1);
-
-include "inc/config.php";
-include "inc/function.php";
-include "inc/function_sql.php";
-include "inc/smarty_unr.php";
-
-// Read setting from config.php
+// Global Function and Setting
+require "function.php";
 $conf = $conf_def;
-foreach($conf as $key=>$value) {
-	$$key = $value;
-}
+foreach($conf as $key=>$value) { $$key = $value; }
+
+// Read setting from config file or create default
+$config_path = $docRoot.'/config.ini';
+$dbconf = $dbconf_def;
+if(file_exists($config_path))	
+	$dbconf = array_replace($dbconf, parse_ini_file($config_path));
+else
+	save_config_file($config_path, $dbconf_def);
+
+foreach($dbconf as $key=>$value) { $$key = $value; }
+
+// Themes
+$bTheme = $bUrl."/themes/".$theme;
+
+// Read theme setting
+$theme_config = "config.php";
+if(file_exists($theme_config)) require $theme_config;
+foreach($conf as $key=>$value) { $$key = $value; }
+
+// Read theme setting
+$theme_func = "$docRoot/themes/$theme/function.php";
+if(file_exists($theme_func)) require $theme_func;
 
 // Timezone
 date_default_timezone_set($timezone);
@@ -37,29 +51,13 @@ if($uri!="") {
 	$_GET = $url["uri"];
 }
 
-// Debug trace
-//print_p();
-//print_p($_SESSION);
-//print_p($_SERVER);
-//die();
+// Configs;
+$style = "default";
+$i=$j=$k=$n=$m=$cs=0;
+$message = $search = "";
 
 // Action
-$action = isset($_GET["action"]) && $_GET["action"]!="" ? $_GET["action"] : $menuStart;
-
-// Config DIR;
-$config_dir = $docRoot;
-
-// Read setting from config file or create default
-$config_path = $config_dir.'/'.$config_file;
-$dbconf = $dbconf_def;
-if(file_exists($config_path))	
-	$dbconf = array_replace($dbconf, parse_ini_file($config_path));
-else
-	save_config_file($config_path, $dbconf_def);
-
-foreach($dbconf as $key=>$value) {
-	$$key = $value;	
-}
+$action = isset($_GET["action"]) && $_GET["action"]!="" ? $_GET["action"] : $homepage;
 
 // Connect to mysql
 $db = @mysqli_connect($mysql_host, $mysql_user, $mysql_password);
@@ -76,10 +74,10 @@ if(!$errno) {
 	
 	$is_config = mysqli_result(mysqli_query($db, "SHOW TABLES FROM {$mysql_db} like 'config'"), 0);
 	if(!$is_config) {
-		createConfigTable($db, $conf_def, $conf_type);
+		createConfigTable($db, $conf, $conf_type);
 	}
 	else
-		$conf = array_replace($conf_def, getConfigVar($db));
+		$conf = array_replace($conf, getConfigVar($db));
 	
 	// Read defaul language
 	$langselect = getLang($db);
@@ -87,32 +85,32 @@ if(!$errno) {
 	// Read language 
 	if(isset($_GET["lang"]) && $_GET["lang"]) {
 		$lang = $_GET["lang"];
-		$_SESSION["unr_lang_$cookieKey"] = $lang;
+		$_SESSION["lang_$cookieKey"] = $lang;
 	}
 	if (isset($_POST["lang"])) {
 		$lang = $_POST["lang"];
-		$_SESSION["unr_lang_$cookieKey"] = $lang;
+		$_SESSION["lang_$cookieKey"] = $lang;
 	}
 		
-	if (isset($_SESSION["unr_lang_$cookieKey"])) {
-		$lang = $_SESSION["unr_lang_$cookieKey"];
+	if (isset($_SESSION["lang_$cookieKey"])) {
+		$lang = $_SESSION["lang_$cookieKey"];
 	}
 	else {	
 		if (isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]))
 			$lang = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
 		else
-			$lang = $lang_def;
+			$lang = "en";
 	}
 	
 	$langs = getLangs($db, $lang);
 	//$langs = array_replace($langs, $dblangs);	
 	
-	// Read themes
-	$themeselect = getThemes($db, $lang);
-	if (isset($_POST["theme"])) {
-		if (file_exists($dtpl.'/css/theme_'.$_POST["theme"].'.css')) {
-			$theme = $_POST["theme"];
-			$_SESSION["unr_theme_$cookieKey"] = $_POST["theme"];
+	// Read styles
+	$styleselect = getstyles($db, $lang);
+	if (isset($_POST["style"])) {
+		if (file_exists('themes'.$theme.'/css/style_'.$_POST["style"].'.css')) {
+			$style = $_POST["style"];
+			$_SESSION["style_$cookieKey"] = $_POST["style"];
 		}
 	}
 	
@@ -122,11 +120,12 @@ if(!$errno) {
 	
 	// If Admin
 	$user = isset($_SESSION["user_$cookieKey"]) ? $_SESSION["user_$cookieKey"] : 0;
-	$admin = $user ? mysqli_result(mysqli_query($db, "SELECT `webadmin` FROM `unr_players` WHERE `id` = '{$user["id"]}'"), 0) : 0;
+	$username = mysqli_result(mysqli_query($db, "SELECT `name` FROM `players` WHERE `id` = '{$user["id"]}'"), 0);
+	$admin = $user ? mysqli_result(mysqli_query($db, "SELECT `webadmin` FROM `players` WHERE `id` = '{$user["id"]}'"), 0) : 0;
 }
 	
 // Set locale
-setlocale(LC_ALL, $lang.'_'.$lang.'.'.$charset);
+setlocale(LC_ALL, $lang.'_'.strtoupper($lang).'.'.$charset);
 
 // Config
 foreach($conf as $key=>$value) {
@@ -146,29 +145,30 @@ if(isset($_POST["cs"])) {
 }
 
 if($cs) {
-	$_SESSION["unr_theme_$cookieKey"] = $cstheme;
+	$_SESSION["style_$cookieKey"] = $csstyle;
 }
 
-// Session themes
-if (isset($_SESSION["unr_theme_$cookieKey"])) {
-	$theme = $_SESSION["unr_theme_$cookieKey"];
+// Session styles
+if (isset($_SESSION["style_$cookieKey"])) {
+	$style = $_SESSION["style_$cookieKey"];
 }
 
 $cake = mt_rand(1, 5);
 
+// Include widget
+include("include/auth.php");
+
 // Include
-if(file_exists("inc/$action.php"))
-	include "inc/$action.php";
+$module = "include/{$action}.php";
+if(file_exists($module))
+	include($module);
 else
-	header("Location: {$baseUrl}");
+	header("Location: {$bUrl}");
 
-if(!file_exists("tpl/$action.tpl"))
-	header("Location: {$baseUrl}");	
+if(!file_exists("themes/{$theme}/{$action}.phps"))
+	header("Location: {$bUrl}");	
 
-// All assign
-foreach($GLOBALS as $key=>$value) $smarty->assign($key, $value);
+// BODY
+include("themes/{$theme}/index.phps");
 
-// Template
-$smarty->display("index.tpl");
-	
 ?>

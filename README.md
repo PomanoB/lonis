@@ -1,13 +1,38 @@
 # lonis
-Web registartion and statistic for Counter Strike 1.6 version 2.0.9
+Web registartion and statistic for Counter Strike 1.6 version 2.1.0
+
+-------------------
+-- Version 2.1.0 -- 
+-------------------
+Changelog: 29.05.2017 17:20
+- Delete Smarty!!!
+- Update Design
+- Change old CSS themes to style
+- Add themes folder system
+- Update demos files
+- United sql files 
+- Replace Menu Icon
+- Change fontawesome to icoMoon
+- Add module News (only view)
 
 -------------------
 -- Version 2.0.9 -- 
 -------------------
+Changelog: 14.04.2017 01:00
+- Add Yadex.Metrika (ya-metrika.tpl)
+- Fix Message in Auth Window.
+- Fix Mailsend href link.
+
+Changelog: 13.04.2017 22:40
+- Add adaptive design
+- Add modal windows system
+
 Changelog: 13.04.2017 10:30
 - Change table to div
 - EditHome Page.
 - Add Jump Home page
+- Add tootip in Map Page
+- Add 'Back to Top' button
 
 -------------------
 -- Version 2.0.8 -- 
